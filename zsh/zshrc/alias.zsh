@@ -19,6 +19,9 @@ alias disk_use:info="du -hax * | sort -rh | head -10"
 # BEGIN PROGRAMS
 alias t="ttv-cli"
 
+## zellij
+alias zj="zellij"
+
 ## vim
 alias n="/opt/homebrew/bin/nvim"
 alias vim:p="vim -u ~/dev/courses/vim/practical-vim/essential.vim"

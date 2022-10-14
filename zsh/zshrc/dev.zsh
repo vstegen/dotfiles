@@ -23,3 +23,6 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 [ -s "/Users/marvin/.bun/_bun" ] && source "/Users/marvin/.bun/_bun"
+
+# asdf
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
