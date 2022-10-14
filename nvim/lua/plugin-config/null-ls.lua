@@ -73,7 +73,10 @@ local config = {
 
   -- diagnostics
   -- null_ls.builtins.diagnostics.buf,
-  -- null_ls.builtins.diagnostics.golangci_lint,
+  null_ls.builtins.diagnostics.staticcheck,
+  null_ls.builtins.diagnostics.golangci_lint.with {
+    extra_args = { "-E", "revive", "-E", "unparam" },
+  },
   null_ls.builtins.diagnostics.eslint, -- could use eslint_d as well
   -- null_ls.builtins.diagnostics.stylelint,
   -- null_ls.builtins.diagnostics.tidy,
