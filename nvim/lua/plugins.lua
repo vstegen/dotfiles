@@ -149,6 +149,7 @@ return require("packer").startup(function(use)
     config = function()
       require "plugin-config.treesitter"
     end,
+    commit = "aebc6cf6bd4675ac86629f516d612ad5288f7868",
   }
   use { "nvim-treesitter/nvim-treesitter-textobjects" }
   use { "RRethy/nvim-treesitter-textsubjects" }
