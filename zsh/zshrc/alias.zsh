@@ -18,6 +18,9 @@ alias disk_use:info="du -hax * | sort -rh | head -10"
 
 # BEGIN PROGRAMS
 alias t="ttv-cli"
+alias tw="ttv-cli w"
+alias tl="ttv-cli l"
+alias tv="ttv-cli v"
 
 ## zellij
 alias zj="zellij"
