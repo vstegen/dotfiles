@@ -34,6 +34,9 @@ alias av_update="freshclam -v"
 alias av_scan="clamscan -r -i /"
 alias av_remove="clamscan -r -i --remove=yes /"
 
+## tmux
+alias tmux="tmux -2"
+
 ## yt-dlp
 alias yt="yt-dlp -q --progress --geo-bypass --write-subs --sub-langs en -o '~/Movies/tmp/%(title)s-%(id)s.%(ext)s'"
 alias yt:p="yt-dlp -f 'bv*+ba/b' -q --progress --geo-bypass --yes-playlist --write-subs --sub-langs en -o '~/Movies/tmp/%(playlist_title)s/%(title)s-%(id)s.%(ext)s'"
