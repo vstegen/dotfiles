@@ -18,3 +18,9 @@ ln -sf $SCRIPT_DIR/zsh/.zprofile $HOME/.zprofile
 
 # set starship config
 ln -sf $SCRIPT_DIR/starship.toml $CONFIG_DIR/starship.toml
+
+# asdf default npm packages to install
+ln -sf $SCRIPT_DIR/.default-npm-packages $HOME/.default-npm-packages
+
+# tmux
+ln -sf $SCRIPT_DIR/tmux/.tmux.conf $HOME/.tmux.conf
