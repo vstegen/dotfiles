@@ -17,9 +17,10 @@ else
 end
 
 # ttv-cli
-if type -q ttv-cli
-  abbr -ag t ttv-cli
-end
+abbr -ag t ttv-cli
+abbr -ag tw "ttv-cli w"
+abbr -ag tl "ttv-cli l"
+abbr -ag tv "ttv-cli v"
 
 # cargo
 abbr -ag c cargo
