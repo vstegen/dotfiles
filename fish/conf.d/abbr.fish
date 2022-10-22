@@ -10,8 +10,8 @@ end
 # exa
 if type -q exa 
   abbr -ag ls "exa --group-directories-first"
-  abbr -ag ll "exa -lha --group-directories-first"
-  abbr -ag lr "exa -lha --tree --group-directories-first"
+  abbr -ag ll "exa -lhag --group-directories-first"
+  abbr -ag lr "exa -lhag --tree --group-directories-first"
 else
   abbr -ag ll "ls -la"
 end

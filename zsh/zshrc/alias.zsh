@@ -8,8 +8,8 @@ alias cat="bat"
 
 ## exa
 alias ls="exa --group-directories-first"
-alias ll="exa -lha --group-directories-first"
-alias lr="exa -lha --tree --group-directories-first"
+alias ll="exa -lhag --group-directories-first"
+alias lr="exa -lhag --tree --group-directories-first"
 
 ## dust
 alias disk_use="du -hsx * | sort -rh | head -10"
