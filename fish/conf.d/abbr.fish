@@ -63,5 +63,23 @@ abbr -ag rustdoc "rustup doc --toolchain=stable-x86_64-apple-darwin"
 abbr -ag lg "lazygit"
 
 # git
-abbr -ag gco "git checkout"
+abbr -ag g 'git'
+abbr -ag ga 'git add'
+abbr -ag gb 'git branch'
+abbr -ag gbl 'git blame'
+abbr -ag gc 'git commit -m'
+abbr -ag gca 'git commit --amend -m'
+abbr -ag gco 'git checkout'
 abbr -ag gcom "git checkout main"
+abbr -ag gcp 'git cherry-pick'
+abbr -ag gd 'git diff'
+abbr -ag gf 'git fetch'
+abbr -ag gl 'git log'
+abbr -ag gm 'git merge'
+abbr -ag gp 'git push'
+abbr -ag gpf 'git push --force-with-lease'
+abbr -ag gpl 'git pull'
+abbr -ag gr 'git remote'
+abbr -ag grb 'git rebase'
+abbr -ag gs 'git status'
+abbr -ag gst 'git stash'
