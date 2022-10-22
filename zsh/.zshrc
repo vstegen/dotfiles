@@ -4,6 +4,3 @@ FILES=($(echo $FILES_STR | tr '\n' ' '))
 for FILE in $FILES; do
 	source $FILE
 done
-
-# Path for .local
-export PATH=$PATH:$HOME/.local/bin
