@@ -42,6 +42,7 @@ abbr -ag av_remove "clamscan -r -i --remove=yes /"
 
 # tmux
 abbr -ag tmux "tmux -2"
+abbr -ag tmuxconfig "nvim ~/.tmux.conf"
 
 # yt-dlp
 abbr -ag yt "yt-dlp -q --progress --geo-bypass --write-subs --sub-langs en -o '~/Movies/tmp/%(title)s-%(id)s.%(ext)s'"
