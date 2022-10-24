@@ -123,7 +123,8 @@ end
 M.on_init = function(client, bufnr)
   if O.use_null_ls then
     if vim.tbl_contains(O.disable_formatting_for_servers or {}, client.name) then
-      client.resolved_capabilities.document_formatting = false
+      -- client.resolved_capabilities.document_formatting = false
+      client.server_capabilities.documentFormattingProvider = false
     end
   end
 end

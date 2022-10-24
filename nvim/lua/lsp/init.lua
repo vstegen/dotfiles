@@ -87,7 +87,8 @@ for _, server in pairs(servers) do
 
   if server == "cssmodules_ls" then
     opts.on_attach = function(client, bufnr)
-      client.resolved_capabilities.goto_definition = false
+      -- client.resolved_capabilities.goto_definition = false
+      client.server_capabilities.definitionProvider = false
       utils.on_attach(client, bufnr)
     end
   end
