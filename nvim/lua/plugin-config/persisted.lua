@@ -14,6 +14,7 @@ persisted.setup {
   before_save = nil, -- function to run before the session is saved to disk
   after_save = nil, -- function to run after the session is saved to disk
   after_source = nil, -- function to run after the session is sourced
+  branch_separator = "_",
   telescope = { -- options for the telescope extension
     before_source = function()
       -- Close all open buffers
