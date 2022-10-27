@@ -276,9 +276,9 @@ local mappings = {
 
       t = {
         name = "Todo",
-        t = { "<cmd>TODOTelescope<cr>", "Open in Telescope" },
-        q = { "<cmd>TODOQuickfixList<cr>", "Open in Quickfix" },
-        l = { "<cmd>TODOLocationList<cr>", "Open in Location" },
+        t = { "<cmd>TodoTelescope<cr>", "Open in Telescope" },
+        q = { "<cmd>TodoQuickfixList<cr>", "Open in Quickfix" },
+        l = { "<cmd>TodoLocationList<cr>", "Open in Location" },
         x = { "<cmd>TodoTrouble<cr>", "Open in Trouble" },
       },
 

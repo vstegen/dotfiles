@@ -6,12 +6,12 @@ end
 
 todo.setup {
   -- in folke:
-  -- signs = true,
-  -- sign_priority = 8,
-  signs = {
-    enable = true, -- show icons in the sign column
-    priority = 8,
-  },
+  signs = true,
+  sign_priority = 8,
+  -- signs = {
+  --   enable = true, -- show icons in the sign column
+  --   priority = 8,
+  -- },
   keywords = {
     FIX = {
       icon = " ", -- used for the sign, and search results

@@ -1,11 +1,9 @@
-local execute = vim.api.nvim_command
 local fn = vim.fn
-local util = vim.util
 
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system {
+  Packer_bootstrap = fn.system {
     "git",
     "clone",
     "--depth",
@@ -131,10 +129,6 @@ return require("packer").startup(function(use)
   use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
   use { "nvim-telescope/telescope-ui-select.nvim" }
   use { "nvim-telescope/telescope-file-browser.nvim" }
-  --[[ use {
-    "nvim-telescope/telescope-frecency.nvim",
-    requires = { "tami5/sqlite.lua" },
-  } ]]
   use {
     "ahmedkhalf/project.nvim",
     config = function()
@@ -210,10 +204,8 @@ return require("packer").startup(function(use)
   -- dap configs for go
   use { "leoluz/nvim-dap-go" }
 
-  -- -- Colorschemes
+  -- Colorschemes
   use { "folke/tokyonight.nvim" }
-  use { "EdenEast/nightfox.nvim" }
-  use { "navarasu/onedark.nvim" }
   use { "rebelot/kanagawa.nvim" }
 
   -- Misc
@@ -276,22 +268,22 @@ return require("packer").startup(function(use)
     end,
   }
 
-  --[[ use {
+  use {
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
     config = function()
       require "plugin-config.todo-comments"
     end,
-  } ]]
+  }
 
   -- fork of folke/todo-comments.nvim
-  use {
-    "AmeerTaweel/todo.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require "plugin-config.todo-comments"
-    end,
-  }
+  -- use {
+  --   "AmeerTaweel/todo.nvim",
+  --   requires = "nvim-lua/plenary.nvim",
+  --   config = function()
+  --     require "plugin-config.todo-comments"
+  --   end,
+  -- }
 
   -- use { "kyazdani42/nvim-web-devicons" }
 
@@ -333,13 +325,6 @@ return require("packer").startup(function(use)
     end,
   }
 
-  --[[ use {
-    "chentoast/marks.nvim",
-    config = function()
-      require "plugin-config.marks"
-    end,
-  } ]]
-
   use {
     "danymat/neogen",
     config = function()
@@ -347,8 +332,6 @@ return require("packer").startup(function(use)
     end,
     requires = "nvim-treesitter/nvim-treesitter",
   }
-
-  -- use { "vim-test/vim-test" }
 
   use {
     "ellisonleao/glow.nvim",
@@ -364,7 +347,6 @@ return require("packer").startup(function(use)
     end,
   }
 
-  -- use { "ggandor/lightspeed.nvim" }
   use {
     "ggandor/leap.nvim",
     config = function()
@@ -395,11 +377,11 @@ return require("packer").startup(function(use)
   use {
     "saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
+    config = function()
+      require("crates").setup()
+    end,
     requires = { { "nvim-lua/plenary.nvim" } },
   }
-
-  -- java lsp
-  -- use { "mfussenegger/nvim-jdtls" }
 
   -- folding
   use {
@@ -416,6 +398,7 @@ return require("packer").startup(function(use)
     config = function()
       require "plugin-config.neoscroll"
     end,
+    disable = true,
   }
 
   use {
@@ -456,7 +439,7 @@ return require("packer").startup(function(use)
     end,
   }
 
-  if packer_bootstrap then
+  if Packer_bootstrap then
     require("packer").sync()
   end
 end)

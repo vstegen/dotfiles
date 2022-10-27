@@ -3,7 +3,6 @@ local helpers = require "utils.colorscheme"
 vim.g.nvcode_termcolors = 256
 
 local themes = {
-  nightfox = helpers.load_nightfox,
   kanagawa = helpers.load_kanagawa,
 }
 

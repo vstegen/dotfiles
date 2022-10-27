@@ -47,47 +47,4 @@ M.load_kanagawa = function()
   }
 end
 
-M.load_nightfox = function()
-  local status_ok, theme = pcall(require, "nightfox")
-  if not status_ok then
-    return
-  end
-
-  theme.setup {
-    options = {
-      -- Compiled file's destination location
-      -- compile_path = vim.fn.stdpath "cache" .. "/nightfox",
-      -- compile_file_suffix = "_compiled", -- Compiled file suffix
-      -- transparent = false, -- Disable setting background
-      -- terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-      dim_inactive = true, -- Non focused panes set to alternative background
-      styles = {
-        comments = "italic",
-        keywords = "italic",
-        -- conditionals = "NONE",
-        -- constants = "NONE",
-        -- functions = "NONE",
-        -- numbers = "NONE",
-        -- operators = "NONE",
-        -- strings = "NONE",
-        -- types = "NONE",
-        -- variables = "NONE",
-      },
-    },
-    -- inverse = { -- Inverse highlight for different types
-    --   match_paren = false,
-    --   visual = false,
-    --   search = false,
-    -- },
-    -- modules = { -- List of various plugins and additional options
-    --   -- ...
-    -- },
-  }
-
-  theme.load()
-  vim.cmd("colorscheme " .. O.colorscheme.secondary)
-
-  O.colorscheme.palette = require("nightfox.palette").load(O.colorscheme.secondary)
-end
-
 return M
