@@ -72,6 +72,7 @@ abbr -ag gbl 'git blame'
 abbr -ag gc 'git commit -m'
 abbr -ag gca 'git commit --amend -m'
 abbr -ag gco 'git checkout'
+abbr -ag gcob 'git checkout -b'
 abbr -ag gcom "git checkout main"
 abbr -ag gcp 'git cherry-pick'
 abbr -ag gd 'git diff'
