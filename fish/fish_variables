@@ -4,7 +4,6 @@ SETUVAR --export EDITOR:nvim
 SETUVAR --export FIREFOX_PROFILE:/Users/marvin/Library/Application\x20Support/Firefox/Profiles/y2wbzv7c\x2edefault\x2drelease
 SETUVAR --export HOMEBREW_NO_AUTO_UPDATE:3
 SETUVAR --export PNPM_HOME:/Users/marvin/Library/pnpm
-SETUVAR --export TEST:hello
 SETUVAR __fish_initialized:3400
 SETUVAR fish_color_autosuggestion:555\x1ebrblack
 SETUVAR fish_color_cancel:\x2dr
