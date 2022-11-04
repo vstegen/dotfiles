@@ -5,13 +5,8 @@ if not status_ok then
 end
 
 todo.setup {
-  -- in folke:
   signs = true,
   sign_priority = 8,
-  -- signs = {
-  --   enable = true, -- show icons in the sign column
-  --   priority = 8,
-  -- },
   keywords = {
     FIX = {
       icon = " ", -- used for the sign, and search results
@@ -34,12 +29,12 @@ todo.setup {
     before = "", -- "fg", "bg", or empty
     -- highlights of the keyword
     -- wide is the same as bg, but also highlights the colon
-    keyword = "wide", -- "fg", "bg", "wide", or empty
+    keyword = "bg", -- "fg", "bg", "wide", or empty
     -- highlights after the keyword (TODO text)
     after = "fg", -- "fg", "bg", or empty
     -- pattern can be a string, or a table of regexes that will be checked
     -- vim regex
-    pattern = [[.*<(KEYWORDS)\s*:]],
+    pattern = [[.*<(KEYWORDS)(\(.*\))?\s*:]],
     comments_only = true, -- highlight only inside comments using treesitter
     max_line_len = 400, -- ignore lines longer than this
     exclude = {}, -- list of file types to exclude highlighting
@@ -64,6 +59,6 @@ todo.setup {
       "--column",
     },
     -- don't replace the (KEYWORDS) placeholder
-    pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+    pattern = [[\b(KEYWORDS)(\(.*\))?:]], -- ripgrep regex
   },
 }
