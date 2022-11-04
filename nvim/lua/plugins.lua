@@ -207,6 +207,10 @@ return require("packer").startup(function(use)
   -- Colorschemes
   use { "folke/tokyonight.nvim" }
   use { "rebelot/kanagawa.nvim" }
+  use {
+    "catppuccin/nvim",
+    as = "catppuccin",
+  }
 
   -- Misc
   use {
