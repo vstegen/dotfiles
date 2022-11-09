@@ -84,8 +84,8 @@ local ts_config = {
       enable = true,
       border = "rounded",
       peek_definition_code = {
-        ["<leader>df"] = "@function.outer",
-        ["<leader>dF"] = "@class.outer",
+        ["<leader>mf"] = "@function.outer",
+        ["<leader>mF"] = "@class.outer",
       },
     },
   },
