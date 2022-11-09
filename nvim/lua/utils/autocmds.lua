@@ -1,3 +1,6 @@
+local ag = vim.api.nvim_create_augroup
+local au = vim.api.nvim_create_autocmd
+
 local M = {}
 
 M.toggle_autoformat = function()
@@ -19,7 +22,8 @@ local commands = {
       pattern = "*",
       desc = "Highlight text on yank",
       callback = function()
-        require("vim.highlight").on_yank { higroup = "Search", timeout = 200 }
+        -- require("vim.highlight").on_yank { higroup = "Search", timeout = 200 }
+        require("vim.highlight").on_yank { higroup = "IncSearch", timeout = 200 }
       end,
     },
   },
