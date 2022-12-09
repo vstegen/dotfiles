@@ -29,6 +29,9 @@ local keymaps = {
     ["<C-w>s"] = ":split<cr>",
     ["<C-w>v"] = ":vsplit<cr>",
 
+    ["<C-d>"] = "<C-d>zz",
+    ["<C-u>"] = "<C-u>zz",
+
     -- Better window movement
     ["<C-h>"] = "<C-w>h",
     ["<C-j>"] = "<C-w>j",
