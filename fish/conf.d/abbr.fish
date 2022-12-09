@@ -22,6 +22,9 @@ abbr -ag tw "ttv-cli w"
 abbr -ag tl "ttv-cli l"
 abbr -ag tv "ttv-cli v"
 
+# yay-cli
+abbr -ag y yay-cli
+
 # cargo
 abbr -ag c cargo
 
