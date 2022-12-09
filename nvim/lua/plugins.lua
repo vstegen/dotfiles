@@ -76,18 +76,6 @@ return require("packer").startup(function(use)
       require "plugin-config.lsp_signature"
     end,
   }
-  -- use { "kosayoda/nvim-lightbulb" }
-  -- use {
-  --   "glepnir/lspsaga.nvim",
-  --   branch = "main",
-  -- }
-  --[[ use {
-    "ray-x/navigator.lua",
-    requires = {
-      { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-      { "neovim/nvim-lspconfig" },
-    },
-  } ]]
 
   -- Snippets
   use {
@@ -198,7 +186,6 @@ return require("packer").startup(function(use)
     "rcarriga/nvim-dap-ui",
     requires = { "mfussenegger/nvim-dap" },
   }
-  -- use { "Pocco81/dap-buddy.nvim" }
   use { "theHamsta/nvim-dap-virtual-text" }
   use { "nvim-telescope/telescope-dap.nvim" }
   -- dap configs for go
@@ -252,19 +239,6 @@ return require("packer").startup(function(use)
     end,
   }
 
-  --[[ use {
-    "folke/noice.nvim",
-    event = "VimEnter",
-    config = function()
-      require "plugin-config.noice"
-    end,
-    requires = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-  } ]]
-
   use {
     "numToStr/Comment.nvim",
     config = function()
@@ -279,17 +253,6 @@ return require("packer").startup(function(use)
       require "plugin-config.todo-comments"
     end,
   }
-
-  -- fork of folke/todo-comments.nvim
-  -- use {
-  --   "AmeerTaweel/todo.nvim",
-  --   requires = "nvim-lua/plenary.nvim",
-  --   config = function()
-  --     require "plugin-config.todo-comments"
-  --   end,
-  -- }
-
-  -- use { "kyazdani42/nvim-web-devicons" }
 
   use {
     "akinsho/toggleterm.nvim",
