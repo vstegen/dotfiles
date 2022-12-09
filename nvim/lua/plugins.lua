@@ -361,14 +361,6 @@ return require("packer").startup(function(use)
 
   -- convenience
   use {
-    "karb94/neoscroll.nvim",
-    config = function()
-      require "plugin-config.neoscroll"
-    end,
-    disable = true,
-  }
-
-  use {
     "sindrets/diffview.nvim",
     requires = "nvim-lua/plenary.nvim",
     config = function()
