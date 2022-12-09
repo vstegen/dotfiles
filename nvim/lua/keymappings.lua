@@ -23,6 +23,9 @@ local keymaps = {
     ["."] = ".<C-G>u",
     ["!"] = "!<C-G>u",
     ["?"] = "?<C-G>u",
+
+    -- Paste literally, not as if you typed it. This fixes indentation issues when pasting.
+    ['<C-r>"'] = '<C-r><C-o>"',
   },
 
   normal_mode = {
