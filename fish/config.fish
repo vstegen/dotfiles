@@ -17,4 +17,4 @@ zoxide init fish | source
 # source asfd
 source /opt/homebrew/opt/asdf/libexec/asdf.fish
 
-fish_add_path $HOME/.local/bin $HOME/bin
+fish_add_path $HOME/.emacs.d/bin /opt/homebrew/opt/openssl@1.1/bin $HOME/.local/bin $HOME/bin

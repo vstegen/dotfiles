@@ -38,6 +38,9 @@ abbr -ag vim:p "vim -u ~/dev/courses/vim/practical-vim/essential.vim"
 abbr -ag vimconfig "nvim ~/.config/nvim/init.lua"
 abbr -ag vimdiff "nvim -d"
 
+#emacs
+abbr -ag e "emacsclient -c -a 'emacs'"
+
 # clam
 abbr -ag av_update "freshclam -v"
 abbr -ag av_scan "clamscan -r -i /"
