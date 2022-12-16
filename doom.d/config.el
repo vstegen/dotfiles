@@ -46,20 +46,22 @@
 (setq org-directory "~/org/")
 
 (after! org 
-  (setq org-agenda-files '(concat org-directory "inbox.org"
-                           concat org-directory "tickler.org"
-                           concat org-directory "someday.org"
-                           concat org-directory "gtd.org"))
+  (setq org-agenda-files '("~/org/inbox.org"
+                           "~/org/tickler.org"
+                           "~/org/someday.org"
+                           "~/org/calendar.org"
+                           "~/org/gtd.org"))
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                 (file+headline (concat org-directory "inbox.org") "Tasks")
-                                 "* TODO %i%?")
+                                 (file+headline "~/org/inbox.org" "Tasks")
+                                 "* TODO %^{description} %^g\n%?\nAdded: %U")
                                 ("T" "Tickler" entry
-                                 (file+headline (concat org-directory "tickler.org") "Tickler")
-                                 "* %i%? \n %U")
-                                ("j" "Journal" entry (file+olp+datetree (concat org-directory "journal.org")) "* %?\n")))
-  (setq org-refile-targets '(((concat org-directory "gtd.org") :maxlevel . 3)
-                             ((concat org-directory "someday.org") :level . 1)
-                             ((concat org-directory "tickler.org") :maxlevel . 2))))
+                                 (file+headline "~/org/tickler.org" "Tickler")
+                                 "* %? \nAdded: %U")
+                        ("j" "Journal" entry (file+olp+datetree "~/org/journal.org") "* %?\n" :empty-lines 1)))
+(setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
+                             ("~/org/someday.org" :level . 1)
+                             ("~/org/tickler.org" :maxlevel . 2)))
+(setq org-todo-keywords '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "HOLD(h)" "APPT(a)" "DELEGATED(e)" "|" "ASSIGNED(.)" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
