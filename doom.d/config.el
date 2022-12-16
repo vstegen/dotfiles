@@ -55,7 +55,8 @@
                                  "* TODO %i%?")
                                 ("T" "Tickler" entry
                                  (file+headline (concat org-directory "tickler.org") "Tickler")
-                                 "* %i%? \n %U")))
+                                 "* %i%? \n %U")
+                                ("j" "Journal" entry (file+olp+datetree (concat org-directory "journal.org")) "* %?\n")))
   (setq org-refile-targets '(((concat org-directory "gtd.org") :maxlevel . 3)
                              ((concat org-directory "someday.org") :level . 1)
                              ((concat org-directory "tickler.org") :maxlevel . 2))))
