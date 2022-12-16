@@ -44,19 +44,21 @@
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
-(setq org-agenda-files '("~/org/inbox.org"
-                         "~/org/tickler.org"
-                         "~/org/someday.org"
-                         "~/org/gtd.org"))
-(setq org-capture-templates '(("t" "Todo [inbox]" entry
-                               (file+headline "~/org/inbox.org" "Tasks")
-                               "* TODO %i%?")
-                              ("T" "Tickler" entry
-                               (file+headline "~/org/tickler.org" "Tickler")
-                               "* %i%? \n %U")))
-(setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
-                           ("~/org/someday.org" :level . 1)
-                           ("~/org/tickler.org" :maxlevel . 2)))
+
+(after! org 
+  (setq org-agenda-files '("~/org/inbox.org"
+                           "~/org/tickler.org"
+                           "~/org/someday.org"
+                           "~/org/gtd.org"))
+  (setq org-capture-templates '(("t" "Todo [inbox]" entry
+                                 (file+headline "~/org/inbox.org" "Tasks")
+                                 "* TODO %i%?")
+                                ("T" "Tickler" entry
+                                 (file+headline "~/org/tickler.org" "Tickler")
+                                 "* %i%? \n %U")))
+  (setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
+                             ("~/org/someday.org" :level . 1)
+                             ("~/org/tickler.org" :maxlevel . 2))))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
