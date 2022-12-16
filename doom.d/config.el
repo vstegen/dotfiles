@@ -46,19 +46,19 @@
 (setq org-directory "~/org/")
 
 (after! org 
-  (setq org-agenda-files '("~/org/inbox.org"
-                           "~/org/tickler.org"
-                           "~/org/someday.org"
-                           "~/org/gtd.org"))
+  (setq org-agenda-files '(concat org-directory "inbox.org"
+                           concat org-directory "tickler.org"
+                           concat org-directory "someday.org"
+                           concat org-directory "gtd.org"))
   (setq org-capture-templates '(("t" "Todo [inbox]" entry
-                                 (file+headline "~/org/inbox.org" "Tasks")
+                                 (file+headline (concat org-directory "inbox.org") "Tasks")
                                  "* TODO %i%?")
                                 ("T" "Tickler" entry
-                                 (file+headline "~/org/tickler.org" "Tickler")
+                                 (file+headline (concat org-directory "tickler.org") "Tickler")
                                  "* %i%? \n %U")))
-  (setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
-                             ("~/org/someday.org" :level . 1)
-                             ("~/org/tickler.org" :maxlevel . 2))))
+  (setq org-refile-targets '(((concat org-directory "gtd.org") :maxlevel . 3)
+                             ((concat org-directory "someday.org") :level . 1)
+                             ((concat org-directory "tickler.org") :maxlevel . 2))))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
