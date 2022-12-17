@@ -60,6 +60,8 @@
                         ("j" "Journal" entry (file+olp+datetree "~/org/journal.org") "* %?\n" :empty-lines 1)))
 (setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
                              ("~/org/someday.org" :level . 1)
+                             ("~/org/contacts.org" :level . 1)
+                             ("~/org/calendar.org" :level . 1)
                              ("~/org/tickler.org" :maxlevel . 2)))
 (setq org-todo-keywords '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "HOLD(h)" "APPT(a)" "DELEGATED(e)" "|" "ASSIGNED(.)" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
 
