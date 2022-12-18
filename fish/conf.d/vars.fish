@@ -8,5 +8,6 @@ set -Ux DOOMDIR "~/.doom.d"
 
 # Find openssl
 set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@1.1/lib"
+# set -gx LDFLAGS "-L/opt/homebrew/opt/bison/lib"
 set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@1.1/include"
 set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl@1.1/lib/pkgconfig"
