@@ -127,9 +127,11 @@ return require("packer").startup(function(use)
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
     config = function()
       require "plugin-config.treesitter"
+    end,
+    run = function()
+      pcall(require("nvim-treesitter.install").update { with_sync = true })
     end,
     -- commit = "aebc6cf6bd4675ac86629f516d612ad5288f7868",
   }
