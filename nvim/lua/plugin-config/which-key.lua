@@ -249,6 +249,8 @@ local mappings = {
 
         s = { "<cmd>LspStart<cr>", "Start" },
         t = { "<cmd>LspRestart<cr>", "Restart" },
+        z = { "<cmd>ZenMode<cr>", "Zen" },
+        Z = { "<cmd>Twilight<cr>", "Twilight" },
       },
     },
 

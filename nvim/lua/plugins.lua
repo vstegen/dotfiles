@@ -240,6 +240,20 @@ return require("packer").startup(function(use)
   }
 
   use {
+    "folke/zen-mode.nvim",
+    config = function()
+      require "plugin-config.zen"
+    end,
+  }
+
+  use {
+    "folke/twilight.nvim",
+    config = function()
+      require "plugin-config.twilight"
+    end,
+  }
+
+  use {
     "numToStr/Comment.nvim",
     config = function()
       require "plugin-config.comment"
