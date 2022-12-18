@@ -249,8 +249,6 @@ local mappings = {
 
         s = { "<cmd>LspStart<cr>", "Start" },
         t = { "<cmd>LspRestart<cr>", "Restart" },
-        z = { "<cmd>ZenMode<cr>", "Zen" },
-        Z = { "<cmd>Twilight<cr>", "Twilight" },
       },
     },
 
@@ -289,6 +287,9 @@ local mappings = {
         i = { ":TSConfigInfo<cr>", "Info" },
         s = { "<CMD>write <bar> edit <bar> TSBufEnable highlight<CR>", "Restart" },
       },
+
+      z = { "<cmd>ZenMode<cr>", "Zen" },
+      Z = { "<cmd>Twilight<cr>", "Twilight" },
     },
 
     n = {
