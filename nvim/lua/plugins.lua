@@ -62,6 +62,7 @@ return require("packer").startup(function(use)
       require "plugin-config.null-ls"
     end,
   }
+  use { "folke/neodev.nvim" }
 
   use {
     "mrshmllow/document-color.nvim",

@@ -56,7 +56,12 @@
                                  "* TODO %^{description} %^g\n%?\nAdded: %U")
                                 ("T" "Tickler" entry
                                  (file+headline "~/org/tickler.org" "Tickler")
-                                 "* %? \nAdded: %U")
+                                ("r" "Reference" entry
+                                 (file+headline "~/zk/ref/inbox.org" "References")
+                                 "* %^{description} %^g\nTitle: \nRelease: \nAuthor: \nLocation:\n%?\nAdded: %U")
+                                ("f" "Reference" entry
+                                 (file+headline "~/zk/inbox.org" "Fleeting")
+                                 "* %^{description} %^g\n%?\nAdded: %U")
                         ("j" "Journal" entry (file+olp+datetree "~/org/journal.org") "* %?\n" :empty-lines 1)))
 (setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
                              ("~/org/someday.org" :level . 1)

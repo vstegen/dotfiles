@@ -8,6 +8,11 @@ if not mason_lsp_ok then
   return
 end
 
+local neodev_ok, dev = pcall(require, "neodev")
+if neodev_ok then
+  dev.setup()
+end
+
 local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
 if not lspconfig_status_ok then
   return
