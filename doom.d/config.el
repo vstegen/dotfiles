@@ -45,30 +45,40 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-(after! org 
-  (setq org-agenda-files '("~/org/inbox.org"
+(after! org
+        ;; general org config
+        (setq org-agenda-files '("~/org/inbox.org"
                            "~/org/tickler.org"
                            "~/org/someday.org"
                            "~/org/calendar.org"
                            "~/org/gtd.org"))
-  (setq org-capture-templates '(("t" "Todo [inbox]" entry
+        (setq org-capture-templates '(("t" "Todo [inbox]" entry
                                  (file+headline "~/org/inbox.org" "Tasks")
-                                 "* TODO %^{description} %^g\n%?\nAdded: %U")
+                                 "* TODO %^{description} %^g\n%?\nAdded: %U\n")
                                 ("T" "Tickler" entry
                                  (file+headline "~/org/tickler.org" "Tickler")
+                                 "* %^{description} %^g\n%?\nAdded: %U")
                                 ("r" "Reference" entry
                                  (file+headline "~/zk/ref/inbox.org" "References")
-                                 "* %^{description} %^g\nTitle: \nRelease: \nAuthor: \nLocation:\n%?\nAdded: %U")
+                                 "* %^{description} %^g\nTitle: \nRelease: \nAuthor: \nLocation:\n%?\nAdded: %U\n")
                                 ("f" "Reference" entry
                                  (file+headline "~/zk/inbox.org" "Fleeting")
                                  "* %^{description} %^g\n%?\nAdded: %U")
-                        ("j" "Journal" entry (file+olp+datetree "~/org/journal.org") "* %?\n" :empty-lines 1)))
-(setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
+                                ("j" "Journal" entry (file+olp+datetree "~/org/journal.org") "* %?\n" :empty-lines 1)))
+        (setq org-refile-targets '(("~/org/gtd.org" :maxlevel . 3)
                              ("~/org/someday.org" :level . 1)
                              ("~/org/contacts.org" :level . 1)
                              ("~/org/calendar.org" :level . 1)
                              ("~/org/tickler.org" :maxlevel . 2)))
-(setq org-todo-keywords '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "HOLD(h)" "APPT(a)" "DELEGATED(e)" "|" "ASSIGNED(.)" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)"))))
+        (setq org-todo-keywords '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "HOLD(h)" "APPT(a)" "DELEGATED(e)" "|" "ASSIGNED(.)" "DONE(d)" "CANCELLED(c)" "DEFERRED(f)")))
+
+        ;; roam config
+        (setq org-roam-directory "~/zk/")
+        (setq org--index-file "~/zk/index.org")
+)
+
+;; unclear if this is required
+;; (use-package! org-roam :config (org-rb-autosync-enable))
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
