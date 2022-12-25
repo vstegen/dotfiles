@@ -258,12 +258,17 @@ local mappings = {
       g = { "<cmd>Glow<cr>", "Glow" },
 
       p = {
-        name = "Packer",
-        c = { "<cmd>PackerCompile<cr>", "Compile" },
-        i = { "<cmd>PackerInstall<cr>", "Install" },
-        s = { "<cmd>PackerSync<cr>", "Sync" },
-        S = { "<cmd>PackerStatus<cr>", "Status" },
-        u = { "<cmd>PackerUpdate<cr>", "Update" },
+        name = "Lazy",
+        c = { "<cmd>Lazy check<cr>", "Check" },
+        C = { "<cmd>Lazy clean<cr>", "Clean" },
+        d = { "<cmd>Lazy debug<cr>", "Debug" },
+        i = { "<cmd>Lazy install<cr>", "Install" },
+        h = { "<cmd>Lazy help<cr>", "Help" },
+        l = { "<cmd>Lazy load", "Load" },
+        s = { "<cmd>Lazy sync<cr>", "Sync" },
+        u = { "<cmd>Lazy update<cr>", "Update" },
+        p = { "<cmd>Lazy profile<cr>", "Profile" },
+        r = { "<cmd>Lazy restore<cr>", "Restore" },
       },
 
       ["/"] = {

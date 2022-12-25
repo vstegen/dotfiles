@@ -1,5 +1,3 @@
-require "impatient"
-
 -- Keymappings
 require "keymappings"
 
@@ -10,7 +8,7 @@ require "globals"
 require "options"
 
 -- Plugins
-require "plugins"
+require "lazy-plugins"
 
 -- Set Colorscheme
 require "colorscheme"

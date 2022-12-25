@@ -5,7 +5,7 @@ end
 
 local ts_config = {
   ensure_installed = "all",
-  sync_install = true,
+  -- sync_install = true,
   auto_install = true,
   ignore_install = { "phpdoc" },
   highlight = {
