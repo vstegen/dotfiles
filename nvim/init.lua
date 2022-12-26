@@ -1,5 +1,5 @@
 -- Keymappings
-require "keymappings"
+require "vstegen.keymaps"
 
 -- Global settings
 require "globals"
