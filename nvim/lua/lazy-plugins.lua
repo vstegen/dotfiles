@@ -140,11 +140,21 @@ require("lazy").setup({
   { "theHamsta/nvim-dap-virtual-text" },
   { "nvim-telescope/telescope-dap.nvim" },
   { "leoluz/nvim-dap-go" },
-  { "folke/tokyonight.nvim" },
-  { "rebelot/kanagawa.nvim" },
+  {
+    "folke/tokyonight.nvim",
+    priority = 1000,
+    lazy = false,
+  },
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    lazy = false,
+  },
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    priority = 1000,
+    lazy = false,
   },
   {
     "antoinemadec/FixCursorHold.nvim",
