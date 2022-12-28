@@ -5,7 +5,7 @@ require "vstegen.keymaps"
 require "globals"
 
 -- Vim Options
-require "options"
+require "vstegen.set"
 
 -- Plugins
 require "lazy-plugins"
