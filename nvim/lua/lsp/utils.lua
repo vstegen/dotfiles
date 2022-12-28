@@ -1,8 +1,6 @@
-local handlers = require "lsp.handlers"
-
 local M = {}
 
-M.generate_capabilities = function(server)
+M.generate_capabilities = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
 
     local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
@@ -89,18 +87,15 @@ local lsp_keymaps = function(bufnr)
         ["gT"] = { "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Goto Type Definition" },
         ["gr"] = { "<cmd>lua vim.lsp.buf.references()<CR>", "Goto References" },
         ["gi"] = { "<cmd>lua vim.lsp.buf.implementation()<CR>", "Goto Implementation" },
-        -- ["gi"] = { "<cmd>lua handlers.implementation()<CR>", "Goto Implementation (No Mock)" },
         ["<C-k>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show Signature Help" },
         ["gl"] = {
             "<cmd>lua vim.diagnostic.open_float(0, {scope='line'})<CR>",
             -- '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
-            -- "<cmd>lua require'lsp.handlers'.show_line_diagnostics()<CR>",
             "Show Line Diagnostics",
         },
         --[[ ["gl"] = {
       "<cmd>lua vim.diagnostic.open_float(0, { scope='line', border='single', style='minimal', focussable=true })<CR>",
       -- '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
-      -- "<cmd>lua require'lsp.handlers'.show_line_diagnostics()<CR>",
       "Show line diagnostics",
     }, ]]
         ["<space>Wa"] = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add Workspace Folder" },
@@ -116,7 +111,7 @@ local lsp_keymaps = function(bufnr)
     end
 end
 
-M.on_init = function(client, bufnr)
+M.on_init = function(client, _)
     if vim.tbl_contains({ "tsserver", "jsonls", "gopls" }, client.name) then
         client.server_capabilities.documentFormattingProvider = false
     end
@@ -126,7 +121,7 @@ M.on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
     if client.server_capabilities.colorProvider then
-        local ok, color = pcall(require, "document-color")
+        local ok, _ = pcall(require, "document-color")
         if ok then
             require("document-color").buf_attach(bufnr)
         end
