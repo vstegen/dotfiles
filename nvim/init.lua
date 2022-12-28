@@ -17,4 +17,4 @@ require("utils.autocmds").setup_autocmds()
 
 require "lsp"
 
-require "neovide"
+require "vstegen.neovide"
