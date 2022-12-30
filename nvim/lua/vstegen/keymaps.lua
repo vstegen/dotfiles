@@ -80,7 +80,7 @@ map("n", "<A-k>", ":m .-2<CR>==")
 
 -- QuickFix
 map("n", "]q", ":cnext<CR>")
-map("n", "q", ":cprev<CR>")
+map("n", "[q", ":cprev<CR>")
 map("n", "<C-q>", ":call QuickFixToggle()<CR>")
 
 -- Quickly move between the last 2 files in the buffer
