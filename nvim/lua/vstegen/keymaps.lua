@@ -125,3 +125,27 @@ map("n", "<leader>d", '"_d')
 map("v", "<leader>d", '"_d')
 
 map("n", "<leader>lf", vim.lsp.buf.format)
+
+map("n", "H", "^")
+map("n", "L", "$")
+map("n", "<bs>", "<c-^>'\"zz", { desc = "Toggle between last 2 buffers" })
+
+map(
+    "n",
+    "c*",
+    "/<<C-R>=expand('<cword>')<CR>>C<CR>``cgn",
+    { expr = true, desc = "Replace word under cursor (forward)" }
+)
+map(
+    "n",
+    "c#",
+    "/<<C-R>=expand('<cword>')<CR>>C<CR>``cgN",
+    { expr = true, desc = "Replace word under cursor (backword}" }
+)
+map("n", "d*", "/<<C-R>=expand('<cword>')<CR>>C<CR>``dgn", { expr = true, desc = "Delete word under cursor (forward)" })
+map(
+    "n",
+    "d#",
+    "/<<C-R>=expand('<cword>')<CR>>C<CR>``dgN",
+    { expr = true, desc = "Delete word under cursor (backword)" }
+)
