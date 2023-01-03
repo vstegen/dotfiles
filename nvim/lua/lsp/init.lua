@@ -20,25 +20,6 @@ end
 
 local utils = require "lsp.utils"
 
-local servers = {
-    "bashls",
-    "cssls",
-    "cssmodules_ls",
-    "dockerls",
-    "gopls",
-    "graphql",
-    "jsonls",
-    "sumneko_lua",
-    "tsserver",
-    "marksman",
-    "pyright",
-    "rust_analyzer",
-    "sqls",
-    "svelte",
-    "tailwindcss",
-    "yamlls",
-}
-
 mason.setup {
     ui = {
         icons = {
@@ -50,14 +31,32 @@ mason.setup {
 }
 
 mason_lsp.setup {
-    ensure_installed = servers,
+    ensure_installed = {
+        "bashls",
+        "cssls",
+        "cssmodules_ls",
+        "dockerls",
+        "gopls",
+        "graphql",
+        "jsonls",
+        "sumneko_lua",
+        "tsserver",
+        "marksman",
+        "pyright",
+        "rust_analyzer",
+        "sqls",
+        "svelte",
+        "tailwindcss",
+        "yamlls",
+    },
 }
 
 local lsp_flags = {
     debounce_text_changes = 150,
 }
 
-for _, server in pairs(servers) do
+local get_servers = require("mason-lspconfig").get_installed_servers
+for _, server_name in ipairs(get_servers()) do
     local opts = {
         capabilities = utils.generate_capabilities(),
         on_attach = utils.on_attach,
@@ -65,18 +64,14 @@ for _, server in pairs(servers) do
         flags = lsp_flags,
     }
 
-    if server == "cssmodules_ls" then
+    if server_name == "cssmodules_ls" then
         opts.on_attach = function(client, bufnr)
-            -- client.resolved_capabilities.goto_definition = false
             client.server_capabilities.definitionProvider = false
             utils.on_attach(client, bufnr)
         end
     end
 
-    -- NOTE: could also check if a file with exactly that name exists in server_configs
-    -- IDEA: create a init.lua in server_configs/ that exports a map containing all the server configs
-    -- check if the map has a key for the server that's currently being processed by the loop
-    if server == "rust_analyzer" then
+    if server_name == "rust_analyzer" then
         local rt_installed, rt = pcall(require, "rust-tools")
         if rt_installed then
             require("rust-tools").setup(require "lsp.server_configs.rust_tools" (opts))
@@ -86,28 +81,27 @@ for _, server in pairs(servers) do
         end
     end
 
-    if server == "sumneko_lua" then
+    if server_name == "sumneko_lua" then
         opts = vim.tbl_deep_extend("force", require "lsp.server_configs.sumneko_lua", opts)
     end
 
-    if server == "tailwindcss" then
+    if server_name == "tailwindcss" then
         opts = vim.tbl_deep_extend("force", require "lsp.server_configs.tailwindcss", opts)
     end
 
-    if server == "kotlin_language_server" then
+    if server_name == "kotlin_language_server" then
         opts = vim.tbl_deep_extend("force", require "lsp.server_configs.kotlin_language_server", opts)
     end
 
-    if server == "gopls" then
+    if server_name == "gopls" then
         opts = vim.tbl_deep_extend("force", require "lsp.server_configs.gopls", opts)
     end
 
-    if server == "jsonls" then
+    if server_name == "jsonls" then
         opts = vim.tbl_deep_extend("force", require "lsp.server_configs.jsonls", opts)
     end
 
-    lspconfig[server].setup(opts)
-
+    lspconfig[server_name].setup(opts)
     ::continue::
 end
 
