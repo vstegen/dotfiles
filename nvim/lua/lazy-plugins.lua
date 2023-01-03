@@ -350,5 +350,4 @@ require("lazy").setup({
             },
         },
     },
-    debug = true,
 })
