@@ -60,7 +60,6 @@ for _, server_name in ipairs(get_servers()) do
     local opts = {
         capabilities = utils.generate_capabilities(),
         on_attach = utils.on_attach,
-        on_init = utils.on_init,
         flags = lsp_flags,
     }
 

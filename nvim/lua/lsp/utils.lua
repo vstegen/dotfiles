@@ -111,7 +111,6 @@ local lsp_keymaps = function(bufnr)
     end
 end
 
--- TODO: remove this function
 -- disabling the formatting capabilities of the LSP should be done in the vim.buf.lsp.format function, see
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
 -- general idea:
@@ -124,11 +123,8 @@ end
         - filter sources by filetype
         - if one exists, return false otherwise true (would use null-ls for formatting)
 ]]
-M.on_init = function(client, _)
-    if vim.tbl_contains({ "tsserver", "jsonls", "gopls" }, client.name) then
-        client.server_capabilities.documentFormattingProvider = false
-    end
-end
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 -- TODO: https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
 M.on_attach = function(client, bufnr)
@@ -144,6 +140,32 @@ M.on_attach = function(client, bufnr)
     lsp_keymaps(bufnr)
     lsp_highlight_document(client, bufnr)
     codelens_refresh(client, bufnr)
+
+    -- TODO: need an additional way to toggle formatting for a whole session not per buffer
+    -- one option is to simply have a global autocmd that does not care about bufnr and acts on *
+    if client.supports_method "textDocument/formatting" then
+        vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                M.formatting(bufnr)
+            end,
+        })
+    end
+end
+
+M.formatting = function(bufnr)
+    vim.lsp.buf.format {
+        filter = function(client)
+            if vim.tbl_contains({ "tsserver", "jsonls", "gopls" }, client.name) then
+                return false
+            end
+
+            return true
+        end,
+        bufnr = bufnr,
+    }
 end
 
 return M
