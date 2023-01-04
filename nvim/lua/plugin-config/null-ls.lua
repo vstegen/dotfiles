@@ -114,6 +114,6 @@ null_ls.setup {
     log_level = "warn",
     notify_format = "[null-ls] %s",
     -- TODO: https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
-    on_attach = require("lsp.utils").on_attach,
+    on_attach = require("vstegen.lsp.utils").on_attach,
     update_in_insert = true,
 }

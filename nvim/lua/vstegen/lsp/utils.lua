@@ -56,24 +56,6 @@ local lsp_highlight_document = function(client, bufnr)
     end
 end
 
-local codelens_refresh = function(client, bufnr)
-    local status_ok, codelens_supported = pcall(function()
-        return client.supports_method "textDocument/codeLens"
-    end)
-    if not status_ok or not codelens_supported then
-        return
-    end
-
-    vim.api.nvim_create_augroup("lsp_code_lens_refresh", {
-        clear = false,
-    })
-    vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-        group = "lsp_code_lens_refresh",
-        buffer = bufnr,
-        callback = vim.lsp.codelens.refresh,
-    })
-end
-
 local lsp_keymaps = function(bufnr)
     local status_ok, wk = pcall(require, "which-key")
     if not status_ok then
@@ -90,14 +72,8 @@ local lsp_keymaps = function(bufnr)
         ["<C-k>"] = { "<cmd>lua vim.lsp.buf.signature_help()<CR>", "Show Signature Help" },
         ["gl"] = {
             "<cmd>lua vim.diagnostic.open_float(0, {scope='line'})<CR>",
-            -- '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
             "Show Line Diagnostics",
         },
-        --[[ ["gl"] = {
-      "<cmd>lua vim.diagnostic.open_float(0, { scope='line', border='single', style='minimal', focussable=true })<CR>",
-      -- '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
-      "Show line diagnostics",
-    }, ]]
         ["<space>Wa"] = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add Workspace Folder" },
         ["<space>Wr"] = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", "Remove Workspace Folder" },
     }
@@ -107,7 +83,7 @@ local lsp_keymaps = function(bufnr)
     if not signature_ok then
         vim.keymap.set("i", "<C-k>", function()
             vim.lsp.buf.signature_help()
-        end, { buffer = true })
+        end, { buffer = bufnr })
     end
 end
 
@@ -139,7 +115,6 @@ M.on_attach = function(client, bufnr)
 
     lsp_keymaps(bufnr)
     lsp_highlight_document(client, bufnr)
-    codelens_refresh(client, bufnr)
 
     -- TODO: need an additional way to toggle formatting for a whole session not per buffer
     -- one option is to simply have a global autocmd that does not care about bufnr and acts on *

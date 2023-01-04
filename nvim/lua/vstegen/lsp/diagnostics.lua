@@ -5,7 +5,7 @@ local signs = {
     { name = "DiagnosticSignInfo", text = "" },
 }
 
-local config = {
+vim.diagnostic.config {
     virtual_text = false,
     signs = {
         active = signs,
@@ -21,8 +21,6 @@ local config = {
         source = "if_many",
     },
 }
-
-vim.diagnostic.config(config)
 
 for _, sign in pairs(signs) do
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = sign.name })

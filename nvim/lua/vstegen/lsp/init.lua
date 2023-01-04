@@ -18,7 +18,7 @@ if not lspconfig_status_ok then
     return
 end
 
-local utils = require "lsp.utils"
+local utils = require "vstegen.lsp.utils"
 
 mason.setup {
     ui = {
@@ -73,36 +73,36 @@ for _, server_name in ipairs(get_servers()) do
     if server_name == "rust_analyzer" then
         local rt_installed, rt = pcall(require, "rust-tools")
         if rt_installed then
-            require("rust-tools").setup(require "lsp.server_configs.rust_tools" (opts))
+            require("rust-tools").setup(require "vstegen.lsp.server_configs.rust_tools" (opts))
             goto continue
         else
-            opts = vim.tbl_deep_extend("force", require "lsp.server_configs.rust_analyzer", opts)
+            opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.rust_analyzer", opts)
         end
     end
 
     if server_name == "sumneko_lua" then
-        opts = vim.tbl_deep_extend("force", require "lsp.server_configs.sumneko_lua", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.sumneko_lua", opts)
     end
 
     if server_name == "tailwindcss" then
-        opts = vim.tbl_deep_extend("force", require "lsp.server_configs.tailwindcss", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.tailwindcss", opts)
     end
 
     if server_name == "kotlin_language_server" then
-        opts = vim.tbl_deep_extend("force", require "lsp.server_configs.kotlin_language_server", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.kotlin_language_server", opts)
     end
 
     if server_name == "gopls" then
-        opts = vim.tbl_deep_extend("force", require "lsp.server_configs.gopls", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.gopls", opts)
     end
 
     if server_name == "jsonls" then
-        opts = vim.tbl_deep_extend("force", require "lsp.server_configs.jsonls", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.jsonls", opts)
     end
 
     lspconfig[server_name].setup(opts)
     ::continue::
 end
 
-require "lsp.diagnostics"
-require "lsp.icons"
+require "vstegen.lsp.diagnostics"
+require "vstegen.lsp.icons"

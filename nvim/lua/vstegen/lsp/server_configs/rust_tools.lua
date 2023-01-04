@@ -59,7 +59,7 @@ return function(opts)
         -- all the opts to send to nvim-lspconfig
         -- these override the defaults set by rust-tools.nvim
         -- see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#rust_analyzer
-        server = vim.tbl_deep_extend("force", require "lsp.server_configs.rust_analyzer", opts),
+        server = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.rust_analyzer", opts),
         -- debugging stuff
         dap = {
             adapter = {
