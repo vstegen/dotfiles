@@ -12,7 +12,7 @@ require "lazy-plugins"
 -- Set Colorscheme
 require "vstegen.colorscheme"
 
-require("utils.autocmds").setup_autocmds()
+require "vstegen.autocmds"
 
 require "lsp"
 

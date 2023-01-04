@@ -1,16 +1,4 @@
-local ag = vim.api.nvim_create_augroup
-local au = vim.api.nvim_create_autocmd
-
-local M = {}
-
-M.toggle_autoformat = function()
-    vim.api.nvim_create_augroup("lsp_format_on_save", {})
-    vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-        group = "lsp_format_on_save",
-        pattern = "*",
-        command = ":silent lua vim.lsp.buf.format({timeout_ms = 2000})",
-    })
-end
+local define_autocmd = require("vstegen.utils").define_autocmd
 
 local commands = {
     {
@@ -20,7 +8,6 @@ local commands = {
             pattern = "*",
             desc = "Highlight text on yank",
             callback = function()
-                -- require("vim.highlight").on_yank { higroup = "Search", timeout = 200 }
                 require("vim.highlight").on_yank { higroup = "IncSearch", timeout = 200 }
             end,
         },
@@ -59,21 +46,6 @@ local commands = {
     },
 }
 
-M.setup_autocmds = function()
-    for _, entry in ipairs(commands) do
-        M.define_autocmd(entry)
-    end
+for _, entry in ipairs(commands) do
+    define_autocmd(entry)
 end
-
-M.define_autocmd = function(defintion)
-    local event = defintion[1]
-    local opts = defintion[2]
-    local exists, _ = pcall(vim.api.nvim_get_autocmds, { group = opts.group })
-    if not exists then
-        vim.api.nvim_create_augroup(opts.group, {})
-    end
-
-    vim.api.nvim_create_autocmd(event, opts)
-end
-
-return M
