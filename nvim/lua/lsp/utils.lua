@@ -111,12 +111,26 @@ local lsp_keymaps = function(bufnr)
     end
 end
 
+-- TODO: remove this function
+-- disabling the formatting capabilities of the LSP should be done in the vim.buf.lsp.format function, see
+-- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
+-- general idea:
+--[[
+    high level:
+    if null-ls active and client.name != null-ls:
+        - use https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/SOURCES.md#get_sources to get all registered sources
+        - filter sources by methods; should be formatting
+        - get the filetype of the current buf using bufnr
+        - filter sources by filetype
+        - if one exists, return false otherwise true (would use null-ls for formatting)
+]]
 M.on_init = function(client, _)
     if vim.tbl_contains({ "tsserver", "jsonls", "gopls" }, client.name) then
         client.server_capabilities.documentFormattingProvider = false
     end
 end
 
+-- TODO: https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
 M.on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
