@@ -69,11 +69,6 @@ end
 
 cmp.setup {
     enabled = true,
-    -- preselect = cmp.PreselectMode.None,
-    -- preselect = cmp.PreselectMode.Item,
-    --[[ completion = {
-    completeopt = "menu,menuone,noinsert",
-  }, ]]
     view = {
         entries = "native",
     },
@@ -165,7 +160,6 @@ cmp.setup {
         { name = "path" },
         { name = "buffer", keyword_length = 5 },
         { name = "luasnip" },
-        -- { name = "nvim_lsp_signature_help" },
         { name = "calc" },
         { name = "emoji" },
         { name = "treesitter" },
@@ -178,10 +172,9 @@ cmp.setup {
     },
 }
 
--- Set configuration for specific filetype.
 cmp.setup.filetype("gitcommit", {
     sources = cmp.config.sources({
-        { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
+        { name = "cmp_git" },
     }, {
         { name = "buffer" },
     }),
