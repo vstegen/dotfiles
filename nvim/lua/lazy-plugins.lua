@@ -30,12 +30,6 @@ require("lazy").setup({
     },
     "folke/neodev.nvim",
     {
-        "mrshmllow/document-color.nvim",
-        config = function()
-            require "plugin-config.document-color"
-        end,
-    },
-    {
         "ray-x/lsp_signature.nvim",
         config = function()
             require "plugin-config.lsp_signature"
