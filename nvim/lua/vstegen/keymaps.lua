@@ -149,3 +149,22 @@ map(
     "/<<C-R>=expand('<cword>')<CR>>C<CR>``dgN",
     { expr = true, desc = "Delete word under cursor (backword)" }
 )
+
+--[[
+- toggle autoformat
+
+Bufferline
+    -- absolute posiiton
+    require("bufferline").go_to_buffer(1, true)
+    -- relative position
+    require("bufferline").go_to_buffer(1)
+
+    :BufferLineCycleNext
+    :BufferLineCyclePrev
+
+    :BufferLineMoveNext
+    :BufferLineMovePrev
+
+    :BufferLineSortByExtension<CR>
+    :BufferLineSortByDirectory<CR>
+]]
