@@ -183,4 +183,6 @@ git diffview
     :DiffviewToggleFiles
     :DiffviewClose
     
+Glow
+    :Glow
 ]]
