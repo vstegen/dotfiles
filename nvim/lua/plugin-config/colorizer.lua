@@ -1,6 +1,10 @@
 local ok, colorizer = pcall(require, "colorizer")
 if not ok then
-  return
+    return
 end
 
-colorizer.setup()
+colorizer.setup {
+    user_default_options = {
+        tailwind = true,
+    },
+}
