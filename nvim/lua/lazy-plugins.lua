@@ -28,7 +28,14 @@ require("lazy").setup({
             require "plugin-config.null-ls"
         end,
     },
-    "folke/neodev.nvim",
+    {
+        "folke/neodev.nvim",
+        config = function()
+            require("neodev").setup {
+                library = { plugins = { "neotest" }, types = true },
+            }
+        end,
+    },
     {
         "ray-x/lsp_signature.nvim",
         config = function()

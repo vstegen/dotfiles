@@ -7,6 +7,13 @@ local signs = {
 
 vim.diagnostic.config {
     virtual_text = false,
+    -- NOTE: when enabling virtual text
+    -- virtual_text = {
+    --     format = function(diagnostic)
+    --         local message = diagnostic.message:gsub("\n", " "):gsub("\t", " "):gsub("%s+", " "):gsub("^%s+", "")
+    --         return message
+    --     end,
+    -- },
     signs = {
         active = signs,
     },

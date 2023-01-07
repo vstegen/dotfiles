@@ -156,6 +156,17 @@ if harpoon_ok then
     vim.keymap.set("n", "<right>", '<cmd>lua require("harpoon.ui").nav_next()<cr>', { silent = true })
 end
 
+local neotest_ok, neotest = pcall(require, "neotest")
+if neotest_ok then
+    vim.keymap.set("n", "[n", function()
+        neotest.jump.prev { status = "failed" }
+    end, { desc = "Prev Failed Test" })
+
+    vim.keymap.set("n", "]n", function()
+        neotest.jump.next { status = "failed" }
+    end, { desc = "Next Failed Test" })
+end
+
 --[[
 - toggle autoformat
 
@@ -202,4 +213,42 @@ Harpoon
 
 Neogen
     :Neogen / require('neogen').generate({ type = "func" -- the annotation type to generate. Currently supported: func, class, type, file })
+
+Neotest
+    require("neotest").run.attach()
+    require("neotest").run.stop()
+    require("neotest").run.run({strategy = "dap"})
+    require("neotest").run.run(vim.fn.expand("%"))
+    require("neotest").run.run()
+
+      t = { "<cmd>lua require('neotest').run.run()<cr>", "Nearest" },
+      T = { "<cmd>lua require('neotest').run.run({strategy='dap'})<cr>", "Debug Nearest" },
+
+      l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Last" },
+      L = { "<cmd>lua require('neotest').run.run_last({strategy='dap'})<cr>", "Debug Last" },
+
+      S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
+
+      f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "File" },
+      s = { "<cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>", "Suite" },
+      -- s = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), suite=true})", "Suite" },
+
+      g = { "<cmd>lua require('dap-go').debug_test()<cr>", "Nearest Go Test (Debug)" },
+
+      o = { "<cmd>lua require('neotest').output.open()<cr>", "Output" },
+      O = { "<cmd>lua require('neotest').output.open({enter=true})<cr>", "Output Enter" },
+
+      r = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Side View" },
+
+      v = {
+        name = "VimTest",
+
+        n = { "<cmd>TestNearest<cr>", "Nearest" },
+        f = { "<cmd>TestFile<cr>", "File" },
+        s = { "<cmd>TestSuite<cr>", "Suite" },
+        l = { "<cmd>TestLast<cr>", "Last" },
+        v = { "<cmd>TestVisit<cr>", "Visit" },
+      },
+
+      vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>", {})
 ]]
