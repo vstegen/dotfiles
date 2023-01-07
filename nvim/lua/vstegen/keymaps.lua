@@ -271,4 +271,15 @@ Nvimtree:
     :NvimTreeFocus Open the tree if it is closed, and then focus on the tree.
     :NvimTreeFindFile Move the cursor in the tree for the current buffer, opening folders if needed.
     :NvimTreeCollapse Collapses the nvim-tree recursively.
+
+Persisted:
+    :SessionToggle - Determines whether to load, start or stop a session
+    :SessionStart - Start recording a session. Useful if autosave = false
+    :SessionStop - Stop recording a session
+    :SessionSave - Save the current session
+    :SessionLoad - Load the session for the current directory and current branch if git_use_branch = true
+    :SessionLoadLast - Load the last session
+    :SessionDelete - Delete the current session
+
+    :Telescope persisted
 ]]
