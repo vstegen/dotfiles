@@ -336,4 +336,7 @@ Telescope:
     builtin.live_grep	Search for a string in your current working directory and get results live as you type, respects .gitignore. (Requires ripgrep)
 
 Toogleterm:
+
+Twilight
+Zenmode
 ]]
