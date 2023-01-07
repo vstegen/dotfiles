@@ -199,4 +199,7 @@ Harpoon
     :lua require("harpoon.ui").nav_prev()                   -- navigates to previous mark
     :lua require("harpoon.ui").toggle_quick_menu()
     :lua require("harpoon.mark").add_file()
+
+Neogen
+    :Neogen / require('neogen').generate({ type = "func" -- the annotation type to generate. Currently supported: func, class, type, file })
 ]]
