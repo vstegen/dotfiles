@@ -150,6 +150,12 @@ map(
     { expr = true, desc = "Delete word under cursor (backword)" }
 )
 
+local harpoon_ok, _ = pcall(require, "harpoon")
+if harpoon_ok then
+    vim.keymap.set("n", "<left>", '<cmd>lua require("harpoon.ui").nav_prev()<cr>', { silent = true })
+    vim.keymap.set("n", "<right>", '<cmd>lua require("harpoon.ui").nav_next()<cr>', { silent = true })
+end
+
 --[[
 - toggle autoformat
 
@@ -185,4 +191,12 @@ git diffview
     
 Glow
     :Glow
+
+Harpoon
+    lua require("harpoon.term").sendCommand(1, "ls -La")    -- sends ls -La to tmux window 1
+    lua require("harpoon.term").gotoTerminal(1)             -- navigates to term 1
+    :lua require("harpoon.ui").nav_next()                   -- navigates to next mark
+    :lua require("harpoon.ui").nav_prev()                   -- navigates to previous mark
+    :lua require("harpoon.ui").toggle_quick_menu()
+    :lua require("harpoon.mark").add_file()
 ]]
