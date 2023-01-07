@@ -282,4 +282,7 @@ Persisted:
     :SessionDelete - Delete the current session
 
     :Telescope persisted
+
+Projects:
+    require'telescope'.extensions.projects.projects{}
 ]]
