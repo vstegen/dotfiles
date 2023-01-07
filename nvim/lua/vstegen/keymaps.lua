@@ -265,4 +265,10 @@ Neotest
       },
 
       vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>", {})
+
+Nvimtree:
+    :NvimTreeToggle Open or close the tree. Takes an optional path argument.
+    :NvimTreeFocus Open the tree if it is closed, and then focus on the tree.
+    :NvimTreeFindFile Move the cursor in the tree for the current buffer, opening folders if needed.
+    :NvimTreeCollapse Collapses the nvim-tree recursively.
 ]]
