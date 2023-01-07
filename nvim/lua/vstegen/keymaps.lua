@@ -167,6 +167,20 @@ if neotest_ok then
     end, { desc = "Next Failed Test" })
 end
 
+local ufo_ok, ufo = pcall(require, "ufo")
+if ufo_ok then
+    map("n", "zR", ufo.openAllFolds)
+    map("n", "zM", ufo.closeAllFolds)
+    map("n", "zr", ufo.openAllFolds)
+    map("n", "zm", ufo.closeFoldsWith)
+    map("n", "K", function()
+        local winid = ufo.peekFoldedLinesUnderCursor()
+        if not winid then
+            vim.lsp.buf.hover()
+        end
+    end)
+end
+
 --[[
 - toggle autoformat
 
