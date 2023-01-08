@@ -339,4 +339,11 @@ Toogleterm:
 
 Twilight
 Zenmode
+
+Treesitter
+    :TSBufEnable {module} " enable module on current buffer
+    :TSBufDisable {module} " disable module on current buffer
+    :TSEnable {module} [{ft}] " enable module on every buffer. If filetype is specified, enable only for this filetype.
+    :TSDisable {module} [{ft}] " disable module on every buffer. If filetype is specified, disable only for this filetype.
+    :TSModuleInfo [{module}] " list information about modules state for each filetype
 ]]
