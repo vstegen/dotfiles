@@ -88,17 +88,17 @@ map("n", "L", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 map({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 map("n", "<leader>R", "<cmd>noh<cr><cmd>redraw<cr><c-l>", { desc = "Redraw and clear hlsearch" })
-map("n", "<leader>tr", function()
-    vim.opt_local.lazyredraw = not vim.opt_local.lazyredraw
-    if vim.opt_local.lazyredraw then
+map("n", "<leader>Tz", function()
+    vim.opt_local.lazyredraw = not vim.opt_local.lazyredraw:get()
+    if vim.opt_local.lazyredraw:get() then
         Util.info "Enabled lazyredraw"
     else
         Util.info "Disabled lazyredraw"
     end
 end, { desc = "Toggle lazyredraw" })
-map("n", "<leader>tw", function()
-    vim.opt_local.wrap = not vim.opt_local.wrap
-    if vim.opt_local.wrap then
+map("n", "<leader>TZ", function()
+    vim.opt_local.wrap = not vim.opt_local.wrap:get()
+    if vim.opt_local.wrap:get() then
         Util.info "Enabled wrap"
     else
         Util.info "Disabled wrap"
