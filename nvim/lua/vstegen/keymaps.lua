@@ -1,4 +1,5 @@
 local map = vim.keymap.set
+local Util = require "lazy.core.util"
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -84,6 +85,20 @@ map("n", "<C-q>", ":call QuickFixToggle()<CR>")
 
 -- Quickly move between the last 2 files in the buffer
 map("n", "<Leader><Leader>", ":b#<CR>", { desc = "Previous buffer" })
+
+map("n", "H", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
+map("n", "L", "<cmd>bnext<cr>", { desc = "Next buffer" })
+
+map({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+map("n", "<leader>R", "<cmd>noh<cr><cmd>redraw<cr><c-l>", { desc = "Redraw and clear hlsearch" })
+map("n", "<leader>tr", function()
+    vim.opt_local.lazyredraw = not vim.opt_local.lazyredraw
+    if vim.opt_local.lazyredraw then
+        Util.info "Enabled lazyredraw"
+    else
+        Util.info "Disabled lazyredraw"
+    end
+end, { desc = "Toggle lazyredraw" })
 
 -- Add semicolon at the end of the line
 map("n", "<leader>;", "A;<C-\\><C-N>", { desc = "Append ';' to line" })
