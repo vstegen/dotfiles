@@ -5,16 +5,15 @@ vim.g.maplocalleader = " "
 
 -- fast escape
 map("i", "jk", "<ESC>")
-map("i", "kj", "<ESC>")
 
-map("i", "<A-j>", "<Esc>:m .+1<CR>==gi")
-map("i", "<A-k>", "<Esc>:m .-2<CR>==gi")
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { desc = "Move line down" })
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { desc = "Move line up" })
 
 -- navigation
-map("i", "<A-Up>", "<C-\\><C-N><C-w>k")
-map("i", "<A-Down>", "<C-\\><C-N><C-w>j")
-map("i", "<A-Left>", "<C-\\><C-N><C-w>h")
-map("i", "<A-Right>", "<C-\\><C-N><C-w>l")
+map("i", "<A-Up>", "<C-\\><C-N><C-w>k", { desc = "Go to upper window" })
+map("i", "<A-Down>", "<C-\\><C-N><C-w>j", { desc = "Go to lower window" })
+map("i", "<A-Left>", "<C-\\><C-N><C-w>h", { desc = "Go to left window" })
+map("i", "<A-Right>", "<C-\\><C-N><C-w>l", { desc = "Go to right window" })
 
 -- Create additional breakpoint so that undo stops there
 map("i", ",", ",<C-G>u")
@@ -26,25 +25,25 @@ map("i", "?", "?<C-G>u")
 map("i", '<C-r>"', '<C-r><C-o>"')
 
 -- Keep cursor at current position when appending line
-map("n", "J", "mzJ`z")
+map("n", "J", "mzJ`z", { desc = "Append lower line" })
 
-map("n", "<C-w>s", ":split<cr>")
-map("n", "<C-w>v", ":vsplit<cr>")
+map("n", "<C-w>s", ":split<cr>", { desc = "Create vertical window" })
+map("n", "<C-w>v", ":vsplit<cr>", { desc = "Create horizontal window" })
 
 -- Keep cursor in the middle of the screen
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
 -- Better window movement
-map("n", "<C-h>", "<C-w>h")
-map("n", "<C-j>", "<C-w>j")
-map("n", "<C-k>", "<C-w>k")
-map("n", "<C-l>", "<C-w>l")
+map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
-map("n", "<left>", "<C-w>h")
-map("n", "<down>", "<C-w>j")
-map("n", "<up>", "<C-w>k")
-map("n", "<right>", "<C-w>l")
+map("n", "<left>", "<C-w>h", { desc = "Go to left window" })
+map("n", "<down>", "<C-w>j", { desc = "Go to lower window" })
+map("n", "<up>", "<C-w>k", { desc = "Go to upper window" })
+map("n", "<right>", "<C-w>l", { desc = "Go to right window" })
 
 -- Quickfix navigation
 -- map("n", "<C-k>", "<cmd>cnext<cr>zz")
@@ -53,15 +52,15 @@ map("n", "<right>", "<C-w>l")
 -- map("n", "<leader>j", "<cmd>lprev<cr>zz")
 
 -- Resize with arrows
-map("n", "<A-Up>", ":resize -2<CR>")
-map("n", "<A-Down>", ":resize +2<CR>")
-map("n", "<A-Left>", ":vertical resize -2<CR>")
-map("n", "<A-Right>", ":vertical resize +2<CR>")
+map("n", "<A-Up>", ":resize +2<CR>", { desc = "Increase window height" })
+map("n", "<A-Down>", ":resize -2<CR>", { desc = "Decrease window height" })
+map("n", "<A-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
+map("n", "<A-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
 
-map("n", "<S-Up>", ":resize -2<CR>")
-map("n", "<S-Down>", ":resize +2<CR>")
-map("n", "<S-Left>", ":vertical resize -2<CR>")
-map("n", "<S-Right>", ":vertical resize +2<CR>")
+map("n", "<S-Up>", ":resize +2<CR>", { desc = "Increase window height" })
+map("n", "<S-Down>", ":resize -2<CR>", { desc = "Decrease window height" })
+map("n", "<S-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
+map("n", "<S-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
 
 -- Copy til end of line
 map("n", "Y", "y$")
@@ -71,45 +70,45 @@ map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
 
 -- Move cursor normally on wrapped lines
-map("n", "j", "gj")
-map("n", "k", "gk")
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Move current line / block with Alt-j/k a la vscode.
-map("n", "<A-j>", ":m .+1<CR>==")
-map("n", "<A-k>", ":m .-2<CR>==")
+map("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
+map("n", "<A-k>", ":m .-2<CR>==", { desc = "Move line up" })
 
 -- QuickFix
-map("n", "]q", ":cnext<CR>")
-map("n", "[q", ":cprev<CR>")
+map("n", "]q", ":cnext<CR>", { desc = "Next quickfix item" })
+map("n", "[q", ":cprev<CR>", { desc = "Previous quickfix item" })
 map("n", "<C-q>", ":call QuickFixToggle()<CR>")
 
 -- Quickly move between the last 2 files in the buffer
-map("n", "<Leader><Leader>", ":b#<CR>")
+map("n", "<Leader><Leader>", ":b#<CR>", { desc = "Previous buffer" })
 
 -- Add semicolon at the end of the line
-map("n", "<leader>;", "A;<C-\\><C-N>", { desc = "Append ';' to Line" })
+map("n", "<leader>;", "A;<C-\\><C-N>", { desc = "Append ';' to line" })
 
 -- Terminal window navigation
-map("t", "<C-h>", "<C-\\><C-N><C-w>h")
-map("t", "<C-j>", "<C-\\><C-N><C-w>j")
-map("t", "<C-k>", "<C-\\><C-N><C-w>k")
-map("t", "<C-l>", "<C-\\><C-N><C-w>l")
+map("t", "<C-h>", "<C-\\><C-N><C-w>h", { desc = "Go to left window" })
+map("t", "<C-j>", "<C-\\><C-N><C-w>j", { desc = "Go to lower window" })
+map("t", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Go to upper window" })
+map("t", "<C-l>", "<C-\\><C-N><C-w>l", { desc = "Go to right window" })
 
 -- Better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- Move selected line / block of text in visual mode
-map("v", "J", ":move '>+1<CR>gv=gv")
-map("v", "K", ":move '<-2<CR>gv=gv")
+map("v", "J", ":move '>+1<CR>gv=gv", { desc = "Move line down" })
+map("v", "K", ":move '<-2<CR>gv=gv", { desc = "Move line up" })
 
 -- Move selected line / block of text in visual mode
-map("x", "J", ":move '>+1<CR>gv=gv")
-map("x", "K", ":move '<-2<CR>gv=gv")
+map("x", "J", ":move '>+1<CR>gv=gv", { desc = "Move line down" })
+map("x", "K", ":move '<-2<CR>gv=gv", { desc = "Move line up" })
 
 -- Move current line / block with Alt-j/k ala vscode.
-map("x", "<A-j>", ":m '>+1<CR>gv=gv")
-map("x", "<A-k>", ":m '<-2<CR>gv=gv")
+map("x", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
+map("x", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
 
 -- navigate tab completion with <c-j> and <c-k>
 -- runs conditionally
@@ -117,17 +116,17 @@ map("c", "<C-j>", 'pumvisible() ? "\\<down>" : "\\<C-j>"', { expr = true })
 map("c", "<C-k>", 'pumvisible() ? "\\<up>" : "\\<C-k>"', { expr = true })
 
 -- Use void register
-map("x", "<leader>p", '"_dP')
-map("n", "<leader>y", '"+y')
-map("n", "<leader>Y", '"+Y')
-map("v", "<leader>y", '"+y')
-map("n", "<leader>d", '"_d')
-map("v", "<leader>d", '"_d')
+map("x", "<leader>p", '"_dP', { desc = "Paste into void register" })
+map("n", "<leader>y", '"+y', { desc = "Yank into os register" })
+map("n", "<leader>Y", '"+Y', { desc = "Yank line into os register" })
+map("v", "<leader>y", '"+y', { desc = "Yank into os register" })
+map("n", "<leader>d", '"_d', { desc = "Delete into void register" })
+map("v", "<leader>d", '"_d', { desc = "Delete into void register" })
 
-map("n", "<leader>lf", vim.lsp.buf.format)
+map("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
 
-map("n", "H", "^")
-map("n", "L", "$")
+-- map("n", "H", "^")
+-- map("n", "L", "$")
 map("n", "<bs>", "<c-^>'\"zz", { desc = "Toggle between last 2 buffers" })
 
 map(
@@ -169,16 +168,16 @@ end
 
 local ufo_ok, ufo = pcall(require, "ufo")
 if ufo_ok then
-    map("n", "zR", ufo.openAllFolds)
-    map("n", "zM", ufo.closeAllFolds)
-    map("n", "zr", ufo.openAllFolds)
-    map("n", "zm", ufo.closeFoldsWith)
+    map("n", "zR", ufo.openAllFolds, { desc = "Open all folds" })
+    map("n", "zM", ufo.closeAllFolds, { desc = "Close all folds" })
+    map("n", "zr", ufo.openAllFolds, { desc = "Open all folds" })
+    map("n", "zm", ufo.closeFoldsWith, { desc = "Close folds with" })
     map("n", "K", function()
         local winid = ufo.peekFoldedLinesUnderCursor()
         if not winid then
             vim.lsp.buf.hover()
         end
-    end)
+    end, { desc = "Peak fold" })
 end
 
 --[[
