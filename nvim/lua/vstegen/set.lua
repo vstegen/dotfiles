@@ -1,5 +1,8 @@
 local CACHE_PATH = vim.fn.stdpath "cache"
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 local options = {
     backup = false, -- creates a backup file
     writebackup = false, -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited

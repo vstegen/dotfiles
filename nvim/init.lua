@@ -1,10 +1,10 @@
 O = {}
 
-require "vstegen.keymaps"
-
 require "vstegen.set"
 
 require "lazy-plugins"
+
+require "vstegen.keymaps"
 
 require "vstegen.colorscheme"
 

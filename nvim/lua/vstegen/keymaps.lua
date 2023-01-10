@@ -1,9 +1,6 @@
 local map = vim.keymap.set
 local Util = require "lazy.core.util"
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 -- fast escape
 map("i", "jk", "<ESC>")
 
