@@ -99,6 +99,14 @@ map("n", "<leader>tr", function()
         Util.info "Disabled lazyredraw"
     end
 end, { desc = "Toggle lazyredraw" })
+map("n", "<leader>tw", function()
+    vim.opt_local.wrap = not vim.opt_local.wrap
+    if vim.opt_local.wrap then
+        Util.info "Enabled wrap"
+    else
+        Util.info "Disabled wrap"
+    end
+end, { desc = "Toggle wrap" })
 
 -- Add semicolon at the end of the line
 map("n", "<leader>;", "A;<C-\\><C-N>", { desc = "Append ';' to line" })
