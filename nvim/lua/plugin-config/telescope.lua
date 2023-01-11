@@ -139,11 +139,6 @@ if ok then
     telescope.load_extension "projects"
 end
 
-local persisted_ok, _ = pcall(require, "persisted")
-if persisted_ok then
-    telescope.load_extension "persisted"
-end
-
 local dap_ok, _ = pcall(require, "dap")
 if dap_ok then
     telescope.load_extension "dap"

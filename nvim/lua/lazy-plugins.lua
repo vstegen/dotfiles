@@ -261,9 +261,10 @@ require("lazy").setup({
         end,
     },
     {
-        "olimorris/persisted.nvim",
+        "folke/persistence.nvim",
+        event = "BufReadPre",
         config = function()
-            require "plugin-config.persisted"
+            require "plugin-config.persistence"
         end,
     },
     {
