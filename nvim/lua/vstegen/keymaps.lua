@@ -25,8 +25,8 @@ map("i", '<C-r>"', '<C-r><C-o>"')
 -- Keep cursor at current position when appending line
 map("n", "J", "mzJ`z", { desc = "Append lower line" })
 
-map("n", "<C-w>s", ":split<cr>", { desc = "Create vertical window" })
-map("n", "<C-w>v", ":vsplit<cr>", { desc = "Create horizontal window" })
+map("n", "<C-w>s", ":split<cr>", { desc = "Create horizontal window" })
+map("n", "<C-w>v", ":vsplit<cr>", { desc = "Create vertical window" })
 
 -- Keep cursor in the middle of the screen
 map("n", "<C-d>", "<C-d>zz")
@@ -88,22 +88,6 @@ map("n", "L", "<cmd>bnext<cr>", { desc = "Next buffer" })
 
 map({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 map("n", "<leader>R", "<cmd>noh<cr><cmd>redraw<cr><c-l>", { desc = "Redraw and clear hlsearch" })
-map("n", "<leader>Tz", function()
-    vim.opt_local.lazyredraw = not vim.opt_local.lazyredraw:get()
-    if vim.opt_local.lazyredraw:get() then
-        Util.info "Enabled lazyredraw"
-    else
-        Util.info "Disabled lazyredraw"
-    end
-end, { desc = "Toggle lazyredraw" })
-map("n", "<leader>TZ", function()
-    vim.opt_local.wrap = not vim.opt_local.wrap:get()
-    if vim.opt_local.wrap:get() then
-        Util.info "Enabled wrap"
-    else
-        Util.info "Disabled wrap"
-    end
-end, { desc = "Toggle wrap" })
 
 -- Add semicolon at the end of the line
 map("n", "<leader>;", "A;<C-\\><C-N>", { desc = "Append ';' to line" })
@@ -200,169 +184,861 @@ if ufo_ok then
     end, { desc = "Peak fold" })
 end
 
---[[
-- toggle autoformat
+local n_mappings = {
+    ["/"] = {
+        function()
+            require("Comment.api").toggle.linewise.current()
+        end,
+        "Comment line",
+    },
+    ["."] = {
+        function()
+            require("plugin-config.telescope-config").project_files()
+        end,
+        "Find project files",
+    },
+    [","] = {
+        function()
+            require("telescope.builtin").buffers()
+        end,
+        "Buffers",
+    },
 
-Bufferline
-    -- absolute posiiton
-    require("bufferline").go_to_buffer(1, true)
-    -- relative position
-    require("bufferline").go_to_buffer(1)
+    e = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+    r = {
+        function()
+            require("telescope.builtin").live_grep()
+        end,
+        "Grep",
+    },
+    R = {
+        function()
+            require("telescope.builtin").current_buffer_fuzzy_find()
+        end,
+        "Grep in open file",
+    },
 
-    :BufferLineCycleNext
-    :BufferLineCyclePrev
+    b = {
+        name = "+buffer",
+        c = { "<cmd>BufferLinePickClose<CR>", "Close buffer" },
+        j = { "<cmd>BufferLinePick<cr>", "Jump to buffer" },
+        h = { "<cmd>BufferLineCloseLeft<cr>", "Close buffers to left" },
+        l = { "<cmd>BufferLineCloseRight<cr>", "Close buffers to right" },
+        q = { "<cmd>BufferLineCloseLeft<cr><cmd>BufferLineCloseRight<cr>", "Close all buffers" },
+    },
 
-    :BufferLineMoveNext
-    :BufferLineMovePrev
+    c = {
+        name = "+code",
+        c = {
+            function()
+                require("neogen").generate { type = "class" }
+            end,
+            "Generate doc for class",
+        },
+        d = {
+            function()
+                require("neogen").generate()
+            end,
+            "Generate doc",
+        },
+        f = {
+            function()
+                require("neogen").generate { type = "file" }
+            end,
+            "Generate doc for file",
+        },
+        n = {
+            function()
+                require("neogen").generate { type = "func" }
+            end,
+            "Generate doc for function",
+        },
+        t = {
+            function()
+                require("neogen").generate { type = "type" }
+            end,
+            "Generate doc for type",
+        },
+    },
 
-    :BufferLineSortByExtension<CR>
-    :BufferLineSortByDirectory<CR>
+    d = {
+        name = "+debug",
+        b = {
+            function()
+                require("dap").step_back()
+            end,
+            "Step Back",
+        },
+        c = {
+            function()
+                require("dap").continue()
+            end,
+            "Continue",
+        },
+        C = {
+            function()
+                require("telescope").extensions.dap.configurations {}
+            end,
+            "Config",
+        },
+        d = {
+            function()
+                require("dap").disconnect()
+            end,
+            "Disconnect",
+        },
+        f = {
+            function()
+                require("dapui").toggle()
+            end,
+            "Toggle DapUI",
+        },
+        F = {
+            function()
+                require("telescope").extensions.dap.frames {}
+            end,
+            "Frames",
+        },
+        g = {
+            function()
+                require("dap").session()
+            end,
+            "Get Session",
+        },
+        h = {
+            function()
+                require("telescope").extensions.dap.commands {}
+            end,
+            "Commands",
+        },
+        i = {
+            function()
+                require("dap").step_into()
+            end,
+            "Step Into",
+        },
+        l = {
+            function()
+                require("telescope").extensions.dap.list_breakpoints {}
+            end,
+            "List breakpoints",
+        },
+        o = {
+            function()
+                require("dap").step_over()
+            end,
+            "Step Over",
+        },
+        p = {
+            function()
+                require("dap").pause.toggle()
+            end,
+            "Pause",
+        },
+        r = {
+            function()
+                require("dap").repl.toggle()
+            end,
+            "Toggle Repl",
+        },
+        t = {
+            function()
+                require("dap").toggle_breakpoint()
+            end,
+            "Toggle Breakpoint",
+        },
+        T = {
+            function()
+                require("dap").run_to_cursor()
+            end,
+            "Run To Cursor",
+        },
+        u = {
+            function()
+                require("dap").step_out()
+            end,
+            "Step Out",
+        },
+        s = {
+            function()
+                require("dap").continue()
+            end,
+            "Start",
+        },
+        q = {
+            function()
+                require("dap").close()
+            end,
+            "Quit",
+        },
+        v = {
+            function()
+                require("telescope").extensions.dap.variables {}
+            end,
+            "Variables",
+        },
+    },
 
-git diffview
-    :DiffviewOpen
-    :DiffviewOpen HEAD~2
-    :DiffviewOpen HEAD~4..HEAD~2
-    :DiffviewOpen d4a7b0d
-    :DiffviewOpen d4a7b0d^!
-    :DiffviewOpen d4a7b0d..519b30e
-    :DiffviewOpen origin/main...HEAD
+    f = {
+        name = "+file",
+        f = {
+            function()
+                require("telescope.builtin").find_files()
+            end,
+            "Find file",
+        },
+        h = {
+            function()
+                require("telescope.builtin").find_files {
+                    hidden = true,
+                    prompt_title = "Find Hidden Files",
+                    file_ignore_patterns = { "^./.git/" },
+                }
+            end,
+            "Find (hidden) file",
+        },
+        p = {
+            function()
+                require("plugin-config.telescope-config").project_files()
+            end,
+            "Find project files",
+        },
+        b = {
+            function()
+                require("telescope.builtin").buffers()
+            end,
+            "Buffers",
+        },
+    },
 
-    :DiffviewFileHistory
-    :DiffviewRefresh
-    :DiffviewFocusFiles
-    :DiffviewToggleFiles
-    :DiffviewClose
-    
-Glow
-    :Glow
+    g = {
+        name = "+git",
+        b = {
+            function()
+                require("gitsigns").blame_line { full = true }
+            end,
+            "Blame line",
+        },
+        d = {
+            function()
+                require("gitsigns").diffthis()
+            end,
+            "Stage hunk",
+        },
+        D = {
+            function()
+                require("gitsigns").diffthis "~"
+            end,
+            "Stage buffer",
+        },
+        f = { "<cmd>DiffviewToggleFiles<cr>", "Toggle DiffView files" },
+        F = { "<cmd>DiffviewRefresh<cr>", "Refresh DiffView" },
+        j = {
+            function()
+                require("gitsigns").next_hunk()
+            end,
+            "Next hunk",
+        },
+        k = {
+            function()
+                require("gitsigns").prev_hunk()
+            end,
+            "Previous hunk",
+        },
+        o = { "<cmd>DiffviewOpen<cr>", "Open DiffView" },
+        p = {
+            function()
+                require("gitsigns").preview_hunk()
+            end,
+            "Preview hunk",
+        },
+        q = { "<cmd>DiffviewClose<cr>", "Close DiffView" },
+        r = {
+            function()
+                require("gitsigns").reset_hunk()
+            end,
+            "Reset hunk",
+        },
+        R = {
+            function()
+                require("gitsigns").reset_buffer()
+            end,
+            "Reset buffer",
+        },
+        s = {
+            function()
+                require("gitsigns").stage_hunk()
+            end,
+            "Stage hunk",
+        },
+        S = {
+            function()
+                require("gitsigns").stage_buffer()
+            end,
+            "Stage buffer",
+        },
+        u = {
+            function()
+                require("gitsigns").undo_stage_hunk()
+            end,
+            "Undo stage hunk",
+        },
+    },
 
-Harpoon
-    lua require("harpoon.term").sendCommand(1, "ls -La")    -- sends ls -La to tmux window 1
-    lua require("harpoon.term").gotoTerminal(1)             -- navigates to term 1
-    :lua require("harpoon.ui").nav_next()                   -- navigates to next mark
-    :lua require("harpoon.ui").nav_prev()                   -- navigates to previous mark
-    :lua require("harpoon.ui").toggle_quick_menu()
-    :lua require("harpoon.mark").add_file()
+    h = {
+        name = "+help",
+        a = {
+            function()
+                require("telescope.builtin").autocommands()
+            end,
+            "Autocommands",
+        },
+        c = { "<cmd>Telescope commands<cr>", "Commands" },
+        d = { "<cmd>Telescope help_tags<cr>", "Docs" },
+        f = {
+            function()
+                require("telescope.builtin").filetypes()
+            end,
+            "File types",
+        },
+        h = {
+            function()
+                require("telescope.builtin").highlights()
+            end,
+            "Highlights",
+        },
+        k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+        m = { "<cmd>Telescope man_pages<cr>", "Man pages" },
+        s = {
+            function()
+                require("telescope.builtin").spell_suggest()
+            end,
+            "Spelling",
+        },
+        t = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+        T = {
+            function()
+                require("telescope.builtin.internal").colorscheme { enable_preview = true }
+            end,
+            "Colorscheme with preview",
+        },
+    },
 
-Neogen
-    :Neogen / require('neogen').generate({ type = "func" -- the annotation type to generate. Currently supported: func, class, type, file })
+    j = {
+        name = "+jump (harpoon)",
+        j = {
+            function()
+                require("harpoon.ui").nav_file(1)
+            end,
+            "Go to file 1",
+        },
+        k = {
+            function()
+                require("harpoon.ui").nav_file(2)
+            end,
+            "Go to file 2",
+        },
+        l = {
+            function()
+                require("harpoon.ui").nav_file(3)
+            end,
+            "Go to file 3",
+        },
+        [";"] = {
+            function()
+                require("harpoon.ui").nav_file(4)
+            end,
+            "Go to file 4",
+        },
+        f = {
+            function()
+                require("harpoon.ui").nav_file(5)
+            end,
+            "Go to file 5",
+        },
+        d = {
+            function()
+                require("harpoon.ui").nav_file(6)
+            end,
+            "Go to file 6",
+        },
+        s = {
+            function()
+                require("harpoon.ui").nav_file(7)
+            end,
+            "Go to file 7",
+        },
+        a = {
+            function()
+                require("harpoon.ui").nav_file(8)
+            end,
+            "Go to file 8",
+        },
 
-Neotest
-    require("neotest").run.attach()
-    require("neotest").run.stop()
-    require("neotest").run.run({strategy = "dap"})
-    require("neotest").run.run(vim.fn.expand("%"))
-    require("neotest").run.run()
+        n = {
+            function()
+                require("harpoon.ui").nav_next()
+            end,
+            "Next file",
+        },
+        p = {
+            function()
+                require("harpoon.ui").nav_prev()
+            end,
+            "Previous file",
+        },
 
-      t = { "<cmd>lua require('neotest').run.run()<cr>", "Nearest" },
-      T = { "<cmd>lua require('neotest').run.run({strategy='dap'})<cr>", "Debug Nearest" },
+        -- terminal 1
+        r = {
+            function()
+                require("harpoon.term").gotoTerminal(1)
+            end,
+            "Go to terminal 1",
+        },
+        e = {
+            function()
+                require("harpoon.term").gotoTerminal(2)
+            end,
+            "Go to terminal 2",
+        },
+        w = {
+            function()
+                require("harpoon.term").gotoTerminal(3)
+            end,
+            "Go to terminal 3",
+        },
+        q = {
+            function()
+                require("harpoon.term").gotoTerminal(4)
+            end,
+            "Go to terminal 4",
+        },
 
-      l = { "<cmd>lua require('neotest').run.run_last()<cr>", "Last" },
-      L = { "<cmd>lua require('neotest').run.run_last({strategy='dap'})<cr>", "Debug Last" },
+        m = {
+            function()
+                require("harpoon.mark").add_file()
+            end,
+            "Add mark",
+        },
+        r = {
+            function()
+                require("harpoon.mark").rm_file()
+            end,
+            "Remove mark",
+        },
+        t = {
+            function()
+                require("harpoon.ui").toggle_quick_menu()
+            end,
+            "Toggle menu",
+        },
+    },
 
-      S = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
+    l = {
+        name = "+lsp",
+        a = {
+            function()
+                vim.lsp.buf.code_action()
+            end,
+            "Code action",
+        },
+        A = {
+            function()
+                vim.lsp.buf.range_code_action()
+            end,
+            "Code action (range)",
+        },
+        c = {
+            function()
+                vim.lsp.codelens.run()
+            end,
+            "Run codelens",
+        },
+        C = {
+            function()
+                vim.lsp.codelens.display()
+            end,
+            "Display codelenses",
+        },
+        d = {
+            function()
+                vim.diagnostic.open_float(
+                    0,
+                    { scope = "line", border = "single", style = "minimal", focussable = true }
+                )
+            end,
+            "Line diagnostic",
+        },
+        f = {
+            function()
+                vim.lsp.buf.format {
+                    filter = function(client)
+                        if vim.tbl_contains({ "tsserver", "jsonls", "gopls" }, client.name) then
+                            return false
+                        end
 
-      f = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "File" },
-      s = { "<cmd>lua require('neotest').run.run(vim.fn.getcwd())<cr>", "Suite" },
-      -- s = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), suite=true})", "Suite" },
+                        return true
+                    end,
+                }
+            end,
+            "Format",
+        },
+        i = { "<cmd>LspInfo<cr>", "Info" },
+        j = {
+            function()
+                vim.diagnostic.goto_next { float = { border = "single" } }
+            end,
+            "Next diagnostic",
+        },
+        k = {
+            function()
+                vim.diagnostic.goto_prev { float = { border = "single" } }
+            end,
+            "Prev diagnostic",
+        },
+        m = { "<cmd>Mason<cr>", "Mason installer" },
+        s = { "<cmd>LspRestart<cr>", "Restart LSP" },
+        r = {
+            function()
+                vim.lsp.buf.rename()
+            end,
+            "Rename",
+        },
+        w = {
+            name = "+workspace",
+            a = {
+                function()
+                    vim.lsp.buf.add_workspace_folder()
+                end,
+                "Add folder",
+            },
+            r = {
+                function()
+                    vim.lsp.buf.remove_workspace_folder()
+                end,
+                "Remove folder",
+            },
+            l = {
+                function()
+                    vim.lsp.buf.list_workspace_folder()
+                end,
+                "List folder",
+            },
+        },
+    },
 
-      g = { "<cmd>lua require('dap-go').debug_test()<cr>", "Nearest Go Test (Debug)" },
+    m = {
+        name = "+misc",
+        ["/"] = {
+            name = "+terminal",
+            s = { ":ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+            v = { ":ToggleTerm size=50 direction=vertical<cr>", "Vertical" },
+            f = { ":ToggleTerm size=40 direction=float<cr>", "Float" },
+            t = { ":ToggleTermToggleAll<cr>", "Toggle all" },
+        },
 
-      o = { "<cmd>lua require('neotest').output.open()<cr>", "Output" },
-      O = { "<cmd>lua require('neotest').output.open({enter=true})<cr>", "Output Enter" },
+        g = { "<cmd>Glow<cr>", "Glow" },
 
-      r = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Side View" },
+        r = { "<CMD>write <bar> edit <bar> TSBufEnable highlight<CR>", "Restart Treesitter highlight" },
+        t = {
+            name = "+toggle",
 
-      v = {
-        name = "VimTest",
+            b = {
+                function()
+                    require("gitsigns").toggle_current_line_blame()
+                end,
+                "Toggle git blame",
+            },
 
-        n = { "<cmd>TestNearest<cr>", "Nearest" },
-        f = { "<cmd>TestFile<cr>", "File" },
-        s = { "<cmd>TestSuite<cr>", "Suite" },
-        l = { "<cmd>TestLast<cr>", "Last" },
-        v = { "<cmd>TestVisit<cr>", "Visit" },
-      },
+            d = {
+                function()
+                    require("gitsigns").toggle_deleted()
+                end,
+                "Toggle git deleted",
+            },
 
-      vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>", {})
+            l = {
+                function()
+                    vim.opt_local.lazyredraw = not vim.opt_local.lazyredraw:get()
+                    if vim.opt_local.lazyredraw:get() then
+                        Util.info "Enabled lazyredraw"
+                    else
+                        Util.info "Disabled lazyredraw"
+                    end
+                end,
+                "Toggle lazyredraw",
+            },
 
-Nvimtree:
-    :NvimTreeToggle Open or close the tree. Takes an optional path argument.
-    :NvimTreeFocus Open the tree if it is closed, and then focus on the tree.
-    :NvimTreeFindFile Move the cursor in the tree for the current buffer, opening folders if needed.
-    :NvimTreeCollapse Collapses the nvim-tree recursively.
+            t = { "<cmd>Twilight<cr>", "Toggle Twilight" },
 
-Persisted:
-    :SessionToggle - Determines whether to load, start or stop a session
-    :SessionStart - Start recording a session. Useful if autosave = false
-    :SessionStop - Stop recording a session
-    :SessionSave - Save the current session
-    :SessionLoad - Load the session for the current directory and current branch if git_use_branch = true
-    :SessionLoadLast - Load the last session
-    :SessionDelete - Delete the current session
+            w = {
+                function()
+                    vim.opt_local.wrap = not vim.opt_local.wrap:get()
+                    if vim.opt_local.wrap:get() then
+                        Util.info "Enabled wrap"
+                    else
+                        Util.info "Disabled wrap"
+                    end
+                end,
+                "Toggle wrap",
+            },
 
-    :Telescope persisted
+            z = { "<cmd>ZenMode<cr>", "Toggle Zen" },
+        },
+    },
 
-Projects:
-    require'telescope'.extensions.projects.projects{}
+    o = {
+        name = "+open",
+    },
 
-Telescope:
-    builtin.git_commits	Lists git commits with diff preview, checkout action <cr>, reset mixed <C-r>m, reset soft <C-r>s and reset hard <C-r>h
-    builtin.git_bcommits	Lists buffer's git commits with diff preview and checks them out on <cr>
-    builtin.git_branches	Lists all branches with log preview, checkout action <cr>, track action <C-t> and rebase action<C-r>
-    builtin.git_status	Lists current changes per file with diff preview and add action. (Multi-selection still WIP)
-    builtin.git_stash	Lists stash items in current repository with ability to apply them on <cr>
+    p = {
+        name = "+plugins",
+        c = { "<cmd>Lazy check<cr>", "Check updates" },
+        C = { "<cmd>Lazy clean<cr>", "Clean plugins" },
+        d = { "<cmd>Lazy debug<cr>", "Debug plugins" },
+        i = { "<cmd>Lazy install<cr>", "Install plugin" },
+        h = { "<cmd>Lazy help<cr>", "Help" },
+        l = { "<cmd>Lazy load", "Load plugin" },
+        s = { "<cmd>Lazy sync<cr>", "Sync plugins" },
+        u = { "<cmd>Lazy update<cr>", "Update plugins" },
+        p = { "<cmd>Lazy profile<cr>", "Profile plugins" },
+        r = { "<cmd>Lazy restore<cr>", "Restore state" },
+    },
 
-    builtin.lsp_references	Lists LSP references for word under the cursor
-    builtin.lsp_incoming_calls	Lists LSP incoming calls for word under the cursor
-    builtin.lsp_outgoing_calls	Lists LSP outgoing calls for word under the cursor
-    builtin.lsp_document_symbols	Lists LSP document symbols in the current buffer
-    builtin.lsp_workspace_symbols	Lists LSP document symbols in the current workspace
-    builtin.lsp_dynamic_workspace_symbols	Dynamically Lists LSP for all workspace symbols
-    builtin.diagnostics	Lists Diagnostics for all open buffers or a specific buffer. Use option bufnr=0 for current buffer.
-    builtin.lsp_implementations	Goto the implementation of the word under the cursor if there's only one, otherwise show all options in Telescope
-    builtin.lsp_definitions	Goto the definition of the word under the cursor, if there's only one, otherwise show all options in Telescope
-    builtin.lsp_type_definitions	Goto the definition of the type of the word under the cursor, if there's only one, otherwise show all options in Telescope
+    q = {
+        name = "+quit/session",
+        q = { "<cmd>q!<CR>", "Quit" },
+        Q = { "<cmd>qa!<CR>", "Quit all without saving" },
 
-    builtin.buffers	Lists open buffers in current neovim instance
-    builtin.oldfiles	Lists previously open files
-    builtin.commands	Lists available plugin/user commands and runs them on <cr>
-    builtin.tags	Lists tags in current directory with tag location file preview (users are required to run ctags -R to generate tags or update when introducing new changes)
-    builtin.command_history	Lists commands that were executed recently, and reruns them on <cr>
-    builtin.search_history	Lists searches that were executed recently, and reruns them on <cr>
-    builtin.help_tags	Lists available help tags and opens a new window with the relevant help info on <cr>
-    builtin.man_pages	Lists manpage entries, opens them in a help window on <cr>
-    builtin.marks	Lists vim marks and their value
-    builtin.colorscheme	Lists available colorschemes and applies them on <cr>
-    builtin.quickfix	Lists items in the quickfix list
-    builtin.quickfixhistory	Lists all quickfix lists in your history and open them with builtin.quickfix or quickfix window
-    builtin.loclist	Lists items from the current window's location list
-    builtin.jumplist	Lists Jump List entries
-    builtin.vim_options	Lists vim options, allows you to edit the current value on <cr>
-    builtin.registers	Lists vim registers, pastes the contents of the register on <cr>
-    builtin.autocommands	Lists vim autocommands and goes to their declaration on <cr>
-    builtin.spell_suggest	Lists spelling suggestions for the current word under the cursor, replaces word with selected suggestion on <cr>
-    builtin.keymaps	Lists normal mode keymappings
-    builtin.filetypes	Lists all available filetypes
-    builtin.highlights	Lists all available highlights
-    builtin.current_buffer_fuzzy_find	Live fuzzy search inside of the currently open buffer
-    builtin.current_buffer_tags	Lists all of the tags for the currently open buffer, with a preview
-    builtin.resume	Lists the results incl. multi-selections of the previous picker
-    builtin.pickers	Lists the previous pickers incl. multi-selections (see :h telescope.defaults.cache_picker)
+        d = {
+            function()
+                require("persistence").stop()
+            end,
+            "Do not save current session",
+        },
+        l = {
+            function()
+                require("persistence").load { last = true }
+            end,
+            "Restore last session",
+        },
+        s = {
+            function()
+                require("persistence").load()
+            end,
+            "Restore session",
+        },
+    },
 
-    builtin.find_files	Lists files in your current working directory, respects .gitignore
-    builtin.git_files	Fuzzy search through the output of git ls-files command, respects .gitignore
-    builtin.grep_string	Searches for the string under your cursor in your current working directory
-    builtin.live_grep	Search for a string in your current working directory and get results live as you type, respects .gitignore. (Requires ripgrep)
+    s = {
+        name = "+search",
+        b = { "<cmd>Telescope git_branches<cr>", "Git branch" },
+        c = { "<cmd>Telescope git_commits<cr>", "Git commits" },
+        C = { "<cmd>Telescope git_bcommits<cr>", "Git commits for current file" },
+        g = { "<cmd>Telescope git_status<cr>", "Git changes files" },
+        d = {
+            function()
+                require("telescope.builtin").diagnostics { bufnr = 0 }
+            end,
+            "Diagnostics (document)",
+        },
+        D = {
+            function()
+                require("telescope.builtin").diagnostics { bufnr = nil }
+            end,
+            "Diagnostics (all)",
+        },
+        e = { "<cmd>Telescope file_browser<cr><esc>", "File explorer" },
 
-Toogleterm:
+        f = {
+            function()
+                require("telescope.builtin").find_files()
+            end,
+            "Find file",
+        },
+        h = {
+            function()
+                require("telescope.builtin").find_files {
+                    hidden = true,
+                    prompt_title = "Find Hidden Files",
+                    file_ignore_patterns = { "^./.git/" },
+                }
+            end,
+            "Find (hidden) file",
+        },
+        l = {
+            function()
+                require("telescope.builtin").loclist()
+            end,
+            "Loglist",
+        },
+        m = {
+            "<cmd>Telescope harpoon marks",
+            "Marks (harpoon)",
+        },
+        p = { "<cmd>Telescope projects<cr>", "Projects" },
+        q = {
+            function()
+                require("telescope.builtin").quickfix()
+            end,
+            "Quickfix",
+        },
+        r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
+        R = { "<cmd>Telescope registers<cr>", "Registers" },
+        s = {
+            function()
+                require("telescope.builtin").lsp_document_symbols()
+            end,
+            "Symbols in documents)",
+        },
+        S = {
+            function()
+                require("telescope.builtin").lsp_workspace_symbols()
+            end,
+            "Symbols in workspace",
+        },
+        t = { "<cmd>TodoTelescope<cr>", "Todos" },
+        T = {
+            function()
+                require("telescope.builtin").tags()
+            end,
+            "Tags",
+        },
+    },
 
-Twilight
-Zenmode
+    t = {
+        name = "+testing",
+        p = {
+            function()
+                require("neotest").run.stop()
+            end,
+            "Stop test",
+        },
+        v = {
+            function()
+                require("neotest").summary.toggle()
+            end,
+            "Summary in side view",
+        },
+        o = {
+            function()
+                require("neotest").output.open()
+            end,
+            "Open output",
+        },
+        O = {
+            function()
+                require("neotest").output.open { enter = true }
+            end,
+            "Open output with enter",
+        },
+        f = {
+            function()
+                require("neotest").run.run { vim.fn.expand "%" }
+            end,
+            "Run file tests",
+        },
+        g = {
+            function()
+                require("dap-go").debug_test()
+            end,
+            "Debug nearest Go test",
+        },
+        s = {
+            function()
+                require("neotest").run.run { vim.fn.getcwd() }
+            end,
+            "Run suite",
+        },
+        t = {
+            function()
+                require("neotest").run.run()
+            end,
+            "Run nearest test",
+        },
+        l = {
+            function()
+                require("neotest").run.run_last()
+            end,
+            "Run last test",
+        },
+        d = {
+            function()
+                require("neotest").run.run { strategy = "dap" }
+            end,
+            "Debug nearest test",
+        },
+        D = {
+            function()
+                require("neotest").run.run_last { strategy = "dap" }
+            end,
+            "Debug last test",
+        },
 
-Treesitter
-    :TSBufEnable {module} " enable module on current buffer
-    :TSBufDisable {module} " disable module on current buffer
-    :TSEnable {module} [{ft}] " enable module on every buffer. If filetype is specified, enable only for this filetype.
-    :TSDisable {module} [{ft}] " disable module on every buffer. If filetype is specified, disable only for this filetype.
-    :TSModuleInfo [{module}] " list information about modules state for each filetype
-]]
+        a = {
+            name = "+alternative (VimTest)",
+            n = { "<cmd>TestNearest<cr>", "Run nearest" },
+            f = { "<cmd>TestFile<cr>", "Run file" },
+            s = { "<cmd>TestSuite<cr>", "Run suite" },
+            l = { "<cmd>TestLast<cr>", "Run last" },
+            v = { "<cmd>TestVisit<cr>", "Visit" },
+        },
+    },
+
+    w = {
+        name = "+window",
+        h = { "<C-w>h", "Go to left window" },
+        j = { "<C-w>j", "Go to lower window" },
+        k = { "<C-w>k", "Go to upper window" },
+        l = { "<C-w>l", "Go to right window" },
+        s = { "<C-w>s", "Horizontal split" },
+        v = { "<C-w>v", "Vertical split" },
+    },
+
+    x = {
+        name = "+diagnostics",
+        d = { "<cmd>Trouble lsp_document_diagnostics<CR>", "Trouble document diagnostics" },
+        l = { "<cmd>Trouble loclist<CR>", "Trouble Loclist" },
+        q = { "<cmd>Trouble quickfix<CR>", "Trouble Quickfix" },
+        r = { "<cmd>Trouble lsp_references<CR>", "Trouble LSP References" },
+        w = { "<cmd>Trouble lsp_workspace_diagnostics<CR>", "Trouble workspace diagnostics" },
+        x = { "<cmd>Trouble<CR>", "Trouble" },
+    },
+
+    ["<tab>"] = {
+        name = "+tabs",
+    },
+}
+
+local v_mappings = {
+    ["/"] = {
+        function()
+            vim.api.nvim_feedkeys(esc, "nx", false)
+            require("Comment.api").toggle.blockwise(vim.fn.visualmode())
+        end,
+    },
+    r = {
+        function()
+            require("gitsigns").reset_hunk()
+        end,
+        "Reset hunk",
+    },
+    s = {
+        function()
+            require("gitsigns").stage_hunk()
+        end,
+        "Stage hunk",
+    },
+    a = {
+        function()
+            vim.lsp.buf.code_action()
+        end,
+        "Code action",
+    },
+    A = {
+        function()
+            vim.lsp.buf.range_code_action()
+        end,
+        "Code action (range)",
+    },
+}

@@ -44,26 +44,24 @@ local mappings = {
 
     ["n"] = {
         ["w"] = { "<cmd>w!<CR>", "Save" },
-        ["q"] = { "<cmd>q!<CR>", "Quit" },
-        ["Q"] = { "<cmd>qa!<CR>", "Quit All" },
+        ["q"] = { "<cmd>q!<CR>", "Quit" }, -- DONE
+        ["Q"] = { "<cmd>qa!<CR>", "Quit All" }, -- DONE
 
-        ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Comment" },
+        ["/"] = { "<cmd>lua require('Comment.api').toggle.linewise.current()<CR>", "Comment" }, -- DONE
 
-        ["c"] = { "<cmd>BufferLinePickClose<CR>", "Pick Closing Buffer" },
+        ["c"] = { "<cmd>BufferLinePickClose<CR>", "Pick Closing Buffer" }, -- DONE
 
-        ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+        ["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" }, -- DONE
 
-        ["f"] = { "<cmd>lua require('plugin-config.telescope-config').project_files()<cr>", "Find Project File" },
-        ["r"] = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep" },
-        ["R"] = { "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", "Grep Open" },
-        -- ["R"] = { "<cmd>lua require('telescope.builtin').live_grep({grep_open_files=true})<cr>", "Grep Open" },
-        --[[ ["f"] = { "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", "Find File (Frequency)" }, ]]
-        ["b"] = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Open Files" },
+        ["f"] = { "<cmd>lua require('plugin-config.telescope-config').project_files()<cr>", "Find Project File" }, -- DONE
+        ["r"] = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Grep" }, -- DONE
+        ["R"] = { "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>", "Grep Open" }, -- DONE
+        ["b"] = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Open Files" }, -- DONE
 
         ["H"] = { '<cmd>let @/=""<CR>', "No Highlight" },
         ["`"] = { "<cmd>b#<cr>", "Go to last Buffer" },
 
-        B = {
+        B = { -- DONE
             name = "Buffers",
 
             j = { "<cmd>BufferLinePick<cr>", "Jump to Buffer" },
@@ -74,7 +72,7 @@ local mappings = {
             l = { "<cmd>BufferLineCloseRight<cr>", "Close Right Buffers" },
         },
 
-        d = {
+        d = { -- DONE
             name = "Debug",
             t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
             b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
@@ -101,34 +99,35 @@ local mappings = {
             },
         },
 
-        g = {
+        g = { -- DONE
             name = "Git",
-            j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
-            k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
-            l = { "<cmd>lua require 'gitsigns'.blame_line({full=true})<cr>", "Blame" },
-            L = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle Blame Line" },
-            p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
-            r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
-            R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
-            s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
-            S = { "<cmd>lua require 'gitsigns'.stage_buffer()<cr>", "Stage Buffer" },
-            u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" },
+            j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" }, -- DONE
+            k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" }, -- DONE
 
-            d = { "<cmd>lua require 'gitsigns'.diffthis()<cr>", "Diff" },
-            D = { "<cmd>lua require 'gitsigns'.diffthis('~')<cr>", "Diff ~" },
+            l = { "<cmd>lua require 'gitsigns'.blame_line({full=true})<cr>", "Blame" }, -- DONE
+            L = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "Toggle Blame Line" }, -- DONE
+            p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" }, -- DONE
+            r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" }, -- DONE
+            R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" }, -- DONE
+            s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" }, -- DONE
+            S = { "<cmd>lua require 'gitsigns'.stage_buffer()<cr>", "Stage Buffer" }, -- DONE
+            u = { "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>", "Undo Stage Hunk" }, -- DONE
 
-            o = { "<cmd>Telescope git_status<cr>", "Open Changed File" },
-            b = { "<cmd>Telescope git_branches<cr>", "Checkout Branch" },
-            c = { "<cmd>Telescope git_commits<cr>", "Checkout Commit" },
-            C = { "<cmd>Telescope git_bcommits<cr>", "Checkout Commit (Current File)" },
+            d = { "<cmd>lua require 'gitsigns'.diffthis()<cr>", "Diff" }, -- DONE
+            D = { "<cmd>lua require 'gitsigns'.diffthis('~')<cr>", "Diff ~" }, -- DONE
 
-            v = { "<cmd>DiffviewOpen<cr>", "Open DiffView" },
-            V = { "<cmd>DiffviewClose<cr>", "Close DiffView" },
-            f = { "<cmd>DiffviewToggleFiles<cr>", "Toggle Files" },
-            F = { "<cmd>DiffviewRefresh<cr>", "Refresh DiffView" },
+            o = { "<cmd>Telescope git_status<cr>", "Open Changed File" }, -- DONE
+            b = { "<cmd>Telescope git_branches<cr>", "Checkout Branch" }, -- DONE
+            c = { "<cmd>Telescope git_commits<cr>", "Checkout Commit" }, -- DONE
+            C = { "<cmd>Telescope git_bcommits<cr>", "Checkout Commit (Current File)" }, -- DONE
+
+            v = { "<cmd>DiffviewOpen<cr>", "Open DiffView" }, -- DONE
+            V = { "<cmd>DiffviewClose<cr>", "Close DiffView" }, -- DONE
+            f = { "<cmd>DiffviewToggleFiles<cr>", "Toggle Files" }, -- DONE
+            F = { "<cmd>DiffviewRefresh<cr>", "Refresh DiffView" }, -- DONE
         },
 
-        ["h"] = {
+        ["h"] = { -- DONE
             name = "Harpoon",
 
             ["1"] = { '<cmd>lua require("harpoon.ui").nav_file(1)<cr>', "Go to Harpoon 1" },
@@ -147,59 +146,58 @@ local mappings = {
             ["f"] = { '<cmd>lua require("harpoon.ui").toggle_quick_menu()<cr>', "Menu" },
         },
 
-        l = {
+        l = { -- DONE
             name = "LSP",
-            a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
-            A = { "<cmd>lua vim.lsp.buf.range_code_action()<cr>", "Range Code Action" },
+            a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" }, -- DONE
+            A = { "<cmd>lua vim.lsp.buf.range_code_action()<cr>", "Range Code Action" }, -- DONE
 
-            c = { "<cmd>lua vim.lsp.codelens.run()<cr>", "Run Codelens" },
-            C = { "<cmd>lua vim.lsp.codelens.display()<cr>", "Display Codelenses" },
+            c = { "<cmd>lua vim.lsp.codelens.run()<cr>", "Run Codelens" }, -- DONE
+            C = { "<cmd>lua vim.lsp.codelens.display()<cr>", "Display Codelenses" }, -- DONE
 
-            -- d = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Document Diagnostics" },
-            d = { "<cmd>lua require 'telescope.builtin'.diagnostics({bufnr=0})<cr>", "Document Diagnostics" },
-            D = { "<cmd>lua require 'telescope.builtin'.diagnostics({bufnr=nil})<cr>", "All Diagnostics" },
+            d = { "<cmd>lua require 'telescope.builtin'.diagnostics({bufnr=0})<cr>", "Document Diagnostics" }, -- DONE
+            D = { "<cmd>lua require 'telescope.builtin'.diagnostics({bufnr=nil})<cr>", "All Diagnostics" }, -- DONE
 
             e = {
                 "<cmd>lua vim.diagnostic.open_float(0, { scope = 'line', border='single', style='minimal', focussable=true })<cr>",
                 "Line Diagnostic",
-            },
+            }, -- DONE
 
-            f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
-            i = { "<cmd>LspInfo<cr>", "Info" },
+            f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" }, -- DONE
+            i = { "<cmd>LspInfo<cr>", "Info" }, -- DONE
 
-            j = { "<cmd>lua vim.diagnostic.goto_next({float = {border = 'single'}})<cr>", "Next Diagnostic" },
-            k = { "<cmd>lua vim.diagnostic.goto_prev({float = {border = 'single'}})<cr>", "Prev Diagnostic" },
+            j = { "<cmd>lua vim.diagnostic.goto_next({float = {border = 'single'}})<cr>", "Next Diagnostic" }, -- DONE
+            k = { "<cmd>lua vim.diagnostic.goto_prev({float = {border = 'single'}})<cr>", "Prev Diagnostic" }, -- DONE
 
-            q = { "<cmd>lua require 'telescope.builtin'.quickfix()<cr>", "Quickfix" },
-            r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+            q = { "<cmd>lua require 'telescope.builtin'.quickfix()<cr>", "Quickfix" }, -- DONE
+            r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" }, -- DONE
 
-            s = { "<cmd>lua require 'telescope.builtin'.lsp_document_symbols()<cr>", "Document Symbols" },
-            S = { "<cmd>lua require 'telescope.builtin'.lsp_dynamic_workspace_symbols()<cr>", "Workspace Symbols" },
+            s = { "<cmd>lua require 'telescope.builtin'.lsp_document_symbols()<cr>", "Document Symbols" }, -- DONE
+            S = { "<cmd>lua require 'telescope.builtin'.lsp_dynamic_workspace_symbols()<cr>", "Workspace Symbols" }, -- DONE
 
-            W = {
+            W = { -- DONE
                 name = "Workspace",
                 a = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add WS Folder" },
                 r = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", "Remove WS Folder" },
                 l = { "<cmd>lua vim.lsp.buf.list_workspace_folder()<cr>", "List WS Folder" },
             },
 
-            m = {
+            m = { -- DONE
                 name = "Misc",
-                l = { "<cmd>Mason<cr>", "Mason Installer" },
+                l = { "<cmd>Mason<cr>", "Mason Installer" }, -- DONE
                 h = { "<cmd>MasonLog<cr>", "Mason Log" },
                 u = { "<cmd>MasonUninstallAll<cr>", "Mason Uninstall All" },
 
                 s = { "<cmd>LspStart<cr>", "Start" },
-                t = { "<cmd>LspRestart<cr>", "Restart" },
+                t = { "<cmd>LspRestart<cr>", "Restart" }, -- DONE
             },
         },
 
-        m = {
+        m = { -- DONE
             name = "Misc",
 
-            g = { "<cmd>Glow<cr>", "Glow" },
+            g = { "<cmd>Glow<cr>", "Glow" }, -- DONE
 
-            p = {
+            p = { -- DONE
                 name = "Lazy",
                 c = { "<cmd>Lazy check<cr>", "Check" },
                 C = { "<cmd>Lazy clean<cr>", "Clean" },
@@ -213,7 +211,7 @@ local mappings = {
                 r = { "<cmd>Lazy restore<cr>", "Restore" },
             },
 
-            ["/"] = {
+            ["/"] = { -- DONE
                 name = "Terminal",
                 s = { ":ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
                 v = { ":ToggleTerm size=50 direction=vertical<cr>", "Vertical" },
@@ -221,25 +219,25 @@ local mappings = {
                 t = { ":ToggleTermToggleAll<cr>", "Toggle" },
             },
 
-            t = {
+            t = { -- DONE
                 name = "Todo",
-                t = { "<cmd>TodoTelescope<cr>", "Open in Telescope" },
-                q = { "<cmd>TodoQuickfixList<cr>", "Open in Quickfix" },
-                l = { "<cmd>TodoLocationList<cr>", "Open in Location" },
+                t = { "<cmd>TodoTelescope<cr>", "Open in Telescope" }, -- DONE
+                q = { "<cmd>TodoQuickFix<cr>", "Open in Quickfix" },
+                q = { "<cmd>TodoLocList<cr>", "Open in Loclist" },
                 x = { "<cmd>TodoTrouble<cr>", "Open in Trouble" },
             },
 
-            T = {
+            T = { -- DONE
                 name = "Treesitter",
                 i = { ":TSConfigInfo<cr>", "Info" },
-                s = { "<CMD>write <bar> edit <bar> TSBufEnable highlight<CR>", "Restart" },
+                s = { "<CMD>write <bar> edit <bar> TSBufEnable highlight<CR>", "Restart" }, -- DONE
             },
 
-            z = { "<cmd>ZenMode<cr>", "Zen" },
-            Z = { "<cmd>Twilight<cr>", "Twilight" },
+            z = { "<cmd>ZenMode<cr>", "Zen" }, -- DONE
+            Z = { "<cmd>Twilight<cr>", "Twilight" }, -- DONE
         },
 
-        n = {
+        n = { -- DONE
             name = "Neogen",
             f = { "<cmd>lua require'neogen'.generate({type='file'})<cr>", "file" },
             c = { "<cmd>lua require'neogen'.generate({type='class'})<cr>", "Class" },
@@ -247,39 +245,37 @@ local mappings = {
             n = { "<cmd>lua require'neogen'.generate({type='func'})<cr>", "Func" },
         },
 
-        s = {
+        s = { -- DONE
             name = "Search",
-            b = { "<cmd>Telescope file_browser<cr><esc>", "File Browser" },
-            B = { "--[[ < ]]cmd>Telescope git_branches<cr>", "Checkout branch" },
+            b = { "<cmd>Telescope file_browser<cr><esc>", "File Browser" }, -- DONE
+            B = { "<cmd>Telescope git_branches<cr>", "Checkout branch" }, -- DONE
 
-            c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
-            C = { "<cmd>Telescope commands<cr>", "Commands" },
+            c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" }, -- DONE
+            C = { "<cmd>Telescope commands<cr>", "Commands" }, -- DONE
 
-            f = { "<cmd>Telescope find_files<cr>", "Find File" },
+            f = { "<cmd>Telescope find_files<cr>", "Find File" }, -- DONE
             F = {
                 "<cmd>lua require('telescope.builtin').find_files({hidden = true, prompt_title = 'Find Hidden Files', file_ignore_patterns = {'^./.git/'}})<cr>",
                 "File Browser Hidden",
-            },
-            h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
-            k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
-            l = { "<cmd>lua require 'telescope.builtin'.loclist()<cr>", "Loglist" },
-            m = { "<cmd>Telescope harpoon marks<cr>", "Marks" },
-            M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-            n = { "<cmd>Noice telescope<cr>", "Noice" },
-            p = { "<cmd>Telescope projects<cr>", "Projects" },
+            }, -- DONE
+            h = { "<cmd>Telescope help_tags<cr>", "Find Help" }, -- DONE
+            k = { "<cmd>Telescope keymaps<cr>", "Keymaps" }, -- DONE
+            l = { "<cmd>lua require 'telescope.builtin'.loclist()<cr>", "Loglist" }, -- DONE
+            m = { "<cmd>Telescope harpoon marks<cr>", "Marks" }, -- DONE
+            M = { "<cmd>Telescope man_pages<cr>", "Man Pages" }, -- DONE
+            p = { "<cmd>Telescope projects<cr>", "Projects" }, -- DONE
             P = {
                 "<cmd>lua require('telescope.builtin.internal').colorscheme({enable_preview = true})<cr>",
                 "Colorscheme with Preview",
-            },
-            q = { "<cmd>Telescope quickfix<cr>", "Quickfix" },
-            r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
-            R = { "<cmd>Telescope registers<cr>", "Registers" },
+            }, -- DONE
+            q = { "<cmd>Telescope quickfix<cr>", "Quickfix" }, -- DONE
+            r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" }, -- DONE
+            R = { "<cmd>Telescope registers<cr>", "Registers" }, -- DONE
 
-            s = { "<cmd>lua require 'telescope.builtin'.lsp_document_symbols()<cr>", "Document Symbols" },
-            S = { "<cmd>lua require 'telescope.builtin'.lsp_dynamic_workspace_symbols()<cr>", "Workspace Symbols" },
+            s = { "<cmd>lua require 'telescope.builtin'.lsp_document_symbols()<cr>", "Document Symbols" }, -- DONE
+            S = { "<cmd>lua require 'telescope.builtin'.lsp_dynamic_workspace_symbols()<cr>", "Workspace Symbols" }, -- DONE
 
-            t = { "<Cmd>lua require('telescope').extensions.frecency.frecency()<CR>", "Find File (Frequency)" },
-            T = { "<cmd>lua require 'telescope.builtin'.tags()<cr>", "Tags" },
+            T = { "<cmd>lua require 'telescope.builtin'.tags()<cr>", "Tags" }, -- DONE
         },
 
         t = {
@@ -315,14 +311,14 @@ local mappings = {
             },
         },
 
-        T = {
+        T = { -- DONE
             name = "Trouble",
-            x = { "<cmd>TroubleToggle<CR>", "Toggle Trouble" },
-            w = { "<cmd>TroubleToggle lsp_workspace_diagnostics<CR>", "Toggle Workspace Diagnostics" },
-            d = { "<cmd>TroubleToggle lsp_document_diagnostics<CR>", "Toggle Document Diagnostics" },
-            q = { "<cmd>TroubleToggle quickfix<CR>", "Toggle Quickfix" },
-            l = { "<cmd>Toggle loclist<CR>", "Toggle Loclist" },
-            r = { "<cmd>Toggle lsp_references<CR>", "Toggle LspReferences" },
+            x = { "<cmd>TroubleToggle<CR>", "Toggle Trouble" }, -- DONE
+            w = { "<cmd>TroubleToggle lsp_workspace_diagnostics<CR>", "Toggle Workspace Diagnostics" }, -- DONE
+            d = { "<cmd>TroubleToggle lsp_document_diagnostics<CR>", "Toggle Document Diagnostics" }, -- DONE
+            q = { "<cmd>TroubleToggle quickfix<CR>", "Toggle Quickfix" }, -- DONE
+            l = { "<cmd>Toggle loclist<CR>", "Toggle Loclist" }, -- DONE
+            r = { "<cmd>Toggle lsp_references<CR>", "Toggle LspReferences" }, -- DONE
         },
     },
 }
