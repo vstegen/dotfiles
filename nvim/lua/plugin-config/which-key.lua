@@ -73,6 +73,15 @@ local n_mappings = {
         h = { "<cmd>BufferLineCloseLeft<cr>", "Close buffers to left" },
         l = { "<cmd>BufferLineCloseRight<cr>", "Close buffers to right" },
         q = { "<cmd>BufferLineCloseLeft<cr><cmd>BufferLineCloseRight<cr>", "Close all buffers" },
+
+        n = { "<cmd>BufferLineCycleNext", "Next buffer" },
+        p = { "<cmd>BufferLineCyclePrev", "Previous buffer" },
+
+        ["1"] = { "<Cmd>BufferLineGoToBuffer 1<CR>", "Go to buffer 1" },
+        ["2"] = { "<Cmd>BufferLineGoToBuffer 2<CR>", "Go to buffer 2" },
+        ["3"] = { "<Cmd>BufferLineGoToBuffer 3<CR>", "Go to buffer 3" },
+        ["4"] = { "<Cmd>BufferLineGoToBuffer 4<CR>", "Go to buffer 4" },
+        ["5"] = { "<Cmd>BufferLineGoToBuffer 5<CR>", "Go to buffer 5" },
     },
 
     c = {
@@ -375,6 +384,12 @@ local n_mappings = {
             end,
             "Colorscheme with preview",
         },
+        v = {
+            function()
+                require("telescope.builtin").vim_options()
+            end,
+            "Vim options",
+        },
     },
 
     j = {
@@ -570,6 +585,34 @@ local n_mappings = {
                 "List folder",
             },
         },
+
+        t = {
+            name = "+telescope",
+            d = {
+                function()
+                    require("telescope.builtin").lsp_definitions()
+                end,
+                "Lsp definitions",
+            },
+            i = {
+                function()
+                    require("telescope.builtin").lsp_implementations()
+                end,
+                "Lsp implementations",
+            },
+            r = {
+                function()
+                    require("telescope.builtin").lsp_references()
+                end,
+                "Lsp references",
+            },
+            t = {
+                function()
+                    require("telescope.builtin").lsp_type_definitions()
+                end,
+                "Lsp type definitions",
+            },
+        },
     },
 
     m = {
@@ -719,6 +762,12 @@ local n_mappings = {
                     prompt_title = "Find Hidden Files",
                     file_ignore_patterns = { "^./.git/" },
                 }
+            end,
+            "Find (hidden) file",
+        },
+        H = {
+            function()
+                require("telescope.builtin").command_history()
             end,
             "Find (hidden) file",
         },
