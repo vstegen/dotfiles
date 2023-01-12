@@ -1,5 +1,7 @@
 local define_autocmd = require("vstegen.utils").define_autocmd
 
+require("vstegen.utils").enable_format_on_save()
+
 local commands = {
     {
         "TextYankPost",

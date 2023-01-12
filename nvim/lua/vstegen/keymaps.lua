@@ -757,6 +757,13 @@ local n_mappings = {
                 "Toggle git deleted",
             },
 
+            f = {
+                function()
+                    require("vstegen.utils").toggle_format_on_save()
+                end,
+                "Toggle formatting"
+            },
+
             l = {
                 function()
                     vim.opt_local.lazyredraw = not vim.opt_local.lazyredraw:get()

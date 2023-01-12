@@ -1,3 +1,5 @@
+local Util = require "lazy.core.util"
+
 local M = {}
 
 M.define_autocmd = function(definition)
@@ -54,6 +56,53 @@ function M.get_root()
     end
     ---@cast root string
     return root
+end
+
+function M.enable_format_on_save()
+    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+    vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        callback = function()
+            vim.lsp.buf.format {
+            filter = function(client)
+                local ft = vim.bo.filetype
+                local null_ls_sources = require "null-ls.sources"
+                local null_ls= require "null-ls"
+                local available_formatters = null_ls_sources.get_available(ft, null_ls.methods.FORMATTING)
+
+                if #available_formatters > 0 then
+                    return client.name == "null-ls"
+                elseif client.supports_method "textDocument/formatting" then
+                    return true
+                end
+
+                return false
+            end
+        }
+        end,
+    })
+    Util.info "Enabled auto format"
+end
+
+function M.disable_format_on_save()
+    vim.schedule(function()
+        pcall(function()
+            vim.api.nvim_clear_autocmds { group = "LspFormatting" }
+            Util.info "Disabled auto format"
+        end)
+    end)
+end
+
+function M.toggle_format_on_save()
+    local ok, autocmds = pcall(vim.api.nvim_get_autocmds, {
+        group = "LspFormatting",
+        event = "BufWritePre",
+    })
+    if not ok or #autocmds == 0 then
+        M.enable_format_on_save()
+    else
+        M.disable_format_on_save()
+    end
 end
 
 return M

@@ -163,6 +163,12 @@ local mappings = {
             }, -- DONE
 
             f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" }, -- DONE
+            F = {
+                function()
+                    require("vstegen.utils").toggle_format_on_save()
+                end,
+                "Toggle formatting",
+            },
             i = { "<cmd>LspInfo<cr>", "Info" }, -- DONE
 
             j = { "<cmd>lua vim.diagnostic.goto_next({float = {border = 'single'}})<cr>", "Next Diagnostic" }, -- DONE
