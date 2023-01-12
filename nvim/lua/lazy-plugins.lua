@@ -89,9 +89,9 @@ require("lazy").setup({
         config = function()
             require "plugin-config.treesitter"
         end,
-        -- build = function()
-        --   pcall(require("nvim-treesitter.install").update { with_sync = true })
-        -- end,
+        build = function()
+            pcall(require("nvim-treesitter.install").update { with_sync = true })
+        end,
     },
     { "nvim-treesitter/nvim-treesitter-textobjects" },
     { "RRethy/nvim-treesitter-textsubjects" },
