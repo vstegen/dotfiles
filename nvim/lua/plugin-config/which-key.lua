@@ -244,6 +244,12 @@ local n_mappings = {
             end,
             "Find file",
         },
+        s = {
+            function()
+                require("plugin-config.telescope-config").project_files()
+            end,
+            "Find project file",
+        },
         h = {
             function()
                 require("telescope.builtin").find_files {
