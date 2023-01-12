@@ -122,9 +122,9 @@ local config = {
                 ["n"] = {},
             },
         },
-        ["ui-select"] = {
+        --[[ ["ui-select"] = {
             require("telescope.themes").get_cursor {},
-        },
+        }, ]]
     },
 }
 
@@ -132,7 +132,7 @@ telescope.setup(config)
 
 telescope.load_extension "fzf"
 telescope.load_extension "file_browser"
-telescope.load_extension "ui-select"
+-- telescope.load_extension "ui-select"
 
 local ok, _ = pcall(require, "project_nvim")
 if ok then

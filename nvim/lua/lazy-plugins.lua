@@ -334,6 +334,12 @@ require("lazy").setup({
             require "plugin-config.neotest"
         end,
     },
+    {
+        "stevearc/dressing.nvim",
+        config = function()
+            require "plugin-config.dressing"
+        end,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
