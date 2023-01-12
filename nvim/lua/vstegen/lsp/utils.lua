@@ -74,8 +74,8 @@ local lsp_keymaps = function(bufnr)
             "<cmd>lua vim.diagnostic.open_float(0, {scope='line'})<CR>",
             "Show Line Diagnostics",
         },
-        ["<space>Wa"] = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add Workspace Folder" },
-        ["<space>Wr"] = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", "Remove Workspace Folder" },
+        -- ["<space>Wa"] = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add Workspace Folder" },
+        -- ["<space>Wr"] = { "<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>", "Remove Workspace Folder" },
     }
     wk.register(keys, { mode = "n", buffer = bufnr, noremap = true, silent = true })
 
@@ -87,22 +87,6 @@ local lsp_keymaps = function(bufnr)
     end
 end
 
--- disabling the formatting capabilities of the LSP should be done in the vim.buf.lsp.format function, see
--- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
--- general idea:
---[[
-    high level:
-    if null-ls active and client.name != null-ls:
-        - use https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/SOURCES.md#get_sources to get all registered sources
-        - filter sources by methods; should be formatting
-        - get the filetype of the current buf using bufnr
-        - filter sources by filetype
-        - if one exists, return false otherwise true (would use null-ls for formatting)
-]]
-
-local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-
--- TODO: https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Formatting-on-save
 M.on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 

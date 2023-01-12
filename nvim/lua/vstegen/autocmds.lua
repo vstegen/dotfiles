@@ -1,6 +1,6 @@
-local define_autocmd = require("vstegen.utils").define_autocmd
+local utils = require "vstegen.utils"
 
-require("vstegen.utils").enable_format_on_save()
+utils.enable_format_on_save()
 
 local commands = {
     {
@@ -89,5 +89,5 @@ local commands = {
 }
 
 for _, entry in ipairs(commands) do
-    define_autocmd(entry)
+    utils.define_autocmd(entry)
 end

@@ -121,13 +121,6 @@ map("c", "<C-k>", 'pumvisible() ? "\\<up>" : "\\<C-k>"', { expr = true })
 
 -- Use void register
 map("x", "<leader>p", '"_dP', { desc = "Paste into void register" })
-map("n", "<leader>y", '"+y', { desc = "Yank into os register" })
-map("n", "<leader>Y", '"+Y', { desc = "Yank line into os register" })
-map("v", "<leader>y", '"+y', { desc = "Yank into os register" })
-map("n", "<leader>d", '"_d', { desc = "Delete into void register" })
-map("v", "<leader>d", '"_d', { desc = "Delete into void register" })
-
-map("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format" })
 
 -- map("n", "H", "^")
 -- map("n", "L", "$")

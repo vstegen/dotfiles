@@ -30,9 +30,9 @@ function M.get_root()
         for _, client in pairs(vim.lsp.get_active_clients { bufnr = 0 }) do
             local workspace = client.config.workspace_folders
             local paths = workspace
-                and vim.tbl_map(function(ws)
-                    return vim.uri_to_fname(ws.uri)
-                end, workspace)
+                    and vim.tbl_map(function(ws)
+                        return vim.uri_to_fname(ws.uri)
+                    end, workspace)
                 or client.config.root_dir and { client.config.root_dir }
                 or {}
             for _, p in ipairs(paths) do
@@ -58,27 +58,31 @@ function M.get_root()
     return root
 end
 
+function M.format()
+    vim.lsp.buf.format {
+        filter = function(client)
+            local ft = vim.bo.filetype
+            local null_ls_sources = require "null-ls.sources"
+            local null_ls = require "null-ls"
+            local available_formatters = null_ls_sources.get_available(ft, null_ls.methods.FORMATTING)
+
+            if #available_formatters > 0 then
+                return client.name == "null-ls"
+            elseif client.supports_method "textDocument/formatting" then
+                return true
+            end
+
+            return false
+        end,
+    }
+end
+
 function M.enable_format_on_save()
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
     vim.api.nvim_create_autocmd("BufWritePre", {
         group = augroup,
         callback = function()
-            vim.lsp.buf.format {
-            filter = function(client)
-                local ft = vim.bo.filetype
-                local null_ls_sources = require "null-ls.sources"
-                local null_ls= require "null-ls"
-                local available_formatters = null_ls_sources.get_available(ft, null_ls.methods.FORMATTING)
-
-                if #available_formatters > 0 then
-                    return client.name == "null-ls"
-                elseif client.supports_method "textDocument/formatting" then
-                    return true
-                end
-
-                return false
-            end
-        }
+            M.format()
         end,
     })
     Util.info "Enabled auto format"

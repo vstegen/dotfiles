@@ -47,6 +47,11 @@ local n_mappings = {
         "Buffers",
     },
 
+    w = {
+        "<cmd>w!<cr>",
+        "Save",
+    },
+
     e = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
     r = {
         function()
@@ -519,15 +524,7 @@ local n_mappings = {
         },
         f = {
             function()
-                vim.lsp.buf.format {
-                    filter = function(client)
-                        if vim.tbl_contains({ "tsserver", "jsonls", "gopls" }, client.name) then
-                            return false
-                        end
-
-                        return true
-                    end,
-                }
+                require("vstegen.utils").format()
             end,
             "Format",
         },
@@ -588,6 +585,10 @@ local n_mappings = {
         g = { "<cmd>Glow<cr>", "Glow" },
 
         r = { "<CMD>write <bar> edit <bar> TSBufEnable highlight<CR>", "Restart Treesitter highlight" },
+        y = { '"+y', "Yank into os register" },
+        Y = { '"+Y', "Yank line into os register" },
+        d = { '"_d', "Delete into void register" },
+
         t = {
             name = "+toggle",
 
@@ -840,7 +841,7 @@ local n_mappings = {
         },
     },
 
-    w = {
+    W = {
         name = "+window",
         h = { "<C-w>h", "Go to left window" },
         j = { "<C-w>j", "Go to lower window" },
@@ -897,6 +898,9 @@ local v_mappings = {
         end,
         "Code action (range)",
     },
+
+    y = { '"+y', "Yank into os register" },
+    d = { '"_d', "Delete into void register" },
 }
 
 wk.register(n_mappings, opts)
