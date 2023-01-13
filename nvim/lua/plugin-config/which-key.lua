@@ -34,13 +34,15 @@ local n_mappings = {
         end,
         "Comment line",
     },
+
     ["."] = {
         function()
             require("plugin-config.telescope-config").project_files()
         end,
         "Find project files",
     },
-    [","] = {
+
+    ["<space>"] = {
         function()
             require("telescope.builtin").buffers()
         end,
@@ -53,12 +55,14 @@ local n_mappings = {
     },
 
     e = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
+
     r = {
         function()
             require("telescope.builtin").live_grep()
         end,
         "Grep",
     },
+
     R = {
         function()
             require("telescope.builtin").current_buffer_fuzzy_find()
@@ -914,10 +918,6 @@ local n_mappings = {
         r = { "<cmd>Trouble lsp_references<CR>", "Trouble LSP References" },
         w = { "<cmd>Trouble lsp_workspace_diagnostics<CR>", "Trouble workspace diagnostics" },
         x = { "<cmd>Trouble<CR>", "Trouble" },
-    },
-
-    ["<tab>"] = {
-        name = "+tabs",
     },
 }
 
