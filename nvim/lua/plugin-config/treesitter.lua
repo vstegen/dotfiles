@@ -50,9 +50,13 @@ local ts_config = {
             include_surrounding_whitespace = true,
         },
         swap = {
-            enable = false,
-            swap_next = {},
-            swap_previous = {},
+            enable = true,
+            swap_next = {
+                ["<leader>a"] = "@parameter.inner",
+            },
+            swap_previous = {
+                ["<leader>A"] = "@parameter.inner",
+            },
         },
         move = {
             enable = true,
