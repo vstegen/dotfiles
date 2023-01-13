@@ -81,7 +81,7 @@ map("n", "[q", ":cprev<CR>", { desc = "Previous quickfix item" })
 map("n", "<C-q>", ":call QuickFixToggle()<CR>")
 
 -- Quickly move between the last 2 files in the buffer
-map("n", "<Leader><Leader>", ":b#<CR>", { desc = "Previous buffer" })
+-- map("n", "<Leader><Leader>", ":b#<CR>", { desc = "Previous buffer" })
 
 map("n", "H", "<cmd>bprevious<cr>", { desc = "Previous buffer" })
 map("n", "L", "<cmd>bnext<cr>", { desc = "Next buffer" })
