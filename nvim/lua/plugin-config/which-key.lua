@@ -804,11 +804,11 @@ local n_mappings = {
             function()
                 require("telescope.builtin").lsp_document_symbols()
             end,
-            "Symbols in documents)",
+            "Symbols in documents",
         },
         S = {
             function()
-                require("telescope.builtin").lsp_workspace_symbols()
+                require("telescope.builtin").lsp_dynamic_workspace_symbols()
             end,
             "Symbols in workspace",
         },
@@ -818,6 +818,12 @@ local n_mappings = {
                 require("telescope.builtin").tags()
             end,
             "Tags",
+        },
+        w = {
+            function()
+                require("telescope.builtin").lsp_workspace_symbols()
+            end,
+            "Symbols in workspace",
         },
     },
 
