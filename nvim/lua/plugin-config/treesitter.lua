@@ -17,7 +17,7 @@ local ts_config = {
         disable = { "python", "go" },
     },
     incremental_selection = {
-        enable = false,
+        enable = true,
         keymaps = {
             init_selection = "<cr>",
             node_incremental = "<cr>",
