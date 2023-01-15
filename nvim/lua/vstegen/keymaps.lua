@@ -179,4 +179,8 @@ if ufo_ok then
             vim.lsp.buf.hover()
         end
     end, { desc = "Peak fold" })
+else
+    map("n", "K", function()
+        vim.lsp.buf.hover()
+    end, { desc = "Hover" })
 end
