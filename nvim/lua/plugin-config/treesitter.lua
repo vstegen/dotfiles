@@ -19,10 +19,10 @@ local ts_config = {
     incremental_selection = {
         enable = false,
         keymaps = {
-            init_selection = "gnn",
-            node_incremental = "grn",
-            scope_incremental = "grc",
-            node_decremental = "grm",
+            init_selection = "<cr>",
+            node_incremental = "<cr>",
+            scope_incremental = "<S-cr>",
+            node_decremental = "<bs>",
         },
     },
     autotag = { enable = true },

@@ -276,6 +276,12 @@ local n_mappings = {
             end,
             "Buffers",
         },
+        d = {
+            function()
+                require("telescope.builtin").buffers()
+            end,
+            "Buffers",
+        },
 
         w = {
             "<cmd>w!<cr>",
