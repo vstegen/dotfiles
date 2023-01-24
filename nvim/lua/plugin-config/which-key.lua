@@ -928,6 +928,7 @@ local n_mappings = {
         l = { "<cmd>Trouble loclist<CR>", "Trouble Loclist" },
         q = { "<cmd>Trouble quickfix<CR>", "Trouble Quickfix" },
         r = { "<cmd>Trouble lsp_references<CR>", "Trouble LSP References" },
+        t = { "<cmd>TodoTrouble<CR>", "Open todos with Trouble" },
         w = { "<cmd>Trouble lsp_workspace_diagnostics<CR>", "Trouble workspace diagnostics" },
         x = { "<cmd>Trouble<CR>", "Trouble" },
     },
