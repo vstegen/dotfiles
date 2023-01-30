@@ -83,7 +83,7 @@ local config = {
     -- code actions
     null_ls.builtins.code_actions.eslint, -- could use eslint_d as well
     null_ls.builtins.code_actions.shellcheck,
-    null_ls.builtins.code_actions.gitsigns,
+    -- null_ls.builtins.code_actions.gitsigns,
 }
 
 null_ls.setup {
