@@ -562,13 +562,13 @@ local n_mappings = {
         i = { "<cmd>LspInfo<cr>", "Info" },
         j = {
             function()
-                vim.diagnostic.goto_next { float = { border = "single" } }
+                vim.diagnostic.goto_next { float = { border = "single" }, severity = "error" }
             end,
             "Next diagnostic",
         },
         k = {
             function()
-                vim.diagnostic.goto_prev { float = { border = "single" } }
+                vim.diagnostic.goto_prev { float = { border = "single" }, severity = "error" }
             end,
             "Prev diagnostic",
         },
