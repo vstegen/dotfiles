@@ -41,6 +41,7 @@ local ts_config = {
         "smithy",
         "svelte",
         "toml",
+        "typescript",
         "vim",
         "vue",
         "yaml",
