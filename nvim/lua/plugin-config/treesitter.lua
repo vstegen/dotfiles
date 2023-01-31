@@ -48,6 +48,7 @@ local ts_config = {
         "zig",
     },
     auto_install = true,
+    sync_install = true,
     ignore_install = { "phpdoc" },
     highlight = {
         enable = true,
