@@ -10,6 +10,7 @@ vim.opt.fillchars:append {
     verthoriz = "╋",
 }
 
+-- TODO: enable borderless telescope for all themes (or overwrite the highlight groups according to taste)
 local themes = {
     kanagawa = function()
         local ok, theme = pcall(require, "kanagawa")
