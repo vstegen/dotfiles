@@ -13,6 +13,11 @@ PERF OPTIM PERFORMANCE OPTIMIZE
 NOTE INFO
 TEST TESTING PASSED FAILED
 ]]
+-- NOTE:
+-- FIX:
+-- PERF:
+-- TODO:
+-- HACK:
 todo.setup {
     highlight = {
         keyword = "bg", -- "fg", "bg", "wide", or empty

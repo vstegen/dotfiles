@@ -158,6 +158,11 @@ require("lazy").setup({
         lazy = false,
     },
     {
+        "rose-pine/neovim",
+        priority = 1000,
+        lazy = false,
+    },
+    {
         "antoinemadec/FixCursorHold.nvim",
         setup = function()
             vim.g.cursorhold_updatetime = 100

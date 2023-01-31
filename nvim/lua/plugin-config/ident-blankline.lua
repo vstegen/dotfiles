@@ -3,7 +3,7 @@ if not ok then
     return
 end
 
-indent.setup {
+local cfg = {
     filetype_exclude = {
         "help",
         "terminal",
@@ -19,3 +19,9 @@ indent.setup {
     show_trailing_blankline_indent = false,
     show_current_context = true,
 }
+
+if vim.g.colors_name == "catppuccin" then
+    cfg.colored_indent_levels = false
+end
+
+indent.setup(cfg)

@@ -15,7 +15,7 @@ local function diagnostics_indicator(num, _, diagnostics, _)
     return #result > 0 and result or ""
 end
 
-bufferline.setup {
+local config = {
     options = {
         right_mouse_command = "vertical sbuffer %d", -- can be a string | function, see "Mouse actions"
         --- name_formatter can be used to change the buffer's label in the bufferline.
@@ -70,3 +70,23 @@ bufferline.setup {
         },
     },
 }
+
+if vim.g.colors_name == "catppuccin" then
+    local mocha = require("catppuccin.palettes").get_palette "mocha"
+    config.highlights = require("catppuccin.groups.integrations.bufferline").get {
+        styles = { "italic", "bold" },
+        custom = {
+            all = {
+                fill = { bg = "#000000" },
+            },
+            mocha = {
+                background = { fg = mocha.text },
+            },
+            latte = {
+                background = { fg = "#000000" },
+            },
+        },
+    }
+end
+
+bufferline.setup(config)
