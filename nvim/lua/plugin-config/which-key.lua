@@ -1,3 +1,4 @@
+local Util = require "lazy.core.util"
 local status_ok, wk = pcall(require, "which-key")
 if not status_ok then
     return
