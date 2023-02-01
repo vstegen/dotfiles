@@ -18,14 +18,47 @@ local themes = {
             return
         end
 
+        local c = require("kanagawa.colors").setup()
+        local prompt = c.sumiInk2
+        local bg = c.sumiInk1
+        local fg = c.fujiWhite
         theme.setup {
             transparent = false, -- do not set background color
             dimInactive = false, -- dim inactive window `:h hl-NormalNC`
             globalStatus = true, -- adjust window separators highlight for laststatus=3
+            overrides = {
+                TelescopeNormal = {
+                    bg = bg,
+                    fg = fg,
+                },
+                TelescopeBorder = {
+                    bg = bg,
+                    fg = bg,
+                },
+                TelescopePromptNormal = {
+                    bg = prompt,
+                },
+                TelescopePromptBorder = {
+                    bg = prompt,
+                    fg = prompt,
+                },
+                TelescopePromptTitle = {
+                    bg = prompt,
+                    fg = prompt,
+                },
+                TelescopePreviewTitle = {
+                    bg = bg,
+                    fg = bg,
+                },
+                TelescopeResultsTitle = {
+                    bg = bg,
+                    fg = bg,
+                },
+            },
         }
         vim.cmd "colorscheme kanagawa"
 
-        O.palette = require("kanagawa.colors").setup()
+        O.palette = c
         local color_overrides = {
             red = O.palette.diag.error,
             yellow = O.palette.diag.warning,
