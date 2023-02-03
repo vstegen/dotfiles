@@ -20,7 +20,7 @@ local themes = {
 
         local c = require("kanagawa.colors").setup()
         local prompt = c.sumiInk2
-        local bg = c.sumiInk1
+        local bg = c.sumiInk0
         local fg = c.fujiWhite
         theme.setup {
             transparent = false, -- do not set background color
