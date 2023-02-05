@@ -123,7 +123,7 @@ local ts_config = {
         },
         lsp_interop = {
             enable = true,
-            border = "rounded",
+            border = "single",
             peek_definition_code = {
                 ["<leader>mf"] = "@function.outer",
                 ["<leader>mF"] = "@class.outer",
