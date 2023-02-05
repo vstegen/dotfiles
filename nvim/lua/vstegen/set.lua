@@ -11,7 +11,7 @@ local options = {
     cmdheight = 2, -- more space in the neovim command line for displaying messages
     colorcolumn = "99999", -- fixes indentline for now
     completeopt = { "menu", "menuone", "noselect" },
-    conceallevel = 3, -- hide * markup for bold and italic
+    conceallevel = 0, -- hide * markup for bold and italic
     fileencoding = "utf-8", -- the encoding written to a file
 
     foldmethod = "manual", -- folding, set to "expr" for treesitter based folding
