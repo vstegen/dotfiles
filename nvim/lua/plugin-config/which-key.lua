@@ -798,6 +798,7 @@ local n_mappings = {
             "<cmd>Telescope harpoon marks",
             "Marks (harpoon)",
         },
+        o = { "<cmd>Telescope oldfiles<cr>", "Recent (old) files" },
         p = { "<cmd>Telescope projects<cr>", "Projects" },
         q = {
             function()
@@ -805,7 +806,7 @@ local n_mappings = {
             end,
             "Quickfix",
         },
-        r = { "<cmd>Telescope oldfiles<cr>", "Recent files" },
+        r = { "<cmd>Telescope resume<cr>", "Resume telescope search" },
         R = { "<cmd>Telescope registers<cr>", "Registers" },
         s = {
             function()
