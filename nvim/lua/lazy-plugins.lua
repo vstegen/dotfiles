@@ -340,15 +340,6 @@ require("lazy").setup({
             require "plugin-config.dressing"
         end,
     },
-    {
-        dir = "/Users/marvin/dev/projects/nvim-plugins/smilingbanana.nvim",
-        init = function()
-            vim.api.nvim_create_user_command("Test", function()
-                package.loaded.smilingbanana = nil
-                require "smilingbanana"
-            end, {})
-        end,
-    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },

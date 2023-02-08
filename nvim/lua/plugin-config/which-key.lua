@@ -934,8 +934,6 @@ local n_mappings = {
         w = { "<cmd>Trouble lsp_workspace_diagnostics<CR>", "Trouble workspace diagnostics" },
         x = { "<cmd>Trouble<CR>", "Trouble" },
     },
-
-    k = { "<cmd>Test<cr>", "Reload dev plugin" },
 }
 
 local v_mappings = {
