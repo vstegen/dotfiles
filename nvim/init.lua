@@ -4,6 +4,8 @@ require "vstegen.set"
 
 require "lazy-plugins"
 
+require "vstegen.globals"
+
 require "vstegen.keymaps"
 
 require "vstegen.colorscheme"
