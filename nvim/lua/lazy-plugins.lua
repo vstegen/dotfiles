@@ -98,16 +98,16 @@ require("lazy").setup({
         end,
     },
     { "windwp/nvim-ts-autotag" },
-    {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        version = "nightly",
-        config = function()
-            require "plugin-config.nvimtree"
-        end,
-    },
+    -- {
+    --     "nvim-tree/nvim-tree.lua",
+    --     dependencies = {
+    --         "nvim-tree/nvim-web-devicons",
+    --     },
+    --     version = "nightly",
+    --     config = function()
+    --         require "plugin-config.nvimtree"
+    --     end,
+    -- },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
