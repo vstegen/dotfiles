@@ -50,7 +50,6 @@ mason_lsp.setup {
         "svelte",
         "tailwindcss",
         "yamlls",
-        "sumneko_lua",
     },
 }
 
