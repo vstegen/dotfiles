@@ -56,7 +56,7 @@ local n_mappings = {
     },
 
     -- e = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
-    e = { "<cmd>Neotree<CR>", "Explorer" },
+    e = { "<cmd>Neotree toggle<CR>", "Explorer" },
 
     r = {
         function()
