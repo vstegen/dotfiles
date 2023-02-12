@@ -99,9 +99,9 @@ require("lazy").setup({
     },
     { "windwp/nvim-ts-autotag" },
     {
-        "kyazdani42/nvim-tree.lua",
+        "nvim-tree/nvim-tree.lua",
         dependencies = {
-            "kyazdani42/nvim-web-devicons",
+            "nvim-tree/nvim-web-devicons",
         },
         version = "nightly",
         config = function()
@@ -109,8 +109,20 @@ require("lazy").setup({
         end,
     },
     {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        },
+        config = function()
+            require "plugin-config.neotree"
+        end,
+    },
+    {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "kyazdani42/nvim-web-devicons" },
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require "plugin-config.lualine"
         end,
@@ -118,7 +130,7 @@ require("lazy").setup({
     {
         "akinsho/bufferline.nvim",
         version = "v3.*",
-        dependencies = { "kyazdani42/nvim-web-devicons" },
+        dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require "plugin-config.bufferline"
         end,
@@ -184,7 +196,7 @@ require("lazy").setup({
     },
     {
         "folke/trouble.nvim",
-        dependencies = "kyazdani42/nvim-web-devicons",
+        dependencies = "nvim-tree/nvim-web-devicons",
         config = function()
             require "plugin-config.trouble"
         end,
