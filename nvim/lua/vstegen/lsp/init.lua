@@ -41,7 +41,7 @@ mason_lsp.setup {
         "gopls",
         "graphql",
         "jsonls",
-        "sumneko_lua",
+        "lua_ls",
         "tsserver",
         "marksman",
         "pyright",
@@ -82,8 +82,8 @@ for _, server_name in ipairs(get_servers()) do
         end
     end
 
-    if server_name == "sumneko_lua" then
-        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.sumneko_lua", opts)
+    if server_name == "lua_ls" then
+        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.lua_ls", opts)
     end
 
     if server_name == "tailwindcss" then
