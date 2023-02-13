@@ -50,6 +50,7 @@ local config = {
     -- formatting
     null_ls.builtins.formatting.prettierd.with {
         filetypes = prettier.filetypes,
+        extra_args = { "--config", vim.fn.expand "$HOME/.prettierrc" },
     },
     null_ls.builtins.formatting.prismaFmt,
     null_ls.builtins.formatting.goimports,
@@ -67,7 +68,7 @@ local config = {
     null_ls.builtins.diagnostics.golangci_lint.with {
         extra_args = { "-E", "revive", "-E", "unparam" },
     },
-    null_ls.builtins.diagnostics.eslint, -- could use eslint_d as well
+    -- null_ls.builtins.diagnostics.eslint, -- could use eslint_d as well
     null_ls.builtins.diagnostics.luacheck,
     null_ls.builtins.diagnostics.ruff,
     -- null_ls.builtins.diagnostics.flake8.with {
@@ -82,7 +83,7 @@ local config = {
     null_ls.builtins.diagnostics.vint,
 
     -- code actions
-    null_ls.builtins.code_actions.eslint, -- could use eslint_d as well
+    -- null_ls.builtins.code_actions.eslint, -- could use eslint_d as well
     null_ls.builtins.code_actions.shellcheck,
     -- null_ls.builtins.code_actions.gitsigns,
 }
