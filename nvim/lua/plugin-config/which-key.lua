@@ -106,35 +106,55 @@ local n_mappings = {
 
     c = {
         name = "+code",
-        c = {
-            function()
-                require("neogen").generate { type = "class" }
-            end,
-            "Generate doc for class",
-        },
         d = {
-            function()
-                require("neogen").generate()
-            end,
-            "Generate doc",
+            name = "+docs",
+            c = {
+                function()
+                    require("neogen").generate { type = "class" }
+                end,
+                "Generate doc for class",
+            },
+            d = {
+                function()
+                    require("neogen").generate()
+                end,
+                "Generate doc",
+            },
+            f = {
+                function()
+                    require("neogen").generate { type = "file" }
+                end,
+                "Generate doc for file",
+            },
+            n = {
+                function()
+                    require("neogen").generate { type = "func" }
+                end,
+                "Generate doc for function",
+            },
+            t = {
+                function()
+                    require("neogen").generate { type = "type" }
+                end,
+                "Generate doc for type",
+            },
         },
-        f = {
+
+        l = {
             function()
-                require("neogen").generate { type = "file" }
+                require("smilingbanana").code_link()
             end,
-            "Generate doc for file",
+            "Generate code link",
         },
-        n = {
-            function()
-                require("neogen").generate { type = "func" }
-            end,
-            "Generate doc for function",
+
+        c = {
+            "<cmd>SBCheckout<cr>",
+            "Checkout version set package",
         },
-        t = {
-            function()
-                require("neogen").generate { type = "type" }
-            end,
-            "Generate doc for type",
+
+        w = {
+            "<cmd>SBWorkspace<cr>",
+            "Switch to workspace package",
         },
     },
 
@@ -1011,6 +1031,13 @@ local v_mappings = {
             vim.lsp.buf.range_code_action()
         end,
         "Code action (range)",
+    },
+
+    l = {
+        function()
+            require("smilingbanana").code_link()
+        end,
+        "Generate code link",
     },
 
     y = { '"+y', "Yank into os register" },
