@@ -53,6 +53,9 @@ local config = {
         cmd = "gio trash",
         require_confirm = true,
     },
+    filesystem_watchers = {
+        enable = false,
+    },
 }
 
 local project_ok, _ = pcall(require, "project_nvim")
