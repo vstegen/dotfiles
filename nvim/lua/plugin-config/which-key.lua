@@ -974,6 +974,9 @@ local n_mappings = {
     },
 
     X = { "<cmd>:w<cr><cmd>:source %s<cr>", "Reload" },
+
+    k = { "<cmd>Test<cr>", "Reload dev plugin" },
+    K = { "<cmd>Telescope smilingbanana test<cr>", "Test telescope integration" },
 }
 
 local v_mappings = {
@@ -1012,6 +1015,8 @@ local v_mappings = {
 
     y = { '"+y', "Yank into os register" },
     d = { '"_d', "Delete into void register" },
+
+    k = { "<cmd>Test<cr>", "Reload dev plugin" },
 }
 
 wk.register(n_mappings, opts)

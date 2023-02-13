@@ -154,3 +154,8 @@ local harpoon_ok, _ = pcall(require, "harpoon")
 if harpoon_ok then
     telescope.load_extension "harpoon"
 end
+
+local smilingbanana_ok, _ = pcall(require, "smilingbanana")
+if smilingbanana_ok then
+    telescope.load_extension "smilingbanana"
+end

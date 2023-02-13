@@ -364,6 +364,13 @@ require("lazy").setup({
             require "plugin-config.oil"
         end,
     },
+    -- custom plugins
+    {
+        dir = "~/projects/nvim-plugins/src/smilingbanana.nvim",
+        config = function()
+            require("smilingbanana").setup()
+        end,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
