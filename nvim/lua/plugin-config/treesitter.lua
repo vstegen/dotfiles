@@ -7,7 +7,6 @@ local ts_config = {
     ensure_installed = {
         "bash",
         "c",
-        "comment",
         "cpp",
         "css",
         "diff",
@@ -48,7 +47,7 @@ local ts_config = {
         "zig",
     },
     auto_install = true,
-    sync_install = true,
+    -- sync_install = false,
     ignore_install = { "phpdoc" },
     highlight = {
         enable = true,
