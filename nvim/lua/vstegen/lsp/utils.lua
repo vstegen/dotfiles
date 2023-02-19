@@ -79,12 +79,9 @@ local lsp_keymaps = function(bufnr)
     }
     wk.register(keys, { mode = "n", buffer = bufnr, noremap = true, silent = true })
 
-    local signature_ok, _ = pcall(require, "lsp_signature")
-    if not signature_ok then
-        vim.keymap.set("i", "<C-k>", function()
-            vim.lsp.buf.signature_help()
-        end, { buffer = bufnr })
-    end
+    vim.keymap.set("i", "<C-k>", function()
+        vim.lsp.buf.signature_help()
+    end, { desc = "Signature help", buffer = bufnr })
 end
 
 M.on_attach = function(client, bufnr)
