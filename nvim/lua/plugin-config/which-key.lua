@@ -79,6 +79,13 @@ local n_mappings = {
         "Grep in open file",
     },
 
+    k = {
+        function()
+            vim.lsp.buf.signature_help()
+        end,
+        "Toggle signature",
+    },
+
     b = {
         name = "+buffer",
         c = { "<cmd>BufferLinePickClose<CR>", "Close buffer" },
