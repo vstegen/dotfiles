@@ -50,6 +50,13 @@ local n_mappings = {
         "Buffers",
     },
 
+    ["-"] = {
+        function()
+            require("oil").open()
+        end,
+        "Oil",
+    },
+
     w = {
         "<cmd>w!<cr>",
         "Save",
@@ -641,6 +648,19 @@ local n_mappings = {
             v = { ":ToggleTerm size=50 direction=vertical<cr>", "Vertical" },
             f = { ":ToggleTerm size=40 direction=float<cr>", "Float" },
             t = { ":ToggleTermToggleAll<cr>", "Toggle all" },
+        },
+
+        e = {
+            function()
+                require("oil").open()
+            end,
+            "Open parent dir in oil",
+        },
+        E = {
+            function()
+                require("oil").open_float()
+            end,
+            "Open parent dir in oil",
         },
 
         g = { "<cmd>Glow<cr>", "Glow" },

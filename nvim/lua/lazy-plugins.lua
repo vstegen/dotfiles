@@ -352,6 +352,12 @@ require("lazy").setup({
             require "plugin-config.dressing"
         end,
     },
+    {
+        "stevearc/oil.nvim",
+        config = function()
+            require "plugin-config.oil"
+        end,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
