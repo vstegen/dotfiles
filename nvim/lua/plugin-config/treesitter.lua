@@ -6,8 +6,6 @@ end
 local ts_config = {
     ensure_installed = {
         "bash",
-        "c",
-        "cpp",
         "css",
         "diff",
         "dockerfile",
