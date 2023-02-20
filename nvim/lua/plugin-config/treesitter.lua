@@ -11,7 +11,6 @@ local ts_config = {
         "dockerfile",
         "fish",
         "gitcommit",
-        "gitignore",
         "git_rebase",
         "gitattributes",
         "gomod",
