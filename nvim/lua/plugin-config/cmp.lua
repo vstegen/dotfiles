@@ -69,6 +69,8 @@ end
 
 cmp.setup {
     enabled = true,
+    preselect = cmp.PreselectMode.None,
+    completion = { completeopt = "menu,menuone,noinsert,noselect" },
     view = {
         entries = "native",
     },
@@ -120,7 +122,7 @@ cmp.setup {
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         },
-        ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Replace },
+        ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
