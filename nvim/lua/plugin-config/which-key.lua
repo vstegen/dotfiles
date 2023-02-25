@@ -622,25 +622,29 @@ local n_mappings = {
             name = "+telescope",
             d = {
                 function()
-                    require("telescope.builtin").lsp_definitions()
+                    require("telescope.builtin").lsp_definitions { layout_strategy = "flex" }
                 end,
                 "Lsp definitions",
             },
             i = {
                 function()
-                    require("telescope.builtin").lsp_implementations()
+                    require("telescope.builtin").lsp_implementations {
+                        layout_strategy = "flex",
+                    }
                 end,
                 "Lsp implementations",
             },
             r = {
                 function()
-                    require("telescope.builtin").lsp_references()
+                    require("telescope.builtin").lsp_references {
+                        layout_strategy = "flex",
+                    }
                 end,
                 "Lsp references",
             },
             t = {
                 function()
-                    require("telescope.builtin").lsp_type_definitions()
+                    require("telescope.builtin").lsp_type_definitions { layout_strategy = "flex" }
                 end,
                 "Lsp type definitions",
             },

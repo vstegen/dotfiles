@@ -8,6 +8,10 @@ local action_layout = require "telescope.actions.layout"
 
 local _, trouble = pcall(require, "trouble.providers.telescope")
 
+local function select_layout()
+    vim.api.nvim_win_get_width()
+end
+
 local config = {
     defaults = {
         prompt_prefix = " ",
@@ -18,18 +22,20 @@ local config = {
         layout_config = {
             width = 0.95,
             height = 0.85,
-            preview_cutoff = 120,
+            preview_cutoff = 0, -- always have previews
             prompt_position = "top",
-
             horizontal = {
                 height = 0.95,
-                preview_cutoff = 200,
+                preview_cutoff = 160,
                 width = 0.95,
             },
             vertical = {
                 height = 0.95,
                 width = 0.95,
-                preview_height = 0.2,
+                preview_height = 0.3,
+            },
+            flex = {
+                flip_columns = 160,
             },
         },
         vimgrep_arguments = {
