@@ -5,7 +5,7 @@ end
 
 cfg = {
     noice = false, -- true if using noice to render markdown
-    floating_window = true,
+    floating_window = false,
     hint_enable = false, -- disable virtual text
     doc_lines = 0, -- do not show docs
     handler_opts = {
