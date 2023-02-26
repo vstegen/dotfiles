@@ -43,6 +43,9 @@ map("n", "<down>", "<C-w>j", { desc = "Go to lower window" })
 map("n", "<up>", "<C-w>k", { desc = "Go to upper window" })
 map("n", "<right>", "<C-w>l", { desc = "Go to right window" })
 
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
+
 -- Quickfix navigation
 -- map("n", "<C-k>", "<cmd>cnext<cr>zz")
 -- map("n", "<C-j>", "<cmd>cprev<cr>zz")
