@@ -38,6 +38,12 @@ require("lazy").setup({
         end,
     },
     {
+        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+        config = function()
+            require "plugin-config.lsp_lines"
+        end,
+    },
+    {
         "L3MON4D3/LuaSnip",
         config = function()
             require "plugin-config.luasnip"

@@ -959,7 +959,13 @@ local n_mappings = {
     x = {
         name = "+diagnostics",
         d = { "<cmd>Trouble lsp_document_diagnostics<CR>", "Trouble document diagnostics" },
-        l = { "<cmd>Trouble loclist<CR>", "Trouble Loclist" },
+        l = {
+            function()
+                require("lsp_lines").toggle()
+            end,
+            "Toggle lsp_lines",
+        },
+        c = { "<cmd>Trouble loclist<CR>", "Trouble Loclist" },
         q = { "<cmd>Trouble quickfix<CR>", "Trouble Quickfix" },
         r = { "<cmd>Trouble lsp_references<CR>", "Trouble LSP References" },
         t = { "<cmd>TodoTrouble<CR>", "Open todos with Trouble" },
