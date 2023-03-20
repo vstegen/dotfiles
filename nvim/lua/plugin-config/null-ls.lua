@@ -48,7 +48,7 @@ local shellcheck = {
 
 local config = {
     -- formatting
-    null_ls.builtins.formatting.prettierd.with {
+    null_ls.builtins.formatting.prettier.with {
         filetypes = prettier.filetypes,
         extra_args = { "--config", vim.fn.expand "$HOME/.prettierrc" },
     },
