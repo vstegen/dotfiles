@@ -46,7 +46,7 @@ mason_lsp.setup {
         "marksman",
         "pyright",
         "rust_analyzer",
-        "sqls",
+        "sqlls",
         "svelte",
         "tailwindcss",
         "yamlls",
