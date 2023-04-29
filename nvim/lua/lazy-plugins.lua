@@ -311,8 +311,11 @@ require("lazy").setup({
     {
         "saecki/crates.nvim",
         config = function()
-            require("crates").setup()
+            local crates = require "crates"
+            crates.setup()
+            crates.show()
         end,
+        ft = { "rust", "toml" },
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
