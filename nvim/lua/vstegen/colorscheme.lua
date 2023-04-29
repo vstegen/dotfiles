@@ -215,4 +215,4 @@ local function load_theme(name)
     themes[name]()
 end
 
-load_theme "kanagawa"
+load_theme "catppuccin"
