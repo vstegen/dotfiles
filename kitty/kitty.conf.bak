@@ -1562,10 +1562,10 @@ map cmd+shift+d launch --location=vsplit --cwd=current
 #: include ./themes/nightfox/nightfox_duskfox_kitty.conf
 #: include ./themes/nightfox/nightfox_dayfox_kitty.conf
 #: include ./themes/nightfox/nightfox_dawnfox_kitty.conf
-# include ./themes/kanagawa/kanagawa.conf
+include ./themes/kanagawa/kanagawa.conf
 
 
 # BEGIN_KITTY_THEME
-# Catppuccin-Mocha
+# Catppuccin-Macchiato
 include current-theme.conf
 # END_KITTY_THEME
