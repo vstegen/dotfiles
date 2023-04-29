@@ -47,7 +47,6 @@ abbr -ag av_scan "clamscan -r -i /"
 abbr -ag av_remove "clamscan -r -i --remove=yes /"
 
 # tmux
-abbr -ag tmux "tmux -2"
 abbr -ag tmuxconfig "nvim ~/.tmux.conf"
 
 # yt-dlp
