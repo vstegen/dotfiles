@@ -71,12 +71,12 @@ cmp.setup {
     enabled = true,
     preselect = cmp.PreselectMode.None,
     completion = { completeopt = "menu,menuone,noinsert,noselect" },
-    view = {
-        entries = "native",
-    },
+    -- view = {
+    --     entries = "native",
+    -- },
     window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        completion = { border = "single" },
+        documentation = { border = "single" },
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },
