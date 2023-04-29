@@ -367,6 +367,7 @@ require("lazy").setup({
             require "plugin-config.oil"
         end,
     },
+<<<<<<< HEAD
     -- custom plugins
     {
         dir = "~/projects/nvim-plugins/src/smilingbanana.nvim",
@@ -378,6 +379,10 @@ require("lazy").setup({
         "christoomey/vim-tmux-navigator",
         lazy = false,
     },
+    -- {
+    --     "christoomey/vim-tmux-navigator",
+    --     lazy = false,
+    -- },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
