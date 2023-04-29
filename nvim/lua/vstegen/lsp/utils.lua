@@ -94,6 +94,9 @@ M.on_attach = function(client, bufnr)
         end
     end
 
+    -- disable semantic highlighting as it's slow
+    client.server_capabilities.semanticTokensProvider = nil
+
     lsp_keymaps(bufnr)
     lsp_highlight_document(client, bufnr)
 end
