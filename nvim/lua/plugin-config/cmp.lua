@@ -75,12 +75,8 @@ cmp.setup {
         entries = "native",
     },
     window = {
-        completion = {
-            border = "single",
-        },
-        documentation = {
-            border = "single",
-        },
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
     },
     formatting = {
         fields = { "kind", "abbr", "menu" },
