@@ -33,10 +33,14 @@ map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
 -- Better window movement
-map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+-- map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+-- map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+-- map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+-- map("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+map("n", "<C-h>", "<cmd>TmuxNavigateLeft<cr>", { desc = "Go to left window" })
+map("n", "<C-j>", "<cmd>TmuxNavigateDown<cr>", { desc = "Go to lower window" })
+map("n", "<C-k>", "<cmd>TmuxNavigateUp<cr>", { desc = "Go to upper window" })
+map("n", "<C-l>", "<cmd>TmuxNavigateRight<cr>", { desc = "Go to right window" })
 
 map("n", "<left>", "<C-w>h", { desc = "Go to left window" })
 map("n", "<down>", "<C-w>j", { desc = "Go to lower window" })

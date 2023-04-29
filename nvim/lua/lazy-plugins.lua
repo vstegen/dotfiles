@@ -374,6 +374,10 @@ require("lazy").setup({
             require("smilingbanana").setup()
         end,
     },
+    {
+        "christoomey/vim-tmux-navigator",
+        lazy = false,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
