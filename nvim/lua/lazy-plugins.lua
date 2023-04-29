@@ -367,10 +367,10 @@ require("lazy").setup({
             require "plugin-config.oil"
         end,
     },
-    {
-        "christoomey/vim-tmux-navigator",
-        lazy = false,
-    },
+    -- {
+    --     "christoomey/vim-tmux-navigator",
+    --     lazy = false,
+    -- },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
