@@ -282,7 +282,6 @@ local n_mappings = {
                 require("telescope.builtin").find_files {
                     hidden = true,
                     prompt_title = "Find Hidden Files",
-                    file_ignore_patterns = { "^./.git/" },
                 }
             end,
             "Find (hidden) file",
@@ -816,7 +815,6 @@ local n_mappings = {
                 require("telescope.builtin").find_files {
                     hidden = true,
                     prompt_title = "Find Hidden Files",
-                    file_ignore_patterns = { "^./.git/" },
                 }
             end,
             "Find (hidden) file",
