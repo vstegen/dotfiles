@@ -6,7 +6,9 @@ if status is-login
   # Commands to run in interactive sessions can go here
 end
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# eval "$(/opt/homebrew/bin/brew shellenv)"
+eval "$(/usr/local/bin/brew shellenv)"
 
 # starship prompt
 starship init fish | source

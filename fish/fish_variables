@@ -1,11 +1,38 @@
 # This file contains fish universal variable definitions.
 # VERSION: 3.0
+SETUVAR --export AUTO_TITLE_SCREENS:NO
+SETUVAR --export BRAZIL_WORKSPACE_DEFAULT_LAYOUT:short
+SETUVAR --export DEV_ACCOUNT:990453573269
+SETUVAR --export DEV_ACCOUNT_2:702660373025
+SETUVAR --export DEV_DESKTOP:dev\x2ddsk\x2dstegenm\x2d1b\x2d9b92337e\x2eeu\x2dwest\x2d1\x2eamazon\x2ecom
 SETUVAR --export DOOMDIR:\x7e/\x2edoom\x2ed
 SETUVAR --export EDITOR:nvim
 SETUVAR --export FIREFOX_PROFILE:/Users/marvin/Library/Application\x20Support/Firefox/Profiles/y2wbzv7c\x2edefault\x2drelease
+SETUVAR --export --path GOPATH:/Users/stegenm/go
+SETUVAR --export GOPROXY:direct
 SETUVAR --export HOMEBREW_NO_AUTO_UPDATE:3
+SETUVAR --export MOONTIDE_SCRIPTS:/Users/stegenm/Moontide/Commons/src/MoontideScripts/
 SETUVAR --export PNPM_HOME:/Users/marvin/Library/pnpm
+SETUVAR --export RPROMPT:\x1d
+SETUVAR --export TERM:screen\x2d256color
 SETUVAR __fish_initialized:3400
+SETUVAR _fish_abbr_bb:brazil\x2dbuild
+SETUVAR _fish_abbr_bbb:brazil\x2drecursive\x2dcmd\x20\x2d\x2dallPackages\x20brazil\x2dbuild
+SETUVAR _fish_abbr_bbr:brazil\x2drecursive\x2dcmd\x20brazil\x2dbuild
+SETUVAR _fish_abbr_bbra:brazil\x2drecursive\x2dcmd\x20brazil\x2dbuild\x20apollo\x2dpkg
+SETUVAR _fish_abbr_bbrall:brazil\x2drecursive\x2dcmd\x20\x2d\x2dallPackages
+SETUVAR _fish_abbr_br:brazil\x2dbuild\x20release
+SETUVAR _fish_abbr_brc:brazil\x2drecursive\x2dcmd
+SETUVAR _fish_abbr_bre:brazil\x2druntime\x2dexec
+SETUVAR _fish_abbr_bte:brazil\x2dtest\x2dexec
+SETUVAR _fish_abbr_bw:brazil\x20workspace
+SETUVAR _fish_abbr_bws:brazil\x20workspace\x20sync
+SETUVAR _fish_abbr_bwscreate:brazil\x20ws\x20create\x20\x2dn
+SETUVAR _fish_abbr_bwsuse:brazil\x20workspace\x20use\x20\x2d\x2dgitMode\x20\x2dp
+SETUVAR _fish_abbr_e:emacs
+SETUVAR _fish_abbr_ebbr:eda\x20build\x20brazil\x2dbuild\x20release
+SETUVAR _fish_abbr_third_2D_party:/Users/stegenm/\x2etoolbox/bin/brazil\x2dthird\x2dparty\x2dtool
+SETUVAR _fish_abbr_third_2D_party_2D_promote:/Users/stegenm/\x2etoolbox/bin/brazil\x2dthird\x2dparty\x2dtool\x20promote
 SETUVAR fish_color_autosuggestion:6c7086
 SETUVAR fish_color_cancel:f38ba8
 SETUVAR fish_color_command:89b4fa
@@ -45,4 +72,4 @@ SETUVAR fish_pager_color_selected_background:\x1d
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/Users/marvin/\x2eemacs\x2ed/bin\x1e/opt/homebrew/opt/openssl\x401\x2e1/bin\x1e/Users/marvin/Library/pnpm\x1e/Users/marvin/bin\x1e/Users/marvin/\x2elocal/bin\x1e/Users/marvin/\x2ecargo/bin\x1e/Users/marvin/go/bin\x1e/opt/homebrew/opt/fzf/bin
+SETUVAR fish_user_paths:/Users/stegenm/\x2elocal/bin\x1e/Users/stegenm/bin\x1e/Users/stegenm/\x2etoolbox/bin\x1e/Users/stegenm/go/bin\x1e/Users/stegenm/\x2ecargo/bin\x1e/Users/stegenm/\x2eemacs\x2ed/bin\x1e/Users/marvin/\x2eemacs\x2ed/bin\x1e/opt/homebrew/opt/openssl\x401\x2e1/bin\x1e/Users/marvin/Library/pnpm\x1e/Users/marvin/bin\x1e/Users/marvin/\x2elocal/bin\x1e/Users/marvin/\x2ecargo/bin\x1e/Users/marvin/go/bin\x1e/opt/homebrew/opt/fzf/bin
