@@ -38,6 +38,9 @@ abbr -ag vim:p "vim -u ~/dev/courses/vim/practical-vim/essential.vim"
 abbr -ag vimconfig "nvim ~/.config/nvim/init.lua"
 abbr -ag vimdiff "nvim -d"
 
+# emacs
+abbr -a e emacs
+
 #emacs
 abbr -ag e "emacsclient -c -a 'emacs'"
 
