@@ -367,17 +367,12 @@ require("lazy").setup({
             require "plugin-config.oil"
         end,
     },
-<<<<<<< HEAD
     -- custom plugins
     {
         dir = "~/projects/nvim-plugins/src/smilingbanana.nvim",
         config = function()
             require("smilingbanana").setup()
         end,
-    },
-    {
-        "christoomey/vim-tmux-navigator",
-        lazy = false,
     },
     -- {
     --     "christoomey/vim-tmux-navigator",
