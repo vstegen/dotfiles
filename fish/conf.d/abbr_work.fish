@@ -2,7 +2,7 @@
 abbr -ag gcom "git checkout mainline"
 
 # directly work related
-abbr -ag login 'kinit -f && mwinit -o -s'
+abbr -ag login 'kinit -f && mwinit --aea'
 
 abbr -a bb brazil-build
 abbr -a br brazil-build release
