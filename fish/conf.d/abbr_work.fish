@@ -23,6 +23,5 @@ abbr -a ebbr eda build brazil-build release
 abbr -a third-party-promote ~/.toolbox/bin/brazil-third-party-tool promote
 abbr -a third-party ~/.toolbox/bin/brazil-third-party-tool
 
-abbr -a e emacs
 
 abbr -a y env -i /usr/bin/yum
