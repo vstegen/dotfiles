@@ -17,7 +17,9 @@ neotest.setup {
         },
         -- can only run individual tests or files
         -- assumes tests are in main.rs, lib.rs, mod.rs or in tests/
-        require "neotest-rust",
+        require "neotest-rust" {
+            dap_adapter = "lldb",
+        },
         require "neotest-go" {
             experimental = {
                 test_table = true,
