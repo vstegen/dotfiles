@@ -35,7 +35,9 @@ npairs.add_rules(
             -- don't add a pair if the next character is %
             :with_pair(cond.not_after_regex "%%")
             -- don't add a pair if  the previous character is xxx
-            :with_pair(cond.not_before_regex("xxx", 3))
+            :with_pair(
+                cond.not_before_regex("xxx", 3)
+            )
             -- don't move right when repeat character
             :with_move(cond.none())
             -- don't delete if the next character is xx
