@@ -677,7 +677,7 @@ local n_mappings = {
             function()
                 require("oil").open_float()
             end,
-            "Open parent dir in oil",
+            "Open parent dir in oil (float)",
         },
 
         g = { "<cmd>Glow<cr>", "Glow" },
