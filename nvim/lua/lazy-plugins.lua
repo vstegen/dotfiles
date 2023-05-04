@@ -187,11 +187,11 @@ require("lazy").setup({
         end,
     },
     {
-        "windwp/nvim-autopairs",
+        "echasnovski/mini.pairs",
+        version = false,
         config = function()
-            require "plugin-config.autopairs"
+            require "plugin-config.mini_pairs"
         end,
-        dependencies = { "nvim-cmp" },
     },
     {
         "lewis6991/gitsigns.nvim",
