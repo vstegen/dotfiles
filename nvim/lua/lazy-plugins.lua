@@ -103,7 +103,12 @@ require("lazy").setup({
             require "plugin-config.treesitter-context"
         end,
     },
-    { "windwp/nvim-ts-autotag" },
+    {
+        "windwp/nvim-ts-autotag",
+        config = function()
+            require "plugin-config.autotag"
+        end,
+    },
     -- {
     --     "nvim-tree/nvim-tree.lua",
     --     dependencies = {
