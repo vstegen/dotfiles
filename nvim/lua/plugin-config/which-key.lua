@@ -268,6 +268,12 @@ local n_mappings = {
             end,
             "Quit",
         },
+        Q = {
+            function()
+                require("dap").terminate()
+            end,
+            "Terminate",
+        },
         v = {
             function()
                 require("telescope").extensions.dap.variables {}
