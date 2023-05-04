@@ -936,6 +936,12 @@ local n_mappings = {
             end,
             "Debug nearest Go test",
         },
+        G = {
+            function()
+                require("dap-go").debug_last_test()
+            end,
+            "Debug nearest Go test",
+        },
         s = {
             function()
                 require("neotest").run.run { vim.fn.getcwd() }
