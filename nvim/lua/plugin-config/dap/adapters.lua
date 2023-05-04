@@ -25,6 +25,15 @@ dap.configurations.cpp = {
             return variables
         end,
     },
+    {
+        -- If you get an "Operation not permitted" error using this, try disabling YAMA:
+        --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+        name = "Attach to process",
+        type = "cpp",
+        request = "attach",
+        pid = require("dap.utils").pick_process,
+        args = {},
+    },
 }
 
 dap.configurations.c = dap.configurations.cpp
@@ -66,10 +75,53 @@ dap.configurations.rust = {
             end
             return variables
         end,
+        {
+            -- If you get an "Operation not permitted" error using this, try disabling YAMA:
+            --  echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+            name = "Attach to process",
+            type = "rust",
+            request = "attach",
+            pid = require("dap.utils").pick_process,
+            args = {},
+        },
     },
 }
 
 local dap_go_ok, dap_go = pcall(require, "dap-go")
 if dap_go_ok then
     dap_go.setup()
+else
+    dap.adapters.delve = {
+        type = "server",
+        port = "${port}",
+        executable = {
+            command = "dlv",
+            args = { "dap", "-l", "127.0.0.1:${port}" },
+        },
+    }
+
+    -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+    dap.configurations.go = {
+        {
+            type = "delve",
+            name = "Debug",
+            request = "launch",
+            program = "${file}",
+        },
+        {
+            type = "delve",
+            name = "Debug test", -- configuration for debugging test files
+            request = "launch",
+            mode = "test",
+            program = "${file}",
+        },
+        -- works with go.mod packages and sub packages
+        {
+            type = "delve",
+            name = "Debug test (go.mod)",
+            request = "launch",
+            mode = "test",
+            program = "./${relativeFileDirname}",
+        },
+    }
 end
