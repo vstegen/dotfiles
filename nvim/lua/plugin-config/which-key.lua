@@ -257,7 +257,7 @@ local n_mappings = {
         w = {
             function()
                 local widgets = require "dap.ui.widgets"
-                local sidebar = widgets.sidbar(widgets.scopes)
+                local sidebar = widgets.sidebar(widgets.scopes)
             end,
             "Widget",
         },
