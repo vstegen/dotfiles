@@ -4,10 +4,8 @@ return {
         gopls = {
             experimentalPostfixCompletions = true,
             analyses = {
-                nilness = true,
                 shadow = true,
                 unusedparams = true,
-                shadow = true,
             },
             staticcheck = true,
             codelenses = { test = true },
