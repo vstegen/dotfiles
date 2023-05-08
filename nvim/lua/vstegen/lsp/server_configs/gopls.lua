@@ -1,5 +1,5 @@
 return {
-    root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
+    root_dir = require("lspconfig.util").root_pattern("go.work", "go.mod", ".git"),
     settings = {
         gopls = {
             experimentalPostfixCompletions = true,
