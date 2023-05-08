@@ -10,6 +10,8 @@ return {
             staticcheck = true,
             codelenses = { test = true },
             gofumpt = true,
+            completeUnimported = true,
+            usePlaceholders = true,
         },
     },
 }
