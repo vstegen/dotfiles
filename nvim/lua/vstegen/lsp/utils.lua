@@ -107,6 +107,10 @@ M.on_attach = function(client, bufnr)
         client.server_capabilities.semanticTokensProvider = nil
     end
 
+    if client.server_capabilities.signatureHelpProvider then
+        -- https://github.com/NvChad/ui/blob/v2.0/lua/nvchad_ui/signature.lua
+    end
+
     lsp_keymaps(bufnr)
     lsp_highlight_document(client, bufnr)
 end
