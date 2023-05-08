@@ -17,7 +17,6 @@ local ts_config = {
         "gowork",
         "go",
         "graphql",
-        "help",
         "html",
         "http",
         "json",
