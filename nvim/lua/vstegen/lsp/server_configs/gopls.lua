@@ -4,14 +4,16 @@ return {
         gopls = {
             experimentalPostfixCompletions = true,
             analyses = {
+                nilness = true,
                 shadow = true,
                 unusedparams = true,
             },
             staticcheck = true,
-            codelenses = { test = true },
+            codelenses = { generate = true, test = true },
             gofumpt = true,
-            completeUnimported = true,
             usePlaceholders = true,
+            completeUnimported = true,
+            buildFlags = { "-tags", "integration" },
         },
     },
 }
