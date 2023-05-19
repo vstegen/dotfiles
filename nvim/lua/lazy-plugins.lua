@@ -267,6 +267,7 @@ require("lazy").setup({
         config = function()
             require "plugin-config.ident-blankline"
         end,
+        enabled = false,
     },
     {
         "NvChad/nvim-colorizer.lua",
