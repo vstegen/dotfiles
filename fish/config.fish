@@ -8,7 +8,7 @@ end
 
 
 # eval "$(/opt/homebrew/bin/brew shellenv)"
-eval "$(/usr/local/bin/brew shellenv)"
+# eval "$(/usr/local/bin/brew shellenv)"
 
 # starship prompt
 starship init fish | source
@@ -18,7 +18,8 @@ zoxide init fish | source
 
 # source asfd
 # source /opt/homebrew/opt/asdf/libexec/asdf.fish
-source /usr/local/opt/asdf/libexec/asdf.fish
+# source /usr/local/opt/asdf/libexec/asdf.fish
+source ~/.asdf/asdf.fish
 
 # fish_add_path $HOME/.emacs.d/bin /opt/homebrew/opt/openssl@1.1/bin /opt/homebrew/opt/bison/bin $HOME/.bun/bin $HOME/.local/bin $HOME/bin
 

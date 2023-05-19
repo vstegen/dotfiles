@@ -198,6 +198,7 @@ require("lazy").setup({
         config = function()
             require "plugin-config.gitsigns"
         end,
+        enabled = false,
     },
     {
         "folke/which-key.nvim",

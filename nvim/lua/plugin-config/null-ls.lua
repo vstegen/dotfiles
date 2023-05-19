@@ -59,7 +59,7 @@ local config = {
         filetypes = shfmt.filetypes,
     },
     null_ls.builtins.formatting.black.with { extra_args = { "--fast" } },
-    null_ls.builtins.formatting.clang_format,
+    -- null_ls.builtins.formatting.clang_format,
     null_ls.builtins.formatting.cmake_format,
     null_ls.builtins.formatting.sqlformat,
 
@@ -70,7 +70,7 @@ local config = {
     -- },
     -- null_ls.builtins.diagnostics.eslint, -- could use eslint_d as well
     -- null_ls.builtins.diagnostics.luacheck,
-    null_ls.builtins.diagnostics.ruff,
+    -- null_ls.builtins.diagnostics.ruff,
     -- null_ls.builtins.diagnostics.flake8.with {
     --     extra_args = { "--select", "C,E,F,W,B,B950", "--extend-ignore", "E203,E501", "--max-line-length", "88" },
     -- },
@@ -84,7 +84,6 @@ local config = {
 
     -- code actions
     -- null_ls.builtins.code_actions.eslint, -- could use eslint_d as well
-    null_ls.builtins.code_actions.shellcheck,
     -- null_ls.builtins.code_actions.gitsigns,
 }
 

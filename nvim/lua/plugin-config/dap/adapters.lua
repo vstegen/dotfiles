@@ -89,7 +89,34 @@ dap.configurations.rust = {
 
 local dap_go_ok, dap_go = pcall(require, "dap-go")
 if dap_go_ok then
-    dap_go.setup()
+    dap_go.setup({
+        dap_configurations = {
+            {
+                name = "Launch Package (Dir)",
+                type = "go",
+                request = "launch",
+                mode = "test",
+                program = "${fileDirname}"
+            }
+        },
+    })
+
+    -- using vscode-go and setting up dap for go manually
+    -- dap.adapters.go = {
+    --   type = 'executable';
+    --   command = 'node';
+    --   args = {os.getenv('HOME') .. '/dev/tools/vscode-go/dist/debugAdapter.js'};
+    -- }
+    -- dap.configurations.go = {
+    --   {
+    --     type = 'go';
+    --     name = 'Debug';
+    --     request = 'launch';
+    --     showLog = false;
+    --     program = "${file}";
+    --     dlvToolPath = vim.fn.exepath('dlv')  -- Adjust to where delve is installed
+    --   },
+    -- }
 else
     dap.adapters.delve = {
         type = "server",

@@ -4,6 +4,8 @@ abbr -ag gcom "git checkout mainline"
 # directly work related
 abbr -ag login 'kinit -f && mwinit -o -s'
 
+abbr -a gpr git pull --rebase origin mainline
+
 abbr -a bb brazil-build
 abbr -a br brazil-build release
 abbr -a bre brazil-runtime-exec
