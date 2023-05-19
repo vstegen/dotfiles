@@ -67,6 +67,23 @@ require("lazy").setup({
         end,
     },
     {
+        "zbirenbaum/copilot.lua",
+        event = "InsertEnter",
+        config = function()
+            require "plugin-config.copilot"
+        end,
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        dependencies = {
+            "hrsh7th/nvim-cmp",
+            "zbirenbaum/copilot.lua",
+        },
+        config = function()
+            require "plugin-config.copilot_cmp"
+        end,
+    },
+    {
         "nvim-telescope/telescope.nvim",
         -- tag = "0.1.0",
         dependecies = { "nvim-lua/plenary.nvim" },

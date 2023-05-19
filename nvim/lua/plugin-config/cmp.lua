@@ -36,11 +36,20 @@ local icons = {
     Unit = "塞",
     Value = " ",
     Variable = " ",
+    Copilot = "",
 }
 
 local has_words_before = function()
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+end
+
+local has_words_before_copilot = function()
+    if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then
+        return false
+    end
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match "^%s*$" == nil
 end
 
 local check_backspace = function()
@@ -93,6 +102,7 @@ cmp.setup {
                 buffer = "(Buffer)",
                 treesitter = "(Treesitter)",
                 crates = "(Crates)",
+                copilot = "(Copilot)",
                 ["nvim_lsp_signature_help"] = "(SignatureHelp)",
             })[entry.source.name]
             vim_item.dup = ({
@@ -120,9 +130,10 @@ cmp.setup {
         },
         ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 
+        -- copilot
         ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
+            if cmp.visible() and has_words_before_copilot() then
+                cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
             elseif has_words_before() then
@@ -135,6 +146,22 @@ cmp.setup {
                 fallback()
             end
         end, { "i", "s" }),
+
+        -- ["<Tab>"] = cmp.mapping(function(fallback)
+        --     if cmp.visible() then
+        --         cmp.select_next_item()
+        --     elseif luasnip.expand_or_jumpable() then
+        --         luasnip.expand_or_jump()
+        --     elseif has_words_before() then
+        --         cmp.complete()
+        --     elseif check_backspace() then
+        --         vim.fn.feedkeys(T "<Tab>", "n")
+        --     elseif is_emmet_active() then
+        --         return vim.fn["cmp#complete"]()
+        --     else
+        --         fallback()
+        --     end
+        -- end, { "i", "s" }),
 
         ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
@@ -156,7 +183,9 @@ cmp.setup {
             end
         end,
     },
+
     sources = cmp.config.sources({
+        { name = "copilot" },
         { name = "nvim_lsp" },
         { name = "nvim_lua" },
         { name = "path" },
@@ -169,6 +198,25 @@ cmp.setup {
     }, {
         { name = "buffer" },
     }),
+    sorting = {
+        priority_weight = 2,
+        comparators = {
+            -- put above cmp so that the exact matches appear first
+            cmp.config.compare.exact,
+            require("copilot_cmp.comparators").prioritize,
+
+            -- Below is the default comparitor list and order for nvim-cmp
+            cmp.config.compare.offset,
+            -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+            cmp.config.compare.score,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.locality,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
+    },
     experimental = {
         ghost_text = true,
     },
@@ -197,3 +245,5 @@ define_autocmd {
         end,
     },
 }
+
+-- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })

@@ -105,7 +105,98 @@ local n_mappings = {
     },
 
     c = {
-        name = "+code",
+        name = "+copilot",
+
+        s = {
+            name = "+suggestions",
+
+            v = {
+                function()
+                    require("copilot.suggestion").is_visible()
+                end,
+                "Accept",
+            },
+            a = {
+                function()
+                    require("copilot.suggestion").accept()
+                end,
+                "Accept",
+            },
+            w = {
+                function()
+                    require("copilot.suggestion").accept_word()
+                end,
+                "Accept",
+            },
+            l = {
+                function()
+                    require("copilot.suggestion").accept_line()
+                end,
+                "Accept",
+            },
+            n = {
+                function()
+                    require("copilot.suggestion").next()
+                end,
+                "Accept",
+            },
+            p = {
+                function()
+                    require("copilot.suggestion").prev()
+                end,
+                "Accept",
+            },
+            d = {
+                function()
+                    require("copilot.suggestion").dismiss()
+                end,
+                "Accept",
+            },
+        },
+        t = {
+            function()
+                require("copilot.suggestion").toggle_auto_trigger()
+            end,
+            "Toggle auto suggestions",
+        },
+
+        p = {
+            name = "+panel",
+            a = {
+                function()
+                    require("copilot.panel").accept()
+                end,
+                "Accept",
+            },
+            n = {
+                function()
+                    require("copilot.panel").jump_next()
+                end,
+                "Next",
+            },
+            p = {
+                function()
+                    require("copilot.panel").jump_prev()
+                end,
+                "Previous",
+            },
+            o = {
+                function()
+                    require("copilot.panel").open()
+                end,
+                "Open",
+            },
+            r = {
+                function()
+                    require("copilot.panel").refresh()
+                end,
+                "Refresh",
+            },
+        },
+    },
+
+    D = {
+        name = "+docs",
         c = {
             function()
                 require("neogen").generate { type = "class" }
