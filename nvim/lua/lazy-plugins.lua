@@ -84,6 +84,10 @@ require("lazy").setup({
         end,
     },
     {
+        "github/copilot.vim",
+        enabled = false,
+    },
+    {
         "nvim-telescope/telescope.nvim",
         -- tag = "0.1.0",
         dependecies = { "nvim-lua/plenary.nvim" },
