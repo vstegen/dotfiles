@@ -157,12 +157,6 @@ map(
     { expr = true, desc = "Delete word under cursor (backword)" }
 )
 
-local harpoon_ok, _ = pcall(require, "harpoon")
-if harpoon_ok then
-    vim.keymap.set("n", "<left>", '<cmd>lua require("harpoon.ui").nav_prev()<cr>', { silent = true })
-    vim.keymap.set("n", "<right>", '<cmd>lua require("harpoon.ui").nav_next()<cr>', { silent = true })
-end
-
 local neotest_ok, neotest = pcall(require, "neotest")
 if neotest_ok then
     vim.keymap.set("n", "[n", function()
