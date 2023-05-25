@@ -14,9 +14,6 @@ starship init fish | source
 # smart autojumper
 zoxide init fish | source
 
-# source asfd
-source /opt/homebrew/opt/asdf/libexec/asdf.fish
-
 # source rtx
 ~/.cargo/bin/rtx activate fish | source
 
