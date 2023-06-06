@@ -372,7 +372,7 @@ local n_mappings = {
             function()
                 require("plugin-config.telescope-config").project_files()
             end,
-            "Find project file",
+            "Find project files",
         },
         h = {
             function()

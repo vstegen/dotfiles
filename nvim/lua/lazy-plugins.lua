@@ -398,6 +398,20 @@ require("lazy").setup({
     --     "christoomey/vim-tmux-navigator",
     --     lazy = false,
     -- },
+    {
+        "vimwiki/vimwiki",
+        branch = "dev",
+        init = function()
+            vim.g.vimwiki_list = {
+                {
+                    path = "~/wiki",
+                    -- syntax = "markdown",
+                    -- ext = ".md",
+                },
+            }
+            vim.g.vimwiki_global_ext = 0
+        end,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
