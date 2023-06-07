@@ -607,6 +607,12 @@ local n_mappings = {
             end,
             "Format",
         },
+        F = {
+            function()
+                vim.lsp.buf.format()
+            end,
+            "Format LSP",
+        },
         i = { "<cmd>LspInfo<cr>", "Info" },
         j = {
             function()

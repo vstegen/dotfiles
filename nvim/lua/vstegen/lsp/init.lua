@@ -75,7 +75,7 @@ for _, server_name in ipairs(get_servers()) do
     if server_name == "rust_analyzer" then
         local rt_installed, rt = pcall(require, "rust-tools")
         if rt_installed then
-            require("rust-tools").setup(require "vstegen.lsp.server_configs.rust_tools" (opts))
+            require("rust-tools").setup(require "vstegen.lsp.server_configs.rust_tools"(opts))
             goto continue
         else
             opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.rust_analyzer", opts)
