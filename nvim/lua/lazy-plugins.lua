@@ -251,6 +251,7 @@ require("lazy").setup({
         config = function()
             require "plugin-config.ident-blankline"
         end,
+        enabled = false,
     },
     {
         "NvChad/nvim-colorizer.lua",
@@ -379,6 +380,7 @@ require("lazy").setup({
         config = function()
             require("smilingbanana").setup()
         end,
+        enabled = false,
     },
     -- {
     --     "christoomey/vim-tmux-navigator",
