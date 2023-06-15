@@ -1,6 +1,9 @@
 local map = vim.keymap.set
 local Util = require "lazy.core.util"
 
+-- control backspace deletes last word
+map("i", "<C-BS>", "<Esc>cvb")
+
 -- fast escape
 map("i", "jk", "<ESC>")
 
