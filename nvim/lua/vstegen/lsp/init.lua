@@ -106,6 +106,10 @@ for _, server_name in ipairs(get_servers()) do
         opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.sqlls", opts)
     end
 
+    if server_name == "yamlls" then
+        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.yamlls", opts)
+    end
+
     lspconfig[server_name].setup(opts)
     ::continue::
 end
