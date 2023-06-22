@@ -323,6 +323,55 @@ require("lazy").setup({
         end,
     },
     {
+        "folke/flash.nvim",
+        enabled = false,
+        opts = {},
+        event = "VeryLazy",
+        keys = {
+            {
+                "m",
+                mode = { "o", "x" },
+                function()
+                    return require("flash").treesitter()
+                end,
+            },
+            {
+                "s",
+                mode = { "n", "x", "o" },
+                function()
+                    require("flash").jump {
+                        forward = true,
+                        wrap = false,
+                        multi_window = false,
+                    }
+                end,
+            },
+            {
+                "S",
+                mode = { "n", "x", "o" },
+                function()
+                    require("flash").jump {
+                        forward = false,
+                        wrap = false,
+                        multi_window = false,
+                    }
+                end,
+            },
+            {
+                "gs",
+                function()
+                    return require("flash").jump {}
+                end,
+            },
+            {
+                "gS",
+                function()
+                    return require("flash").jump()
+                end,
+            },
+        },
+    },
+    {
         "mattn/emmet-vim",
         ft = {
             "javascriptreact",
