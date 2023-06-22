@@ -42,7 +42,6 @@ mason_lsp.setup {
         "graphql",
         "jsonls",
         "lua_ls",
-        "tsserver",
         "marksman",
         "pyright",
         "rust_analyzer",
@@ -112,6 +111,37 @@ for _, server_name in ipairs(get_servers()) do
 
     lspconfig[server_name].setup(opts)
     ::continue::
+end
+
+local ts_tools_installed, ts_tools = pcall(require, "typescript-tools")
+if ts_tools_installed then
+    ts_tools.setup {
+        capabilities = utils.generate_capabilities(),
+        on_attach = utils.on_attach,
+        flags = lsp_flags,
+        settings = {
+            -- spawn additional tsserver instance to calculate diagnostics on it
+            separate_diagnostic_server = true,
+            -- "change"|"insert_leave" determine when the client asks the server about diagnostic
+            publish_diagnostic_on = "insert_leave",
+            -- specify a list of plugins to load by tsserver, e.g., for support `styled-components`
+            -- (see 💅 `styled-components` support section)
+            tsserver_plugins = {},
+            -- described below
+            tsserver_format_options = {},
+            tsserver_file_preferences = {
+                allowIncompleteCompletions = false,
+                allowRenameOfImportPath = false,
+                includeInlayParameterNameHints = "literal",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = false,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+            },
+        },
+    }
 end
 
 require "vstegen.lsp.diagnostics"
