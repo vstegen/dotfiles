@@ -288,6 +288,7 @@ require("lazy").setup({
         config = function()
             require "plugin-config.surround"
         end,
+        enabled = true,
     },
     {
         "abecodes/tabout.nvim",
@@ -321,6 +322,7 @@ require("lazy").setup({
         config = function()
             require "plugin-config.leap"
         end,
+        enabled = true,
     },
     {
         "folke/flash.nvim",
@@ -334,6 +336,7 @@ require("lazy").setup({
                 function()
                     return require("flash").treesitter()
                 end,
+                desc = "Flash Treesitter",
             },
             {
                 "s",
@@ -345,6 +348,7 @@ require("lazy").setup({
                         multi_window = false,
                     }
                 end,
+                desc = "Flash Forward",
             },
             {
                 "S",
@@ -356,18 +360,35 @@ require("lazy").setup({
                         multi_window = false,
                     }
                 end,
+                desc = "Flash Backwards",
             },
             {
                 "gs",
                 function()
-                    return require("flash").jump {}
+                    return require("flash").jump {
+                        forward = true,
+                        wrap = false,
+                    }
                 end,
+                desc = "Flash Forward (global)",
             },
             {
                 "gS",
                 function()
-                    return require("flash").jump()
+                    return require("flash").jump {
+                        forward = false,
+                        wrap = false,
+                    }
                 end,
+                desc = "Flash Backwards (global)",
+            },
+            {
+                "r",
+                mode = "o",
+                function()
+                    require("flash").remote()
+                end,
+                desc = "Remote Flash",
             },
         },
     },
