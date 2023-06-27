@@ -323,11 +323,11 @@ require("lazy").setup({
         config = function()
             require "plugin-config.leap"
         end,
-        enabled = true,
+        enabled = false,
     },
     {
         "folke/flash.nvim",
-        enabled = false,
+        enabled = true,
         opts = {},
         event = "VeryLazy",
         keys = {
