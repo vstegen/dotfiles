@@ -40,6 +40,7 @@ require("lazy").setup({
         config = function()
             require "plugin-config.lsp_signature"
         end,
+        enabled = false,
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
@@ -484,6 +485,17 @@ require("lazy").setup({
                 },
             }
             vim.g.vimwiki_global_ext = 0
+        end,
+    },
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        },
+        config = function()
+            require "plugin-config.noice"
         end,
     },
 }, {
