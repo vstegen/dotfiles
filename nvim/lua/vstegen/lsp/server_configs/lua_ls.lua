@@ -17,7 +17,7 @@ return {
             -- },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = { "vim" },
+                globals = { "vim", "O" },
             },
             workspace = {
                 library = vim.api.nvim_get_runtime_file("", true),
