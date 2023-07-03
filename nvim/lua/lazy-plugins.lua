@@ -12,7 +12,6 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 require("lazy").setup({
-    "lewis6991/impatient.nvim",
     "nvim-lua/popup.nvim",
     "nvim-lua/plenary.nvim",
     "neovim/nvim-lspconfig",
@@ -65,7 +64,6 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lua",
             "hrsh7th/cmp-cmdline",
-            -- "hrsh7th/cmp-nvim-lsp-signature-help",
         },
         config = function()
             require "plugin-config.cmp"
