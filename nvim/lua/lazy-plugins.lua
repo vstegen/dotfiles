@@ -184,11 +184,6 @@ require("lazy").setup({
     { "nvim-telescope/telescope-dap.nvim" },
     { "leoluz/nvim-dap-go" },
     {
-        "folke/tokyonight.nvim",
-        priority = 1000,
-        lazy = false,
-    },
-    {
         "rebelot/kanagawa.nvim",
         priority = 1000,
         lazy = false,
@@ -196,11 +191,6 @@ require("lazy").setup({
     {
         "catppuccin/nvim",
         name = "catppuccin",
-        priority = 1000,
-        lazy = false,
-    },
-    {
-        "rose-pine/neovim",
         priority = 1000,
         lazy = false,
     },
