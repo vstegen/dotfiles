@@ -136,16 +136,6 @@ require("lazy").setup({
             require "plugin-config.autotag"
         end,
     },
-    -- {
-    --     "nvim-tree/nvim-tree.lua",
-    --     dependencies = {
-    --         "nvim-tree/nvim-web-devicons",
-    --     },
-    --     version = "nightly",
-    --     config = function()
-    --         require "plugin-config.nvimtree"
-    --     end,
-    -- },
     {
         "nvim-neo-tree/neo-tree.nvim",
         branch = "v2.x",
@@ -224,18 +214,6 @@ require("lazy").setup({
         end,
     },
     {
-        "folke/zen-mode.nvim",
-        config = function()
-            require "plugin-config.zen"
-        end,
-    },
-    {
-        "folke/twilight.nvim",
-        config = function()
-            require "plugin-config.twilight"
-        end,
-    },
-    {
         "numToStr/Comment.nvim",
         config = function()
             require "plugin-config.comment"
@@ -289,12 +267,6 @@ require("lazy").setup({
             require "plugin-config.neogen"
         end,
         dependencies = { "nvim-treesitter/nvim-treesitter" },
-    },
-    {
-        "ellisonleao/glow.nvim",
-        config = function()
-            require "plugin-config.glow"
-        end,
     },
     {
         "folke/persistence.nvim",
@@ -451,25 +423,6 @@ require("lazy").setup({
         config = function()
             require "plugin-config.oil"
         end,
-    },
-    -- {
-    --     "christoomey/vim-tmux-navigator",
-    --     lazy = false,
-    -- },
-    {
-        "vimwiki/vimwiki",
-        branch = "dev",
-        init = function()
-            vim.g.vimwiki_list = {
-                {
-                    path = "~/wiki",
-                    -- syntax = "markdown",
-                    -- ext = ".md",
-                },
-            }
-            vim.g.vimwiki_global_ext = 0
-        end,
-        enabled = false,
     },
     {
         "folke/noice.nvim",
