@@ -418,9 +418,7 @@ require("lazy").setup({
     },
     {
         "ThePrimeagen/harpoon",
-        config = function()
-            require "plugin-config.harpoon"
-        end,
+        config = true,
     },
     {
         "nvim-neotest/neotest",
