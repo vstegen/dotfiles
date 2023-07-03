@@ -33,6 +33,7 @@ require("lazy").setup({
     },
     {
         "folke/neodev.nvim",
+        opts = {},
     },
     {
         "ray-x/lsp_signature.nvim",
@@ -43,8 +44,10 @@ require("lazy").setup({
     },
     {
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        config = function()
-            require "plugin-config.lsp_lines"
+        config = function(_, opts)
+            local lines = require "lsp_lines"
+            lines.setup(opts)
+            lines.toggle()
         end,
     },
     {
