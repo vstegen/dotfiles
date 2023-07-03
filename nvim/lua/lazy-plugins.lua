@@ -420,9 +420,14 @@ require("lazy").setup({
     },
     {
         "stevearc/oil.nvim",
-        config = function()
-            require "plugin-config.oil"
-        end,
+        opts = {
+            view_options = {
+                show_hidden = true,
+            },
+            float = {
+                border = "single",
+            },
+        },
     },
     {
         "folke/noice.nvim",
