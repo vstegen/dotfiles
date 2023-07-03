@@ -777,8 +777,6 @@ local n_mappings = {
             "Open parent dir in oil (float)",
         },
 
-        g = { "<cmd>Glow<cr>", "Glow" },
-
         r = { "<CMD>write <bar> edit <bar> TSBufEnable highlight<CR>", "Restart Treesitter highlight" },
         y = { '"+y', "Yank into os register" },
         Y = { '"+Y', "Yank line into os register" },
@@ -820,8 +818,6 @@ local n_mappings = {
                 "Toggle lazyredraw",
             },
 
-            t = { "<cmd>Twilight<cr>", "Toggle Twilight" },
-
             w = {
                 function()
                     vim.opt_local.wrap = not vim.opt_local.wrap:get()
@@ -833,8 +829,6 @@ local n_mappings = {
                 end,
                 "Toggle wrap",
             },
-
-            z = { "<cmd>ZenMode<cr>", "Toggle Zen" },
         },
     },
 
