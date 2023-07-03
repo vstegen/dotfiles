@@ -150,11 +150,6 @@ if dap_ok then
     telescope.load_extension "dap"
 end
 
-local harpoon_ok, _ = pcall(require, "harpoon")
-if harpoon_ok then
-    telescope.load_extension "harpoon"
-end
-
 local noice_ok, _ = pcall(require, "noice")
 if noice_ok then
     telescope.load_extension "noice"
