@@ -205,12 +205,6 @@ require("lazy").setup({
         lazy = false,
     },
     {
-        "antoinemadec/FixCursorHold.nvim",
-        setup = function()
-            vim.g.cursorhold_updatetime = 100
-        end,
-    },
-    {
         "echasnovski/mini.pairs",
         version = false,
         config = function()
