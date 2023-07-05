@@ -132,15 +132,59 @@ require("lazy").setup({
     },
     {
         "nvim-neo-tree/neo-tree.nvim",
-        branch = "v2.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
             "MunifTanjim/nui.nvim",
         },
-        config = function()
-            require "plugin-config.neotree"
+        init = function()
+            vim.g.neo_tree_remove_legacy_commands = 1
+
+            if vim.fn.argc() == 1 then
+                local stat = vim.loop.fs_stat(vim.fn.argv(0))
+                if stat and stat.type == "directory" then
+                    require "neo-tree"
+                end
+            end
         end,
+        opts = {
+            popup_border_style = "single",
+            filesystem = {
+                filtered_items = {
+                    hide_dotfiles = false,
+                    hide_gitignored = false,
+                    hide_hidden = false,
+                },
+                bind_to_cwd = false,
+                follow_current_file = true,
+                use_libuv_file_watcher = true,
+            },
+            sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+            open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" },
+            window = {
+                mappings = {
+                    ["<space>"] = "none",
+                },
+            },
+            default_component_configs = {
+                indent = {
+                    with_expanders = true,
+                    expander_collapsed = "",
+                    expander_expanded = "",
+                    expander_highlight = "NeoTreeExpander",
+                },
+                icon = {
+                    folder_empty = "󰜌",
+                    folder_empty_open = "󰜌",
+                },
+                git_status = {
+                    symbols = {
+                        renamed = "󰁕",
+                        unstaged = "󰄱",
+                    },
+                },
+            },
+        },
     },
     {
         "nvim-lualine/lualine.nvim",
@@ -258,6 +302,8 @@ require("lazy").setup({
             if vim.g.colors_name == "catppuccin" then
                 cfg.colored_indent_levels = false
             end
+
+            return cfg
         end,
         enabled = false,
     },
