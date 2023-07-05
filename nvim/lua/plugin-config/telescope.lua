@@ -138,12 +138,6 @@ telescope.setup(config)
 
 telescope.load_extension "fzf"
 telescope.load_extension "file_browser"
--- telescope.load_extension "ui-select"
-
-local ok, _ = pcall(require, "project_nvim")
-if ok then
-    telescope.load_extension "projects"
-end
 
 local dap_ok, _ = pcall(require, "dap")
 if dap_ok then

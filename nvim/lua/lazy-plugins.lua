@@ -104,12 +104,6 @@ require("lazy").setup({
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "nvim-telescope/telescope-ui-select.nvim" },
     { "nvim-telescope/telescope-file-browser.nvim" },
-    {
-        "ahmedkhalf/project.nvim",
-        config = function()
-            require "plugin-config.project"
-        end,
-    },
 
     -- Treesitter
     {
