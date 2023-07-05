@@ -236,8 +236,34 @@ require("lazy").setup({
     },
     {
         "lukas-reineke/indent-blankline.nvim",
-        config = function()
-            require "plugin-config.ident-blankline"
+        opts = function()
+            local cfg = {
+                char = "│",
+                filetype_exclude = {
+                    "help",
+                    "alpha",
+                    "dashboard",
+                    "neo-tree",
+                    "Trouble",
+                    "terminal",
+                    "packer",
+                    "lazy",
+                    "mason",
+                    "notify",
+                    "toggleterm",
+                    "lazyterm",
+                    "startify",
+                    "neogitstatus",
+                },
+                use_treesitter = true,
+                show_first_indent_level = false,
+                show_trailing_blankline_indent = false,
+                show_current_context = true,
+            }
+
+            if vim.g.colors_name == "catppuccin" then
+                cfg.colored_indent_levels = false
+            end
         end,
         enabled = false,
     },
@@ -414,9 +440,7 @@ require("lazy").setup({
     },
     {
         "stevearc/dressing.nvim",
-        config = function()
-            require "plugin-config.dressing"
-        end,
+        config = true,
     },
     {
         "stevearc/oil.nvim",
