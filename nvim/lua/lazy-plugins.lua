@@ -24,7 +24,72 @@ require("lazy").setup({
             { "nvim-lua/plenary.nvim" },
         },
         config = function()
-            require "plugin-config.null-ls"
+            local null_ls = require "null-ls"
+            null_ls.setup {
+                sources = {
+                    -- formatting
+                    require("null-ls").builtins.formatting.prettierd.with {
+                        filetypes = {
+                            "javascript",
+                            "javascriptreact",
+                            "javascript.jsx",
+                            "typescript",
+                            "typescriptreact",
+                            "typescript.tsx",
+                            "vue",
+                            "svelte",
+                            "css",
+                            "scss",
+                            "sass",
+                            "less",
+                            "html",
+                            "json",
+                            "jsonc",
+                            "yaml",
+                            "markdown",
+                            "graphql",
+                        },
+                    },
+                    null_ls.builtins.formatting.goimports,
+                    null_ls.builtins.formatting.stylua,
+                    null_ls.builtins.formatting.shfmt.with {
+                        filetypes = {
+                            "sh",
+                            "zsh",
+                            "bash",
+                        },
+                    },
+                    null_ls.builtins.formatting.black.with { extra_args = { "--fast" } },
+                    null_ls.builtins.formatting.sqlformat,
+
+                    -- diagnostics
+                    null_ls.builtins.diagnostics.staticcheck,
+                    null_ls.builtins.diagnostics.golangci_lint.with {
+                        extra_args = { "-E", "revive", "-E", "unparam" },
+                    },
+                    null_ls.builtins.diagnostics.eslint,
+                    null_ls.builtins.diagnostics.luacheck,
+                    null_ls.builtins.diagnostics.ruff,
+                    null_ls.builtins.diagnostics.markdownlint,
+                    null_ls.builtins.diagnostics.shellcheck.with {
+                        filetypes = {
+                            "sh",
+                            "zsh",
+                            "bash",
+                        },
+                    },
+                    null_ls.builtins.diagnostics.hadolint,
+                    null_ls.builtins.diagnostics.vint,
+
+                    -- code actions
+                    null_ls.builtins.code_actions.eslint,
+                    null_ls.builtins.code_actions.shellcheck,
+                },
+                debounce = 150,
+                diagnostics_format = "[#{c}] #{m} (#{s})",
+                on_attach = require("vstegen.lsp.utils").on_attach,
+                update_in_insert = true,
+            }
         end,
     },
     {
@@ -88,18 +153,47 @@ require("lazy").setup({
     {
         "zbirenbaum/copilot.lua",
         event = "InsertEnter",
-        config = function()
-            require "plugin-config.copilot"
-        end,
-    },
-    {
-        "zbirenbaum/copilot-cmp",
-        dependencies = {
-            "hrsh7th/nvim-cmp",
-            "zbirenbaum/copilot.lua",
+        opts = {
+            panel = {
+                enabled = true,
+                auto_refresh = false,
+                keymap = {
+                    jump_prev = "[[",
+                    jump_next = "]]",
+                    accept = "<CR>",
+                    refresh = "gr",
+                    open = "<M-CR>",
+                },
+                layout = {
+                    position = "bottom", -- | top | left | right
+                    ratio = 0.4,
+                },
+            },
+            suggestion = {
+                enabled = true,
+                auto_trigger = false,
+                debounce = 75,
+                keymap = {
+                    accept = "<M-l>",
+                    accept_word = false,
+                    accept_line = false,
+                    next = "<M-]>",
+                    prev = "<M-[>",
+                    dismiss = "<C-]>",
+                },
+            },
         },
-        config = function()
-            require "plugin-config.copilot_cmp"
+        config = function(_, opts)
+            require("copilot").setup(opts)
+            local cmp = require "cmp"
+
+            cmp.event:on("menu_opened", function()
+                vim.b.copilot_suggestion_hidden = true
+            end)
+
+            cmp.event:on("menu_closed", function()
+                vim.b.copilot_suggestion_hidden = false
+            end)
         end,
     },
     {
