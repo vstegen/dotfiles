@@ -203,7 +203,6 @@ cmp.setup {
         comparators = {
             -- put above cmp so that the exact matches appear first
             cmp.config.compare.exact,
-            require("copilot_cmp.comparators").prioritize,
 
             -- Below is the default comparitor list and order for nvim-cmp
             cmp.config.compare.offset,
