@@ -52,9 +52,15 @@ require("lazy").setup({
     },
     {
         "L3MON4D3/LuaSnip",
-        config = function()
-            require "plugin-config.luasnip"
+        init = function()
+            require("luasnip.loaders.from_lua").load { paths = vim.fn.expand "~/.config/nvim/snippets/" }
         end,
+        opts = {
+            history = true,
+            update_events = "TextChanged,TextChangedI",
+            region_check_events = "CursorMoved", -- "CursorHold", "InsertEnter"
+            delete_check_events = "TextChanged",
+        },
     },
     "rafamadriz/friendly-snippets",
     {
@@ -108,6 +114,9 @@ require("lazy").setup({
     -- Treesitter
     {
         "nvim-treesitter/nvim-treesitter",
+        dependencies = {
+            "JoosepAlviste/nvim-ts-context-commentstring",
+        },
         config = function()
             require "plugin-config.treesitter"
         end,
@@ -126,9 +135,7 @@ require("lazy").setup({
     },
     {
         "windwp/nvim-ts-autotag",
-        config = function()
-            require "plugin-config.autotag"
-        end,
+        config = true,
     },
     {
         "nvim-neo-tree/neo-tree.nvim",
@@ -228,9 +235,7 @@ require("lazy").setup({
     {
         "echasnovski/mini.pairs",
         version = false,
-        config = function()
-            require "plugin-config.mini_pairs"
-        end,
+        config = true,
     },
     {
         "lewis6991/gitsigns.nvim",
@@ -247,14 +252,16 @@ require("lazy").setup({
     {
         "folke/trouble.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
-        config = function()
-            require "plugin-config.trouble"
-        end,
+        config = true,
     },
     {
         "numToStr/Comment.nvim",
+        dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
         config = function()
-            require "plugin-config.comment"
+            require("Comment").setup {
+                ignore = "^$",
+                pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+            }
         end,
     },
     {
@@ -315,31 +322,40 @@ require("lazy").setup({
     },
     {
         "kylechui/nvim-surround",
-        config = function()
-            require "plugin-config.surround"
-        end,
+        opts = {
+            keymaps = {
+                insert = "<C-g>s",
+                insert_line = "<C-g>S",
+                normal = "ys",
+                normal_cur = "yss",
+                normal_line = "yS",
+                normal_cur_line = "ySS",
+                visual = "gs",
+                visual_line = "gS",
+                delete = "ds",
+                change = "cs",
+            },
+        },
         enabled = true,
     },
     {
         "abecodes/tabout.nvim",
         dependencies = { "nvim-cmp", "nvim-treesitter" },
-        config = function()
-            require "plugin-config.tabout"
-        end,
+        config = true,
     },
     {
         "danymat/neogen",
-        config = function()
-            require "plugin-config.neogen"
-        end,
+        opts = {
+            snippet_engine = "luasnip",
+        },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
     },
     {
         "folke/persistence.nvim",
         event = "BufReadPre",
-        config = function()
-            require "plugin-config.persistence"
-        end,
+        opts = {
+            options = { "buffers", "curdir", "tabpages", "winsize", "help" },
+        },
     },
     {
         "ggandor/leap.nvim",
@@ -475,7 +491,50 @@ require("lazy").setup({
             "nvim-neotest/neotest-vim-test",
         },
         config = function()
-            require "plugin-config.neotest"
+            require("neotest").setup {
+                adapters = {
+                    -- https://github.com/vim-test/vim-test
+                    require "neotest-vim-test" {
+                        ignore_filetypes = {
+                            "python",
+                            "rust",
+                            "go",
+                            "javascript",
+                            "typescript",
+                        },
+                    },
+                    -- can only run individual tests or files
+                    -- assumes tests are in main.rs, lib.rs, mod.rs or in tests/
+                    require "neotest-rust" {
+                        dap_adapter = "lldb",
+                    },
+                    require "neotest-go" {
+                        experimental = {
+                            test_table = true,
+                        },
+                    },
+                    require "neotest-python" {
+                        dap = { justMyCode = false },
+                        args = { "--log-level", "DEBUG" },
+                        runner = "pytest", -- alternative 'python-unittest', function is also possible
+                        is_test_file = function(file_path)
+                            if string.find(file_path, "_test.py") ~= nil then
+                                return true
+                            end
+
+                            return false
+                        end,
+                    },
+                    require "neotest-jest" {
+                        jestCommand = "npm test --",
+                        jestConfigFile = "custom.jest.config.ts",
+                        env = { CI = true },
+                        cwd = function(path)
+                            return vim.fn.getcwd()
+                        end,
+                    },
+                },
+            }
         end,
     },
     {
