@@ -8,10 +8,6 @@ local action_layout = require "telescope.actions.layout"
 
 local _, trouble = pcall(require, "trouble.providers.telescope")
 
-local function select_layout()
-    vim.api.nvim_win_get_width()
-end
-
 local config = {
     defaults = {
         prompt_prefix = " ",
@@ -128,9 +124,6 @@ local config = {
                 ["n"] = {},
             },
         },
-        --[[ ["ui-select"] = {
-            require("telescope.themes").get_cursor {},
-        }, ]]
     },
 }
 
