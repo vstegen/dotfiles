@@ -783,8 +783,144 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            require "plugin-config.lualine"
+        opts = function()
+            local default_colors = {
+                bg = "#202328",
+                fg = "#bbc2cf",
+                yellow = "#ECBE7B",
+                cyan = "#008080",
+                darkblue = "#081633",
+                green = "#98be65",
+                orange = "#FF8800",
+                violet = "#a9a1e1",
+                magenta = "#c678dd",
+                purple = "#c678dd",
+                blue = "#51afef",
+                red = "#ec5f67",
+            }
+
+            local hide_in_width = function()
+                return vim.fn.winwidth(0) > 80
+            end
+
+            local treesitter = {
+                function()
+                    if next(vim.treesitter.highlighter.active) then
+                        return "  "
+                    end
+                    return ""
+                end,
+                color = { fg = default_colors.green },
+                cond = hide_in_width,
+            }
+
+            local diagnostics = {
+                "diagnostics",
+                sources = { "nvim_diagnostic" },
+                symbols = { error = " ", warn = " ", info = " ", hint = " " },
+                color = {},
+                update_in_insert = false,
+                always_visible = true,
+                cond = hide_in_width,
+            }
+
+            local filename = {
+                "filename",
+                color = {},
+                cond = nil,
+            }
+            local filetype = { "filetype", cond = hide_in_width, color = {} }
+
+            local scrollbar = {
+                function()
+                    local current_line = vim.fn.line "."
+                    local total_lines = vim.fn.line "$"
+                    local chars =
+                        { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+                    local line_ratio = current_line / total_lines
+                    local index = math.ceil(line_ratio * #chars)
+                    return chars[index]
+                end,
+                padding = { left = 0, right = 0 },
+                color = { fg = default_colors.yellow, bg = default_colors.bg },
+                cond = nil,
+            }
+
+            local diff = {
+                "diff",
+                symbols = { added = "  ", modified = "柳", removed = " " },
+                colored = false,
+                color = {},
+                cond = hide_in_width,
+            }
+
+            local branch = {
+                "b:gitsigns_head",
+                icon = " ",
+                color = { gui = "bold" },
+                cond = hide_in_width,
+            }
+
+            local word_count = {
+                function()
+                    return tostring(vim.fn.wordcount().words) .. " words"
+                end,
+                cond = function()
+                    local ft = vim.bo.filetype
+                    return ft == "markdown"
+                end,
+            }
+
+            return {
+                options = {
+                    icons_enabled = true,
+                    theme = "auto",
+                    component_separators = { left = "", right = "" },
+                    section_separators = { left = "", right = "" },
+                    disabled_filetypes = {
+                        statusline = {
+                            "alpha",
+                            "dashboard",
+                            "NvimTree",
+                            "Outline",
+                        },
+                        winbar = {},
+                    },
+                    ignore_focus = {},
+                    always_divide_middle = false,
+                    globalstatus = true,
+                    refresh = {
+                        statusline = 1000,
+                        tabline = 1000,
+                        winbar = 1000,
+                    },
+                },
+                sections = {
+                    lualine_a = { "mode" },
+                    lualine_b = { branch, filename },
+                    lualine_c = { diff },
+                    lualine_x = {
+                        word_count,
+                        diagnostics,
+                        treesitter,
+                        filetype,
+                    },
+                    lualine_y = {},
+                    lualine_z = { scrollbar },
+                },
+                inactive_sections = {
+                    lualine_a = {},
+                    lualine_b = {},
+                    lualine_c = { "filename" },
+                    lualine_x = { "location" },
+                    lualine_y = {},
+                    lualine_z = {},
+                },
+                tabline = {},
+                winbar = {},
+                inactive_winbar = {},
+                extensions = { "nvim-tree" },
+            }
         end,
     },
     {
