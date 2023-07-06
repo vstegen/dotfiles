@@ -38,7 +38,7 @@ local n_mappings = {
 
     ["."] = {
         function()
-            require("plugin-config.telescope-config").project_files()
+            require("vstegen.utils").project_files()
         end,
         "Find project files",
     },
@@ -370,7 +370,7 @@ local n_mappings = {
         },
         s = {
             function()
-                require("plugin-config.telescope-config").project_files()
+                require("vstegen.utils").project_files()
             end,
             "Find project files",
         },
@@ -385,7 +385,7 @@ local n_mappings = {
         },
         p = {
             function()
-                require("plugin-config.telescope-config").project_files()
+                require("vstegen.utils").project_files()
             end,
             "Find project files",
         },
