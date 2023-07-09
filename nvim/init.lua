@@ -1,6 +1,6 @@
 O = {}
 
-require "vstegen2.options"
+require "vstegen2.config.options"
 
 require "lazy-plugins"
 
