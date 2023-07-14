@@ -4,7 +4,7 @@ require "vstegen2.config.options"
 
 require "lazy-plugins"
 
-require "vstegen.globals"
+require "vstegen2.globals"
 
 require "vstegen.keymaps"
 
