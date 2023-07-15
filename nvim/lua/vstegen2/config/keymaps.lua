@@ -201,3 +201,5 @@ else
         vim.lsp.buf.hover()
     end, { desc = "Hover" })
 end
+
+-- which key mappings
