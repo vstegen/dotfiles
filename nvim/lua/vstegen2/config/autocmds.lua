@@ -2,7 +2,7 @@ local function augroup(name)
     return vim.api.nvim_create_augroup("vstegen_" .. name, { clear = true })
 end
 
--- TODO: enable auto format
+require("vstegen2.utils").enable_format_on_save()
 
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     group = augroup "reload_file",
