@@ -832,10 +832,6 @@ local n_mappings = {
         },
     },
 
-    o = {
-        name = "+open",
-    },
-
     p = {
         name = "+plugins",
         c = { "<cmd>Lazy check<cr>", "Check updates" },
@@ -1115,6 +1111,8 @@ local v_mappings = {
     y = { '"+y', "Yank into os register" },
     d = { '"_d', "Delete into void register" },
 }
+
+wk.setup(config)
 
 wk.register(n_mappings, opts)
 wk.register(v_mappings, vopts)
