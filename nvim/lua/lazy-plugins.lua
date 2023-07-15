@@ -1052,8 +1052,52 @@ require("lazy").setup({
     },
     {
         "folke/which-key.nvim",
-        config = function()
+        event = "VeryLazy",
+        opts = {
+            plugins = { spelling = true },
+            window = {
+                border = "single", -- none, single, double, shadow
+            },
+        },
+        config = function(_, _)
             require "plugin-config.which-key"
+            -- local wk = require "which-key"
+            -- wk.setup(opts)
+
+            -- wk.register({
+            --     ["b"] = { name = "+buffer" },
+            --     ["c"] = {
+            --         name = "+code",
+            --         ["p"] = { name = "+panel" },
+            --         ["s"] = { name = "+suggestions" },
+            --     },
+            --     ["D"] = { name = "+docs" },
+            --     ["d"] = { name = "+debug" },
+            --     ["f"] = { name = "+file" },
+            --     ["g"] = { name = "+git" },
+            --     ["h"] = { name = "+help" },
+            --     ["j"] = { name = "+jump" },
+            --     ["l"] = {
+            --         name = "+lsp",
+            --         ["t"] = { name = "+telescope" },
+            --         ["w"] = { name = "+workspace" },
+            --     },
+            --     ["m"] = {
+            --         name = "+misc",
+            --         ["t"] = { name = "+toggle" },
+            --     },
+            --     ["p"] = { name = "+plugins" },
+            --     ["q"] = { name = "+quit/session" },
+            --     ["s"] = { name = "+search" },
+            --     ["t"] = {
+            --         name = "+testing",
+            --         ["a"] = { name = "+alternative (VimTest)" },
+            --     },
+            --     ["W"] = { name = "+window" },
+            --     ["x"] = { name = "+diagnostics" },
+            -- }, { mode = "n", prefix = "<leader>" })
+
+            -- wk.register({}, { mode = "v", prefix = "<leader>" })
         end,
     },
     {
