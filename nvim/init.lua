@@ -6,7 +6,7 @@ require "lazy-plugins"
 
 require "vstegen2.globals"
 
-require "vstegen.keymaps"
+require "vstegen2.config.keymaps"
 
 require "vstegen.colorscheme"
 
