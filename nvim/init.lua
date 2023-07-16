@@ -2,7 +2,7 @@ O = {}
 
 require "vstegen2.config.options"
 
-require "lazy-plugins"
+require "vstegen2.lazy"
 
 require "vstegen2.globals"
 
