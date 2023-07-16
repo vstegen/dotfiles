@@ -31,7 +31,7 @@ dap_virtual_text_status.setup {
     -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
 }
 
-require "plugin-config.dap.adapters"
+require "vstegen2.plugins.dap.adapters"
 
 dapui.setup {
     icons = { expanded = "▾", collapsed = "▸" },

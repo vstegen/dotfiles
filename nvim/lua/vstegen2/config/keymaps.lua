@@ -150,7 +150,7 @@ map("x", "<leader>p", '"_dP', { desc = "Paste into void register" })
 map("n", "<bs>", "<c-^>'\"zz", { desc = "Toggle between last 2 buffers" })
 
 map("n", "<C-p>", function()
-    require("vstegen.utils").project_files()
+    require("vstegen2.utils").project_files()
 end, { desc = "Search project files" })
 
 map(

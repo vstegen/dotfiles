@@ -87,7 +87,7 @@ require("lazy").setup({
                 },
                 debounce = 150,
                 diagnostics_format = "[#{c}] #{m} (#{s})",
-                on_attach = require("vstegen.lsp.utils").on_attach,
+                on_attach = require("vstegen2.lsp.utils").on_attach,
                 update_in_insert = true,
             }
         end,
@@ -352,19 +352,16 @@ require("lazy").setup({
                 }),
             })
 
-            require("vstegen.utils").define_autocmd {
-                "FileType",
-                {
-                    group = "NvimCmp",
-                    pattern = "TelescopePrompt",
-                    callback = function()
-                        cmp.setup.buffer {
-                            enable = false,
-                            sources = {},
-                        }
-                    end,
-                },
-            }
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("vstegen_NvimCmp", { clear = true }),
+                pattern = "TelescopePrompt",
+                callback = function()
+                    cmp.setup.buffer {
+                        enable = false,
+                        sources = {},
+                    }
+                end,
+            })
         end,
     },
     {
@@ -1021,7 +1018,7 @@ require("lazy").setup({
     {
         "mfussenegger/nvim-dap",
         config = function()
-            require "plugin-config.dap"
+            require "vstegen2.plugins.dap"
         end,
     },
     {
@@ -1063,7 +1060,7 @@ require("lazy").setup({
             },
         },
         config = function(_, _)
-            require "plugin-config.which-key"
+            require "vstegen2.plugins.which-key"
             -- local wk = require "which-key"
             -- wk.setup(opts)
 
@@ -1122,7 +1119,7 @@ require("lazy").setup({
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         config = function()
-            require "plugin-config.todo-comments"
+            require "vstegen2.plugins.todo-comments"
         end,
         event = "VeryLazy",
     },

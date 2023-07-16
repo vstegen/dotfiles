@@ -38,7 +38,7 @@ local n_mappings = {
 
     ["."] = {
         function()
-            require("vstegen.utils").project_files()
+            require("vstegen2.utils").project_files()
         end,
         "Find project files",
     },
@@ -370,7 +370,7 @@ local n_mappings = {
         },
         s = {
             function()
-                require("vstegen.utils").project_files()
+                require("vstegen2.utils").project_files()
             end,
             "Find project files",
         },
@@ -385,7 +385,7 @@ local n_mappings = {
         },
         p = {
             function()
-                require("vstegen.utils").project_files()
+                require("vstegen2.utils").project_files()
             end,
             "Find project files",
         },
@@ -674,7 +674,7 @@ local n_mappings = {
         },
         f = {
             function()
-                require("vstegen.utils").format()
+                require("vstegen2.utils").format()
             end,
             "Format",
         },
@@ -801,7 +801,7 @@ local n_mappings = {
 
             f = {
                 function()
-                    require("vstegen.utils").toggle_format_on_save()
+                    require("vstegen2.utils").toggle_format_on_save()
                 end,
                 "Toggle formatting",
             },
