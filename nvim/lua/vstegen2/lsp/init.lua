@@ -20,7 +20,7 @@ if not lspconfig_status_ok then
     return
 end
 
-local utils = require "vstegen.lsp.utils"
+local utils = require "vstegen2.lsp.utils"
 
 mason.setup {
     ui = {
@@ -74,39 +74,39 @@ for _, server_name in ipairs(get_servers()) do
     if server_name == "rust_analyzer" then
         local rt_installed, rt = pcall(require, "rust-tools")
         if rt_installed then
-            require("rust-tools").setup(require "vstegen.lsp.server_configs.rust_tools"(opts))
+            require("rust-tools").setup(require "vstegen2.lsp.server_configs.rust_tools"(opts))
             goto continue
         else
-            opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.rust_analyzer", opts)
+            opts = vim.tbl_deep_extend("force", require "vstegen2.lsp.server_configs.rust_analyzer", opts)
         end
     end
 
     if server_name == "lua_ls" then
-        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.lua_ls", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen2.lsp.server_configs.lua_ls", opts)
     end
 
     if server_name == "tailwindcss" then
-        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.tailwindcss", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen2.lsp.server_configs.tailwindcss", opts)
     end
 
     if server_name == "kotlin_language_server" then
-        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.kotlin_language_server", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen2.lsp.server_configs.kotlin_language_server", opts)
     end
 
     if server_name == "gopls" then
-        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.gopls", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen2.lsp.server_configs.gopls", opts)
     end
 
     if server_name == "jsonls" then
-        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.jsonls", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen2.lsp.server_configs.jsonls", opts)
     end
 
     if server_name == "sqlls" then
-        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.sqlls", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen2.lsp.server_configs.sqlls", opts)
     end
 
     if server_name == "yamlls" then
-        opts = vim.tbl_deep_extend("force", require "vstegen.lsp.server_configs.yamlls", opts)
+        opts = vim.tbl_deep_extend("force", require "vstegen2.lsp.server_configs.yamlls", opts)
     end
 
     lspconfig[server_name].setup(opts)
@@ -144,4 +144,4 @@ if ts_tools_installed then
     }
 end
 
-require "vstegen.lsp.diagnostics"
+require "vstegen2.lsp.diagnostics"
