@@ -12,4 +12,4 @@ require "vstegen2.colorscheme"
 
 require "vstegen2.config.autocmds"
 
-require "vstegen.lsp"
+require "vstegen2.lsp"
