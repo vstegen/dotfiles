@@ -295,16 +295,6 @@ require("lazy").setup({
                             fallback()
                         end
                     end, { "i", "s" }),
-
-                    ["<C-Space>"] = function(fallback)
-                        if cmp.visible() then
-                            cmp.close()
-                        elseif cmp.visible() ~= 1 then
-                            cmp.complete()
-                        else
-                            fallback()
-                        end
-                    end,
                 },
 
                 sources = cmp.config.sources({
@@ -409,10 +399,17 @@ require("lazy").setup({
                 vim.b.copilot_suggestion_hidden = false
             end)
         end,
+        enabled = false,
     },
     {
         "github/copilot.vim",
-        enabled = false,
+        enabled = true,
+        config = function()
+            vim.cmd [[ imap <silent><script><expr> <C-space> copilot#Accept("\<CR>") ]]
+        end,
+        init = function()
+            vim.g.copilot_no_tab_map = true
+        end,
     },
     {
         "nvim-telescope/telescope.nvim",
