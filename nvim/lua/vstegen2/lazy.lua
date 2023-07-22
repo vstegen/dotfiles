@@ -814,7 +814,7 @@ require("lazy").setup({
             local diagnostics = {
                 "diagnostics",
                 sources = { "nvim_diagnostic" },
-                symbols = { error = " ", warn = " ", info = " ", hint = " " },
+                symbols = { error = " ", warn = " ", info = " ", hint = " " },
                 color = {},
                 update_in_insert = false,
                 always_visible = true,
@@ -845,7 +845,7 @@ require("lazy").setup({
 
             local diff = {
                 "diff",
-                symbols = { added = "  ", modified = "柳", removed = " " },
+                symbols = { added = "  ", modified = " ", removed = " " },
                 colored = false,
                 color = {},
                 cond = hide_in_width,
