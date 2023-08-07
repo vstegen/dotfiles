@@ -13,19 +13,19 @@ return {
         config = function()
             vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
-            local cmp = require("cmp")
-            local luasnip = require("luasnip")
+            local cmp = require "cmp"
+            local luasnip = require "luasnip"
             require("luasnip/loaders/from_vscode").lazy_load()
 
             local has_words_before = function()
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
                 return col ~= 0
-                    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+                    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
             end
 
             local check_backspace = function()
-                local col = vim.fn.col(".") - 1
-                return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+                local col = vim.fn.col "." - 1
+                return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
             end
 
             local function T(str)
@@ -43,7 +43,7 @@ return {
                 return false
             end
 
-            cmp.setup({
+            cmp.setup {
                 enabled = true,
                 preselect = cmp.PreselectMode.None,
                 completion = { completeopt = "menu,menuone,noinsert,noselect" },
@@ -59,7 +59,7 @@ return {
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
                     format = function(entry, item)
-                        local icons = require("vstegen.lsp.icons")
+                        local icons = require("vstegen.lsp.icons").kinds
                         if icons[item.kind] then
                             item.kind = icons[item.kind] .. item.kind
                             -- item.menu = ({
@@ -94,29 +94,29 @@ return {
                     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
                     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
                     ["<C-j>"] = cmp.mapping(
-                        cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+                        cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
                         { "c" }
                     ),
                     ["<C-k>"] = cmp.mapping(
-                        cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                        cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
                         { "c" }
                     ),
-                    ["<C-e>"] = cmp.mapping({
+                    ["<C-e>"] = cmp.mapping {
                         i = cmp.mapping.abort(),
                         c = cmp.mapping.close(),
-                    }),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
+                    },
+                    ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 
                     -- copilot
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
-                            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+                            cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
                         elseif luasnip.expand_or_jumpable() then
                             luasnip.expand_or_jump()
                         elseif has_words_before() then
                             cmp.complete()
                         elseif check_backspace() then
-                            vim.fn.feedkeys(T("<Tab>"), "n")
+                            vim.fn.feedkeys(T "<Tab>", "n")
                         elseif is_emmet_active() then
                             return vim.fn["cmp#complete"]()
                         else
@@ -151,7 +151,7 @@ return {
                     --     hl_group = "CmpGhostText",
                     -- },
                 },
-            })
+            }
 
             cmp.setup.filetype("gitcommit", {
                 sources = cmp.config.sources({
@@ -165,10 +165,10 @@ return {
                 group = vim.api.nvim_create_augroup("vstegen_NvimCmp", { clear = true }),
                 pattern = "TelescopePrompt",
                 callback = function()
-                    cmp.setup.buffer({
+                    cmp.setup.buffer {
                         enable = false,
                         sources = {},
-                    })
+                    }
                 end,
             })
         end,
