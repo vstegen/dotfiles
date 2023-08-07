@@ -15,36 +15,6 @@ return {
             "haydenmeade/neotest-jest",
             "nvim-neotest/neotest-plenary",
         },
-        opts = {
-            adapters = {
-                -- require "neotest-rust",
-                -- require "neotest-go" {
-                --     experimental = {
-                --         test_table = true,
-                --     },
-                -- },
-                -- require "neotest-jest" {
-                --     jestCommand = "npm test --",
-                --     jestConfigFile = "custom.jest.config.ts",
-                --     env = { CI = true },
-                --     cwd = function(path)
-                --         return vim.fn.getcwd()
-                --     end,
-                -- },
-                -- require "neotest-plenary",
-            },
-            status = { virtual_text = true },
-            output = { open_on_run = true },
-            quickfix = {
-                open = function()
-                    if require("vstegen.utils").has "trouble.nvim" then
-                        vim.cmd "Trouble quickfix"
-                    else
-                        vim.cmd "copen"
-                    end
-                end,
-            },
-        },
         config = function(_, opts)
             local ns = vim.api.nvim_create_namespace "neotest"
             vim.diagnostic.config({
@@ -56,7 +26,36 @@ return {
                 },
             }, ns)
 
-            require("neotest").setup(opts)
+            require("neotest").setup {
+                adapters = {
+                    require "neotest-rust",
+                    require "neotest-go" {
+                        experimental = {
+                            test_table = true,
+                        },
+                    },
+                    require "neotest-jest" {
+                        jestCommand = "npm test --",
+                        jestConfigFile = "custom.jest.config.ts",
+                        env = { CI = true },
+                        cwd = function(path)
+                            return vim.fn.getcwd()
+                        end,
+                    },
+                    require "neotest-plenary",
+                },
+                status = { virtual_text = true },
+                output = { open_on_run = true },
+                quickfix = {
+                    open = function()
+                        if require("vstegen.utils").has "trouble.nvim" then
+                            vim.cmd "Trouble quickfix"
+                        else
+                            vim.cmd "copen"
+                        end
+                    end,
+                },
+            }
         end,
     },
 }
