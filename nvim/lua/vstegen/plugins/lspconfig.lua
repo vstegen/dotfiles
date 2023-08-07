@@ -38,13 +38,14 @@ return {
             end
 
             vim.diagnostic.config {
-                virtual_text = {
-                    prefix = "",
-                    source = "if_many",
-                    spacing = 4,
-                },
-                update_in_insert = false,
-                underline = true,
+                virtual_text = false,
+                -- virtual_text = {
+                --     prefix = "",
+                --     source = "if_many",
+                --     spacing = 4,
+                -- },
+                update_in_insert = true,
+                underline = false,
                 severity_sort = true,
                 float = {
                     focusable = true,
