@@ -33,6 +33,7 @@ return {
                 ["<leader>p"] = { name = "+plugins" },
                 ["<leader>q"] = { name = "+quit/session" },
                 ["<leader>s"] = { name = "+search" },
+                ["<leader>sf"] = { name = "+fzf" },
                 ["<leader>t"] = { name = "+testing" },
                 ["<leader>u"] = { name = "+utils" },
                 ["<leader>u/"] = { name = "+terminal" },

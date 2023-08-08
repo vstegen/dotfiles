@@ -263,6 +263,7 @@ if util.has "telescope.nvim" then
     -- search
     map("n", "<leader>sb", builtin.current_buffer_fuzzy_find, { desc = "Buffer" })
     map("n", "<leader>sg", builtin.live_grep, { desc = "Grep" })
+    map("n", "<leader>sG", require("telescope").extensions.live_grep_args.live_grep_args, { desc = "Live grep (args)" })
     map("n", "<leader>sd", function()
         builtin.diagnostics { bufnr = 0 }
     end, { desc = "Document diagnostics" })
@@ -633,4 +634,29 @@ end
 
 if util.has "mason.nvim" then
     map("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "Mason installer" })
+end
+
+if util.has "neogit" then
+    map("n", "<leader>gn", "<cmd>Neogit<cr>", { desc = "Neogit" })
+end
+
+if util.has "fzf-lua" then
+    local fzf = require "fzf-lua"
+
+    -- TODO: use correct options
+    map("n", "<leader>fz", fzf.files, { desc = "FZF Files" })
+    map("n", "<leader>sfg", fzf.live_grep, { desc = "Live grep" })
+    map("n", "<leader>sfG", fzf.lgrep_curbuf, { desc = "Live grep (buffer)" })
+    map("n", "<leader>sfr", fzf.resume, { desc = "Resume" })
+    map("n", "<leader>sfR", fzf.live_grep_resume, { desc = "Resume live grep" })
+    map("n", "<leader>sfw", fzf.grep_cword, { desc = "word under cursor" })
+    map("n", "<leader>sfW", fzf.grep_cWORD, { desc = "WORD under cursor" })
+    map("n", "<leader>sfc", fzf.git_commits, { desc = "Commits" })
+    map("n", "<leader>sfC", fzf.git_bcommits, { desc = "File commits" })
+    map("n", "<leader>sfs", fzf.lsp_document_symbols, { desc = "Goto symbol" })
+    map("n", "<leader>sfS", fzf.lsp_workspace_symbols, { desc = "Goto symbol" })
+end
+
+if util.has "eyeliner.nvim" then
+    map("n", "<leader>ul", "<cmd>EyelineToggle<cr>", { desc = "Toggle eyeliner" })
 end
