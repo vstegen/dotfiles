@@ -2,10 +2,10 @@ local function augroup(name)
     return vim.api.nvim_create_augroup("vstegen_" .. name, { clear = true })
 end
 
-local lsp_format = require("vstegen.lsp.format")
+local lsp_format = require "vstegen.lsp.format"
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    group = augroup("lsp_formatting"),
+    group = augroup "lsp_formatting",
     callback = function()
         if lsp_format.enabled() then
             lsp_format.format()
@@ -14,26 +14,26 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
-    group = augroup("reload_file"),
+    group = augroup "reload_file",
     command = "checktime",
 })
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
-    group = augroup("highlight_on_yank"),
+    group = augroup "highlight_on_yank",
     callback = function()
         vim.highlight.on_yank()
     end,
 })
 
 vim.api.nvim_create_autocmd({ "VimResized" }, {
-    group = augroup("resize_splits"),
+    group = augroup "resize_splits",
     callback = function()
-        vim.cmd("tabdo wincmd =")
+        vim.cmd "tabdo wincmd ="
     end,
 })
 
 vim.api.nvim_create_autocmd({ "BufReadPost" }, {
-    group = augroup("last_loc"),
+    group = augroup "last_loc",
     callback = function()
         local exclude = { "gitcommit" }
         local buf = vim.api.nvim_get_current_buf()
@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    group = augroup("close_with_q"),
+    group = augroup "close_with_q",
     pattern = {
         "PlenaryTestPopup",
         "help",
@@ -72,7 +72,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
-    group = augroup("wrap_spell"),
+    group = augroup "wrap_spell",
     pattern = { "gitcommit", "markdown" },
     callback = function()
         vim.opt_local.wrap = true
@@ -81,12 +81,22 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 })
 
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    group = augroup("auto_create_dir"),
+    group = augroup "auto_create_dir",
     callback = function(event)
-        if event.match:match("^%w%w+://") then
+        if event.match:match "^%w%w+://" then
             return
         end
         local file = vim.loop.fs_realpath(event.match) or event.match
         vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
 })
+
+vim.api.nvim_create_user_command("ClearReg", function()
+    print "Clearing registers"
+    vim.cmd [[
+let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
+for r in regs
+call setreg(r, [])
+endfor
+]]
+end, {})
