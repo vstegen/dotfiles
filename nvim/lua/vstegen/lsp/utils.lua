@@ -28,7 +28,7 @@ function M.default_on_attach(client, buffer)
         client.server_capabilities.semanticTokensProvider = nil
     end
 
-    if client.supports_method("textDocument/inlayHint") then
+    if client.supports_method "textDocument/inlayHint" then
         inlay_hint(buffer, true)
     end
 
@@ -41,54 +41,64 @@ function M.default_on_attach(client, buffer)
         { "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help", mode = { "i", "n" } } },
         { "gK", vim.lsp.buf.signature_help, { desc = "Show signature help" } },
         { "gl", vim.diagnostic.open_float, { desc = "Show line diagnostics" } },
-        { "<leader>cd", vim.diagnostic.open_float, { desc = "Show line diagnostics" } },
+        {
+            "<leader>ld",
+            function()
+                vim.diagnostic.open_float { border = "single", style = "minimal", focussable = true }
+            end,
+            { desc = "Show line diagnostics" },
+        },
         { "<leader>cl", "<cmd>LspInfo<cr>", { desc = "Lsp Info" } },
+        { "<leader>cr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" } },
         { "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" } },
         { "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" } },
         {
             "[e",
             function()
-                vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+                vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
             end,
             { desc = "Prev error" },
         },
         {
             "]e",
             function()
-                vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+                vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
             end,
             { desc = "Next error" },
         },
         {
             "[w",
             function()
-                vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+                vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.WARN }
             end,
             { desc = "Prev warning" },
         },
         {
             "]w",
             function()
-                vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+                vim.diagnostic.goto_next { severity = vim.diagnostic.severity.WARN }
             end,
             { desc = "Next warning" },
         },
-        { "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" } },
+        { "<leader>la", vim.lsp.buf.code_action, { desc = "Code action", mode = { "n", "v" } } },
+        { "<leader>lA", vim.lsp.buf.range_code_action, { desc = "Range code action", mode = { "v" } } },
         {
-            "<leader>cA",
+            "<leader>lA",
             function()
-                vim.lsp.buf.code_action({
+                vim.lsp.buf.code_action {
                     context = {
                         only = {
                             "source",
                         },
                         diagnostics = {},
                     },
-                })
+                }
             end,
             { desc = "Source code action" },
         },
         { "<leader>cf", require("vstegen.lsp.format").format, { desc = "Format", mode = { "n", "v" } } },
+        { "<leader>lc", vim.lsp.codelens.run, { desc = "Run codelens" } },
+        { "<leader>lC", vim.lsp.codelens.display, { desc = "Display codelens" } },
     }
 
     for _, keymap in ipairs(keymaps) do

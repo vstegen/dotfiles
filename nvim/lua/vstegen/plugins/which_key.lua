@@ -9,7 +9,7 @@ return {
             },
         },
         config = function(_, opts)
-            local wk = require("which-key")
+            local wk = require "which-key"
             wk.setup(opts)
 
             wk.register({
@@ -36,7 +36,7 @@ return {
                 ["<leader>t"] = { name = "+testing" },
                 ["<leader>u"] = { name = "+utils" },
                 ["<leader>u/"] = { name = "+terminal" },
-                ["<leader>w"] = { name = "+window" },
+                ["<leader>W"] = { name = "+window" },
                 ["<leader>x"] = { name = "+diagnostics" },
             }, {
                 mode = { "n", "v" },

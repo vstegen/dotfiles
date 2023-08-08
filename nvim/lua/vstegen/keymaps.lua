@@ -97,6 +97,7 @@ map("v", ">", ">gv")
 
 ---- save file
 map({ "i", "n", "s", "v" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
+map({ "n", "v" }, "<leader>w", "<cmd>w!<cr><esc>", { desc = "Save file" })
 
 ---- improve n & N behavior
 ---- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -151,14 +152,19 @@ map("n", "<leader>uh", function()
 end, { desc = "Toggle inlay hints" })
 map("n", "<leader>uf", require("vstegen.lsp.format").toggle_format, { desc = "Toggle format on save" })
 
+---- utils
+map({ "n", "v" }, "<leader>uy", '"+y', { desc = "Yank into os register" })
+map("n", "<leader>uY", '"+Y', { desc = "Yank line os register" })
+map({ "n", "v" }, "<leader>ud", '"_d', { desc = "Delete into void register" })
+
 ---- git
 map("n", "<leader>gg", util.lazygit_toggle, { desc = "Lazygit" })
 
 ---- window
-map("n", "<leader>ww", "<C-W>p", { desc = "Other window", remap = true })
-map("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
-map("n", "<leader>wv", "<C-W>s", { desc = "Split window below", remap = true })
-map("n", "<leader>ws", "<C-W>v", { desc = "Split window right", remap = true })
+map("n", "<leader>Ww", "<C-W>p", { desc = "Other window", remap = true })
+map("n", "<leader>Wd", "<C-W>c", { desc = "Delete window", remap = true })
+map("n", "<leader>Wv", "<C-W>s", { desc = "Split window below", remap = true })
+map("n", "<leader>Ws", "<C-W>v", { desc = "Split window right", remap = true })
 
 ---- tabs
 map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
@@ -328,7 +334,7 @@ end
 
 ---- ufo
 if util.has "nvim-ufo" then
-    local ufo = require("ufo")
+    local ufo = require "ufo"
     map("n", "zR", ufo.openAllFolds, { desc = "Open all folds" })
     map("n", "zM", ufo.closeAllFolds, { desc = "Close all folds" })
     map("n", "zr", ufo.openAllFolds, { desc = "Open all folds" })
@@ -478,7 +484,9 @@ end
 
 if util.has "persistence.nvim" then
     map("n", "<leader>qs", require("persistence").load, { desc = "Load session" })
-    map("n", "<leader>ql", function() require("persistence").load({ last = true }) end, { desc = "Load last session" })
+    map("n", "<leader>ql", function()
+        require("persistence").load { last = true }
+    end, { desc = "Load last session" })
     map("n", "<leader>qd", require("persistence").stop, { desc = "Don't save session" })
 end
 
