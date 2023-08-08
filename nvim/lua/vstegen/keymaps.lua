@@ -407,7 +407,7 @@ end
 if util.has "nvim-treesitter" then
     map(
         "n",
-        "<leader>ut",
+        "<leader>uT",
         "<CMD>write <bar> edit <bar> TSBufEnable highlight<CR>",
         { desc = "Restart Treesitter highlight" }
     )
@@ -659,4 +659,12 @@ end
 
 if util.has "eyeliner.nvim" then
     map("n", "<leader>ul", "<cmd>EyelineToggle<cr>", { desc = "Toggle eyeliner" })
+end
+
+if util.has "twilight.nvim" then
+    map("n", "<leader>ut", "<cmd>Twilight<cr>", { desc = "Toggle twilight" })
+end
+
+if util.has "zen-mode.nvim" then
+    map("n", "<leader>uz", "<cmd>ZenMode<cr>", { desc = "Toggle zen mode" })
 end
