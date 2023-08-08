@@ -81,7 +81,6 @@ function M.default_on_attach(client, buffer)
             { desc = "Next warning" },
         },
         { "<leader>la", vim.lsp.buf.code_action, { desc = "Code action", mode = { "n", "v" } } },
-        { "<leader>lA", vim.lsp.buf.range_code_action, { desc = "Range code action", mode = { "v" } } },
         {
             "<leader>lA",
             function()
@@ -94,11 +93,11 @@ function M.default_on_attach(client, buffer)
                     },
                 }
             end,
-            { desc = "Source code action" },
+            { desc = "Source code action", mode = { "n", "v" } },
         },
         { "<leader>cf", require("vstegen.lsp.format").format, { desc = "Format", mode = { "n", "v" } } },
-        { "<leader>lc", vim.lsp.codelens.run, { desc = "Run codelens" } },
-        { "<leader>lC", vim.lsp.codelens.display, { desc = "Display codelens" } },
+        -- { "<leader>lc", vim.lsp.codelens.run, { desc = "Run codelens" } },
+        -- { "<leader>lC", vim.lsp.codelens.display, { desc = "Display codelens" } },
     }
 
     for _, keymap in ipairs(keymaps) do
