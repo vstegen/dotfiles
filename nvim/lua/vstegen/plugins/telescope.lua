@@ -2,18 +2,19 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         version = false,
-        dependecies = {
+        dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-fzf-native.nvim",
+            "nvim-telescope/telescope-live-grep-args.nvim",
         },
         config = function()
-            local telescope = require("telescope")
-            local actions = require("telescope.actions")
-            local action_layout = require("telescope.actions.layout")
+            local telescope = require "telescope"
+            local actions = require "telescope.actions"
+            local action_layout = require "telescope.actions.layout"
 
             local _, trouble = pcall(require, "trouble.providers.telescope")
 
-            telescope.setup({
+            telescope.setup {
                 defaults = {
                     prompt_prefix = " ",
                     selection_caret = " ",
@@ -48,7 +49,8 @@ return {
                         "--column",
                         "--smart-case",
                         "--hidden",
-                        "--glob=!.git/",
+                        "--glob",
+                        "!**/.git/*",
                     },
                     set_env = { COLORTERM = "truecolor" },
                     mappings = {
@@ -97,18 +99,19 @@ return {
                         },
                     },
                 },
-            })
+            }
 
-            telescope.load_extension("fzf")
+            telescope.load_extension "fzf"
+            telescope.load_extension "live_grep_args"
 
             local dap_ok, _ = pcall(require, "dap")
             if dap_ok then
-                telescope.load_extension("dap")
+                telescope.load_extension "dap"
             end
 
             local noice_ok, _ = pcall(require, "noice")
             if noice_ok then
-                telescope.load_extension("noice")
+                telescope.load_extension "noice"
             end
         end,
     },
