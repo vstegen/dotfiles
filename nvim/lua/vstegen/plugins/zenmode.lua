@@ -1,4 +1,6 @@
 return {
     "folke/zen-mode.nvim",
-    opts = {},
+    opts = {
+        twilight = { enabled = false },
+    },
 }
