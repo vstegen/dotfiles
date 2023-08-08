@@ -12,7 +12,7 @@ return {
             "windwp/nvim-ts-autotag",
         },
         config = function()
-            require("nvim-treesitter.configs").setup({
+            require("nvim-treesitter.configs").setup {
                 ensure_installed = {
                     "bash",
                     "c",
@@ -140,7 +140,7 @@ return {
                         ["i;"] = "textsubjects-container-inner",
                     },
                 },
-            })
+            }
         end,
     },
     {
