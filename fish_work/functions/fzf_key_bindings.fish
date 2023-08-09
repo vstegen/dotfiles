@@ -1,0 +1,1 @@
+/home/stegenm/.fzf/shell/key-bindings.fish
