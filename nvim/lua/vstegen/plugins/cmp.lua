@@ -146,10 +146,10 @@ return {
                     { name = "buffer", keyword_length = 5 },
                 }),
                 experimental = {
-                    ghost_text = false,
-                    -- ghost_text = {
-                    --     hl_group = "CmpGhostText",
-                    -- },
+                    -- ghost_text = false,
+                    ghost_text = {
+                        hl_group = "CmpGhostText",
+                    },
                 },
             }
 
