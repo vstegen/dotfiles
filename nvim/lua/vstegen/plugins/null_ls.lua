@@ -29,7 +29,7 @@ return {
                     builtins.diagnostics.golangci_lint.with {
                         extra_args = { "-E", "revive", "-E", "unparam" },
                     },
-                    builtins.diagnostics.eslint_d,
+                    -- builtins.diagnostics.eslint_d,
                     builtins.diagnostics.luacheck,
                     builtins.diagnostics.markdownlint,
                     builtins.diagnostics.shellcheck,
