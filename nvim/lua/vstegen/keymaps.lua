@@ -271,7 +271,7 @@ if util.has "telescope.nvim" then
     map("n", "<leader>sc", builtin.command_history, { desc = "Command history" })
     map("n", "<leader>sl", builtin.loclist, { desc = "Loclist" })
     map("n", "<leader>sq", builtin.quickfix, { desc = "Quickfix" })
-    map("n", "<leader>sq", builtin.resume, { desc = "Resume" })
+    map("n", "<leader>sr", builtin.resume, { desc = "Resume" })
     map("n", '<leader>s"', builtin.registers, { desc = "Registers" })
     map("n", "<leader>ss", function()
         builtin.lsp_document_symbols {
@@ -654,7 +654,7 @@ if util.has "fzf-lua" then
     map("n", "<leader>sfc", fzf.git_commits, { desc = "Commits" })
     map("n", "<leader>sfC", fzf.git_bcommits, { desc = "File commits" })
     map("n", "<leader>sfs", fzf.lsp_document_symbols, { desc = "Goto symbol" })
-    map("n", "<leader>sfS", fzf.lsp_workspace_symbols, { desc = "Goto symbol" })
+    map("n", "<leader>sfS", fzf.lsp_workspace_symbols, { desc = "Goto symbol (workspace)" })
 end
 
 if util.has "eyeliner.nvim" then
