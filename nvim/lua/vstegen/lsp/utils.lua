@@ -38,6 +38,7 @@ function M.default_on_attach(client, buffer)
         { "gT", vim.lsp.buf.type_definition, { desc = "Goto type definition" } },
         { "gr", vim.lsp.buf.references, { desc = "Goto references" } },
         { "gi", vim.lsp.buf.implementation, { desc = "Goto implementation" } },
+        { "<leader>lr", vim.lsp.buf.rename, { desc = "Rename" } },
         { "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help", mode = { "i", "n" } } },
         { "gK", vim.lsp.buf.signature_help, { desc = "Show signature help" } },
         { "gl", vim.diagnostic.open_float, { desc = "Show line diagnostics" } },
