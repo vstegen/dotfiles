@@ -29,7 +29,7 @@ function M.default_on_attach(client, buffer)
     end
 
     if client.supports_method "textDocument/inlayHint" then
-        inlay_hint(buffer, true)
+        inlay_hint(buffer, false)
     end
 
     local keymaps = {
