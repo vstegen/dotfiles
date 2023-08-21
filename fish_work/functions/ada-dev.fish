@@ -17,6 +17,7 @@ function ada-dev -d "Get dev credentials"
     set -gx INTERNAL_SERVICE_DEV "https://o8d0eqigmk.execute-api.eu-west-1.amazonaws.com/prod"
 
     set -gx COMPUTE_SERVICE_DEV "https://20vfo99edf.execute-api.eu-west-1.amazonaws.com/prod"
+    set -gx MDE_COMPUTE_SERVICE_API "https://20vfo99edf.execute-api.eu-west-1.amazonaws.com/prod"
 
     set -gx CALLBACK_SERVICE_API_GW_ID_DEV "1vc7ztpyei"
 
