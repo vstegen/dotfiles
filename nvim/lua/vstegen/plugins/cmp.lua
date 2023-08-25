@@ -62,28 +62,6 @@ return {
                         local icons = require("vstegen.lsp.icons").kinds
                         if icons[item.kind] then
                             item.kind = icons[item.kind] .. item.kind
-                            -- item.menu = ({
-                            --     nvim_lsp = "(LSP)",
-                            --     nvim_lua = "(Lua)",
-                            --     emoji = "(Emoji)",
-                            --     path = "(Path)",
-                            --     calc = "(Calc)",
-                            --     vsnip = "(Snippet)",
-                            --     luasnip = "(Snippet)",
-                            --     buffer = "(Buffer)",
-                            --     treesitter = "(Treesitter)",
-                            --     crates = "(Crates)",
-                            --     copilot = "(Copilot)",
-                            --     ["nvim_lsp_signature_help"] = "(SignatureHelp)",
-                            -- })[entry.source.name]
-                            -- item.dup = ({
-                            --     buffer = 0,
-                            --     path = 0,
-                            --     nvim_lsp = 1,
-                            --     luasnip = 0,
-                            -- })[entry.source.name] or 0
-                            -- return item
-
                             return require("tailwindcss-colorizer-cmp").formatter(entry, item)
                         end
 
@@ -138,10 +116,17 @@ return {
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
                     { name = "nvim_lua" },
-                    { name = "luasnip" },
+                    {
+                        name = "luasnip",
+                        -- disable luasnip completion when the cursor is in a string
+                        entry_filter = function()
+                            local context = require "cmp.config.context"
+                            return not context.in_treesitter_capture "string" and not context.in_syntax_group "String"
+                        end,
+                    },
+                    { name = "crates" },
                     { name = "path" },
                     { name = "treesitter" },
-                    { name = "crates" },
                 }, {
                     { name = "buffer", keyword_length = 5 },
                 }),
