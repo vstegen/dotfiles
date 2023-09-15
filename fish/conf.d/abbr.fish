@@ -7,11 +7,11 @@ if type -q bat
   abbr -ag cat bat
 end
 
-# exa
-if type -q exa 
-  abbr -ag ls "exa --group-directories-first"
-  abbr -ag ll "exa -lhag --group-directories-first"
-  abbr -ag lr "exa -lhag --tree --group-directories-first"
+# eza
+if type -q eza 
+  abbr -ag ls "eza --group-directories-first"
+  abbr -ag ll "eza -lhag --group-directories-first"
+  abbr -ag lr "eza -lhag --tree --group-directories-first"
 else
   abbr -ag ll "ls -la"
 end
