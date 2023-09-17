@@ -4,7 +4,6 @@ local map = vim.keymap.set
 
 -- Fast escape
 map("i", "jk", "<ESC>")
-map("i", "kj", "<ESC>")
 
 map("n", "<leader>qq", "<cmd>q!<cr>", { desc = "Quit without saving" })
 map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit all without saving" })
