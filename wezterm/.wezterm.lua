@@ -8,5 +8,6 @@ end
 config.font = wezterm.font({ family = "PragmataPro Mono" })
 config.font_size = 15.0
 config.color_scheme = "Catppuccin Mocha"
+config.line_height = 1.1
 
 return config
