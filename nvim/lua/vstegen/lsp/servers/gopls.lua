@@ -3,7 +3,7 @@ local lsp_utils = require("vstegen.lsp.utils")
 local M = {
     keys = {
         { "<leader>td", require("dap-go").debug_test, { desc = "Debug Nearest (Go)" } },
-        { "<leader>tD", require("dap-go").debug_last_test, { desc = "Debug Nearest (Go)" } },
+        { "<leader>tD", require("dap-go").debug_last_test, { desc = "Debug Last (Go)" } },
     },
     settings = {
         gopls = {
