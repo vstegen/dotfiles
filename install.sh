@@ -16,11 +16,12 @@ ln -sf $SCRIPT_DIR/zsh/zshrc $HOME/zshrc
 ln -sf $SCRIPT_DIR/zsh/.zshrc $HOME/.zshrc
 ln -sf $SCRIPT_DIR/zsh/.zprofile $HOME/.zprofile
 
+ln -sf $SCRIPT_DIR/fish $CONFIG_DIR/fish
+
 # set starship config
 ln -sf $SCRIPT_DIR/starship.toml $CONFIG_DIR/starship.toml
 
-# asdf default npm packages to install
-ln -sf $SCRIPT_DIR/.default-npm-packages $HOME/.default-npm-packages
-
 # tmux
 ln -sf $SCRIPT_DIR/tmux/.tmux.conf $HOME/.tmux.conf
+
+ln -sf $SCRIPT_DIR/wezterm/.wezterm.lua $HOME/.wezterm.lua	
