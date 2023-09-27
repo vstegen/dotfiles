@@ -15,7 +15,7 @@ starship init fish | source
 zoxide init fish | source
 
 # source rtx
-~/.cargo/bin/rtx activate fish | source
+rtx activate fish | source
 
 
 fish_add_path $HOME/.emacs.d/bin /opt/homebrew/opt/openssl@1.1/bin /opt/homebrew/opt/bison/bin $HOME/.bun/bin $HOME/.local/bin $HOME/bin /opt/homebrew/opt/postgresql@15/bin
