@@ -53,7 +53,6 @@ return {
                     color_icons = true,
                     show_buffer_icons = true,
                     show_buffer_close_icons = true,
-                    show_buffer_default_icon = false,
                     show_close_icon = true,
                     show_tab_indicators = true,
                     persist_buffer_sort = true,
@@ -70,7 +69,7 @@ return {
             }
 
             if vim.g.colors_name == "catppuccin" then
-                config.highlights = require("catppuccin.groups.integrations.bufferline").get({
+                config.highlights = require("catppuccin.groups.integrations.bufferline").get {
                     styles = { "italic", "bold" },
                     custom = {
                         all = {
@@ -83,7 +82,7 @@ return {
                             background = { fg = "#000000" },
                         },
                     },
-                })
+                }
             end
 
             return config
