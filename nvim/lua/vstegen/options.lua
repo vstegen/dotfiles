@@ -5,7 +5,7 @@ vim.opt.background = "dark"
 vim.opt.backup = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.cmdheight = 2
-vim.opt.colorcolumn = "99999"
+vim.opt.colorcolumn = "120" -- 99999
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 vim.opt.conceallevel = 3
 vim.opt.cursorline = true
@@ -14,7 +14,7 @@ vim.opt.expandtab = true
 vim.opt.foldenable = false
 vim.opt.foldexpr = ""
 vim.opt.foldmethod = "manual"
-vim.opt.formatoptions = "jcroqlnt"
+vim.opt.formatoptions = "jtcroqlnb"
 vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep"
 vim.opt.guifont = "MonoLisa Nerd Font Mono:h14"
@@ -32,7 +32,7 @@ vim.opt.scrolloff = 4
 vim.opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
 vim.opt.shiftround = true
 vim.opt.shiftwidth = 4
-vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
+vim.opt.shortmess:append { W = true, I = true, c = true, C = true }
 vim.opt.showmode = false
 vim.opt.sidescrolloff = 8
 vim.opt.signcolumn = "yes"
@@ -45,12 +45,13 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.tabstop = 4
 vim.opt.termguicolors = true
+vim.opt.textwidth = 120
 vim.opt.timeoutlen = 150
-vim.opt.undodir = vim.fn.stdpath("cache") .. "/undo"
+vim.opt.undodir = vim.fn.stdpath "cache" .. "/undo"
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.updatetime = 50
-vim.opt.whichwrap:append("<,>,[,],h,l")
+vim.opt.whichwrap:append "<,>,[,],h,l"
 vim.opt.wildmode = "longest:full,full"
 vim.opt.winminwidth = 5
 vim.opt.wrap = true
