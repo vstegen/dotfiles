@@ -174,7 +174,7 @@ map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 ---- extend * usage
-map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
+map({ "n", "x" }, "gW", "*N", { desc = "Search word under cursor" })
 map(
     "n",
     "c*",
