@@ -93,6 +93,7 @@ return {
                 "luacheck",
                 "markdownlint",
                 "shellcheck",
+                "vue-language-server",
             },
         },
         config = function(_, opts)
@@ -136,6 +137,7 @@ return {
                 "cssmodules_ls",
                 "dockerls",
                 "pyright",
+                "volar",
             },
         },
     },
