@@ -345,6 +345,12 @@ if util.has "nvim-ufo" then
             vim.lsp.buf.hover()
         end
     end, { desc = "Peak fold" })
+    map("n", "<leader>ck", function()
+        local winid = ufo.peekFoldedLinesUnderCursor()
+        if not winid then
+            vim.lsp.buf.hover()
+        end
+    end, { desc = "Peak fold" })
 else
     map("n", "K", function()
         vim.lsp.buf.hover()
