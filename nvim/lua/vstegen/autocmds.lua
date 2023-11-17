@@ -2,13 +2,16 @@ local function augroup(name)
     return vim.api.nvim_create_augroup("vstegen_" .. name, { clear = true })
 end
 
--- vim.api.nvim_create_autocmd("BufWritePre", {
---     group = vim.api.nvim_create_augroup("Conform", { clear = true }),
---     pattern = "*",
---     callback = function(args)
---         require("conform").format { bufnr = args.buf }
---     end,
--- })
+vim.api.nvim_create_autocmd("BufWritePre", {
+    group = vim.api.nvim_create_augroup("Conform", { clear = true }),
+    pattern = "*",
+    callback = function(args)
+        if vim.g.disable_autoformat or vim.b[args.buf].disable_autoformat then
+            return
+        end
+        require("conform").format { bufnr = args.buf, timeout_ms = 3000, lsp_fallback = true }
+    end,
+})
 
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     group = augroup "nvim-lint",

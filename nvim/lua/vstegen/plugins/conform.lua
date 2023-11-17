@@ -1,4 +1,5 @@
-    return {
+return {
+    {
         "stevearc/conform.nvim",
         dependencies = {
             { "neovim/nvim-lspconfig" },
@@ -26,6 +27,7 @@
             })
 
             require("conform").setup {
+                -- BUG: this does not work. Instead, created own auto command to enable auto-formatting.
                 format_on_save = function(bufnr)
                     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                         return
@@ -57,4 +59,5 @@
                 },
             }
         end,
-    }
+    },
+}
