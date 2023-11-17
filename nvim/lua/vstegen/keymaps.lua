@@ -147,7 +147,7 @@ map("n", "<leader>uc", function()
     util.toggle_local_option("conceallevel", { 0, conceallevel })
 end, { desc = "Toggle conceal" })
 map("n", "<leader>uh", function()
-    vim.lsp.inlay_hint(0, nil)
+    vim.lsp.inlay_hint.enable(0, vim.lsp.inlay_hint.is_enabled(0) and false or true)
 end, { desc = "Toggle inlay hints" })
 map("n", "<leader>uf", require("vstegen.lsp.format").toggle_format, { desc = "Toggle format on save" })
 

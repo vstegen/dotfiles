@@ -18,8 +18,6 @@ function M.on_attach_with_keys(on_attach, keymaps)
     end
 end
 
-local inlay_hint = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-
 function M.default_on_attach(client, buffer)
     vim.bo[buffer].omnifunc = "v:lua.vim.lsp.omnifunc"
 
@@ -28,8 +26,8 @@ function M.default_on_attach(client, buffer)
         client.server_capabilities.semanticTokensProvider = nil
     end
 
-    if client.supports_method "textDocument/inlayHint" then
-        inlay_hint(buffer, false)
+    if client.supports_method "textDocument/inlayHint" and vim.lsp.inlay_hint then
+        vim.lsp.inlay_hint.enable(buffer, false)
     end
 
     local keymaps = {
@@ -96,7 +94,13 @@ function M.default_on_attach(client, buffer)
             end,
             { desc = "Source code action", mode = { "n", "v" } },
         },
-        { "<leader>cf", require("vstegen.lsp.format").format, { desc = "Format", mode = { "n", "v" } } },
+        { "<leader>cf", function() 
+            local bufnr = vim.api.nvim_get_current_buf()
+            require("conform").format({ bufnr = bufnr })
+        end,
+        { desc = "Format", mode = { "n", "v" } } },
+        { "<leader>cF", vim.lsp.buf.format,
+        { desc = "Vim Format", mode = { "n", "v" } } },
         -- { "<leader>lc", vim.lsp.codelens.run, { desc = "Run codelens" } },
         -- { "<leader>lC", vim.lsp.codelens.display, { desc = "Display codelens" } },
     }

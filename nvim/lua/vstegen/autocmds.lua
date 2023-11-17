@@ -2,14 +2,18 @@ local function augroup(name)
     return vim.api.nvim_create_augroup("vstegen_" .. name, { clear = true })
 end
 
-local lsp_format = require "vstegen.lsp.format"
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--     group = vim.api.nvim_create_augroup("Conform", { clear = true }),
+--     pattern = "*",
+--     callback = function(args)
+--         require("conform").format { bufnr = args.buf }
+--     end,
+-- })
 
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-    group = augroup "lsp_formatting",
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    group = augroup "nvim-lint",
     callback = function()
-        if lsp_format.enabled() then
-            lsp_format.format()
-        end
+        require("lint").try_lint()
     end,
 })
 
