@@ -3,7 +3,7 @@ local function augroup(name)
 end
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("Conform", { clear = true }),
+    group = augroup "conform",
     pattern = "*",
     callback = function(args)
         if vim.g.disable_autoformat or vim.b[args.buf].disable_autoformat then
