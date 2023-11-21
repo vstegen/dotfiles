@@ -85,6 +85,7 @@ return {
                 "gofumpt",
                 "impl",
                 "gomodifytags",
+                "goimports",
                 "goimports-reviser",
                 "stylua",
                 "staticcheck",
