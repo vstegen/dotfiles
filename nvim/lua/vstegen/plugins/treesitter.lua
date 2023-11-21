@@ -70,10 +70,6 @@ return {
                     },
                 },
                 autotag = { enable = true },
-                context_commentstring = {
-                    enable = true,
-                    enable_autocmd = false,
-                },
                 textobjects = {
                     select = {
                         enable = true,
@@ -141,6 +137,17 @@ return {
                     },
                 },
             }
+        end,
+    },
+    {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        config = function()
+            require("ts_context_commentstring").setup {
+                enable_autocmd = true,
+            }
+        end,
+        init = function()
+            vim.g.skip_ts_context_commentstring_module = true
         end,
     },
     {
