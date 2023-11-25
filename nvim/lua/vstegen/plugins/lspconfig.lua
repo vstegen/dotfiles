@@ -95,6 +95,7 @@ return {
                 "markdownlint",
                 "shellcheck",
                 "vue-language-server",
+                "vale",
             },
         },
         config = function(_, opts)

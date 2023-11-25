@@ -25,7 +25,7 @@ return {
                 sh = { "shellcheck" },
                 go = { "golangcilint" },
                 lua = { "luacheck" },
-                markdown = { "markdownlint" },
+                markdown = { "vale" },
                 dockerfile = { "hadolint" },
                 javascript = { { "eslint_d", "eslint" } },
                 javascriptreact = { { "eslint_d", "eslint" } },
