@@ -94,13 +94,15 @@ function M.default_on_attach(client, buffer)
             end,
             { desc = "Source code action", mode = { "n", "v" } },
         },
-        { "<leader>cf", function() 
-            local bufnr = vim.api.nvim_get_current_buf()
-            require("conform").format({ bufnr = bufnr })
-        end,
-        { desc = "Format", mode = { "n", "v" } } },
-        { "<leader>cF", vim.lsp.buf.format,
-        { desc = "Vim Format", mode = { "n", "v" } } },
+        {
+            "<leader>cf",
+            function()
+                local bufnr = vim.api.nvim_get_current_buf()
+                require("conform").format { bufnr = bufnr }
+            end,
+            { desc = "Format", mode = { "n", "v" } },
+        },
+        { "<leader>cF", vim.lsp.buf.format, { desc = "Vim Format", mode = { "n", "v" } } },
         -- { "<leader>lc", vim.lsp.codelens.run, { desc = "Run codelens" } },
         -- { "<leader>lC", vim.lsp.codelens.display, { desc = "Display codelens" } },
     }

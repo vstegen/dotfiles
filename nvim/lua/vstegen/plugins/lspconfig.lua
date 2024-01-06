@@ -18,14 +18,7 @@ return {
             local get_servers = require("mason-lspconfig").get_installed_servers
             for _, server_name in ipairs(get_servers()) do
                 if server_name == "rust_analyzer" then
-                    local server_opts = require("vstegen.lsp.servers").rust_tools
-
-                    server_opts.server = vim.tbl_deep_extend("force", {
-                        capabilities = require("vstegen.lsp.utils").default_capabilities(),
-                        on_attach = require("vstegen.lsp.utils").default_on_attach,
-                    }, server_opts.server)
-
-                    require("rust-tools").setup(server_opts)
+                    -- We can skip this setup because rustaceanvim.nvim will set this up automatically
                 else
                     local server_opts = server_configs[server_name] or {}
                     local opts = vim.tbl_deep_extend("force", {

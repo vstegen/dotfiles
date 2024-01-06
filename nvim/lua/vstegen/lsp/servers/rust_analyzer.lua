@@ -1,10 +1,21 @@
-local lsp_utils = require("vstegen.lsp.utils")
+local lsp_utils = require "vstegen.lsp.utils"
 
 local M = {
     keys = {
-        { "K", "<cmd>RustHoverActions<cr>", { desc = "Hover Actions (Rust)" } },
-        { "<leader>cR", "<cmd>RustCodeAction<cr>", { desc = "Code Action (Rust)" } },
-        { "<leader>dr", "<cmd>RustDebuggables<cr>", { desc = "Run Debuggables (Rust)" } },
+        {
+            "<leader>cR",
+            function()
+                vim.cmd.RustLsp "codeAction"
+            end,
+            { desc = "Code Action (Rust)" },
+        },
+        {
+            "<leader>dr",
+            function()
+                vim.cmd.RustLsp "debuggables"
+            end,
+            { desc = "Rust debuggables" },
+        },
     },
     settings = {
         ["rust-analyzer"] = {
@@ -31,5 +42,6 @@ local M = {
 }
 
 M.on_attach = lsp_utils.on_attach_with_keys(lsp_utils.default_on_attach, M.keys)
+M.capabilities = lsp_utils.default_capabilities()
 
 return M
