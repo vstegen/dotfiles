@@ -108,6 +108,8 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     end,
 })
 
+vim.api.nvim_create_autocmd("Filetype", { pattern = "rust", command = "set colorcolumn=100" })
+
 vim.api.nvim_create_user_command("ClearReg", function()
     print "Clearing registers"
     vim.cmd [[
