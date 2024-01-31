@@ -88,6 +88,15 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
+-- Fix conceallevel for json & help files
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = { "json", "jsonc" },
+    callback = function()
+        vim.wo.spell = false
+        vim.wo.conceallevel = 0
+    end,
+})
+
 vim.api.nvim_create_autocmd({ "BufWritePre" }, {
     group = augroup "auto_create_dir",
     callback = function(event)
