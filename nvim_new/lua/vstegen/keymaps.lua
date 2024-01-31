@@ -75,6 +75,9 @@ map("n", "<C-u>", "<C-u>zz")
 -- Keep cursor vertically centered when moving durign search or joining lines
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
+map("n", "*", "*zz")
+map("n", "#", "#zz")
+map("n", "g*", "g*zz")
 
 -- Move cursor normally on wrapped lines
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
