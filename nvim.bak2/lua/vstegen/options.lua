@@ -9,15 +9,6 @@ vim.opt.colorcolumn = "120" -- 99999
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
 vim.opt.conceallevel = 3
 vim.opt.cursorline = true
--- more useful diffs (nvim -d)
--- by ignoring whitespace
-vim.opt.diffopt:append "iwhite"
--- and using a smarter algorithm
--- https://vimways.org/2018/the-power-of-diff/
--- https://stackoverflow.com/questions/32365271/whats-the-difference-between-git-diff-patience-and-git-diff-histogram
--- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
-vim.opt.diffopt:append "algorithm:histogram"
-vim.opt.diffopt:append "indent-heuristic"
 vim.opt.errorbells = false
 vim.opt.expandtab = true
 vim.opt.foldenable = false
@@ -60,7 +51,6 @@ vim.opt.undodir = vim.fn.stdpath "cache" .. "/undo"
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
 vim.opt.updatetime = 50
-vim.opt.vb = true
 vim.opt.whichwrap:append "<,>,[,],h,l"
 vim.opt.wildmode = "longest:full,full"
 vim.opt.winminwidth = 5

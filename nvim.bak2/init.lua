@@ -1,0 +1,5 @@
+require "vstegen.options"
+require "vstegen.lazy"
+require "vstegen.autocmds"
+require "vstegen.keymaps"
+require "vstegen.globals"

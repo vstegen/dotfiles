@@ -1,5 +1,4 @@
 require "vstegen.options"
-require "vstegen.lazy"
-require "vstegen.autocmds"
-require "vstegen.keymaps"
+require "vstegen.plugins"
 require "vstegen.globals"
+require "vstegen.keymaps"

@@ -2,13 +2,97 @@ local lazy_util = require "lazy.core.util"
 
 local M = {}
 
-function M.project_files()
-    local ok = pcall(require("telescope.builtin").git_files, {
-        show_untracked = true,
-    })
-    if not ok then
-        require("telescope.builtin").find_files {}
+M.icons = {
+    dap = {
+        Stopped = { "󰁕 ", "DiagnosticWarn", "DapStoppedLine" },
+        Breakpoint = " ",
+        BreakpointCondition = " ",
+        BreakpointRejected = { " ", "DiagnosticError" },
+        LogPoint = ".>",
+    },
+    diagnostics = {
+        Error = " ",
+        Warn = " ",
+        Hint = " ",
+        Info = " ",
+    },
+    git = {
+        added = " ",
+        modified = " ",
+        removed = " ",
+    },
+    kinds = {
+        Array = " ",
+        Boolean = " ",
+        Class = " ",
+        Color = " ",
+        Constant = " ",
+        Constructor = " ",
+        Copilot = " ",
+        Enum = " ",
+        EnumMember = " ",
+        Event = " ",
+        Field = " ",
+        File = " ",
+        Folder = " ",
+        Function = " ",
+        Interface = " ",
+        Key = " ",
+        Keyword = " ",
+        Method = " ",
+        Module = " ",
+        Namespace = " ",
+        Null = " ",
+        Number = " ",
+        Object = " ",
+        Operator = " ",
+        Package = " ",
+        Property = " ",
+        Reference = " ",
+        Snippet = " ",
+        String = " ",
+        Struct = " ",
+        Text = " ",
+        TypeParameter = " ",
+        Unit = " ",
+        Value = " ",
+        Variable = " ",
+    },
+}
+
+function M.colors()
+    local colors = {}
+
+    if vim.g.colors_name == "catppuccin-mocha" then
+        local c = require("catppuccin.palettes").get_palette "mocha"
+
+        return {
+            yellow = c.yellow,
+            green = c.green,
+            red = c.red,
+            blue = c.blue,
+            bg = c.base,
+            bg_alt = c.crust,
+            fg = c.subtext0,
+            fg_alt = c.text,
+            lsp = {
+                error = c.red,
+                warn = c.peach,
+                info = c.blue,
+                hint = c.green,
+            },
+            test = c.pink,
+            default = c.text,
+        }
+    elseif vim.g.colors_name == "kanagawa" then
+        require("kanagawa.colors").setup()
     end
+
+    return colors
+end
+
+function M.has(plugin)
+    return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
 ---@param values? {[1]:any, [2]:any}
@@ -49,7 +133,16 @@ function M.toggle_local_option(option, values)
     end
 end
 
-M.root_patterns = { ".git", "lua" }
+function M.toggle_format()
+    local bufnr = vim.api.nvim_get_current_buf()
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+        vim.cmd "FormatEnable"
+        lazy_util.info("Enabled format on save", { title = "Format" })
+    else
+        vim.cmd "FormatDisable"
+        lazy_util.info("Disabled format on save", { title = "Format" })
+    end
+end
 
 -- copied from https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/util/init.lua
 -- returns the root directory based on:
@@ -116,56 +209,13 @@ M.lazygit_toggle = function()
     lazygit:toggle()
 end
 
-function M.float_term(cmd, opts)
-    local cmd = cmd or vim.o.shell
-    if vim.fn.executable(cmd) ~= 1 then
-        print(cmd .. " is not executable")
-        return
+function M.project_files()
+    local ok = pcall(require("telescope.builtin").git_files, {
+        show_untracked = true,
+    })
+    if not ok then
+        require("telescope.builtin").find_files {}
     end
-
-    local Terminal = require("toggleterm.terminal").Terminal
-    local default_config = {
-        cmd = cmd,
-        hidden = true,
-    }
-    local terminal_config = vim.tbl_extend("force", default_config, opts or {})
-    local term = Terminal:new(terminal_config)
-    term:toggle()
-end
-
-function M.colors()
-    local colors = {}
-
-    if vim.g.colors_name == "catppuccin-mocha" then
-        local c = require("catppuccin.palettes").get_palette "mocha"
-
-        return {
-            yellow = c.yellow,
-            green = c.green,
-            red = c.red,
-            blue = c.blue,
-            bg = c.base,
-            bg_alt = c.crust,
-            fg = c.subtext0,
-            fg_alt = c.text,
-            lsp = {
-                error = c.red,
-                warn = c.peach,
-                info = c.blue,
-                hint = c.green,
-            },
-            test = c.pink,
-            default = c.text,
-        }
-    elseif vim.g.colors_name == "kanagawa" then
-        require("kanagawa.colors").setup()
-    end
-
-    return colors
-end
-
-function M.has(plugin)
-    return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
 return M
