@@ -398,7 +398,7 @@ require("lazy").setup({
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         keys = {
             {
-                "<leader>xl",
+                "<leader>xi",
                 function()
                     require("lsp_lines").toggle()
                 end,
