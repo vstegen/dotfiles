@@ -208,14 +208,14 @@ map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 -- PLUGINS
 
 ---- ufo
-if ~utils.has "nvim-ufo" then
+if not utils.has "nvim-ufo" then
     map("n", "K", function()
         vim.lsp.buf.hover()
     end, { desc = "Hover" })
 end
 
 ---- bufferline
-if ~utils.has "bufferline.nvim" then
+if not utils.has "bufferline.nvim" then
     map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
     map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
     map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
@@ -223,13 +223,13 @@ if ~utils.has "bufferline.nvim" then
 end
 
 ---- trouble
-if ~utils.has "trouble.nvim" then
+if not utils.has "trouble.nvim" then
     map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
     map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 end
 
 ---- neo-tree
-if ~utils.has "neo-tree.nvim" then
+if not utils.has "neo-tree.nvim" then
     map("n", "<leader>e", "<cmd>Explore<cr>", { desc = "File explorer" })
     map("n", "<leader>E", "<cmd>SEx<cr>", { desc = "File explorer" })
 end
