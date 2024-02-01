@@ -22,7 +22,6 @@ require("lazy").setup({
         cmd = { "TSUpdateSync" },
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
-            -- TODO: remove these plugins?
             "nvim-treesitter/nvim-treesitter-textobjects",
             "windwp/nvim-ts-autotag",
         },
@@ -151,9 +150,9 @@ require("lazy").setup({
         end,
     },
     {
-        -- TODO: add lazy loading: same events as treesitter?
         "JoosepAlviste/nvim-ts-context-commentstring",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
+        event = { "VeryLazy" },
         config = function()
             require("ts_context_commentstring").setup {
                 enable_autocmd = true,
@@ -163,10 +162,9 @@ require("lazy").setup({
             vim.g.skip_ts_context_commentstring_module = true
         end,
     },
-    -- TODO: remove this?
     {
-        -- TODO: add lazy loading: same events as treesitter?
         "nvim-treesitter/nvim-treesitter-context",
+        event = { "VeryLazy" },
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         opts = {
             max_lines = 3,
@@ -183,6 +181,8 @@ require("lazy").setup({
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
+        event = { "BufReadPre", "BufNewFile" },
+        cmd = { "Mason", "MasonUpdate" },
         keys = {
             { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason installer" },
         },
@@ -230,6 +230,7 @@ require("lazy").setup({
     },
     {
         "williamboman/mason-lspconfig.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
         },
@@ -263,7 +264,10 @@ require("lazy").setup({
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            "folke/neodev.nvim",
+            {
+                "folke/neodev.nvim",
+                opts = {},
+            },
         },
         config = function()
             local server_configs = lsp.servers
@@ -356,11 +360,20 @@ require("lazy").setup({
         dependencies = { "nvim-lua/plenary.nvim" },
     },
     {
+
+        -- TODO: add those keymaps via autocommand for ts supported files?
+        -- TSToolsOrganizeImports - sorts and removes unused imports
+        -- TSToolsSortImports - sorts imports
+        -- TSToolsRemoveUnusedImports - removes unused imports
+        -- TSToolsRemoveUnused - removes all unused statements
+        -- TSToolsAddMissingImports - adds imports for all statements that lack one and can be imported
+        -- TSToolsFixAll - fixes all fixable errors
+        -- TSToolsGoToSourceDefinition - goes to source definition (available since TS v4.7)
+        -- TSToolsRenameFile - allow to rename current file and apply changes to connected files
+        -- TSToolsFileReferences - find files that reference the current file (available since TS v4.2)
         "pmizio/typescript-tools.nvim",
         dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-        -- TODO: check if I want the following commands as keymaps (should be <leader>c similar to the rust and go
-        -- specific keymaps), would need to use default_on_attach_with_keys
-        -- TODO: Lazy load by filetype?
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
             capabilities = lsp.default_capabilities(),
             on_attach = lsp.default_on_attach,
@@ -382,12 +395,6 @@ require("lazy").setup({
         },
     },
     {
-        -- TODO: make sure that this is loaded BEFORE setting up the servers with lspconfig
-        "folke/neodev.nvim",
-        opts = {},
-    },
-    {
-        -- TODO: do I want to use this?
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         keys = {
             {
@@ -406,6 +413,7 @@ require("lazy").setup({
     },
     {
         "ray-x/lsp_signature.nvim",
+        event = { "BufReadPre", "BufNewFile" },
         opts = {
             noice = false, -- true if using noice to render markdown
             floating_window = false,
@@ -430,7 +438,6 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-nvim-lua",
         },
-        -- TODO: check other configs to update this
         config = function()
             vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
 
@@ -584,6 +591,7 @@ require("lazy").setup({
     },
     {
         "L3MON4D3/LuaSnip",
+        event = { "VeryLazy" },
         dependencies = { "rafamadriz/friendly-snippets" },
         init = function()
             require("luasnip.loaders.from_lua").load { paths = vim.fn.expand "~/.config/nvim/snippets/" }
@@ -606,6 +614,7 @@ require("lazy").setup({
     {
         -- TODO: can this be lazy loaded?
         "roobert/tailwindcss-colorizer-cmp.nvim",
+        event = { "VeryLazy" },
         config = true,
     },
     {
@@ -625,7 +634,6 @@ require("lazy").setup({
     },
     -- navigation
     {
-        -- TODO: add keys for lazy loading?
         "ibhagwan/fzf-lua",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         keys = function()
@@ -717,7 +725,10 @@ require("lazy").setup({
         branch = "0.1.x",
         dependencies = {
             "nvim-lua/plenary.nvim",
-            "nvim-telescope/telescope-fzf-native.nvim",
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = "make",
+            },
             "nvim-telescope/telescope-live-grep-args.nvim",
         },
         keys = function()
@@ -1138,11 +1149,6 @@ require("lazy").setup({
             end
         end,
     },
-    {
-        -- TODO: can this be lazy loaded?
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-    },
     -- linting & formating
     {
         "mfussenegger/nvim-lint",
@@ -1181,16 +1187,6 @@ require("lazy").setup({
         end,
     },
     {
-        -- https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#lazy-loading-with-lazynvim
-        -- TODO: integrate this keymap
-        -- {
-        --     "<leader>cf",
-        --     function()
-        --         local bufnr = vim.api.nvim_get_current_buf()
-        --         require("conform").format { bufnr = bufnr }
-        --     end,
-        --     { desc = "Format", mode = { "n", "v" } },
-        -- },
         "stevearc/conform.nvim",
         dependencies = {
             { "neovim/nvim-lspconfig" },
@@ -1199,6 +1195,17 @@ require("lazy").setup({
         },
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
+        keys = {
+            {
+                "<leader>cf",
+                function()
+                    local bufnr = vim.api.nvim_get_current_buf()
+                    require("conform").format { bufnr = bufnr }
+                end,
+                mode = { "n", "v" },
+                desc = "Format",
+            },
+        },
         config = function()
             require("conform").setup {
                 format_on_save = function(bufnr)
@@ -1237,6 +1244,7 @@ require("lazy").setup({
     {
         "catppuccin/nvim",
         priority = 1000,
+        lazy = false,
         name = "catppuccin",
         opts = {
             styles = {
@@ -1335,7 +1343,6 @@ require("lazy").setup({
         end,
     },
     {
-        -- TODO: add keymaps for lazy loading?
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         keys = {
@@ -1416,6 +1423,7 @@ require("lazy").setup({
     },
     {
         "numToStr/Comment.nvim",
+        event = { "BufReadPost", "BufNewFile" },
         dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
         keys = {
             {
@@ -1442,12 +1450,10 @@ require("lazy").setup({
                 pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
             }
         end,
-        -- TODO: add keys for lazy loading?
-        -- TODO: should this be replaced with mini alternative?
     },
     {
-        -- TODO: can this be lazy loaded?
         "echasnovski/mini.surround",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             mappings = {
                 add = "gza",
@@ -1536,7 +1542,6 @@ require("lazy").setup({
         opts = {},
     },
     {
-        -- TODO: lazy load on trouble commands and keymaps
         "folke/trouble.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
         keys = {
@@ -1614,62 +1619,18 @@ require("lazy").setup({
         },
     },
     {
-        -- TODO: do I really want this?
-        "folke/persistence.nvim",
-        event = "BufReadPre",
-        keys = {
-            {
-                "<leader>qs",
-                function()
-                    require("persistence").load()
-                end,
-                desc = "Load session",
-            },
-            {
-                "<leader>ql",
-                function()
-                    require("persistence").load { last = true }
-                end,
-                desc = "Load last session",
-            },
-            {
-                "<leader>qd",
-                function()
-                    require("persistence").stop()
-                end,
-                desc = "Don't save session",
-            },
-        },
-        opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" } },
-    },
-    {
-        -- TODO: lazy load this?
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        opts = {
-            indent = {
-                char = "│",
-            },
-        },
-        config = function(_, opts)
-            require("ibl").setup(opts)
-        end,
-    },
-    {
         "stevearc/dressing.nvim",
         config = true,
     },
     {
-        -- TODO: lazy load this?
-        -- TODO: do I want to use this?
         "abecodes/tabout.nvim",
         dependencies = { "nvim-cmp", "nvim-treesitter" },
+        event = { "InsertEnter" },
         config = true,
     },
     {
-        -- TODO: lazy load this? (keymaps or BufReadPre/BufEnter?)
-        -- TODO: do I want to use this?
         "kevinhwang91/nvim-ufo",
+        event = { "BufReadPost", "BufNewFile" },
         dependencies = { "kevinhwang91/promise-async" },
         keys = {
             {
@@ -1730,7 +1691,6 @@ require("lazy").setup({
         config = true,
     },
     {
-        -- TODO: lazy load on keys or command (Neogit)
         "NeogitOrg/neogit",
         dependencies = {
             "nvim-lua/plenary.nvim", -- required
@@ -1743,8 +1703,6 @@ require("lazy").setup({
         config = true,
     },
     {
-        -- TODO: lazy load on keys or command (Neogit)
-        -- TODO: do I want to use this? Can I use the builtin git merge tool?
         "sindrets/diffview.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         keys = {
@@ -1763,7 +1721,6 @@ require("lazy").setup({
     },
     {
         "nvim-lualine/lualine.nvim",
-        -- enabled = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = function()
             local colors = utils.colors()
@@ -1995,6 +1952,7 @@ require("lazy").setup({
     },
     {
         "NvChad/nvim-colorizer.lua",
+        event = { "BufReadPost", "BufNewFile" },
         opts = {
             user_default_options = {
                 tailwind = true,
@@ -2002,7 +1960,6 @@ require("lazy").setup({
         },
     },
     {
-        -- TODO: do I really need buffers?
         "echasnovski/mini.bufremove",
         keys = {
             {
@@ -2023,7 +1980,6 @@ require("lazy").setup({
         config = true,
     },
     {
-        -- TODO: do I really need buffers?
         -- can use lualine for bufferlines as well: https://github.com/nvim-lualine/lualine.nvim#tabline
         "akinsho/bufferline.nvim",
         version = "*",
@@ -2128,52 +2084,12 @@ require("lazy").setup({
         end,
     },
     {
-        -- TODO: do I need this? I don't think I've ever used it
-        -- TODO: lazy load when loading a file / buffer
-        "lewis6991/gitsigns.nvim",
-        opts = {
-            signs = {
-                add = { text = "▎" },
-                change = { text = "▎" },
-                delete = { text = "" },
-                topdelete = { text = "" },
-                changedelete = { text = "▎" },
-                untracked = { text = "▎" },
-            },
-            on_attach = function(buffer)
-                local gs = package.loaded.gitsigns
-
-                local function map(mode, l, r, desc)
-                    vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
-                end
-
-                map("n", "]h", gs.next_hunk, "Next Hunk")
-                map("n", "[h", gs.prev_hunk, "Prev Hunk")
-                map({ "n", "v" }, "<leader>ghs", gs.stage_hunk)
-                map({ "n", "v" }, "<leader>ghr", gs.reset_hunk)
-                map("n", "<leader>ghS", gs.stage_buffer, "Stage Buffer")
-                map("n", "<leader>ghu", gs.undo_stage_hunk, "Undo Stage Hunk")
-                map("n", "<leader>ghR", gs.reset_buffer, "Reset Buffer")
-                map("n", "<leader>ghp", gs.preview_hunk, "Preview Hunk")
-                map("n", "<leader>ghb", function()
-                    gs.blame_line { full = true }
-                end, "Blame Line")
-                map("n", "<leader>ghB", gs.toggle_current_line_blame, "Blame Line")
-                map("n", "<leader>ghd", gs.diffthis, "Diff This")
-                map("n", "<leader>ghD", function()
-                    gs.diffthis "~"
-                end, "Diff This ~")
-                map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
-            end,
-        },
-    },
-    {
         "mfussenegger/nvim-dap",
         dependencies = {
             "rcarriga/nvim-dap-ui",
-            "theHamsta/nvim-dap-virtual-text",
+            { "theHamsta/nvim-dap-virtual-text", opts = {} },
             "nvim-telescope/telescope-dap.nvim",
-            "leoluz/nvim-dap-go",
+            { "leoluz/nvim-dap-go", config = true },
             "jbyuki/one-small-step-for-vimkind",
         },
         keys = function()
@@ -2371,14 +2287,6 @@ require("lazy").setup({
         },
     },
     {
-        "theHamsta/nvim-dap-virtual-text",
-        opts = {},
-    },
-    {
-        "leoluz/nvim-dap-go",
-        config = true,
-    },
-    {
         "rcarriga/nvim-dap-ui",
         opts = {},
         keys = {
@@ -2416,6 +2324,7 @@ require("lazy").setup({
     },
     {
         "jbyuki/one-small-step-for-vimkind",
+        lazy = true,
         config = function()
             local dap = require "dap"
             dap.adapters.nlua = function(callback, config)
@@ -2431,8 +2340,6 @@ require("lazy").setup({
         end,
     },
     {
-        -- TODO: do I need this?
-        -- TODO: lazy load on keys or command
         "akinsho/toggleterm.nvim",
         version = "*",
         keys = {
@@ -2462,7 +2369,6 @@ require("lazy").setup({
         },
     },
     {
-        -- TODO: lazy load
         "nvim-neotest/neotest",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -2620,120 +2526,6 @@ require("lazy").setup({
         config = function(_, opts)
             require("illuminate").configure(opts)
         end,
-    },
-    {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        cmd = "Neotree",
-        keys = {
-            {
-                "<leader>e",
-                function()
-                    require("neo-tree.command").execute { toggle = true, dir = utils.get_root() }
-                end,
-                desc = "File explorer (root dir)",
-            },
-            {
-                "<leader>E",
-                function()
-                    require("neo-tree.command").execute { toggle = true, dir = vim.loop.cwd() }
-                end,
-                desc = "File explorer (cwd)",
-            },
-        },
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-        },
-        deactivate = function()
-            vim.cmd [[Neotree close]]
-        end,
-        init = function()
-            vim.g.neo_tree_remove_legacy_commands = 1
-            if vim.fn.argc() == 1 then
-                local stat = vim.loop.fs_stat(vim.fn.argv(0))
-                if stat and stat.type == "directory" then
-                    require "neo-tree"
-                end
-            end
-        end,
-        opts = {
-            popup_border_style = "single",
-            filesystem = {
-                filtered_items = {
-                    hide_dotfiles = false,
-                    hide_gitignored = false,
-                    hide_hidden = false,
-                },
-                bind_to_cwd = false,
-                follow_current_file = {
-                    enabled = true,
-                },
-                use_libuv_file_watcher = true,
-            },
-            sources = { "filesystem", "buffers", "git_status", "document_symbols" },
-            open_files_do_not_replace_types = { "terminal", "Trouble", "qf", "Outline" },
-            window = {
-                mappings = {
-                    ["<space>"] = "none",
-                },
-            },
-            default_component_configs = {
-                indent = {
-                    with_expanders = true,
-                    expander_collapsed = "",
-                    expander_expanded = "",
-                    expander_highlight = "NeoTreeExpander",
-                },
-                icon = {
-                    folder_empty = "󰜌",
-                    folder_empty_open = "󰜌",
-                },
-                git_status = {
-                    symbols = {
-                        renamed = "󰁕",
-                        unstaged = "󰄱",
-                    },
-                },
-            },
-        },
-        config = function(_, opts)
-            require("neo-tree").setup(opts)
-            vim.api.nvim_create_autocmd("TermClose", {
-                pattern = "*lazygit",
-                callback = function()
-                    if package.loaded["neo-tree.sources.git_status"] then
-                        require("neo-tree.sources.git_status").refresh()
-                    end
-                end,
-            })
-        end,
-    },
-    {
-        "folke/noice.nvim",
-        enabled = false,
-        event = "VeryLazy",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
-        },
-        opts = {
-            lsp = {
-                override = {
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
-                    ["cmp.entry.get_documentation"] = true,
-                },
-            },
-            presets = {
-                bottom_search = true,
-                command_palette = true,
-                long_message_to_split = true,
-                inc_rename = true,
-                -- lsp_doc_border = true,
-            },
-        },
     },
     {
         "folke/twilight.nvim",
