@@ -297,7 +297,7 @@ require("lazy").setup({
                 },
             }
 
-            for name, icon in pairs(utils.diagnostics) do
+            for name, icon in pairs(utils.icons.diagnostics) do
                 name = "DiagnosticSign" .. name
                 vim.fn.sign_define(name, { texthl = name, text = icon, numhl = "" })
             end
@@ -629,21 +629,85 @@ require("lazy").setup({
         "ibhagwan/fzf-lua",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         keys = function()
-            local fzf = require "fzf-lua"
-
             -- TODO: use correct options
             return {
-                { "<leader>fz", fzf.files, desc = "FZF Files" },
-                { "<leader>sfg", fzf.live_grep, desc = "Live grep" },
-                { "<leader>sfG", fzf.lgrep_curbuf, desc = "Live grep (buffer)" },
-                { "<leader>sfr", fzf.resume, desc = "Resume" },
-                { "<leader>sfR", fzf.live_grep_resume, desc = "Resume live grep" },
-                { "<leader>sfw", fzf.grep_cword, desc = "word under cursor" },
-                { "<leader>sfW", fzf.grep_cWORD, desc = "WORD under cursor" },
-                { "<leader>sfc", fzf.git_commits, desc = "Commits" },
-                { "<leader>sfC", fzf.git_bcommits, desc = "File commits" },
-                { "<leader>sfs", fzf.lsp_document_symbols, desc = "Goto symbol" },
-                { "<leader>sfS", fzf.lsp_workspace_symbols, desc = "Goto symbol (workspace)" },
+                {
+                    "<leader>fz",
+                    function()
+                        require("fzf-lua").files()
+                    end,
+                    desc = "FZF Files",
+                },
+                {
+                    "<leader>sfg",
+                    function()
+                        require("fzf-lua").live_grep()
+                    end,
+                    desc = "Live grep",
+                },
+                {
+                    "<leader>sfG",
+                    function()
+                        require("fzf-lua").lgrep_curbuf()
+                    end,
+                    desc = "Live grep (buffer)",
+                },
+                {
+                    "<leader>sfr",
+                    function()
+                        require("fzf-lua").resume()
+                    end,
+                    desc = "Resume",
+                },
+                {
+                    "<leader>sfR",
+                    function()
+                        require("fzf-lua").live_grep_resume()
+                    end,
+                    desc = "Resume live grep",
+                },
+                {
+                    "<leader>sfw",
+                    function()
+                        require("fzf-lua").grep_cword()
+                    end,
+                    desc = "word under cursor",
+                },
+                {
+                    "<leader>sfW",
+                    function()
+                        require("fzf-lua").grep_cWORD()
+                    end,
+                    desc = "WORD under cursor",
+                },
+                {
+                    "<leader>sfc",
+                    function()
+                        require("fzf-lua").git_commits()
+                    end,
+                    desc = "Commits",
+                },
+                {
+                    "<leader>sfC",
+                    function()
+                        require("fzf-lua").git_bcommits()
+                    end,
+                    desc = "File commits",
+                },
+                {
+                    "<leader>sfs",
+                    function()
+                        require("fzf-lua").lsp_document_symbols()
+                    end,
+                    desc = "Goto symbol",
+                },
+                {
+                    "<leader>sfS",
+                    function()
+                        require("fzf-lua").lsp_workspace_symbols()
+                    end,
+                    desc = "Goto symbol (workspace)",
+                },
             }
         end,
         config = true,
@@ -657,20 +721,42 @@ require("lazy").setup({
             "nvim-telescope/telescope-live-grep-args.nvim",
         },
         keys = function()
-            local builtin = require "telescope.builtin"
-
             return {
                 { "<C-p>", utils.project_files, desc = "Search project files" },
-                { "<leader><space>", builtin.buffers, desc = "Switch buffers" },
-                { "<leader>r", builtin.live_grep, desc = "Grep" },
-                { "<leader>R", builtin.current_buffer_fuzzy_find, desc = "Grep in open file" },
+                {
+                    "<leader><space>",
+                    function()
+                        require("telescope.builtin").buffers()
+                    end,
+                    desc = "Switch buffers",
+                },
+                {
+                    "<leader>r",
+                    function()
+                        require("telescope.builtin").live_grep()
+                    end,
+                    desc = "Grep",
+                },
+                {
+                    "<leader>R",
+                    function()
+                        require("telescope.builtin").current_buffer_fuzzy_find()
+                    end,
+                    desc = "Grep in open file",
+                },
 
                 -- file operations
-                { "<leader>ff", builtin.find_files, desc = "Find file" },
+                {
+                    "<leader>ff",
+                    function()
+                        require("telescope.builtin").find_files()
+                    end,
+                    desc = "Find file",
+                },
                 {
                     "<leader>fh",
                     function()
-                        builtin.find_files {
+                        require("telescope.builtin").find_files {
                             hidden = true,
                             prompt_title = "Find Hidden Files",
                         }
@@ -678,87 +764,221 @@ require("lazy").setup({
                     desc = "Find hidden file",
                 },
                 { "<leader>fs", utils.project_files, desc = "Find project files" },
-                { "<leader>fr", builtin.oldfiles, desc = "Recent" },
+                {
+                    "<leader>fr",
+                    function()
+                        require("telescope.builtin").oldfiles()
+                    end,
+                    desc = "Recent",
+                },
 
                 -- help
-                { "<leader>ha", builtin.autocommands, desc = "Autocommands" },
-                { "<leader>hc", builtin.commands, desc = "Commands" },
-                { "<leader>hd", builtin.help_tags, desc = "Docs" },
-                { "<leader>hf", builtin.filetypes, desc = "File types" },
-                { "<leader>hh", builtin.highlights, desc = "Highlights" },
-                { "<leader>hk", builtin.keymaps, desc = "Keymaps" },
-                { "<leader>hm", builtin.man_pages, desc = "Man pages" },
-                { "<leader>hs", builtin.spell_suggest, desc = "Spelling" },
+                {
+                    "<leader>ha",
+                    function()
+                        require("telescope.builtin").autocommands()
+                    end,
+                    desc = "Autocommands",
+                },
+                {
+                    "<leader>hc",
+                    function()
+                        require("telescope.builtin").commands()
+                    end,
+                    desc = "Commands",
+                },
+                {
+                    "<leader>hd",
+                    function()
+                        require("telescope.builtin").help_tags()
+                    end,
+                    desc = "Docs",
+                },
+                {
+                    "<leader>hf",
+                    function()
+                        require("telescope.builtin").filetypes()
+                    end,
+                    desc = "File types",
+                },
+                {
+                    "<leader>hh",
+                    function()
+                        require("telescope.builtin").highlights()
+                    end,
+                    desc = "Highlights",
+                },
+                {
+                    "<leader>hk",
+                    function()
+                        require("telescope.builtin").keymaps()
+                    end,
+                    desc = "Keymaps",
+                },
+                {
+                    "<leader>hm",
+                    function()
+                        require("telescope.builtin").man_pages()
+                    end,
+                    desc = "Man pages",
+                },
+                {
+                    "<leader>hs",
+                    function()
+                        require("telescope.builtin").spell_suggest()
+                    end,
+                    desc = "Spelling",
+                },
                 {
                     "<leader>ht",
                     function()
-                        builtin.colorscheme { enable_preview = true }
+                        require("telescope.builtin").colorscheme { enable_preview = true }
                     end,
                     desc = "Colorscheme",
                 },
-                { "<leader>hv", builtin.vim_options, desc = "Vim options" },
+                {
+                    "<leader>hv",
+                    function()
+                        require("telescope.builtin").vim_options()
+                    end,
+                    desc = "Vim options",
+                },
 
                 -- lsp
                 {
                     "<leader>ltd",
                     function()
-                        builtin.lsp_definitions { layout_strategy = "flex" }
+                        require("telescope.builtin").lsp_definitions { layout_strategy = "flex" }
                     end,
                     desc = "Lsp definitions",
                 },
                 {
                     "<leader>lti",
                     function()
-                        builtin.lsp_implementations { layout_strategy = "flex" }
+                        require("telescope.builtin").lsp_implementations { layout_strategy = "flex" }
                     end,
                     desc = "Lsp implementations",
                 },
                 {
                     "<leader>ltr",
                     function()
-                        builtin.lsp_references { layout_strategy = "flex" }
+                        require("telescope.builtin").lsp_references { layout_strategy = "flex" }
                     end,
                     desc = "Lsp references",
                 },
                 {
                     "<leader>ltt",
                     function()
-                        builtin.lsp_type_definitions { layout_strategy = "flex" }
+                        require("telescope.builtin").lsp_type_definitions { layout_strategy = "flex" }
                     end,
                     desc = "Lsp type definitions",
                 },
 
                 -- git
-                { "<leader>gb", builtin.git_branches, desc = "Branches" },
-                { "<leader>gc", builtin.git_commits, desc = "Commits" },
-                { "<leader>gC", builtin.git_bcommits, desc = "Commits (current file)" },
-                { "<leader>gs", builtin.git_status, desc = "Status" },
+                {
+                    "<leader>gb",
+                    function()
+                        require("telescope.builtin").git_branches()
+                    end,
+                    desc = "Branches",
+                },
+                {
+                    "<leader>gc",
+                    function()
+                        require("telescope.builtin").git_commits()
+                    end,
+                    desc = "Commits",
+                },
+                {
+                    "<leader>gC",
+                    function()
+                        require("telescope.builtin").git_bcommits()
+                    end,
+                    desc = "Commits (current file)",
+                },
+                {
+                    "<leader>gs",
+                    function()
+                        require("telescope.builtin").git_status()
+                    end,
+                    desc = "Status",
+                },
 
                 -- search
-                { "<leader>sb", builtin.current_buffer_fuzzy_find, desc = "Buffer" },
-                { "<leader>sg", builtin.live_grep, desc = "Grep" },
+                {
+                    "<leader>sb",
+                    function()
+                        require("telescope.builtin").current_buffer_fuzzy_find()
+                    end,
+                    desc = "Buffer",
+                },
+                {
+                    "<leader>sg",
+                    function()
+                        require("telescope.builtin").live_grep()
+                    end,
+                    desc = "Grep",
+                },
                 {
                     "<leader>sG",
-                    require("telescope").extensions.live_grep_args.live_grep_args,
+                    function()
+                        require("telescope").extensions.live_grep_args.live_grep_args()
+                    end,
                     desc = "Live grep (args)",
                 },
                 {
                     "<leader>sd",
                     function()
-                        builtin.diagnostics { bufnr = 0 }
+                        require("telescope.builtin").diagnostics { bufnr = 0 }
                     end,
                     desc = "Document diagnostics",
                 },
-                { "<leader>sD", builtin.diagnostics, desc = "Workspace diagnostics" },
-                { "<leader>sc", builtin.command_history, desc = "Command history" },
-                { "<leader>sl", builtin.loclist, desc = "Loclist" },
-                { "<leader>sq", builtin.quickfix, desc = "Quickfix" },
-                { "<leader>sr", builtin.resume, desc = "Resume" },
-                { '<leader>s"', builtin.registers, desc = "Registers" },
+                {
+                    "<leader>sD",
+                    function()
+                        require("telescope.builtin").diagnostics()
+                    end,
+                    desc = "Workspace diagnostics",
+                },
+                {
+                    "<leader>sc",
+                    function()
+                        require("telescope.builtin").command_history()
+                    end,
+                    desc = "Command history",
+                },
+                {
+                    "<leader>sl",
+                    function()
+                        require("telescope.builtin").loclist()
+                    end,
+                    desc = "Loclist",
+                },
+                {
+                    "<leader>sq",
+                    function()
+                        require("telescope.builtin").quickfix()
+                    end,
+                    desc = "Quickfix",
+                },
+                {
+                    "<leader>sr",
+                    function()
+                        require("telescope.builtin").resume()
+                    end,
+                    desc = "Resume",
+                },
+                {
+                    '<leader>s"',
+                    function()
+                        require("telescope.builtin").registers()
+                    end,
+                    desc = "Registers",
+                },
                 {
                     "<leader>ss",
                     function()
-                        builtin.lsp_document_symbols {
+                        require("telescope.builtin").lsp_document_symbols {
                             symbols = {
                                 "Class",
                                 "Function",
@@ -779,7 +999,7 @@ require("lazy").setup({
                 {
                     "<leader>sS",
                     function()
-                        builtin.lsp_dynamic_workspace_symbols {
+                        require("telescope.builtin").lsp_dynamic_workspace_symbols {
                             symbols = {
                                 "Class",
                                 "Function",
@@ -800,7 +1020,7 @@ require("lazy").setup({
                 {
                     "<leader>sw",
                     function()
-                        builtin.grep_string {
+                        require("telescope.builtin").grep_string {
                             word_match = "-w",
                         }
                     end,
@@ -809,7 +1029,7 @@ require("lazy").setup({
                 {
                     "<leader>sw",
                     function()
-                        builtin.grep_string {
+                        require("telescope.builtin").grep_string {
                             word_match = "-w",
                         }
                     end,
@@ -1119,7 +1339,13 @@ require("lazy").setup({
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         keys = {
-            { "<leader>-", require("oil").open, desc = "Oil" },
+            {
+                "<leader>-",
+                function()
+                    require("oil").open()
+                end,
+                desc = "Oil",
+            },
         },
         opts = {
             view_options = {
@@ -1192,7 +1418,13 @@ require("lazy").setup({
         "numToStr/Comment.nvim",
         dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
         keys = {
-            { "<leader>/", require("Comment.api").toggle.linewise.current, desc = "Comment line" },
+            {
+                "<leader>/",
+                function()
+                    require("Comment.api").toggle.linewise.current()
+                end,
+                desc = "Comment line",
+            },
             {
                 "<leader>/",
                 function()
@@ -1232,7 +1464,14 @@ require("lazy").setup({
         "folke/flash.nvim",
         event = "VeryLazy",
         keys = {
-            { "m", require("flash").treesitter, mode = { "o", "x" }, desc = "Flash treesitter" },
+            {
+                "m",
+                function()
+                    require("flash").treesitter()
+                end,
+                mode = { "o", "x" },
+                desc = "Flash treesitter",
+            },
             {
                 "s",
                 function()
@@ -1277,8 +1516,22 @@ require("lazy").setup({
                 end,
                 desc = "Flash backwards (global)",
             },
-            { "r", require("flash").remote, mode = "o", desc = "Flash remote" },
-            { "R", require("flash").treesitter_search, mode = "o", desc = "Flash treesitter search" },
+            {
+                "r",
+                function()
+                    require("flash").remote()
+                end,
+                mode = "o",
+                desc = "Flash remote",
+            },
+            {
+                "R",
+                function()
+                    require("flash").treesitter_search()
+                end,
+                mode = "o",
+                desc = "Flash treesitter search",
+            },
         },
         opts = {},
     },
@@ -1331,8 +1584,20 @@ require("lazy").setup({
         cmd = { "TodoTrouble", "TodoTelescope" },
         event = { "BufReadPost", "BufNewFile" },
         keys = {
-            { "]t", require("todo-comments").jump_next, desc = "Next todo comment" },
-            { "[t", require("todo-comments").jump_prev, desc = "Previous todo comment" },
+            {
+                "]t",
+                function()
+                    require("todo-comments").jump_next()
+                end,
+                desc = "Next todo comment",
+            },
+            {
+                "[t",
+                function()
+                    require("todo-comments").jump_prev()
+                end,
+                desc = "Previous todo comment",
+            },
             { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
             { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug (Trouble)" },
             { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
@@ -1353,7 +1618,13 @@ require("lazy").setup({
         "folke/persistence.nvim",
         event = "BufReadPre",
         keys = {
-            { "<leader>qs", require("persistence").load, desc = "Load session" },
+            {
+                "<leader>qs",
+                function()
+                    require("persistence").load()
+                end,
+                desc = "Load session",
+            },
             {
                 "<leader>ql",
                 function()
@@ -1361,7 +1632,13 @@ require("lazy").setup({
                 end,
                 desc = "Load last session",
             },
-            { "<leader>qd", require("persistence").stop, desc = "Don't save session" },
+            {
+                "<leader>qd",
+                function()
+                    require("persistence").stop()
+                end,
+                desc = "Don't save session",
+            },
         },
         opts = { options = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp" } },
     },
@@ -1395,10 +1672,34 @@ require("lazy").setup({
         "kevinhwang91/nvim-ufo",
         dependencies = { "kevinhwang91/promise-async" },
         keys = {
-            { "zR", require("ufo").openAllFolds, desc = "Open all folds" },
-            { "zM", require("ufo").closeAllFolds, desc = "Close all folds" },
-            { "zr", require("ufo").openAllFolds, desc = "Open all folds" },
-            { "zm", require("ufo").closeFoldsWith, desc = "Close folds with" },
+            {
+                "zR",
+                function()
+                    require("ufo").openAllFolds()
+                end,
+                desc = "Open all folds",
+            },
+            {
+                "zM",
+                function()
+                    require("ufo").closeAllFolds()
+                end,
+                desc = "Close all folds",
+            },
+            {
+                "zr",
+                function()
+                    require("ufo").openAllFolds()
+                end,
+                desc = "Open all folds",
+            },
+            {
+                "zm",
+                function()
+                    require("ufo").closeFoldsWith()
+                end,
+                desc = "Close folds with",
+            },
             {
                 "K",
                 function()
@@ -1600,36 +1901,32 @@ require("lazy").setup({
     {
         "ThePrimeagen/harpoon",
         keys = function()
-            local ui = require "harpoon.ui"
-            local term = require "harpoon.term"
-            local mark = require "harpoon.mark"
-
             return {
                 {
                     "<leader>jj",
                     function()
-                        ui.nav_file(1)
+                        require("harpoon.ui").nav_file(1)
                     end,
                     desc = "File 1",
                 },
                 {
                     "<leader>jk",
                     function()
-                        ui.nav_file(2)
+                        require("harpoon.ui").nav_file(2)
                     end,
                     desc = "File 2",
                 },
                 {
                     "<leader>jl",
                     function()
-                        ui.nav_file(3)
+                        require("harpoon.ui").nav_file(3)
                     end,
                     desc = "File 3",
                 },
                 {
                     "<leader>j;",
                     function()
-                        ui.nav_file(4)
+                        require("harpoon.ui").nav_file(4)
                     end,
                     desc = "File 4",
                 },
@@ -1637,61 +1934,61 @@ require("lazy").setup({
                 {
                     "<leader>jf",
                     function()
-                        ui.nav_file(5)
+                        require("harpoon.ui").nav_file(5)
                     end,
                     desc = "File 5",
                 },
                 {
                     "<leader>jd",
                     function()
-                        ui.nav_file(6)
+                        require("harpoon.ui").nav_file(6)
                     end,
                     desc = "File 6",
                 },
                 {
                     "<leader>js",
                     function()
-                        ui.nav_file(7)
+                        require("harpoon.ui").nav_file(7)
                     end,
                     desc = "File 7",
                 },
                 {
                     "<leader>ja",
                     function()
-                        ui.nav_file(8)
+                        require("harpoon.ui").nav_file(8)
                     end,
                     desc = "File 8",
                 },
 
-                { "<leader>jn", ui.nav_next, desc = "Next file" },
-                { "<leader>jp", ui.nav_prev, desc = "Prev file" },
+                { "<leader>jn", require("harpoon.ui").nav_next, desc = "Next file" },
+                { "<leader>jp", require("harpoon.ui").nav_prev, desc = "Prev file" },
 
-                { "<leader>jt", ui.toggle_quick_menu, desc = "Toggle menu" },
+                { "<leader>jt", require("harpoon.ui").toggle_quick_menu, desc = "Toggle menu" },
 
                 {
                     "<leader>je",
                     function()
-                        term.gotoTerminal(1)
+                        require("harpoon.term").gotoTerminal(1)
                     end,
                     desc = "Go to terminal 1",
                 },
                 {
                     "<leader>jw",
                     function()
-                        term.gotoTerminal(2)
+                        require("harpoon.term").gotoTerminal(2)
                     end,
                     desc = "Go to terminal 2",
                 },
                 {
                     "<leader>jq",
                     function()
-                        term.gotoTerminal(3)
+                        require("harpoon.term").gotoTerminal(3)
                     end,
                     desc = "Go to terminal 3",
                 },
 
-                { "<leader>jm", mark.add_file, desc = "Add mark" },
-                { "<leader>jr", mark.rm_file, desc = "Remove mark" },
+                { "<leader>jm", require("harpoon.mark").add_file, desc = "Add mark" },
+                { "<leader>jr", require("harpoon.mark").rm_file, desc = "Remove mark" },
             }
         end,
         config = true,
@@ -1880,33 +2177,127 @@ require("lazy").setup({
             "jbyuki/one-small-step-for-vimkind",
         },
         keys = function()
-            local dap = require "dap"
-
             return {
-                { "<leader>db", dap.toggle_breakpoint, desc = "Toggle breakpoint" },
+                { "<leader>db", require("dap").toggle_breakpoint, desc = "Toggle breakpoint" },
                 {
                     "<leader>dB",
                     function()
-                        dap.set_breakpoint(vim.fn.input "Breakpoint condition: ")
+                        require("dap").set_breakpoint(vim.fn.input "Breakpoint condition: ")
                     end,
                     desc = "Breakpoint condition",
                 },
-                { "<leader>dc", dap.continue, desc = "Continue" },
-                { "<leader>dd", dap.disconnect, desc = "Disconnect" },
-                { "<leader>dC", dap.run_to_cursor, desc = "Run to cursor" },
-                { "<leader>dg", dap.goto_, desc = "Go to line (don't execute)" },
-                { "<leader>di", dap.step_into, desc = "Step into" },
-                { "<leader>dj", dap.down, desc = "Down" },
-                { "<leader>dk", dap.up, desc = "Up" },
-                { "<leader>dl", dap.run_last, desc = "Run last" },
-                { "<leader>do", dap.step_out, desc = "Step out" },
-                { "<leader>dO", dap.step_over, desc = "Step over" },
-                { "<leader>dp", dap.pause, desc = "Pause" },
-                { "<leader>dr", dap.repl.toggle, desc = "Toggle REPL" },
-                { "<leader>ds", dap.session, desc = "Session" },
-                { "<leader>dt", dap.terminate, desc = "Terminate" },
-                { "<leader>dq", dap.close, desc = "Close" },
-                { "<leader>dw", require("dap.ui.widgets").hover, desc = "Widgets" },
+                {
+                    "<leader>dc",
+                    function()
+                        require("dap").continue()
+                    end,
+                    desc = "Continue",
+                },
+                {
+                    "<leader>dd",
+                    function()
+                        require("dap").disconnect()
+                    end,
+                    desc = "Disconnect",
+                },
+                {
+                    "<leader>dC",
+                    function()
+                        require("dap").run_to_cursor()
+                    end,
+                    desc = "Run to cursor",
+                },
+                {
+                    "<leader>dg",
+                    function()
+                        require("dap").goto_()
+                    end,
+                    desc = "Go to line (don't execute)",
+                },
+                {
+                    "<leader>di",
+                    function()
+                        require("dap").step_into()
+                    end,
+                    desc = "Step into",
+                },
+                {
+                    "<leader>dj",
+                    function()
+                        require("dap").down()
+                    end,
+                    desc = "Down",
+                },
+                {
+                    "<leader>dk",
+                    function()
+                        require("dap").up()
+                    end,
+                    desc = "Up",
+                },
+                {
+                    "<leader>dl",
+                    function()
+                        require("dap").run_last()
+                    end,
+                    desc = "Run last",
+                },
+                {
+                    "<leader>do",
+                    function()
+                        require("dap").step_out()
+                    end,
+                    desc = "Step out",
+                },
+                {
+                    "<leader>dO",
+                    function()
+                        require("dap").step_over()
+                    end,
+                    desc = "Step over",
+                },
+                {
+                    "<leader>dp",
+                    function()
+                        require("dap").pause()
+                    end,
+                    desc = "Pause",
+                },
+                {
+                    "<leader>dr",
+                    function()
+                        require("dap").repl.toggle()
+                    end,
+                    desc = "Toggle REPL",
+                },
+                {
+                    "<leader>ds",
+                    function()
+                        require("dap").session()
+                    end,
+                    desc = "Session",
+                },
+                {
+                    "<leader>dt",
+                    function()
+                        require("dap").terminate()
+                    end,
+                    desc = "Terminate",
+                },
+                {
+                    "<leader>dq",
+                    function()
+                        require("dap").close()
+                    end,
+                    desc = "Close",
+                },
+                {
+                    "<leader>dw",
+                    function()
+                        require("dap.ui.widgets").hover()
+                    end,
+                    desc = "Widgets",
+                },
 
                 {
                     "<leader>daL",
@@ -1991,8 +2382,21 @@ require("lazy").setup({
         "rcarriga/nvim-dap-ui",
         opts = {},
         keys = {
-            { "<leader>du", require("dapui").toggle, desc = "Dap UI" },
-            { "<leader>de", require("dapui").eval, mode = { "n", "v" }, desc = "Eval" },
+            {
+                "<leader>du",
+                function()
+                    require("dapui").toggle()
+                end,
+                desc = "Dap UI",
+            },
+            {
+                "<leader>de",
+                function()
+                    require("dapui").eval()
+                end,
+                mode = { "n", "v" },
+                desc = "Eval",
+            },
         },
         config = function(_, opts)
             local dap = require "dap"
@@ -2089,9 +2493,27 @@ require("lazy").setup({
                 end,
                 desc = "Run all test files",
             },
-            { "<leader>tr", require("neotest").run.run, desc = "Run nearest" },
-            { "<leader>tl", require("neotest").run.run_last, desc = "Run last" },
-            { "<leader>ts", require("neotest").summary.toggle, desc = "Toggle summary" },
+            {
+                "<leader>tr",
+                function()
+                    require("neotest").run.run()
+                end,
+                desc = "Run nearest",
+            },
+            {
+                "<leader>tl",
+                function()
+                    require("neotest").run.run_last()
+                end,
+                desc = "Run last",
+            },
+            {
+                "<leader>ts",
+                function()
+                    require("neotest").summary.toggle()
+                end,
+                desc = "Toggle summary",
+            },
             {
                 "<leader>to",
                 function()
@@ -2099,8 +2521,20 @@ require("lazy").setup({
                 end,
                 desc = "Show output",
             },
-            { "<leader>tO", require("neotest").output_panel.toggle, desc = "Toggle output" },
-            { "<leader>tS", require("neotest").run.stop, desc = "Stop" },
+            {
+                "<leader>tO",
+                function()
+                    require("neotest").output_panel.toggle()
+                end,
+                desc = "Toggle output",
+            },
+            {
+                "<leader>tS",
+                function()
+                    require("neotest").run.stop()
+                end,
+                desc = "Stop",
+            },
             {
                 "<leader>td",
                 function()
@@ -2108,19 +2542,24 @@ require("lazy").setup({
                 end,
                 desc = "Debug nearest",
             },
-            map("n", "<leader>tD", function()
-                require("neotest").run.run_last { strategy = "dap" }
-            end, { desc = "Debug last" }) {
+            {
+                "<leader>tD",
+                function()
+                    require("neotest").run.run_last { strategy = "dap" }
+                end,
+                desc = "Debug last",
+            },
+            {
                 "[n",
                 function()
-                    neotest.jump.prev { status = "failed" }
+                    require("neotest").jump.prev { status = "failed" }
                 end,
                 desc = "Go to prev failed test",
             },
             {
                 "]n",
                 function()
-                    neotest.jump.next { status = "failed" }
+                    require("neotest").jump.next { status = "failed" }
                 end,
                 desc = "Go to next failed test",
             },
