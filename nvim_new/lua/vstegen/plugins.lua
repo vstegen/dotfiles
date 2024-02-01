@@ -11,7 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- TODO: check all plugins if they can be lazy loaded based on their commands or keymaps
 local utils = require "vstegen.utils"
 local lsp = require "vstegen.lsp"
 
@@ -25,10 +24,8 @@ require("lazy").setup({
         dependencies = {
             -- TODO: remove these plugins?
             "nvim-treesitter/nvim-treesitter-textobjects",
-            "RRethy/nvim-treesitter-textsubjects",
             "windwp/nvim-ts-autotag",
         },
-        lazy = false,
         keys = {
             {
                 "<leader>uT",
@@ -148,15 +145,6 @@ require("lazy").setup({
                             ["<leader>lf"] = "@function.outer",
                             ["<leader>lF"] = "@class.outer",
                         },
-                    },
-                },
-                textsubjects = {
-                    enable = true,
-                    prev_selection = ",",
-                    keymaps = {
-                        ["."] = "textsubjects-smart",
-                        [";"] = "textsubjects-container-outer",
-                        ["i;"] = "textsubjects-container-inner",
                     },
                 },
             }
