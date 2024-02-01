@@ -390,7 +390,13 @@ require("lazy").setup({
         -- TODO: do I want to use this?
         "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
         keys = {
-            { "<leader>xl", require("lsp_lines").toggle, desc = "Toggle lsp lines" },
+            {
+                "<leader>xl",
+                function()
+                    require("lsp_lines").toggle()
+                end,
+                desc = "Toggle lsp lines",
+            },
         },
         config = function(_, opts)
             local lines = require "lsp_lines"
