@@ -406,6 +406,7 @@ require("lazy").setup({
                 border = "single",
             },
             toggle_key = "<M-x>",
+            select_signature_key = "<M-n>",
         },
         enabled = true,
     },
