@@ -592,9 +592,8 @@ require("lazy").setup({
         end,
     },
     {
-        -- TODO: can this be lazy loaded?
         "roobert/tailwindcss-colorizer-cmp.nvim",
-        event = { "VeryLazy" },
+        event = { "BufReadPost", "BufNewFile" },
         config = true,
     },
     {
@@ -607,6 +606,7 @@ require("lazy").setup({
             "svelte",
             "vue",
             "html",
+            "htmx",
         },
         init = function()
             vim.g.user_emmet_mode = "a"
