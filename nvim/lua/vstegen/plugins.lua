@@ -1338,8 +1338,6 @@ require("lazy").setup({
                 treesitter_context = true,
                 cmp = true,
                 flash = true,
-                gitsigns = true,
-                indent_blankline = { enabled = true },
                 lsp_trouble = true,
                 mason = true,
                 mini = true,
@@ -1413,13 +1411,6 @@ require("lazy").setup({
         },
     },
     -- misc
-    {
-        "dstein64/vim-startuptime",
-        cmd = "StartupTime",
-        config = function()
-            vim.g.startuptime_tries = 10
-        end,
-    },
     {
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -1497,7 +1488,7 @@ require("lazy").setup({
     },
     {
         "echasnovski/mini.pairs",
-        event = "VeryLazy",
+        event = { "BufReadPost", "BufNewFile" },
         config = true,
     },
     {
