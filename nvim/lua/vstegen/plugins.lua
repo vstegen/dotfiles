@@ -413,7 +413,7 @@ require("lazy").setup({
     -- auto completion
     {
         "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
+        event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
@@ -470,7 +470,6 @@ require("lazy").setup({
                 },
                 formatting = {
                     fields = { "kind", "abbr", "menu" },
-                    -- TODO: use lspkinds.nvim?
                     format = function(entry, item)
                         local icons = utils.icons.kinds
                         if icons[item.kind] then
@@ -481,10 +480,17 @@ require("lazy").setup({
                         return item
                     end,
                 },
-                -- TODO: compare keymaps to other configs
                 mapping = {
                     ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
                     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+                    ["<C-n>"] = cmp.mapping(
+                        cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+                        { "c" }
+                    ),
+                    ["<C-p>"] = cmp.mapping(
+                        cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
+                        { "c" }
+                    ),
                     ["<C-j>"] = cmp.mapping(
                         cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
                         { "c" }
@@ -528,8 +534,8 @@ require("lazy").setup({
                 },
 
                 sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
-                    { name = "nvim_lua" },
+                    { name = "nvim_lsp", priority = 100 },
+                    { name = "nvim_lua", priority = 90 },
                     {
                         name = "luasnip",
                         -- disable luasnip completion when the cursor is in a string
@@ -537,10 +543,11 @@ require("lazy").setup({
                             local context = require "cmp.config.context"
                             return not context.in_treesitter_capture "string" and not context.in_syntax_group "String"
                         end,
+                        priority = 50,
                     },
-                    { name = "crates" },
-                    { name = "path" },
-                    { name = "treesitter" },
+                    { name = "crates", priority = 40 },
+                    { name = "path", priority = 30 },
+                    { name = "treesitter", priority = 20 },
                 }, {
                     { name = "buffer", keyword_length = 5 },
                 }),
