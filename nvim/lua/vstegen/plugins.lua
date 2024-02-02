@@ -435,15 +435,6 @@ require("lazy").setup({
                     and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
             end
 
-            local check_backspace = function()
-                local col = vim.fn.col "." - 1
-                return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
-            end
-
-            local function T(str)
-                return vim.api.nvim_replace_termcodes(str, true, true, true)
-            end
-
             local is_emmet_active = function()
                 local clients = vim.lsp.buf_get_clients()
 
@@ -513,8 +504,6 @@ require("lazy").setup({
                             luasnip.expand_or_jump()
                         elseif has_words_before() then
                             cmp.complete()
-                        elseif check_backspace() then
-                            vim.fn.feedkeys(T "<Tab>", "n")
                         elseif is_emmet_active() then
                             return vim.fn["cmp#complete"]()
                         else
