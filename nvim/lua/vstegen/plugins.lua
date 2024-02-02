@@ -1578,6 +1578,7 @@ require("lazy").setup({
                     require("flash").jump {
                         forward = true,
                         wrap = false,
+                        multi_window = true,
                     }
                 end,
                 desc = "Flash forward (global)",
@@ -1588,6 +1589,7 @@ require("lazy").setup({
                     require("flash").jump {
                         forward = false,
                         wrap = false,
+                        multi_window = true,
                     }
                 end,
                 desc = "Flash backwards (global)",
