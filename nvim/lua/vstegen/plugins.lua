@@ -627,6 +627,20 @@ require("lazy").setup({
                     desc = "FZF Files",
                 },
                 {
+                    "<leader>?",
+                    function()
+                        require("fzf-lua").oldfiles()
+                    end,
+                    desc = "FZF Recent Files",
+                },
+                {
+                    "<leader>sf<space>",
+                    function()
+                        require("fzf-lua").buffers()
+                    end,
+                    desc = "Buffers",
+                },
+                {
                     "<leader>sfg",
                     function()
                         require("fzf-lua").live_grep()
@@ -692,9 +706,86 @@ require("lazy").setup({
                 {
                     "<leader>sfS",
                     function()
-                        require("fzf-lua").lsp_workspace_symbols()
+                        require("fzf-lua").lsp_live_workspace_symbols()
                     end,
                     desc = "Goto symbol (workspace)",
+                },
+                {
+                    "<leader>sfl",
+                    function()
+                        require("fzf-lua").loclist()
+                    end,
+                    desc = "Loclist",
+                },
+                {
+                    "<leader>sfq",
+                    function()
+                        require("fzf-lua").quickfix()
+                    end,
+                    desc = "Quickfix",
+                },
+                {
+                    "<leader>lfr",
+                    function()
+                        require("fzf-lua").lsp_references()
+                    end,
+                    desc = "Lsp References",
+                },
+                {
+                    "<leader>lfd",
+                    function()
+                        require("fzf-lua").lsp_definitions()
+                    end,
+                    desc = "Lsp Definitions",
+                },
+                {
+                    "<leader>lfD",
+                    function()
+                        require("fzf-lua").lsp_declerations()
+                    end,
+                    desc = "Lsp Declerations",
+                },
+                {
+                    "<leader>lft",
+                    function()
+                        require("fzf-lua").lsp_typedefs()
+                    end,
+                    desc = "Lsp Type Definitions",
+                },
+                {
+                    "<leader>lfi",
+                    function()
+                        require("fzf-lua").lsp_implementations()
+                    end,
+                    desc = "Lsp Implementations",
+                },
+                {
+                    "<leader>lfa",
+                    function()
+                        require("fzf-lua").lsp_code_actions()
+                    end,
+                    desc = "Lsp Code Actions",
+                },
+                {
+                    "<leader>sfd",
+                    function()
+                        require("fzf-lua").lsp_document_diagnostics()
+                    end,
+                    desc = "Document Diagnostics",
+                },
+                {
+                    "<leader>sfD",
+                    function()
+                        require("fzf-lua").lsp_workspace_diagnostics()
+                    end,
+                    desc = "Workspace Diagnostics",
+                },
+                {
+                    "<leader>sf?",
+                    function()
+                        require("fzf-lua").builtin()
+                    end,
+                    desc = "Builtin",
                 },
             }
         end,
@@ -1377,6 +1468,7 @@ require("lazy").setup({
                 ["<leader>j"] = { name = "+jump" },
                 ["<leader>l"] = { name = "+lsp" },
                 ["<leader>lt"] = { name = "+telescope" },
+                ["<leader>lf"] = { name = "+fzf" },
                 ["<leader>lw"] = { name = "+workspace" },
                 ["<leader>p"] = { name = "+plugins" },
                 ["<leader>q"] = { name = "+quit/session" },
