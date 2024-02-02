@@ -806,6 +806,13 @@ require("lazy").setup({
             return {
                 { "<C-p>", utils.project_files, desc = "Search project files" },
                 {
+                    "<leader>s?",
+                    function()
+                        require("telescope.builtin").builtin()
+                    end,
+                    desc = "Telescope Builtins",
+                },
+                {
                     "<leader><space>",
                     function()
                         require("telescope.builtin").buffers()
