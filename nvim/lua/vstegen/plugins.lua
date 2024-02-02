@@ -405,9 +405,9 @@ require("lazy").setup({
                 desc = "Toggle lsp lines",
             },
         },
-        config = function(_, opts)
+        config = function()
             local lines = require "lsp_lines"
-            lines.setup(opts)
+            lines.setup()
             lines.toggle()
         end,
     },
@@ -2380,7 +2380,6 @@ require("lazy").setup({
                 end,
             },
             "nvim-neotest/neotest-go",
-            "rouge8/neotest-rust",
             "haydenmeade/neotest-jest",
             "nvim-neotest/neotest-plenary",
         },
@@ -2483,7 +2482,7 @@ require("lazy").setup({
 
             require("neotest").setup {
                 adapters = {
-                    require "neotest-rust",
+                    require "rustaceanvim.neotest",
                     require "neotest-go" {
                         experimental = {
                             test_table = true,
