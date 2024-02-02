@@ -395,23 +395,6 @@ require("lazy").setup({
         },
     },
     {
-        "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-        keys = {
-            {
-                "<leader>xi",
-                function()
-                    require("lsp_lines").toggle()
-                end,
-                desc = "Toggle lsp lines",
-            },
-        },
-        config = function()
-            local lines = require "lsp_lines"
-            lines.setup()
-            lines.toggle()
-        end,
-    },
-    {
         "ray-x/lsp_signature.nvim",
         event = { "BufReadPre", "BufNewFile" },
         opts = {
