@@ -2,6 +2,8 @@ local utils = require "vstegen.utils"
 
 local map = vim.keymap.set
 
+map({ "n", "v" }, "<Leader>", "<Nop>", { silent = true })
+
 -- Fast escape
 map("i", "jk", "<ESC>")
 
