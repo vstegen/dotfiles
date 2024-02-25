@@ -26,7 +26,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     command = "checktime",
 })
 
-vim.api.nvim_create_autocmd({ "TextYankPost" }, {
+vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup "highlight_on_yank",
     callback = function()
         vim.highlight.on_yank()
