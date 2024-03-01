@@ -229,9 +229,3 @@ if not utils.has "trouble.nvim" then
     map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
     map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
 end
-
----- neo-tree
-if not utils.has "neo-tree.nvim" then
-    map("n", "<leader>e", "<cmd>Explore<cr>", { desc = "File explorer" })
-    map("n", "<leader>E", "<cmd>SEx<cr>", { desc = "File explorer" })
-end
