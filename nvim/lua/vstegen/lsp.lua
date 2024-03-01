@@ -25,13 +25,20 @@ end
 function M.default_on_attach(client, buffer)
     vim.bo[buffer].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    -- disable semantic highlighting as it's slow
-    if client.server_capabilities.semanticTokensProvider then
-        client.server_capabilities.semanticTokensProvider = nil
-    end
-
     if client.supports_method "textDocument/inlayHint" and vim.lsp.inlay_hint then
         vim.lsp.inlay_hint.enable(buffer, false)
+    end
+
+    if client and client.server_capabilities.documentHighlightProvider then
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            buffer = buffer,
+            callback = vim.lsp.buf.document_highlight,
+        })
+
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            buffer = buffer,
+            callback = vim.lsp.buf.clear_references,
+        })
     end
 
     local keymaps = {
@@ -210,16 +217,17 @@ M.servers = {
     },
     lua_ls = {
         settings = {
-            lua = {
-                diagnostics = {
-                    globals = { "vim", "o" },
-                },
+            Lua = {
+                runtime = { version = "LuaJIT" },
                 workspace = {
-                    library = vim.api.nvim_get_runtime_file("", true),
-                    checkthirdparty = false,
-                },
-                telemetry = {
-                    enable = false,
+                    checkThirdParty = false,
+                    library = {
+                        "${3rd}/luv/library",
+                        unpack(vim.api.nvim_get_runtime_file("", true)),
+                    },
+                    telemetry = {
+                        enable = false,
+                    },
                 },
             },
         },

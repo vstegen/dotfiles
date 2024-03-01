@@ -11,7 +11,7 @@ map("n", "<leader>qq", "<cmd>q!<cr>", { desc = "Quit without saving" })
 map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit all without saving" })
 
 -- Highligths
-map({ "n", "i" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
+map("n", "<esc>", "<cmd>noh<cr><esc>", { desc = "Clear hlsearch" })
 
 -- Move lines
 map("i", "<A-j>", "<Esc><cmd>m .+1<CR>==gi", { desc = "Move line down" })
@@ -55,7 +55,7 @@ map("n", "<down>", "<C-w>j", { desc = "Go to lower window" })
 map("n", "<up>", "<C-w>k", { desc = "Go to upper window" })
 map("n", "<right>", "<C-w>l", { desc = "Go to right window" })
 
-map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+map("t", "<esc><esc>", "<c-\\><c-n>", { desc = "Exit Terminal Mode" })
 map("t", "<C-h>", "<C-\\><C-N><C-w>h", { desc = "Go to left window" })
 map("t", "<C-j>", "<C-\\><C-N><C-w>j", { desc = "Go to lower window" })
 map("t", "<C-k>", "<C-\\><C-N><C-w>k", { desc = "Go to upper window" })

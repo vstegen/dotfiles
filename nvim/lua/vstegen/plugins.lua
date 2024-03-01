@@ -22,7 +22,6 @@ require("lazy").setup({
         cmd = { "TSUpdateSync" },
         event = { "BufReadPost", "BufNewFile" },
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
             "windwp/nvim-ts-autotag",
         },
         keys = {
@@ -76,7 +75,7 @@ require("lazy").setup({
                     disable = { "latex", "org", "vim" },
                 },
                 indent = {
-                    enable = false,
+                    enable = true,
                     disable = { "python", "go" },
                 },
                 incremental_selection = {
@@ -89,63 +88,6 @@ require("lazy").setup({
                     },
                 },
                 autotag = { enable = true },
-                textobjects = {
-                    select = {
-                        enable = true,
-                        lookahead = true,
-                        keymaps = {
-                            ["aa"] = "@parameter.outer",
-                            ["ia"] = "@parameter.inner",
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
-                            ["ic"] = "@class.inner",
-                        },
-                        selection_modes = {
-                            ["@parameter.outer"] = "v", -- charwise
-                            ["@function.outer"] = "V", -- linewise
-                            ["@class.outer"] = "<c-v>", -- blockwise
-                        },
-                        include_surrounding_whitespace = true,
-                    },
-                    swap = {
-                        enable = true,
-                        swap_next = {
-                            ["<leader>a"] = "@parameter.inner",
-                        },
-                        swap_previous = {
-                            ["<leader>A"] = "@parameter.inner",
-                        },
-                    },
-                    move = {
-                        enable = true,
-                        set_jumps = true,
-                        goto_next_start = {
-                            ["]m"] = "@function.outer",
-                            ["]]"] = "@class.outer",
-                        },
-                        goto_next_end = {
-                            ["]M"] = "@function.outer",
-                            ["]["] = "@class.outer",
-                        },
-                        goto_previous_start = {
-                            ["[m"] = "@function.outer",
-                            ["[["] = "@class.outer",
-                        },
-                        goto_previous_end = {
-                            ["[M"] = "@function.outer",
-                            ["[]"] = "@class.outer",
-                        },
-                    },
-                    lsp_interop = {
-                        enable = true,
-                        border = "single",
-                        peek_definition_code = {
-                            ["<leader>lf"] = "@function.outer",
-                            ["<leader>lF"] = "@class.outer",
-                        },
-                    },
-                },
             }
         end,
     },
@@ -268,6 +210,7 @@ require("lazy").setup({
                 "folke/neodev.nvim",
                 opts = {},
             },
+            { "j-hui/fidget.nvim", opts = {} },
         },
         config = function()
             local server_configs = lsp.servers
@@ -417,10 +360,8 @@ require("lazy").setup({
         dependencies = {
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-path",
-            "hrsh7th/cmp-nvim-lua",
         },
         config = function()
             vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
@@ -429,15 +370,8 @@ require("lazy").setup({
             local luasnip = require "luasnip"
             require("luasnip/loaders/from_vscode").lazy_load()
 
-            local has_words_before = function()
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0
-                    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
-            end
-
             local is_emmet_active = function()
                 local clients = vim.lsp.buf_get_clients()
-
                 for _, client in pairs(clients) do
                     if client.name == "emmet_ls" then
                         return true
@@ -472,59 +406,44 @@ require("lazy").setup({
                     end,
                 },
                 mapping = {
-                    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-                    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-                    ["<C-n>"] = cmp.mapping(
-                        cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
-                        { "c" }
-                    ),
-                    ["<C-p>"] = cmp.mapping(
-                        cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
-                        { "c" }
-                    ),
-                    ["<C-j>"] = cmp.mapping(
-                        cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-                        { "c" }
-                    ),
-                    ["<C-k>"] = cmp.mapping(
-                        cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-                        { "c" }
-                    ),
+                    ["<C-j>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+                    ["<C-k>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
                     ["<C-e>"] = cmp.mapping {
                         i = cmp.mapping.abort(),
                         c = cmp.mapping.close(),
                     },
-                    ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 
-                    -- copilot
-                    ["<Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-                        elseif luasnip.expand_or_jumpable() then
+                    ["<C-l>"] = cmp.mapping(function()
+                        if luasnip.expand_or_locally_jumpable() then
                             luasnip.expand_or_jump()
-                        elseif has_words_before() then
-                            cmp.complete()
-                        elseif is_emmet_active() then
-                            return vim.fn["cmp#complete"]()
-                        else
-                            fallback()
+                        end
+                    end, { "i", "s" }),
+                    ["<C-h>"] = cmp.mapping(function()
+                        if luasnip.locally_jumpable(-1) then
+                            luasnip.jump(-1)
                         end
                     end, { "i", "s" }),
 
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
+                    ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
+                    ["<C-y>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
+
+                    ["<Tab>"] = cmp.mapping(function()
                         if cmp.visible() then
-                            cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
+                            cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+                        elseif is_emmet_active() then
+                            return vim.fn["cmp#complete"]()
+                        end
+                    end, { "i", "s" }),
+
+                    ["<S-Tab>"] = cmp.mapping(function()
+                        if cmp.visible() then
+                            cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
                         end
                     end, { "i", "s" }),
                 },
 
-                sources = cmp.config.sources({
+                sources = cmp.config.sources {
                     { name = "nvim_lsp", priority = 100 },
-                    { name = "nvim_lua", priority = 90 },
                     {
                         name = "luasnip",
                         -- disable luasnip completion when the cursor is in a string
@@ -537,9 +456,7 @@ require("lazy").setup({
                     { name = "crates", priority = 40 },
                     { name = "path", priority = 30 },
                     { name = "treesitter", priority = 20 },
-                }, {
-                    { name = "buffer", keyword_length = 5 },
-                }),
+                },
                 experimental = {
                     -- ghost text is disabled because it might interfere with copilot
                     ghost_text = false,
@@ -794,12 +711,17 @@ require("lazy").setup({
     {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
+        event = "VeryLazy",
         dependencies = {
             "nvim-lua/plenary.nvim",
             {
                 "nvim-telescope/telescope-fzf-native.nvim",
                 build = "make",
+                cond = function()
+                    return vim.fn.executable "make" == 1
+                end,
             },
+            "nvim-telescope/telescope-ui-select.nvim",
             "nvim-telescope/telescope-live-grep-args.nvim",
         },
         keys = function()
@@ -1130,7 +1052,6 @@ require("lazy").setup({
                 { "<leader>sp", "<cmd>Telescope projects<cr>", desc = "Projects" },
             }
         end,
-        -- TODO: add keys for lazy loading?
         config = function()
             local telescope = require "telescope"
             local actions = require "telescope.actions"
@@ -1138,7 +1059,6 @@ require("lazy").setup({
 
             local _, trouble = pcall(require, "trouble.providers.telescope")
 
-            -- TODO: compare config to other configs
             telescope.setup {
                 defaults = {
                     prompt_prefix = " ",
@@ -1146,25 +1066,6 @@ require("lazy").setup({
                     path_display = { "truncate" },
                     file_ignore_patterns = { ".git/", "node_modules", "*/target/debug/*" },
                     initial_mode = "insert",
-                    layout_config = {
-                        width = 0.95,
-                        height = 0.85,
-                        preview_cutoff = 0,
-                        prompt_position = "top",
-                        horizontal = {
-                            height = 0.95,
-                            preview_cutoff = 160,
-                            width = 0.95,
-                        },
-                        vertical = {
-                            height = 0.95,
-                            width = 0.95,
-                            preview_height = 0.3,
-                        },
-                        flex = {
-                            flip_columns = 160,
-                        },
-                    },
                     vimgrep_arguments = {
                         "rg",
                         "--color=never",
@@ -1199,15 +1100,6 @@ require("lazy").setup({
                         },
                     },
                 },
-                pickers = {
-                    live_grep = {
-                        only_sort_text = true,
-                        layout_strategy = "vertical",
-                    },
-                    diagnostics = {
-                        layout_strategy = "vertical",
-                    },
-                },
                 extensions = {
                     fzf = {
                         fuzzy = true,
@@ -1215,11 +1107,14 @@ require("lazy").setup({
                         override_file_sorter = true,
                         case_mode = "smart_case",
                     },
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown(),
+                    },
                 },
             }
 
-            telescope.load_extension "fzf"
-            telescope.load_extension "live_grep_args"
+            pcall(telescope.load_extension, "fzf")
+            pcall(telescope.load_extension, "live_grep_args")
 
             local dap_ok, _ = pcall(require, "dap")
             if dap_ok then
@@ -1435,54 +1330,39 @@ require("lazy").setup({
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
-        opts = {
-            plugins = { spelling = true },
-            window = {
-                border = "single",
-            },
-        },
-        init = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
-        config = function(_, opts)
+        config = function()
             local wk = require "which-key"
-            wk.setup(opts)
+            wk.setup()
 
             wk.register({
-                mode = { "n", "v" },
-                ["g"] = { name = "+goto" },
-                ["gz"] = { name = "+surround" },
-                ["["] = { name = "+prev" },
-                ["]"] = { name = "+next" },
-                ["<leader><tab>"] = { name = "+tabs" },
-                ["<leader>b"] = { name = "+buffer" },
-                ["<leader>c"] = { name = "+code" },
-                ["<leader>d"] = { name = "+debug" },
-                ["<leader>f"] = { name = "+file" },
-                ["<leader>g"] = { name = "+git" },
-                ["<leader>gh"] = { name = "+hunks" },
-                ["<leader>h"] = { name = "+help" },
-                ["<leader>j"] = { name = "+jump" },
-                ["<leader>l"] = { name = "+lsp" },
-                ["<leader>lt"] = { name = "+telescope" },
-                ["<leader>lf"] = { name = "+fzf" },
-                ["<leader>lw"] = { name = "+workspace" },
-                ["<leader>p"] = { name = "+plugins" },
-                ["<leader>q"] = { name = "+quit/session" },
-                ["<leader>s"] = { name = "+search" },
-                ["<leader>sf"] = { name = "+fzf" },
-                ["<leader>t"] = { name = "+testing" },
-                ["<leader>u"] = { name = "+utils" },
-                ["<leader>u/"] = { name = "+terminal" },
-                ["<leader>W"] = { name = "+window" },
-                ["<leader>x"] = { name = "+diagnostics" },
+                ["g"] = { name = "+goto", _ = "which_key_ignore" },
+                ["gz"] = { name = "+surround", _ = "which_key_ignore" },
+                ["["] = { name = "+prev", _ = "which_key_ignore" },
+                ["]"] = { name = "+next", _ = "which_key_ignore" },
+                ["<leader><tab>"] = { name = "+tabs", _ = "which_key_ignore" },
+                ["<leader>b"] = { name = "+buffer", _ = "which_key_ignore" },
+                ["<leader>c"] = { name = "+code", _ = "which_key_ignore" },
+                ["<leader>d"] = { name = "+debug", _ = "which_key_ignore" },
+                ["<leader>f"] = { name = "+file", _ = "which_key_ignore" },
+                ["<leader>g"] = { name = "+git", _ = "which_key_ignore" },
+                ["<leader>gh"] = { name = "+hunks", _ = "which_key_ignore" },
+                ["<leader>h"] = { name = "+help", _ = "which_key_ignore" },
+                ["<leader>j"] = { name = "+jump", _ = "which_key_ignore" },
+                ["<leader>l"] = { name = "+lsp", _ = "which_key_ignore" },
+                ["<leader>lt"] = { name = "+telescope", _ = "which_key_ignore" },
+                ["<leader>lf"] = { name = "+fzf", _ = "which_key_ignore" },
+                ["<leader>lw"] = { name = "+workspace", _ = "which_key_ignore" },
+                ["<leader>p"] = { name = "+plugins", _ = "which_key_ignore" },
+                ["<leader>q"] = { name = "+quit/session", _ = "which_key_ignore" },
+                ["<leader>s"] = { name = "+search", _ = "which_key_ignore" },
+                ["<leader>sf"] = { name = "+fzf", _ = "which_key_ignore" },
+                ["<leader>t"] = { name = "+testing", _ = "which_key_ignore" },
+                ["<leader>u"] = { name = "+utils", _ = "which_key_ignore" },
+                ["<leader>u/"] = { name = "+terminal", _ = "which_key_ignore" },
+                ["<leader>W"] = { name = "+window", _ = "which_key_ignore" },
+                ["<leader>x"] = { name = "+diagnostics", _ = "which_key_ignore" },
             }, {
                 mode = { "n", "v" },
-                buffer = nil,
-                silent = true,
-                noremap = true,
-                nowait = true,
             })
         end,
     },
@@ -1520,6 +1400,10 @@ require("lazy").setup({
                 pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
             }
         end,
+    },
+    {
+        "echasnovski/mini.ai",
+        opts = { n_lines = 500 },
     },
     {
         "echasnovski/mini.surround",
