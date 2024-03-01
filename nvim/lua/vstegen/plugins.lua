@@ -428,17 +428,22 @@ require("lazy").setup({
                     ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
                     ["<C-y>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 
-                    ["<Tab>"] = cmp.mapping(function()
+                    ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
                         elseif is_emmet_active() then
                             return vim.fn["cmp#complete"]()
+                        else
+                            -- need fallback to make tab work in insert mode when there is no completion
+                            fallback()
                         end
                     end, { "i", "s" }),
 
-                    ["<S-Tab>"] = cmp.mapping(function()
+                    ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
+                        else
+                            fallback()
                         end
                     end, { "i", "s" }),
                 },
