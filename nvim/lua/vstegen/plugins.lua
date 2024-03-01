@@ -197,6 +197,7 @@ require("lazy").setup({
                 "pyright",
                 "volar",
                 "tsserver",
+                "ruff_lsp",
             },
         },
     },
