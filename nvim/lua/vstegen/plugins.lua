@@ -1306,6 +1306,7 @@ require("lazy").setup({
         },
     },
     -- misc
+    { "tpope/vim-sleuth" },
     {
         "stevearc/oil.nvim",
         dependencies = { "nvim-tree/nvim-web-devicons" },
