@@ -535,6 +535,7 @@ require("lazy").setup({
             vim.g.user_emmet_mode = "a"
         end,
     },
+    { "icholy/lsplinks.nvim", config = true },
     -- navigation
     {
         "ibhagwan/fzf-lua",
