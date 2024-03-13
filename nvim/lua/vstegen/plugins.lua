@@ -1450,41 +1450,15 @@ require("lazy").setup({
                     }
                 end,
                 mode = { "n", "o", "x" },
-                desc = "Flash forward",
+                desc = "Flash",
             },
             {
                 "S",
+                mode = { "n", "x", "o" },
                 function()
-                    require("flash").jump {
-                        forward = false,
-                        wrap = false,
-                        multi_window = false,
-                    }
+                    require("flash").treesitter()
                 end,
-                mode = { "n", "o", "x" },
-                desc = "Flash backwards",
-            },
-            {
-                "gs",
-                function()
-                    require("flash").jump {
-                        forward = true,
-                        wrap = false,
-                        multi_window = true,
-                    }
-                end,
-                desc = "Flash forward (global)",
-            },
-            {
-                "gS",
-                function()
-                    require("flash").jump {
-                        forward = false,
-                        wrap = false,
-                        multi_window = true,
-                    }
-                end,
-                desc = "Flash backwards (global)",
+                desc = "Flash Treesitter",
             },
             {
                 "r",
@@ -1499,7 +1473,7 @@ require("lazy").setup({
                 function()
                     require("flash").treesitter_search()
                 end,
-                mode = "o",
+                mode = { "o", "x" },
                 desc = "Flash treesitter search",
             },
         },
