@@ -520,6 +520,22 @@ require("lazy").setup({
         config = true,
     },
     {
+        "MaximilianLloyd/tw-values.nvim",
+        event = { "BufReadPost", "BufNewFile" },
+        keys = {
+            { "<leader>cv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
+        },
+        opts = {},
+    },
+    {
+        "MeanderingProgrammer/markdown.nvim",
+        name = "render-markdown",
+        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        config = function()
+            require("render-markdown").setup {}
+        end,
+    },
+    {
         "mattn/emmet-vim",
         ft = {
             "javascriptreact",
