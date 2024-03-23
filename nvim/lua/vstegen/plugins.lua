@@ -1088,7 +1088,7 @@ require("lazy").setup({
                     prompt_prefix = " ",
                     selection_caret = " ",
                     path_display = { "truncate" },
-                    file_ignore_patterns = { ".git/", "node_modules", "*/target/debug/*" },
+                    file_ignore_patterns = { ".git/", "node_modules", "**/target/debug/*" },
                     initial_mode = "insert",
                     vimgrep_arguments = {
                         "rg",
