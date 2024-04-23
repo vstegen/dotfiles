@@ -1,4 +1,5 @@
 require "vstegen.options"
 require "vstegen.plugins"
 require "vstegen.globals"
+require "vstegen.autocmds"
 require "vstegen.keymaps"
