@@ -100,7 +100,6 @@ map("v", ">", ">gv")
 -- Utils
 
 ---- save file
-map({ "i", "n", "s", "v" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 map({ "n", "v" }, "<leader>w", "<cmd>w!<cr><esc>", { desc = "Save file" })
 
 ---- improve n & N behavior
