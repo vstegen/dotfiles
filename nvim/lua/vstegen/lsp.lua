@@ -26,7 +26,7 @@ function M.default_on_attach(client, buffer)
     vim.bo[buffer].omnifunc = "v:lua.vim.lsp.omnifunc"
 
     if client.supports_method "textDocument/inlayHint" and vim.lsp.inlay_hint then
-        vim.lsp.inlay_hint.enable(buffer, false)
+        vim.lsp.inlay_hint.enable(false, { bufnr = buffer })
     end
 
     if client and client.server_capabilities.documentHighlightProvider then
