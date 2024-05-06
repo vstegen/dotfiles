@@ -730,7 +730,10 @@ require("lazy").setup({
                 },
             }
         end,
-        config = true,
+        opts = {
+            "default-title",
+            defaults = { formatter = "path.filename_first" },
+        },
     },
     {
         "nvim-telescope/telescope.nvim",
