@@ -513,6 +513,12 @@ require("lazy").setup({
             vim.g.copilot_no_tab_map = true
             vim.cmd [[ imap <silent><script><expr> <C-space> copilot#Accept("\<CR>") ]]
         end,
+        keys = {
+            { "<leader>ccd", "<cmd>Copilot disable<cr>", desc = "Disable" },
+            { "<leader>cce", "<cmd>Copilot enable<cr>", desc = "Enable" },
+            { "<leader>ccr", "<cmd>Copilot restart<cr>", desc = "Restart" },
+            { "<leader>ccs", "<cmd>Copilot status<cr>", desc = "Status" },
+        },
     },
     {
         "roobert/tailwindcss-colorizer-cmp.nvim",
@@ -1370,6 +1376,7 @@ require("lazy").setup({
                 ["<leader><tab>"] = { name = "+tabs", _ = "which_key_ignore" },
                 ["<leader>b"] = { name = "+buffer", _ = "which_key_ignore" },
                 ["<leader>c"] = { name = "+code", _ = "which_key_ignore" },
+                ["<leader>cc"] = { name = "+copilot", _ = "which_key_ignore" },
                 ["<leader>d"] = { name = "+debug", _ = "which_key_ignore" },
                 ["<leader>f"] = { name = "+file", _ = "which_key_ignore" },
                 ["<leader>g"] = { name = "+git", _ = "which_key_ignore" },
