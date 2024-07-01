@@ -1084,7 +1084,7 @@ require("lazy").setup({
             local actions = require "telescope.actions"
             local action_layout = require "telescope.actions.layout"
 
-            local _, trouble = pcall(require, "trouble.providers.telescope")
+            local _, trouble = pcall(require, "trouble.sources.telescope")
 
             telescope.setup {
                 defaults = {
@@ -1113,7 +1113,7 @@ require("lazy").setup({
                             ["<C-n>"] = actions.cycle_history_next,
                             ["<C-p>"] = actions.cycle_history_prev,
                             ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-                            ["<C-t>"] = trouble.open_with_trouble,
+                            ["<C-t>"] = trouble.open,
                             ["<M-t>"] = trouble.open_selected_with_trouble,
                             ["<M-p>"] = action_layout.toggle_preview,
                             ["<M-m>"] = action_layout.toggle_mirror,
@@ -1121,7 +1121,7 @@ require("lazy").setup({
                         n = {
                             ["q"] = actions.close,
                             ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-                            ["<C-t>"] = trouble.open_with_trouble,
+                            ["<C-t>"] = trouble.open,
                             ["<M-p>"] = action_layout.toggle_preview,
                             ["<M-m>"] = action_layout.toggle_mirror,
                         },
