@@ -207,10 +207,6 @@ require("lazy").setup({
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            {
-                "folke/neodev.nvim",
-                opts = {},
-            },
             { "j-hui/fidget.nvim", opts = {} },
         },
         config = function()
@@ -261,6 +257,18 @@ require("lazy").setup({
             })
         end,
     },
+    {
+        "folke/lazydev.nvim",
+        ft = "lua", -- only load on lua files
+        opts = {
+            library = {
+                -- See the configuration section for more details
+                -- Load luvit types when the `vim.uv` word is found
+                { path = "luvit-meta/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
     {
         "mrcjkb/rustaceanvim",
         version = "^3", -- Recommended
@@ -462,6 +470,7 @@ require("lazy").setup({
                     { name = "crates", priority = 40 },
                     { name = "path", priority = 30 },
                     { name = "treesitter", priority = 20 },
+                    { name = "lazydev", group_index = 0 },
                 },
                 experimental = {
                     -- ghost text is disabled because it might interfere with copilot
