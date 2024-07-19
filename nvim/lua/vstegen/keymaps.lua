@@ -151,7 +151,11 @@ map("n", "<leader>uc", function()
     utils.toggle_local_option("conceallevel", { 0, conceallevel })
 end, { desc = "Toggle conceal" })
 map("n", "<leader>uh", function()
-    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled(), { bufnr = 0 })
+    if vim.lsp.inlay_hint.is_enabled { bufnr = 0 } then
+        vim.lsp.inlay_hint.enable(false, { bufnr = 0 })
+    else
+        vim.lsp.inlay_hint.enable(true, { bufnr = 0 })
+    end
 end, { desc = "Toggle inlay hints" })
 map("n", "<leader>uf", utils.toggle_format, { desc = "Toggle format on save" })
 
