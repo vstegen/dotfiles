@@ -271,7 +271,7 @@ require("lazy").setup({
     { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
     {
         "mrcjkb/rustaceanvim",
-        version = "^3", -- Recommended
+        version = "^4", -- Recommended
         ft = { "rust" },
         opts = {
             server = lsp.servers.rust_analyzer,
