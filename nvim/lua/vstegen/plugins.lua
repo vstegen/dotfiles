@@ -1354,6 +1354,13 @@ require("lazy").setup({
         dependencies = { "nvim-tree/nvim-web-devicons" },
         keys = {
             {
+                "<leader>-",
+                function()
+                    require("oil").open()
+                end,
+                desc = "Oil",
+            },
+            {
                 "<leader>e",
                 function()
                     require("oil").open()
