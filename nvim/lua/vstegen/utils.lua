@@ -210,11 +210,11 @@ M.lazygit_toggle = function()
 end
 
 function M.project_files()
-    local ok = pcall(require("telescope.builtin").git_files, {
+    local ok = pcall(require("fzf-lua").git_files, {
         show_untracked = true,
     })
     if not ok then
-        require("telescope.builtin").find_files {}
+        require("fzf-lua").files() {}
     end
 end
 

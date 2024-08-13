@@ -572,11 +572,22 @@ require("lazy").setup({
     {
         "ibhagwan/fzf-lua",
         dependencies = { "nvim-tree/nvim-web-devicons" },
+        opts = {
+            winopts = {
+                preview = {
+                    delay = 150,
+                },
+            },
+        },
         keys = function()
-            -- TODO: use correct options
             return {
                 {
-                    "<leader>fz",
+                    "<C-p>",
+                    utils.project_files,
+                    desc = "Projects files",
+                },
+                {
+                    "<leader>ff",
                     function()
                         require("fzf-lua").files()
                     end,
@@ -590,91 +601,119 @@ require("lazy").setup({
                     desc = "FZF Recent Files",
                 },
                 {
-                    "<leader>sf<space>",
+                    "<leader>fr",
+                    function()
+                        require("fzf-lua").oldfiles()
+                    end,
+                    desc = "FZF Recent Files",
+                },
+                {
+                    "<leader><space>",
                     function()
                         require("fzf-lua").buffers()
                     end,
                     desc = "Buffers",
                 },
                 {
-                    "<leader>sfg",
+                    "<leader>sg",
                     function()
                         require("fzf-lua").live_grep()
                     end,
                     desc = "Live grep",
                 },
                 {
-                    "<leader>sfG",
+                    "<leader>r",
+                    function()
+                        require("fzf-lua").live_grep()
+                    end,
+                    desc = "Live grep",
+                },
+                {
+                    "<leader>sG",
                     function()
                         require("fzf-lua").lgrep_curbuf()
                     end,
                     desc = "Live grep (buffer)",
                 },
                 {
-                    "<leader>sfr",
+                    "<leader>R",
+                    function()
+                        require("fzf-lua").lgrep_curbuf()
+                    end,
+                    desc = "Live grep (buffer)",
+                },
+                {
+                    "<leader>sr",
                     function()
                         require("fzf-lua").resume()
                     end,
                     desc = "Resume",
                 },
                 {
-                    "<leader>sfR",
+                    "<leader>sR",
                     function()
                         require("fzf-lua").live_grep_resume()
                     end,
                     desc = "Resume live grep",
                 },
                 {
-                    "<leader>sfw",
+                    "<leader>sw",
                     function()
                         require("fzf-lua").grep_cword()
                     end,
                     desc = "word under cursor",
                 },
                 {
-                    "<leader>sfW",
+                    "<leader>sW",
                     function()
                         require("fzf-lua").grep_cWORD()
                     end,
                     desc = "WORD under cursor",
                 },
                 {
-                    "<leader>sfc",
+                    "<leader>gb",
+                    function()
+                        require("fzf-lua").git_branches()
+                    end,
+                    desc = "Commits",
+                },
+                {
+                    "<leader>gc",
                     function()
                         require("fzf-lua").git_commits()
                     end,
                     desc = "Commits",
                 },
                 {
-                    "<leader>sfC",
+                    "<leader>gC",
                     function()
                         require("fzf-lua").git_bcommits()
                     end,
                     desc = "File commits",
                 },
                 {
-                    "<leader>sfs",
+                    "<leader>ss",
                     function()
                         require("fzf-lua").lsp_document_symbols()
                     end,
                     desc = "Goto symbol",
                 },
                 {
-                    "<leader>sfS",
+                    "<leader>sS",
                     function()
                         require("fzf-lua").lsp_live_workspace_symbols()
                     end,
                     desc = "Goto symbol (workspace)",
                 },
                 {
-                    "<leader>sfl",
+                    "<leader>sl",
                     function()
                         require("fzf-lua").loclist()
                     end,
                     desc = "Loclist",
                 },
                 {
-                    "<leader>sfq",
+                    "<leader>sq",
                     function()
                         require("fzf-lua").quickfix()
                     end,
@@ -723,21 +762,21 @@ require("lazy").setup({
                     desc = "Lsp Code Actions",
                 },
                 {
-                    "<leader>sfd",
+                    "<leader>sd",
                     function()
                         require("fzf-lua").lsp_document_diagnostics()
                     end,
                     desc = "Document Diagnostics",
                 },
                 {
-                    "<leader>sfD",
+                    "<leader>sD",
                     function()
                         require("fzf-lua").lsp_workspace_diagnostics()
                     end,
                     desc = "Workspace Diagnostics",
                 },
                 {
-                    "<leader>sf?",
+                    "<leader>s?",
                     function()
                         require("fzf-lua").builtin()
                     end,
@@ -768,46 +807,23 @@ require("lazy").setup({
         },
         keys = function()
             return {
-                { "<C-p>", utils.project_files, desc = "Search project files" },
                 {
-                    "<leader>s?",
+                    "<leader>st?",
                     function()
                         require("telescope.builtin").builtin()
                     end,
                     desc = "Telescope Builtins",
                 },
-                {
-                    "<leader><space>",
-                    function()
-                        require("telescope.builtin").buffers()
-                    end,
-                    desc = "Switch buffers",
-                },
-                {
-                    "<leader>r",
-                    function()
-                        require("telescope.builtin").live_grep()
-                    end,
-                    desc = "Grep",
-                },
-                {
-                    "<leader>R",
-                    function()
-                        require("telescope.builtin").current_buffer_fuzzy_find()
-                    end,
-                    desc = "Grep in open file",
-                },
-
                 -- file operations
                 {
-                    "<leader>ff",
+                    "<leader>ftf",
                     function()
                         require("telescope.builtin").find_files()
                     end,
                     desc = "Find file",
                 },
                 {
-                    "<leader>fh",
+                    "<leader>fth",
                     function()
                         require("telescope.builtin").find_files {
                             hidden = true,
@@ -816,81 +832,11 @@ require("lazy").setup({
                     end,
                     desc = "Find hidden file",
                 },
-                { "<leader>fs", utils.project_files, desc = "Find project files" },
-                {
-                    "<leader>fr",
-                    function()
-                        require("telescope.builtin").oldfiles()
-                    end,
-                    desc = "Recent",
-                },
+                { "<leader>fts", utils.project_files, desc = "Find project files" },
 
                 -- help
                 {
-                    "<leader>ha",
-                    function()
-                        require("telescope.builtin").autocommands()
-                    end,
-                    desc = "Autocommands",
-                },
-                {
-                    "<leader>hc",
-                    function()
-                        require("telescope.builtin").commands()
-                    end,
-                    desc = "Commands",
-                },
-                {
-                    "<leader>hd",
-                    function()
-                        require("telescope.builtin").help_tags()
-                    end,
-                    desc = "Docs",
-                },
-                {
-                    "<leader>hf",
-                    function()
-                        require("telescope.builtin").filetypes()
-                    end,
-                    desc = "File types",
-                },
-                {
-                    "<leader>hh",
-                    function()
-                        require("telescope.builtin").highlights()
-                    end,
-                    desc = "Highlights",
-                },
-                {
-                    "<leader>hk",
-                    function()
-                        require("telescope.builtin").keymaps()
-                    end,
-                    desc = "Keymaps",
-                },
-                {
-                    "<leader>hm",
-                    function()
-                        require("telescope.builtin").man_pages()
-                    end,
-                    desc = "Man pages",
-                },
-                {
-                    "<leader>hs",
-                    function()
-                        require("telescope.builtin").spell_suggest()
-                    end,
-                    desc = "Spelling",
-                },
-                {
-                    "<leader>ht",
-                    function()
-                        require("telescope.builtin").colorscheme { enable_preview = true }
-                    end,
-                    desc = "Colorscheme",
-                },
-                {
-                    "<leader>hv",
+                    "<leader>sv",
                     function()
                         require("telescope.builtin").vim_options()
                     end,
@@ -926,172 +872,6 @@ require("lazy").setup({
                     end,
                     desc = "Lsp type definitions",
                 },
-
-                -- git
-                {
-                    "<leader>gb",
-                    function()
-                        require("telescope.builtin").git_branches()
-                    end,
-                    desc = "Branches",
-                },
-                {
-                    "<leader>gc",
-                    function()
-                        require("telescope.builtin").git_commits()
-                    end,
-                    desc = "Commits",
-                },
-                {
-                    "<leader>gC",
-                    function()
-                        require("telescope.builtin").git_bcommits()
-                    end,
-                    desc = "Commits (current file)",
-                },
-                {
-                    "<leader>gs",
-                    function()
-                        require("telescope.builtin").git_status()
-                    end,
-                    desc = "Status",
-                },
-
-                -- search
-                {
-                    "<leader>sb",
-                    function()
-                        require("telescope.builtin").current_buffer_fuzzy_find()
-                    end,
-                    desc = "Buffer",
-                },
-                {
-                    "<leader>sg",
-                    function()
-                        require("telescope.builtin").live_grep()
-                    end,
-                    desc = "Grep",
-                },
-                {
-                    "<leader>sG",
-                    function()
-                        require("telescope").extensions.live_grep_args.live_grep_args()
-                    end,
-                    desc = "Live grep (args)",
-                },
-                {
-                    "<leader>sd",
-                    function()
-                        require("telescope.builtin").diagnostics { bufnr = 0 }
-                    end,
-                    desc = "Document diagnostics",
-                },
-                {
-                    "<leader>sD",
-                    function()
-                        require("telescope.builtin").diagnostics()
-                    end,
-                    desc = "Workspace diagnostics",
-                },
-                {
-                    "<leader>sc",
-                    function()
-                        require("telescope.builtin").command_history()
-                    end,
-                    desc = "Command history",
-                },
-                {
-                    "<leader>sl",
-                    function()
-                        require("telescope.builtin").loclist()
-                    end,
-                    desc = "Loclist",
-                },
-                {
-                    "<leader>sq",
-                    function()
-                        require("telescope.builtin").quickfix()
-                    end,
-                    desc = "Quickfix",
-                },
-                {
-                    "<leader>sr",
-                    function()
-                        require("telescope.builtin").resume()
-                    end,
-                    desc = "Resume",
-                },
-                {
-                    '<leader>s"',
-                    function()
-                        require("telescope.builtin").registers()
-                    end,
-                    desc = "Registers",
-                },
-                {
-                    "<leader>ss",
-                    function()
-                        require("telescope.builtin").lsp_document_symbols {
-                            symbols = {
-                                "Class",
-                                "Function",
-                                "Method",
-                                "Constructor",
-                                "Interface",
-                                "Module",
-                                "Struct",
-                                "Trait",
-                                "Field",
-                                "Property",
-                                "Variable",
-                            },
-                        }
-                    end,
-                    desc = "Goto symbol",
-                },
-                {
-                    "<leader>sS",
-                    function()
-                        require("telescope.builtin").lsp_dynamic_workspace_symbols {
-                            symbols = {
-                                "Class",
-                                "Function",
-                                "Method",
-                                "Constructor",
-                                "Interface",
-                                "Module",
-                                "Struct",
-                                "Trait",
-                                "Field",
-                                "Property",
-                                "Variable",
-                            },
-                        }
-                    end,
-                    desc = "Goto symbol (workspace)",
-                },
-                {
-                    "<leader>sw",
-                    function()
-                        require("telescope.builtin").grep_string {
-                            word_match = "-w",
-                        }
-                    end,
-                    desc = "Word",
-                },
-                {
-                    "<leader>sw",
-                    function()
-                        require("telescope.builtin").grep_string {
-                            word_match = "-w",
-                        }
-                    end,
-                    mode = "v",
-                    desc = "Word",
-                },
-
-                -- TODO: make dependent on the project extension being installed
-                { "<leader>sp", "<cmd>Telescope projects<cr>", desc = "Projects" },
             }
         end,
         config = function()
@@ -1395,9 +1175,9 @@ require("lazy").setup({
                 ["<leader>cc"] = { name = "+copilot", _ = "which_key_ignore" },
                 ["<leader>d"] = { name = "+debug", _ = "which_key_ignore" },
                 ["<leader>f"] = { name = "+file", _ = "which_key_ignore" },
+                ["<leader>ft"] = { name = "+telescope", _ = "which_key_ignore" },
                 ["<leader>g"] = { name = "+git", _ = "which_key_ignore" },
                 ["<leader>gh"] = { name = "+hunks", _ = "which_key_ignore" },
-                ["<leader>h"] = { name = "+help", _ = "which_key_ignore" },
                 ["<leader>j"] = { name = "+jump", _ = "which_key_ignore" },
                 ["<leader>l"] = { name = "+lsp", _ = "which_key_ignore" },
                 ["<leader>lt"] = { name = "+telescope", _ = "which_key_ignore" },
@@ -1406,7 +1186,7 @@ require("lazy").setup({
                 ["<leader>p"] = { name = "+plugins", _ = "which_key_ignore" },
                 ["<leader>q"] = { name = "+quit/session", _ = "which_key_ignore" },
                 ["<leader>s"] = { name = "+search", _ = "which_key_ignore" },
-                ["<leader>sf"] = { name = "+fzf", _ = "which_key_ignore" },
+                ["<leader>st"] = { name = "+telescope", _ = "which_key_ignore" },
                 ["<leader>t"] = { name = "+testing", _ = "which_key_ignore" },
                 ["<leader>u"] = { name = "+utils", _ = "which_key_ignore" },
                 ["<leader>u/"] = { name = "+terminal", _ = "which_key_ignore" },
@@ -1586,8 +1366,8 @@ require("lazy").setup({
             },
             { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
             { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug (Trouble)" },
-            { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-            { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug" },
+            { "<leader>stt", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+            { "<leader>stT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug" },
         },
         opts = {
             highlight = {
