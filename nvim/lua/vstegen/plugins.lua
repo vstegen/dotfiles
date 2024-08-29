@@ -1455,13 +1455,17 @@ require("lazy").setup({
         "NeogitOrg/neogit",
         dependencies = {
             "nvim-lua/plenary.nvim", -- required
-            "nvim-telescope/telescope.nvim", -- optional
+            "ibhagwan/fzf-lua",
             "sindrets/diffview.nvim", -- optional
         },
         keys = {
             { "<leader>gn", "<cmd>Neogit<cr>", desc = "Neogit" },
         },
-        config = true,
+        config = {
+            integrations = {
+                diffview = true,
+            },
+        },
     },
     {
         "sindrets/diffview.nvim",
