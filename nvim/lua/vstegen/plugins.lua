@@ -1237,6 +1237,9 @@ require("lazy").setup({
         opts = { n_lines = 500 },
     },
     {
+        "echasnovski/mini.operators",
+    },
+    {
         "echasnovski/mini.surround",
         event = { "BufReadPost", "BufNewFile" },
         opts = {
