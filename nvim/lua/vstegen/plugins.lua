@@ -196,7 +196,7 @@ require("lazy").setup({
                 "dockerls",
                 "pyright",
                 "volar",
-                "tsserver",
+                "ts_ls",
                 "ruff_lsp",
             },
         },
