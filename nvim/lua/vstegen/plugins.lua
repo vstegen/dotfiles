@@ -364,7 +364,8 @@ require("lazy").setup({
     },
     -- auto completion
     {
-        "hrsh7th/nvim-cmp",
+        "iguanacucumber/magazine.nvim",
+        name = "nvim-cmp",
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             "L3MON4D3/LuaSnip",
