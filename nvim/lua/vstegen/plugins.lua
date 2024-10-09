@@ -147,7 +147,6 @@ require("lazy").setup({
                 "luacheck",
                 "markdownlint",
                 "shellcheck",
-                "typescript-language-server",
                 "vue-language-server",
                 "vale",
             },
@@ -193,10 +192,12 @@ require("lazy").setup({
                 "graphql",
                 "cssls",
                 "cssmodules_ls",
+                -- "emmet_language_server", -- When continuing using emmet
                 "dockerls",
                 "pyright",
                 "volar",
                 "ts_ls",
+                "vtsls",
                 "ruff_lsp",
             },
         },
@@ -214,7 +215,7 @@ require("lazy").setup({
 
             local get_servers = require("mason-lspconfig").get_installed_servers
             for _, server_name in ipairs(get_servers()) do
-                if server_name == "rust_analyzer" or server_name == "tsserver" then
+                if server_name == "rust_analyzer" or server_name == "tsserver" or server_name == "vtsls" then
                     -- rust will be set up by rustaceanvim.nvim and tsserver will be set up by typescript-tools.nvim
                 else
                     local server_opts = server_configs[server_name] or {}
@@ -383,7 +384,7 @@ require("lazy").setup({
             local is_emmet_active = function()
                 local clients = vim.lsp.buf_get_clients()
                 for _, client in pairs(clients) do
-                    if client.name == "emmet_ls" then
+                    if client.name == "emmet_ls" or client.name == "emmet_language_server" then
                         return true
                     end
                 end
