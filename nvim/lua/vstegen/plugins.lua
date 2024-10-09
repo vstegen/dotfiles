@@ -240,12 +240,15 @@ require("lazy").setup({
                     prefix = "",
                     source = "if_many",
                 },
+                signs = {
+                    text = {
+                        [vim.diagnostic.severity.ERROR] = utils.icons.diagnostics.Error,
+                        [vim.diagnostic.severity.WARN] = utils.icons.diagnostics.Warn,
+                        [vim.diagnostic.severity.HINT] = utils.icons.diagnostics.Hint,
+                        [vim.diagnostic.severity.INFO] = utils.icons.diagnostics.Info,
+                    },
+                },
             }
-
-            for name, icon in pairs(utils.icons.diagnostics) do
-                name = "DiagnosticSign" .. name
-                vim.fn.sign_define(name, { texthl = name, text = icon, numhl = "" })
-            end
 
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
                 border = "single",
