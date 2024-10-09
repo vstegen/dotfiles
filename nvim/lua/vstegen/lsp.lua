@@ -319,6 +319,37 @@ M.servers = {
             },
         },
     },
+    vtsls = {
+        settings = {
+            complete_function_calls = true,
+            vtsls = {
+                enableMoveToFileCodeAction = true,
+                autoUseWorkspaceTsdk = true,
+                experimental = {
+                    completion = {
+                        enableServerSideFuzzyMatch = true,
+                    },
+                },
+            },
+            typescript = {
+                updateImportsOnFileMove = { enabled = "always" },
+                suggest = {
+                    completeFunctionCalls = true,
+                },
+                inlayHints = {
+                    enumMemberValues = { enabled = true },
+                    functionLikeReturnTypes = { enabled = true },
+                    parameterNames = { enabled = "literals" },
+                    parameterTypes = { enabled = true },
+                    propertyDeclarationTypes = { enabled = true },
+                    variableTypes = { enabled = false },
+                },
+            },
+        },
+        -- https://github.com/LazyVim/LazyVim/blob/13a4a84e3485a36e64055365665a45dc82b6bf71/lua/lazyvim/plugins/extras/lang/typescript.lua#L10
+        -- on_attach = lsp.on_attach_with_keys {
+        -- },
+    },
     yamlls = {
         settings = {
             ["yaml"] = {
