@@ -215,8 +215,8 @@ require("lazy").setup({
 
             local get_servers = require("mason-lspconfig").get_installed_servers
             for _, server_name in ipairs(get_servers()) do
-                if server_name == "rust_analyzer" or server_name == "tsserver" or server_name == "vtsls" then
-                    -- rust will be set up by rustaceanvim.nvim and tsserver will be set up by typescript-tools.nvim
+                if server_name == "rust_analyzer" then
+                    -- rust will be set up by rustaceanvim.nvim
                 else
                     local server_opts = server_configs[server_name] or {}
                     local opts = vim.tbl_deep_extend("force", {
@@ -314,41 +314,6 @@ require("lazy").setup({
         end,
         ft = { "rust", "toml" },
         dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    {
-
-        -- TODO: add those keymaps via autocommand for ts supported files?
-        -- TSToolsOrganizeImports - sorts and removes unused imports
-        -- TSToolsSortImports - sorts imports
-        -- TSToolsRemoveUnusedImports - removes unused imports
-        -- TSToolsRemoveUnused - removes all unused statements
-        -- TSToolsAddMissingImports - adds imports for all statements that lack one and can be imported
-        -- TSToolsFixAll - fixes all fixable errors
-        -- TSToolsGoToSourceDefinition - goes to source definition (available since TS v4.7)
-        -- TSToolsRenameFile - allow to rename current file and apply changes to connected files
-        -- TSToolsFileReferences - find files that reference the current file (available since TS v4.2)
-        "pmizio/typescript-tools.nvim",
-        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            capabilities = lsp.default_capabilities(),
-            on_attach = lsp.default_on_attach,
-            settings = {
-                separate_diagnostic_server = true,
-                publish_diagnostic_on = "insert_leave",
-                tsserver_file_preferences = {
-                    allowIncompleteCompletions = false,
-                    allowRenameOfImportPath = false,
-                    includeInlayParameterNameHints = "literal",
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayVariableTypeHints = false,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayEnumMemberValueHints = true,
-                },
-            },
-        },
     },
     {
         "ray-x/lsp_signature.nvim",
