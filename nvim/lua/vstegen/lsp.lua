@@ -229,6 +229,15 @@ M.servers = {
                         enable = false,
                     },
                 },
+                completion = {
+                    callSnippet = "Replace",
+                },
+                diagnostics = {
+                    globals = { "vim" },
+                },
+                hint = {
+                    enable = true,
+                },
             },
         },
     },
