@@ -228,6 +228,11 @@ require("lazy").setup({
                 end
             end
 
+            local sourcekit_options = vim.tbl_deep_extend("force", server_configs.sourcekit, {
+                on_attach = lsp.default_on_attach,
+            })
+            require("lspconfig").sourcekit.setup(sourcekit_options)
+
             vim.diagnostic.config {
                 virtual_text = false,
                 update_in_insert = true,
@@ -475,15 +480,17 @@ require("lazy").setup({
         "L3MON4D3/LuaSnip",
         event = { "VeryLazy" },
         dependencies = { "rafamadriz/friendly-snippets" },
-        init = function()
+        init = function() end,
+        config = function()
+            require("luasnip").setup {
+                history = true,
+                update_events = "TextChanged,TextChangedI",
+                region_check_events = "CursorMoved",
+                delete_check_events = "TextChanged",
+            }
             require("luasnip.loaders.from_lua").load { paths = vim.fn.expand "~/.config/nvim/snippets/" }
+            require("luasnip.loaders.from_snipmate").load { paths = "~/.config/nvim/snippets/" }
         end,
-        opts = {
-            history = true,
-            update_events = "TextChanged,TextChangedI",
-            region_check_events = "CursorMoved",
-            delete_check_events = "TextChanged",
-        },
     },
     {
         "github/copilot.vim",
