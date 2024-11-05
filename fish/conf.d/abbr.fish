@@ -4,16 +4,16 @@ abbr -ag ji zi
 
 # bat
 if type -q bat
-  abbr -ag cat bat
+    abbr -ag cat bat
 end
 
 # eza
-if type -q eza 
-  abbr -ag ls "eza --group-directories-first"
-  abbr -ag ll "eza -lhag --group-directories-first"
-  abbr -ag lr "eza -lhag --tree --group-directories-first"
+if type -q eza
+    abbr -ag ls "eza --group-directories-first"
+    abbr -ag ll "eza -lhag --group-directories-first"
+    abbr -ag lr "eza -lhag --tree --group-directories-first"
 else
-  abbr -ag ll "ls -la"
+    abbr -ag ll "ls -la"
 end
 
 # ttv-cli
@@ -21,9 +21,6 @@ abbr -ag t ttv-cli
 abbr -ag tw "ttv-cli w"
 abbr -ag tl "ttv-cli l"
 abbr -ag tv "ttv-cli v"
-
-# yay-cli
-abbr -ag y yay-cli
 
 # cargo
 abbr -ag c cargo
@@ -67,10 +64,10 @@ abbr -ag fishconfig "nvim ~/.config/fish/config.fish"
 abbr -ag rustdoc "rustup doc --toolchain=stable-x86_64-apple-darwin"
 
 # lazygit
-abbr -ag lg "lazygit"
+abbr -ag lg lazygit
 
 # git
-abbr -ag g 'git'
+abbr -ag g git
 abbr -ag ga 'git add'
 abbr -ag gb 'git branch'
 abbr -ag gbl 'git blame'
