@@ -88,6 +88,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    group = augroup "textwidth",
+    pattern = { "markdown" },
+    callback = function()
+        vim.opt_local.textwidth = 0
+    end,
+})
+
 -- Fix conceallevel for json & help files
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "json", "jsonc", "markdown" },
