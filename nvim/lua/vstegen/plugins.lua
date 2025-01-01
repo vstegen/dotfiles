@@ -2086,35 +2086,6 @@ require("lazy").setup({
         end,
     },
     {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        keys = {
-            { "<leader>u/s", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", desc = "Horizontal terminal" },
-            { "<leader>u/v", "<cmd>ToggleTerm size=50 direction=vertical<cr>", desc = "Vertical terminal" },
-            { "<leader>u/f", "<cmd>ToggleTerm size=40 direction=float<cr>", desc = "Float terminal" },
-            { "<leader>u/t", "<cmd>ToggleTermToggleAll<cr>", desc = "Toggle terminals" },
-        },
-        opts = {
-            open_mapping = [[<c-\>]],
-            hide_numbers = true,
-            shade_terminals = true,
-            shading_factor = "2",
-            start_in_insert = true,
-            insert_mappings = true,
-            terminal_mappings = true,
-            persist_size = true,
-            persist_mode = false,
-            direction = "horizontal",
-            shell = vim.o.shell,
-            size = 10,
-            close_on_exit = true,
-            float_opts = {
-                border = "single",
-                winblend = 0,
-            },
-        },
-    },
-    {
         "nvim-neotest/neotest",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -2273,22 +2244,6 @@ require("lazy").setup({
         end,
     },
     {
-        "folke/twilight.nvim",
-        keys = {
-            { "<leader>ut", "<cmd>Twilight<cr>", desc = "Toggle twilight" },
-        },
-        opts = {},
-    },
-    {
-        "folke/zen-mode.nvim",
-        keys = {
-            { "<leader>uz", "<cmd>ZenMode<cr>", desc = "Toggle zen mode" },
-        },
-        opts = {
-            twilight = { enabled = false },
-        },
-    },
-    {
         "lervag/vimtex",
         lazy = false,
         init = function()
@@ -2296,6 +2251,58 @@ require("lazy").setup({
             vim.g.vimtex_view_general_viewer = "preview"
             vim.g.vimtex_mappings_prefix = "v"
         end,
+    },
+    {
+        "folke/snacks.nvim",
+        priority = 1000,
+        lazy = false,
+        opts = {
+            bigfile = { enabled = true },
+            dim = { enabled = true },
+            input = { enabled = true },
+            indent = { enabled = true },
+            lazygit = { enabled = true },
+            terminal = { enabled = true },
+            zen = { enabled = true },
+        },
+        keys = {
+            {
+                "<leader>uz",
+                function()
+                    Snacks.zen()
+                end,
+                desc = "Toggle Zen Mode",
+            },
+            {
+                "<leader>uZ",
+                function()
+                    Snacks.zen.zoom()
+                end,
+                desc = "Toggle Zen Zoom Mode",
+            },
+            {
+
+                "<leader>gg",
+                function()
+                    Snacks.lazygit()
+                end,
+                desc = "Toggle Lazygit",
+            },
+            {
+                "<leader>ut",
+                function()
+                    Snacks.dim()
+                end,
+                desc = "Toggle Twilight",
+            },
+            {
+                "<c-/>",
+                function()
+                    Snacks.terminal()
+                end,
+                desc = "Toggle terminal",
+            },
+        },
     },
 }, {
     install = {

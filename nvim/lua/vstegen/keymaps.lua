@@ -164,9 +164,6 @@ map({ "n", "v" }, "<leader>uy", '"+y', { desc = "Yank into os register" })
 map("n", "<leader>uY", '"+Y', { desc = "Yank line os register" })
 map({ "n", "v" }, "<leader>ud", '"_d', { desc = "Delete into void register" })
 
----- git
-map("n", "<leader>gg", utils.lazygit_toggle, { desc = "Lazygit" })
-
 ---- window
 map("n", "<leader>Ww", "<C-W>p", { desc = "Other window", remap = true })
 map("n", "<leader>Wd", "<C-W>c", { desc = "Delete window", remap = true })
