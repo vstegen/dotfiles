@@ -339,8 +339,82 @@ require("lazy").setup({
     },
     -- auto completion
     {
+        "saghen/blink.cmp",
+        dependencies = {
+            "rafamadriz/friendly-snippets",
+            {
+                "saghen/blink.compat",
+                optional = true,
+                opts = {},
+            },
+        },
+        version = "*",
+        event = { "InsertEnter", "CmdlineEnter" },
+        opts = {
+            keymap = { preset = "enter" },
+            appearance = {
+                use_nvim_cmp_as_default = false,
+                nerd_font_variant = "mono",
+            },
+            sources = {
+                compat = {},
+                default = { "lsp", "path", "snippets", "buffer" },
+                cmdline = function()
+                    local type = vim.fn.getcmdtype()
+                    -- Search forward and backward
+                    if type == "/" or type == "?" then
+                        return { "buffer" }
+                    end
+                    -- Commands
+                    if type == ":" then
+                        return { "cmdline" }
+                    end
+                    return {}
+                end,
+            },
+            completion = {
+                accept = { auto_brackets = { enabled = true } },
+                documentation = {
+                    auto_show = true,
+                    auto_show_delay_ms = 200,
+                    treesitter_highlighting = true,
+                    window = { border = "rounded" },
+                },
+                list = {
+                    selection = function(ctx)
+                        return ctx.mode == "cmdline" and "auto_insert" or "manual" -- preselect is also possible
+                    end,
+                },
+                menu = {
+                    draw = {
+                        treesitter = { "lsp" },
+                    },
+                },
+                signature = { enabled = true },
+            },
+            keymap = {
+                ["<Up>"] = { "select_prev", "fallback" },
+                ["<Down>"] = { "select_next", "fallback" },
+                ["<C-p>"] = { "select_prev", "fallback" },
+                ["<C-n>"] = { "select_next", "fallback" },
+                ["<C-k>"] = { "select_prev", "fallback" },
+                ["<C-j>"] = { "select_next", "fallback" },
+                ["<C-e>"] = { "hide", "fallback" },
+                ["<CR>"] = { "accept", "fallback" },
+                ["<C-y>"] = { "select_and_accept", "fallback" },
+                ["<S-Tab>"] = { "select_prev", "fallback" },
+                ["<Tab>"] = { "select_next", "fallback" },
+                ["<C-l>"] = { "snippet_forward", "fallback" },
+                ["<C-h>"] = { "snippet_backward", "fallback" },
+                ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+                ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+            },
+        },
+    },
+    {
         "iguanacucumber/magazine.nvim",
         name = "nvim-cmp",
+        enabled = false,
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             "L3MON4D3/LuaSnip",
@@ -481,6 +555,7 @@ require("lazy").setup({
         "L3MON4D3/LuaSnip",
         event = { "VeryLazy" },
         dependencies = { "rafamadriz/friendly-snippets" },
+        enabled = false,
         init = function() end,
         config = function()
             require("luasnip").setup {
@@ -1031,6 +1106,7 @@ require("lazy").setup({
                     enable_ui = true,
                 },
                 treesitter_context = true,
+                blink_cmp = true,
                 cmp = true,
                 flash = true,
                 lsp_trouble = true,
