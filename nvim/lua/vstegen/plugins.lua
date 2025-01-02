@@ -568,6 +568,7 @@ require("lazy").setup({
     {
         "github/copilot.vim",
         event = { "InsertEnter" },
+        enabeld = false,
         init = function()
             vim.g.copilot_no_tab_map = true
             vim.cmd [[ imap <silent><script><expr> <C-space> copilot#Accept("\<CR>") ]]
