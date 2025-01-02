@@ -2435,6 +2435,7 @@ require("lazy").setup({
 
         require("kulala.nvim").setup()
     end,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
