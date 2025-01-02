@@ -2427,14 +2427,17 @@ require("lazy").setup({
             },
         },
     },
-    { "mistweaverco/kulala.nvim", ft = "http", config = function()
-        local wk = require "which-key"
-        wk.add({
-            { "<leader>h", group = "+requests" },
-        })
+    {
+        "mistweaverco/kulala.nvim",
+        ft = "http",
+        config = function()
+            local wk = require "which-key"
+            wk.add {
+                { "<leader>h", group = "+requests" },
+            }
 
-        require("kulala.nvim").setup()
-    end,
+            require("kulala.nvim").setup()
+        end,
     },
 }, {
     install = {
