@@ -834,10 +834,43 @@ require("lazy").setup({
                 },
             }
         end,
-        opts = {
-            "default-title",
-            defaults = { formatter = "path.filename_first" },
-        },
+        opts = function(_, opts)
+            local config = require "fzf-lua.config"
+            local actions = require "fzf-lua.actions"
+
+            config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
+            config.defaults.keymap.fzf["ctrl-u"] = "half-page-up"
+            config.defaults.keymap.fzf["ctrl-d"] = "half-page-down"
+            config.defaults.keymap.fzf["ctrl-x"] = "jump"
+            config.defaults.keymap.fzf["ctrl-f"] = "preview-page-down"
+            config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
+            config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
+            config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
+
+            local has_trouble, _ = pcall(require, "trouble.nvim")
+            if has_trouble then
+                config.defaults.actions.files["ctrl-t"] = require("trouble.sources.fzf").actions.open
+            end
+
+            -- require("fzf-lua").register_ui_select()
+
+            return {
+                "default-title",
+                defaults = { formatter = "path.filename_first" },
+                fzf_colors = true,
+                fzf_opts = {
+                    ["--no-scrollbar"] = true,
+                },
+                oldfiles = {
+                    include_current_session = true,
+                },
+                previewers = {
+                    builtin = {
+                        syntax_limit_b = 1024 * 100, -- 100KB
+                    },
+                },
+            }
+        end,
     },
     {
         "nvim-telescope/telescope.nvim",
@@ -1422,10 +1455,22 @@ require("lazy").setup({
                 end,
                 desc = "Previous todo comment",
             },
-            { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
-            { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug (Trouble)" },
-            { "<leader>stt", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-            { "<leader>stT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug" },
+            {
+                "<leader>xt",
+                function()
+                    require("todo-comments.fzf").todo()
+                end,
+                desc = "Todo (Trouble)",
+            },
+            {
+                "<leader>xT",
+                function()
+                    require("todo-comments.fzf").todo { keywords = { "TODO", "FIX", "FIXME", "BUG" } }
+                end,
+                desc = "Todo/Fix/Bug (Trouble)",
+            },
+            { "<leader>stt", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
+            { "<leader>stT", "<cmd>TodoFzfLua keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug" },
         },
         opts = {
             highlight = {
@@ -2382,6 +2427,7 @@ require("lazy").setup({
             },
         },
     },
+    { "mistweaverco/kulala.nvim", opts = {} },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
