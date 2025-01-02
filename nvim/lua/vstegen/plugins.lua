@@ -397,8 +397,7 @@ require("lazy").setup({
                 ["<C-k>"] = { "select_prev", "fallback" },
                 ["<C-j>"] = { "select_next", "fallback" },
                 ["<C-e>"] = { "hide", "fallback" },
-                ["<CR>"] = { "accept", "fallback" },
-                ["<C-y>"] = { "select_and_accept", "fallback" },
+                ["<CR>"] = { "select_and_accept", "fallback" },
                 ["<S-Tab>"] = { "select_prev", "fallback" },
                 ["<Tab>"] = { "select_next", "fallback" },
                 ["<C-l>"] = { "snippet_forward", "fallback" },
@@ -481,7 +480,6 @@ require("lazy").setup({
                     end, { "i", "s" }),
 
                     ["<CR>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
-                    ["<C-y>"] = cmp.mapping.confirm { select = true, behavior = cmp.ConfirmBehavior.Insert },
 
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
@@ -568,10 +566,10 @@ require("lazy").setup({
     {
         "github/copilot.vim",
         event = { "InsertEnter" },
-        enabled = false,
+        enabled = true,
         init = function()
             vim.g.copilot_no_tab_map = true
-            vim.cmd [[ imap <silent><script><expr> <C-space> copilot#Accept("\<CR>") ]]
+            vim.cmd [[ imap <silent><script><expr> <C-y> copilot#Accept("\<CR>") ]]
         end,
         keys = {
             { "<leader>ccd", "<cmd>Copilot disable<cr>", desc = "Disable" },
