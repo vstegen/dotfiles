@@ -350,6 +350,7 @@ require("lazy").setup({
         },
         event = { "InsertEnter", "CmdlineEnter" },
         version = "*",
+        enabled = false,
         opts = {
             appearance = {
                 use_nvim_cmp_as_default = false,
@@ -410,7 +411,7 @@ require("lazy").setup({
     {
         "iguanacucumber/magazine.nvim",
         name = "nvim-cmp",
-        enabled = false,
+        enabled = true,
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             "L3MON4D3/LuaSnip",
@@ -550,7 +551,7 @@ require("lazy").setup({
         "L3MON4D3/LuaSnip",
         event = { "VeryLazy" },
         dependencies = { "rafamadriz/friendly-snippets" },
-        enabled = false,
+        enabled = true,
         init = function() end,
         config = function()
             require("luasnip").setup {
