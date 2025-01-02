@@ -79,6 +79,14 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    group = augroup "http",
+    pattern = { "*.http", "*.rest" },
+    callback = function()
+        vim.opt_local.filetype = "http"
+    end,
+})
+
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = augroup "wrap_spell",
     pattern = { "gitcommit", "markdown" },

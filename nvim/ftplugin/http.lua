@@ -79,7 +79,7 @@ vim.api.nvim_buf_set_keymap(
 vim.api.nvim_buf_set_keymap(
     0,
     "n",
-    "<leader>hr",
+    "<leader>hR",
     "<cmd>lua require('kulala').replay()<cr>",
     { noremap = true, silent = true, desc = "Run all requests" }
 )

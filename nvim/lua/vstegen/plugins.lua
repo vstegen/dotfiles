@@ -2437,7 +2437,7 @@ require("lazy").setup({
                 { "<leader>h", group = "+requests" },
             }
 
-            require("kulala.nvim").setup()
+            require("kulala").setup()
         end,
     },
 }, {
