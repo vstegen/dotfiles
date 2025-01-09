@@ -166,6 +166,11 @@ M.servers = {
             M.default_on_attach(client, bufnr)
         end,
     },
+    elixirls = {
+        cmd = {
+            "/Users/marvin/.local/share/nvim/mason/packages/elixir-ls/language_server.sh",
+        },
+    },
     gopls = {
         on_attach = M.on_attach_with_keys(function(client, bufnr)
             M.default_on_attach(client, bufnr)
