@@ -609,13 +609,6 @@ require("lazy").setup({
     {
         "ibhagwan/fzf-lua",
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        opts = {
-            winopts = {
-                preview = {
-                    delay = 150,
-                },
-            },
-        },
         keys = function()
             return {
                 {
@@ -854,6 +847,11 @@ require("lazy").setup({
                 previewers = {
                     builtin = {
                         syntax_limit_b = 1024 * 100, -- 100KB
+                    },
+                },
+                winopts = {
+                    preview = {
+                        delay = 150,
                     },
                 },
             }
