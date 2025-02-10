@@ -2364,15 +2364,20 @@ require("lazy").setup({
         "folke/snacks.nvim",
         priority = 1000,
         lazy = false,
-        opts = {
-            bigfile = { enabled = true },
-            dim = { enabled = true },
-            input = { enabled = true },
-            indent = { enabled = true },
-            lazygit = { enabled = true },
-            terminal = { enabled = true },
-            zen = { enabled = true },
-        },
+        opts = function()
+            Snacks.toggle.profiler():map "<leader>pp"
+            Snacks.toggle.profiler_highlights():map "<leader>ph"
+
+            return {
+                bigfile = { enabled = true },
+                dim = { enabled = true },
+                input = { enabled = true },
+                indent = { enabled = true },
+                lazygit = { enabled = true },
+                terminal = { enabled = true },
+                zen = { enabled = true },
+            }
+        end,
         keys = {
             {
                 "<leader>uz",
@@ -2409,6 +2414,13 @@ require("lazy").setup({
                     Snacks.terminal()
                 end,
                 desc = "Toggle terminal",
+            },
+            {
+                "<leader>ps",
+                function()
+                    Snacks.profiler.scratch()
+                end,
+                desc = "Profiler Scratch Buffer",
             },
         },
     },
