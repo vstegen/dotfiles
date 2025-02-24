@@ -353,7 +353,8 @@ require("lazy").setup({
         },
         event = { "InsertEnter", "CmdlineEnter" },
         version = "*",
-        enabled = false,
+        build = "cargo build --release",
+        enabled = true,
         opts = {
             appearance = {
                 use_nvim_cmp_as_default = false,
@@ -361,18 +362,9 @@ require("lazy").setup({
             },
             sources = {
                 default = { "lsp", "path", "snippets", "buffer" },
-                cmdline = function()
-                    local type = vim.fn.getcmdtype()
-                    -- Search forward and backward
-                    if type == "/" or type == "?" then
-                        return { "buffer" }
-                    end
-                    -- Commands
-                    if type == ":" then
-                        return { "cmdline" }
-                    end
-                    return {}
-                end,
+            },
+            cmdline = {
+                enabled = false,
             },
             completion = {
                 accept = { auto_brackets = { enabled = true } },
@@ -383,9 +375,12 @@ require("lazy").setup({
                     window = { border = "rounded" },
                 },
                 list = {
-                    selection = function(ctx)
-                        return ctx.mode == "cmdline" and "auto_insert" or "manual" -- preselect is also possible
-                    end,
+                    selection = {
+                        auto_insert = function(ctx)
+                            return ctx.mode == "cmdline"
+                        end,
+                        preselect = false,
+                    },
                 },
                 menu = {
                     draw = {
@@ -401,7 +396,8 @@ require("lazy").setup({
                 ["<C-k>"] = { "select_prev", "fallback" },
                 ["<C-j>"] = { "select_next", "fallback" },
                 ["<C-e>"] = { "hide", "fallback" },
-                ["<CR>"] = { "select_and_accept", "fallback" },
+                ["<C-y>"] = { "select_and_accept", "fallback" },
+                ["<CR>"] = { "accept", "fallback" },
                 ["<S-Tab>"] = { "select_prev", "fallback" },
                 ["<Tab>"] = { "select_next", "fallback" },
                 ["<C-l>"] = { "snippet_forward", "fallback" },
@@ -410,11 +406,16 @@ require("lazy").setup({
                 ["<C-f>"] = { "scroll_documentation_down", "fallback" },
             },
         },
+        opts_extend = {
+            "sources.completion.enabled_providers",
+            "sources.compat",
+            "sources.default",
+        },
     },
     {
         "iguanacucumber/magazine.nvim",
         name = "nvim-cmp",
-        enabled = true,
+        enabled = false,
         event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             "L3MON4D3/LuaSnip",
