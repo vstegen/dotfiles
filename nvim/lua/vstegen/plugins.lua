@@ -347,8 +347,8 @@ require("lazy").setup({
             "rafamadriz/friendly-snippets",
             {
                 "saghen/blink.compat",
-                optional = true,
-                opts = {},
+                lazy = true,
+                version = false,
             },
         },
         event = { "InsertEnter", "CmdlineEnter" },
@@ -361,7 +361,21 @@ require("lazy").setup({
                 nerd_font_variant = "mono",
             },
             sources = {
-                default = { "lsp", "path", "snippets", "buffer" },
+                default = { "lsp", "path", "snippets", "buffer", "obsidian", "obsidian_new", "obsidian_tags" },
+                providers = {
+                    obsidian = {
+                        name = "obsidian",
+                        module = "blink.compat.source",
+                    },
+                    obsidian_new = {
+                        name = "obsidian_new",
+                        module = "blink.compat.source",
+                    },
+                    obsidian_tags = {
+                        name = "obsidian_tags",
+                        module = "blink.compat.source",
+                    },
+                },
             },
             cmdline = {
                 enabled = false,
@@ -2434,6 +2448,78 @@ require("lazy").setup({
 
             require("kulala").setup()
         end,
+    },
+    {
+        "epwalsh/obsidian.nvim",
+        version = "*", -- recommended, use latest release instead of latest commit
+        lazy = true,
+        ft = "markdown",
+        -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+        -- event = {
+        --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+        --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
+        --   -- refer to `:h file-pattern` for more examples
+        --   "BufReadPre path/to/my-vault/*.md",
+        --   "BufNewFile path/to/my-vault/*.md",
+        -- },
+        dependencies = {
+            -- Required.
+            "nvim-lua/plenary.nvim",
+
+            -- see below for full list of optional dependencies 👇
+        },
+        opts = {
+            workspaces = {
+                {
+                    name = "personal",
+                    path = "~/vaults/personal",
+                },
+            },
+            notes_subdir = "notes",
+            new_notes_location = "notes_subdir",
+            daily_notes = {
+                folder = "notes/dailies",
+            },
+            completion = {
+                -- needs to be enabled for completion in blink via blink.compat
+                nvim_cmp = true,
+                min_chars = 2,
+            },
+            picker = {
+                name = "fzf-lua",
+                note_mappings = {
+                    new = "<C-x>",
+                    insert_link = "<C-l>",
+                },
+                tag_mappings = {
+                    tag_note = "<C-x>",
+                    insert_tag = "<C-l>",
+                },
+            },
+        },
+        config = function(_, opts)
+            local wk = require "which-key"
+            wk.add {
+                { "<leader>o", group = "+obsidian" },
+            }
+
+            local obsidian = require "obsidian"
+            obsidian.setup(opts)
+        end,
+        keys = {
+            { "<leader>oo", "<cmd>ObsidianOpen<cr>", desc = "Open current note" },
+            { "<leader>os", "<cmd>ObsidianQuickSwitch<cr>", desc = "Switch to note" },
+            { "<leader>os", "<cmd>ObsidianSearch<cr>", desc = "Search" },
+            { "<leader>og", "<cmd>ObsidianFollowLink<cr>", desc = "Go to link" },
+            { "<leader>ov", "<cmd>ObsidianFollowLink vsplit<cr>", desc = "Follow link (vsplit)" },
+            { "<leader>ob", "<cmd>ObsidianBacklinks<cr>", desc = "References to current buffer" },
+            { "<leader>ot", "<cmd>ObsidianTOC<cr>", desc = "Load TOC of buffer" },
+            { "<leader>or", "<cmd>ObsidianRename", desc = "Rename current buffer or reference" },
+            { "<leader>ow", "<cmd>ObsidianWorkspace<cr>", desc = "Switch to workspace" },
+            { "<leader>ol", "<cmd>ObsidianLink<cr>", desc = "Link to note", mode = "v" },
+            { "<leader>oL", "<cmd>ObsidianLinkNew<cr>", desc = "Link to new note", mode = "v" },
+            { "<leader>oi", "<cmd>ObsidianPasteImg", desc = "Paste image" },
+        },
     },
 }, {
     install = {
