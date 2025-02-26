@@ -198,4 +198,16 @@ function M.project_files()
     end
 end
 
+function M.is_inside_directoy(target_dir)
+    local current_file = vim.fn.expand "%:p"
+
+    target_dir = string.gsub(target_dir, "^~", vim.fn.expand "$HOME")
+
+    if not string.match(target_dir, "/$") then
+        target_dir = target_dir .. "/"
+    end
+
+    return string.sub(current_file, 1, #target_dir) == target_dir
+end
+
 return M
