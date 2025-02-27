@@ -201,7 +201,6 @@ require("lazy").setup({
                 "volar",
                 "ts_ls",
                 "vtsls",
-                "ruff_lsp",
                 "elixirls",
             },
         },
