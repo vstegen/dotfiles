@@ -360,7 +360,16 @@ require("lazy").setup({
                 nerd_font_variant = "mono",
             },
             sources = {
-                default = { "lsp", "path", "snippets", "buffer", "obsidian", "obsidian_new", "obsidian_tags" },
+                default = {
+                    "lazydev",
+                    "lsp",
+                    "path",
+                    "snippets",
+                    "buffer",
+                    "obsidian",
+                    "obsidian_new",
+                    "obsidian_tags",
+                },
                 providers = {
                     obsidian = {
                         name = "obsidian",
@@ -373,6 +382,11 @@ require("lazy").setup({
                     obsidian_tags = {
                         name = "obsidian_tags",
                         module = "blink.compat.source",
+                    },
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 100,
                     },
                 },
             },
