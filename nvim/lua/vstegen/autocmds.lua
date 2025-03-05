@@ -101,7 +101,8 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     group = augroup "textwidth",
     pattern = { "markdown" },
     callback = function()
-        vim.opt_local.textwidth = 0
+        vim.opt_local.textwidth = 120
+        -- vim.opt_local.textwidth = 0
     end,
 })
 
