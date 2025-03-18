@@ -1138,6 +1138,7 @@ require("lazy").setup({
                     ["markdown.mdx"] = { "prettierd", "prettier", stop_after_first = true },
                     graphql = { "prettierd", "prettier", stop_after_first = true },
                     handlebars = { "prettierd", "prettier", stop_after_first = true },
+                    python = { "ruff_organize_imports", "ruff_format" },
                 },
             }
         end,
