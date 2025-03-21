@@ -2552,6 +2552,12 @@ require("lazy").setup({
             vim.keymap.set("n", "<leader>lS", "<cmd> SymbolsClose<CR>")
         end,
     },
+    {
+        "MagicDuck/grug-far.nvim",
+        config = function()
+            require("grug-far").setup {}
+        end,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
