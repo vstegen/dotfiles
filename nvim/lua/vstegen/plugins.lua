@@ -39,6 +39,8 @@ require("lazy").setup({
                     "diff",
                     "dockerfile",
                     "elixir",
+                    "eex",
+                    "heex",
                     "fish",
                     "gitcommit",
                     "gitignore",
