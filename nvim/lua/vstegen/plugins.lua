@@ -2557,6 +2557,15 @@ require("lazy").setup({
         config = function()
             require("grug-far").setup {}
         end,
+        keys = {
+            {
+                "<leader>lg",
+                function()
+                    require("grug-far").open()
+                end,
+                desc = "GrugFar",
+            },
+        },
     },
 }, {
     install = {
