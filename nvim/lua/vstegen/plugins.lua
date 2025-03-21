@@ -2543,6 +2543,15 @@ require("lazy").setup({
             { "<leader>oi", "<cmd>ObsidianPasteImg", desc = "Paste image" },
         },
     },
+    {
+        "oskarrrrrrr/symbols.nvim",
+        config = function()
+            local r = require "symbols.recipes"
+            require("symbols").setup(r.DefaultFilters, r.AsciiSymbols, {})
+            vim.keymap.set("n", "<leader>ls", "<cmd> Symbols<CR>")
+            vim.keymap.set("n", "<leader>lS", "<cmd> SymbolsClose<CR>")
+        end,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
