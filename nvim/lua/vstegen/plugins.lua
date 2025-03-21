@@ -2548,9 +2548,11 @@ require("lazy").setup({
         config = function()
             local r = require "symbols.recipes"
             require("symbols").setup(r.DefaultFilters, r.AsciiSymbols, {})
-            vim.keymap.set("n", "<leader>ls", "<cmd> Symbols<CR>")
-            vim.keymap.set("n", "<leader>lS", "<cmd> SymbolsClose<CR>")
         end,
+        keys = {
+            { "<leader>ls", "<cmd> Symbols<CR>", "Open Symbols" },
+            { "<leader>lS", "<cmd> SymbolsClose<CR>", "Close Symbols" },
+        },
     },
     {
         "MagicDuck/grug-far.nvim",
