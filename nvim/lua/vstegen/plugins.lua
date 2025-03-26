@@ -423,6 +423,12 @@ require("lazy").setup({
                     },
                 },
             },
+            signature = {
+                enabled = true,
+                window = {
+                    show_documentation = true,
+                },
+            },
             keymap = {
                 ["<Up>"] = { "select_prev", "fallback" },
                 ["<Down>"] = { "select_next", "fallback" },
@@ -590,7 +596,7 @@ require("lazy").setup({
         "L3MON4D3/LuaSnip",
         event = { "VeryLazy" },
         dependencies = { "rafamadriz/friendly-snippets" },
-        enabled = true,
+        enabled = false,
         init = function() end,
         config = function()
             require("luasnip").setup {
