@@ -1409,11 +1409,17 @@ require("lazy").setup({
     {
         "folke/trouble.nvim",
         dependencies = "nvim-tree/nvim-web-devicons",
+        cmd = "Trouble",
         keys = {
-            { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document diagnostics (Trouble)" },
-            { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace diagnostics (Trouble)" },
-            { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Loclist diagnostics (Trouble)" },
-            { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix diagnostics (Trouble)" },
+            { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Document diagnostics (Trouble)" },
+            {
+                "<leader>xX",
+                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+                desc = "Document diagnostics buffer (Trouble)",
+            },
+            { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Loclist diagnostics (Trouble)" },
+            { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix diagnostics (Trouble)" },
+            { "<leader>xS", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
             {
                 "[q",
                 function()
