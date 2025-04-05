@@ -108,21 +108,6 @@ require("lazy").setup({
             vim.g.skip_ts_context_commentstring_module = true
         end,
     },
-    {
-        "nvim-treesitter/nvim-treesitter-context",
-        event = { "VeryLazy" },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        opts = {
-            max_lines = 3,
-            patterns = {
-                rust = {
-                    "impl_item",
-                    "struct",
-                    "enum",
-                },
-            },
-        },
-    },
     -- LSP
     {
         "williamboman/mason.nvim",
@@ -2558,8 +2543,8 @@ require("lazy").setup({
             require("symbols").setup(r.DefaultFilters, r.AsciiSymbols, {})
         end,
         keys = {
-            { "<leader>ls", "<cmd> Symbols<CR>", "Open Symbols" },
-            { "<leader>lS", "<cmd> SymbolsClose<CR>", "Close Symbols" },
+            { "<leader>ls", "<cmd> Symbols<CR>", desc = "Open Symbols" },
+            { "<leader>lS", "<cmd> SymbolsClose<CR>", desc = "Close Symbols" },
         },
     },
     {
