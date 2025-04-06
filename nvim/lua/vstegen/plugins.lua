@@ -651,6 +651,22 @@ require("lazy").setup({
                     desc = "FZF Files",
                 },
                 {
+                    "<leader>fh",
+                    function()
+                        require("fzf-lua").files {
+                            no_ignore = true,
+                        }
+                    end,
+                    desc = "FZF Files (.gitignore)",
+                },
+                {
+                    "<leader>fg",
+                    function()
+                        require("fzf-lua").git_files()
+                    end,
+                    desc = "FZF Git Files",
+                },
+                {
                     "<leader>?",
                     function()
                         require("fzf-lua").oldfiles()
@@ -858,8 +874,6 @@ require("lazy").setup({
             if has_trouble then
                 config.defaults.actions.files["ctrl-t"] = require("trouble.sources.fzf").actions.open
             end
-
-            -- require("fzf-lua").register_ui_select()
 
             return {
                 "default-title",
