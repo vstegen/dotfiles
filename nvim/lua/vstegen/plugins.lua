@@ -91,9 +91,16 @@ require("lazy").setup({
                         node_decremental = "<bs>",
                     },
                 },
-                autotag = { enable = true },
             }
         end,
+    },
+    {
+        "windwp/nvim-ts-autotag",
+        opts = {
+            aliases = {
+                ["heex"] = "html",
+            },
+        },
     },
     {
         "JoosepAlviste/nvim-ts-context-commentstring",
@@ -176,13 +183,15 @@ require("lazy").setup({
                 "yamlls",
                 "sqlls",
                 "marksman",
+                "html",
+                "cssls",
                 "svelte",
                 "taplo",
                 "tailwindcss",
                 "graphql",
                 "cssls",
                 "cssmodules_ls",
-                -- "emmet_language_server", -- When continuing using emmet
+                "emmet_language_server",
                 "dockerls",
                 "pyright",
                 "volar",

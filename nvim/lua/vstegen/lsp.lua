@@ -465,6 +465,43 @@ M.servers = {
             },
         },
     },
+    emmet_language_server = {
+        filetypes = {
+            "css",
+            "eruby",
+            "html",
+            "htmldjango",
+            "heex",
+            "javascriptreact",
+            "less",
+            "pug",
+            "sass",
+            "scss",
+            "typescriptreact",
+            "htmlangular",
+        },
+    },
+    html = {
+        filetypes = {
+            "html",
+            "templ",
+            "heex",
+        },
+        init_options = {
+            configurationSection = { "html", "css", "javascript" },
+            embeddedLanguages = {
+                css = true,
+                javascript = true,
+                elixir = true,
+            },
+            provideFormatter = true,
+            userLanguages = {
+                elixir = "html-eex",
+                eelixir = "html-eex",
+                heex = "html-eex",
+            },
+        },
+    },
 }
 
 return M
