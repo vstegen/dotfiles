@@ -471,6 +471,8 @@ M.servers = {
             "eruby",
             "html",
             "htmldjango",
+            "elixir",
+            "eelixir",
             "heex",
             "javascriptreact",
             "less",
