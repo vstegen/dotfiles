@@ -355,6 +355,23 @@ M.servers = {
         }),
     },
     tailwindcss = {
+        root_dir = function(fname)
+            local util = require "lspconfig.util"
+            local root_file = {
+                "tailwind.config.js",
+                "tailwind.config.cjs",
+                "tailwind.config.mjs",
+                "tailwind.config.ts",
+                "postcss.config.js",
+                "postcss.config.cjs",
+                "postcss.config.mjs",
+                "postcss.config.ts",
+                "config/tailwind.config.js",
+                "assets/tailwind.config.js",
+            }
+            root_file = util.insert_package_json(root_file, "tailwindcss", fname)
+            return util.root_pattern(unpack(root_file))(fname)
+        end,
         init_options = {
             userLanguages = {
                 elixir = "html-eex",
@@ -362,6 +379,7 @@ M.servers = {
                 heex = "html-eex",
             },
         },
+        -- filetypes_include = { "heex" },
         settings = {
             tailwindCSS = {
                 validate = true,
@@ -374,8 +392,8 @@ M.servers = {
                     invalidVariant = "error",
                     recommendedVariantOrder = "warning",
                 },
+                includeLanguages = { heex = "html-eex", elixir = "html-eex", eelixir = "html-eex" },
                 experimental = {
-                    -- https://github.com/tailwindlabs/tailwindcss-intellisense/issues/129
                     classRegex = {
                         { "tailwind\\('([^)]*)\\')" },
                         { "'([^']*)'" },
@@ -388,6 +406,8 @@ M.servers = {
                         { 'tw={"([^"}]*)' },
                         { "tw\\.\\w+`([^`]*)" },
                         { "tw\\(.*?\\)`([^`]*)" },
+                        { 'class[:]\\s*"([^"]*)"' },
+                        { '~H"([^"]*)"' },
                     },
                 },
             },
