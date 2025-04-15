@@ -1686,10 +1686,6 @@ require("lazy").setup({
                             path = 1, -- relative path (0 for file name only)
                             symbols = { modified = "  ", readonly = "", unnamed = "" },
                         },
-                        {
-                            "filetype",
-                            cond = hide_in_width,
-                        },
                     },
                     lualine_x = {
                         {
@@ -1723,39 +1719,13 @@ require("lazy").setup({
                         },
                     },
                     lualine_y = {
-                        { "progress", separator = " ", padding = { left = 1, right = 0 } },
-                        { "location", padding = { left = 0, right = 1 } },
+                        {
+                            "filetype",
+                            cond = hide_in_width,
+                        },
                     },
                     lualine_z = {
-                        {
-                            -- scroll bar
-                            function()
-                                local current_line = vim.fn.line "."
-                                local total_lines = vim.fn.line "$"
-                                local chars = {
-                                    "__",
-                                    "▁▁",
-                                    "▂▂",
-                                    "▃▃",
-                                    "▄▄",
-                                    "▅▅",
-                                    "▆▆",
-                                    "▇▇",
-                                    "██",
-                                }
-                                local line_ratio = current_line / total_lines
-                                local index = math.ceil(line_ratio * #chars)
-                                return chars[index]
-                            end,
-                            padding = { left = 0, right = 0 },
-                            color = { fg = colors.yellow, bg = colors.bg },
-                            cond = nil,
-                        },
-                        {
-                            function()
-                                return " " .. os.date "%R"
-                            end,
-                        },
+                        { "location", padding = { left = 0, right = 1 } },
                     },
                 },
                 tabline = {},
