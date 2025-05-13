@@ -199,6 +199,11 @@ require("lazy").setup({
                 "vtsls",
                 "elixirls",
             },
+            automatic_enable = {
+                exclude = {
+                    "rust_analyzer",
+                },
+            },
         },
     },
     {
