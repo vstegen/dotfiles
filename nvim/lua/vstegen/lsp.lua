@@ -61,149 +61,15 @@ function M.default_on_attach_with_keys(keymaps)
     return M.on_attach_with_keys(M.default_on_attach, keymaps)
 end
 
-function M.default_on_attach(client, buffer)
-    vim.bo[buffer].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-    if client.supports_method "textDocument/inlayHint" and vim.lsp.inlay_hint then
-        vim.lsp.inlay_hint.enable(false, { bufnr = buffer })
-    end
-
-    if client and client.server_capabilities.documentHighlightProvider then
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            buffer = buffer,
-            callback = vim.lsp.buf.document_highlight,
-        })
-
-        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-            buffer = buffer,
-            callback = vim.lsp.buf.clear_references,
-        })
-    end
-
-    local keymaps = {
-        { "gd", vim.lsp.buf.definition, { desc = "Goto definition" } },
-        { "gD", vim.lsp.buf.declaration, { desc = "Goto declaration" } },
-        { "gT", vim.lsp.buf.type_definition, { desc = "Goto type definition" } },
-        { "gr", vim.lsp.buf.references, { desc = "Goto references" } },
-        { "gi", vim.lsp.buf.implementation, { desc = "Goto implementation" } },
-        { "<leader>lr", vim.lsp.buf.rename, { desc = "Rename" } },
-        { "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help", mode = { "i", "n" } } },
-        { "gK", vim.lsp.buf.signature_help, { desc = "Show signature help" } },
-        { "gl", vim.diagnostic.open_float, { desc = "Show line diagnostics" } },
-        {
-            "<leader>ld",
-            function()
-                vim.diagnostic.open_float { border = "single", style = "minimal", focussable = true }
-            end,
-            { desc = "Show line diagnostics" },
-        },
-        { "<leader>cl", "<cmd>LspInfo<cr>", { desc = "Lsp Info" } },
-        { "<leader>cr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" } },
-        { "[d", vim.diagnostic.goto_prev, { desc = "Prev diagnostic" } },
-        { "]d", vim.diagnostic.goto_next, { desc = "Next diagnostic" } },
-        {
-            "[e",
-            function()
-                vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
-            end,
-            { desc = "Prev error" },
-        },
-        {
-            "]e",
-            function()
-                vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
-            end,
-            { desc = "Next error" },
-        },
-        {
-            "[w",
-            function()
-                vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.WARN }
-            end,
-            { desc = "Prev warning" },
-        },
-        {
-            "]w",
-            function()
-                vim.diagnostic.goto_next { severity = vim.diagnostic.severity.WARN }
-            end,
-            { desc = "Next warning" },
-        },
-        { "<leader>la", vim.lsp.buf.code_action, { desc = "Code action", mode = { "n", "v" } } },
-        {
-            "<leader>lA",
-            function()
-                vim.lsp.buf.code_action {
-                    context = {
-                        only = {
-                            "source",
-                        },
-                        diagnostics = {},
-                    },
-                }
-            end,
-            { desc = "Source code action", mode = { "n", "v" } },
-        },
-        { "<leader>cF", vim.lsp.buf.format, { desc = "Vim Format", mode = { "n", "v" } } },
-        -- { "<leader>lc", vim.lsp.codelens.run, { desc = "Run codelens" } },
-        -- { "<leader>lC", vim.lsp.codelens.display, { desc = "Display codelens" } },
-    }
-
-    for _, keymap in ipairs(keymaps) do
-        local default_opts = { noremap = true, silent = true, buffer = buffer }
-        local mode = keymap[3] and keymap[3].mode or "n"
-        keymap[3].mode = nil
-        local keymap_opts = vim.tbl_deep_extend("force", default_opts, keymap[3] or {})
-
-        vim.keymap.set(mode, keymap[1], keymap[2], keymap_opts)
-    end
-end
+function M.default_on_attach(client, buffer) end
 
 M.servers = {
-    cssmodules_ls = {
-        on_attach = function(client, bufnr)
-            client.server_capabilities.definitionProvider = false
-            M.default_on_attach(client, bufnr)
-        end,
-    },
     elixirls = {
         cmd = {
             "/Users/marvin/.local/share/nvim/mason/packages/elixir-ls/language_server.sh",
         },
     },
     gopls = {
-        on_attach = M.on_attach_with_keys(function(client, bufnr)
-            M.default_on_attach(client, bufnr)
-
-            if client.name == "gopls" then
-                if not client.server_capabilities.semanticTokensProvider then
-                    local semantic = client.config.capabilities.textDocument.semanticTokens
-                    client.server_capabilities.semanticTokensProvider = {
-                        full = true,
-                        legend = {
-                            tokenTypes = semantic.tokenTypes,
-                            tokenModifiers = semantic.tokenModifiers,
-                        },
-                        range = true,
-                    }
-                end
-            end
-        end, {
-            {
-                "<leader>td",
-                function()
-                    require("dap-go").debug_test()
-                end,
-                { desc = "Debug Nearest (Go)" },
-            },
-            {
-                "<leader>tD",
-                function()
-                    require("dap-go").debug_last_test()
-                end,
-                { desc = "Debug Nearest (Go)" },
-            },
-        }),
         settings = {
             gopls = {
                 experimentalPostfixCompletions = true,
@@ -298,13 +164,6 @@ M.servers = {
             },
         },
     },
-    ruff_lsp = {
-        on_attach = function(client, buffer)
-            M.default_on_attach(client, buffer)
-            -- Disable hover in favor of Pyright
-            client.server_capabilities.hoverProvider = false
-        end,
-    },
     rust_analyzer = {
         settings = {
             ["rust-analyzer"] = {
@@ -326,22 +185,6 @@ M.servers = {
                         ["async-recursion"] = { "async_recursion" },
                     },
                 },
-            },
-        },
-        on_attach = M.default_on_attach_with_keys {
-            {
-                "<leader>cR",
-                function()
-                    vim.cmd.RustLsp "codeAction"
-                end,
-                { desc = "Code Action (Rust)" },
-            },
-            {
-                "<leader>dr",
-                function()
-                    vim.cmd.RustLsp "debuggables"
-                end,
-                { desc = "Rust debuggables" },
             },
         },
     },
@@ -413,21 +256,6 @@ M.servers = {
             },
         },
     },
-    taplo = {
-        on_attach = M.default_on_attach_with_keys {
-            {
-                "K",
-                function()
-                    if vim.fn.expand "%:t" == "Cargo.toml" and require("crates").popup_available() then
-                        require("crates").show_popup()
-                    else
-                        vim.lsp.buf.hover()
-                    end
-                end,
-                desc = "Show Crate Documentation",
-            },
-        },
-    },
     vtsls = {
         settings = {
             complete_function_calls = true,
@@ -455,9 +283,6 @@ M.servers = {
                 },
             },
         },
-        -- https://github.com/LazyVim/LazyVim/blob/13a4a84e3485a36e64055365665a45dc82b6bf71/lua/lazyvim/plugins/extras/lang/typescript.lua#L10
-        -- on_attach = lsp.on_attach_with_keys {
-        -- },
     },
     yamlls = {
         settings = {

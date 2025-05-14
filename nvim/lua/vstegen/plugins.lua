@@ -217,25 +217,21 @@ require("lazy").setup({
         config = function()
             local server_configs = lsp.servers
 
-            local get_servers = require("mason-lspconfig").get_installed_servers
-            for _, server_name in ipairs(get_servers()) do
-                if server_name == "rust_analyzer" then
-                    -- rust will be set up by rustaceanvim.nvim
-                else
-                    local server_opts = server_configs[server_name] or {}
-                    local opts = vim.tbl_deep_extend("force", {
-                        capabilities = lsp.default_capabilities(),
-                        on_attach = lsp.default_on_attach,
-                    }, server_opts)
-
-                    require("lspconfig")[server_name].setup(opts)
-                end
-            end
-
-            local sourcekit_options = vim.tbl_deep_extend("force", server_configs.sourcekit, {
-                on_attach = lsp.default_on_attach,
+            vim.lsp.config("*", {
+                capabilities = lsp.default_capabilities(),
             })
-            require("lspconfig").sourcekit.setup(sourcekit_options)
+
+            vim.lsp.config.elixirls = lsp.servers.elixirls
+            vim.lsp.config.emmet_language_server = lsp.servers.emmet_language_server
+            vim.lsp.config.gopls = lsp.servers.gopls
+            vim.lsp.config.html = lsp.servers.html
+            vim.lsp.config.jsonls = lsp.servers.jsonls
+            vim.lsp.config.lua_ls = lsp.servers.lua_ls
+            vim.lsp.config.pyright = lsp.servers.pyright
+            vim.lsp.config.sourcekit = lsp.servers.sourcekit
+            vim.lsp.config.tailwindcss = lsp.servers.tailwindcss
+            vim.lsp.config.vtsls = lsp.servers.vtsls
+            vim.lsp.config.yamlls = lsp.servers.yamlls
 
             vim.diagnostic.config {
                 virtual_text = false,
