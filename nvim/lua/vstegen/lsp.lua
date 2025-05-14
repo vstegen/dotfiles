@@ -33,30 +33,6 @@ function M.default_capabilities()
     return capabilities
 end
 
--- on_attach_with_keys is a helper function
--- that allows you to attach LSP specific keymaps
--- @param keymaps is a list of the following form:
--- { { lhs, rhs, opts }, { lhs, rhs, opts } }
-function M.on_attach_with_keys(on_attach, keymaps)
-    local keymaps = keymaps or {}
-
-    return function(client, buffer)
-        on_attach(client, buffer)
-        for _, keys in pairs(keymaps) do
-            local opts = keys[3] or {}
-            opts.buffer = buffer
-            opts.silent = opts.silent ~= false
-            vim.keymap.set(opts.mode or "n", keys[1], keys[2], opts)
-        end
-    end
-end
-
-function M.default_on_attach_with_keys(keymaps)
-    return M.on_attach_with_keys(M.default_on_attach, keymaps)
-end
-
-function M.default_on_attach(client, buffer) end
-
 M.servers = {
     elixirls = {
         cmd = {
