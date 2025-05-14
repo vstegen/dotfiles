@@ -66,6 +66,7 @@ vim.opt.updatetime = 50
 vim.opt.vb = true
 vim.opt.whichwrap:append "<,>,[,],h,l"
 vim.opt.wildmode = "longest:full,full"
+vim.opt.winborder = "single"
 vim.opt.winminwidth = 5
 vim.opt.wrap = true
 
