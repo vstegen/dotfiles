@@ -214,8 +214,6 @@ require("lazy").setup({
             { "j-hui/fidget.nvim", opts = {} },
         },
         config = function()
-            local server_configs = lsp.servers
-
             vim.lsp.config("*", {
                 capabilities = lsp.default_capabilities(),
             })
@@ -261,9 +259,9 @@ require("lazy").setup({
 
             local inactive_diagnostics_config = {
                 virtual_lines = {
-                    severity = {
-                        min = vim.diagnostic.severity.ERROR,
-                    },
+                    -- severity = {
+                    --     min = vim.diagnostic.severity.ERROR,
+                    -- },
                     current_line = true,
                 },
                 virtual_text = false,
