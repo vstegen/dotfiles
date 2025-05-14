@@ -234,7 +234,11 @@ require("lazy").setup({
             vim.lsp.config.yamlls = lsp.servers.yamlls
 
             vim.diagnostic.config {
-                virtual_text = false,
+                virtual_text = {
+                    current_line = true,
+                    severity = { min = vim.diagnostic.severity.INFO, max = vim.diagnostic.severity.WARN },
+                },
+                virtual_lines = false,
                 update_in_insert = true,
                 underline = false,
                 severity_sort = true,
@@ -255,6 +259,25 @@ require("lazy").setup({
                 },
             }
 
+            local inactive_diagnostics_config = {
+                virtual_lines = {
+                    severity = {
+                        min = vim.diagnostic.severity.ERROR,
+                    },
+                    current_line = true,
+                },
+                virtual_text = false,
+            }
+
+            vim.keymap.set("n", "gK", function()
+                local new_inactive_diagnostic_config = {
+                    virtual_lines = vim.diagnostic.config().virtual_lines,
+                    virtual_text = vim.diagnostic.config().virtual_text,
+                }
+
+                vim.diagnostic.config(inactive_diagnostics_config)
+                inactive_diagnostics_config = new_inactive_diagnostic_config
+            end, { desc = "Toggle diagnostic virtual_lines" })
             vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
                 border = "single",
             })
