@@ -294,7 +294,7 @@ require("lazy").setup({
             library = {
                 -- See the configuration section for more details
                 -- Load luvit types when the `vim.uv` word is found
-                { path = "luvit-meta/library", words = { "vim%.uv" } },
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
             },
         },
     },
