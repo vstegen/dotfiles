@@ -196,7 +196,6 @@ require("lazy").setup({
                 "pyright",
                 "volar",
                 "ts_ls",
-                "vtsls",
                 "elixirls",
             },
             automatic_enable = {
@@ -221,6 +220,7 @@ require("lazy").setup({
                 capabilities = lsp.default_capabilities(),
             })
 
+            vim.lsp.config.cssls = lsp.servers.cssls
             vim.lsp.config.elixirls = lsp.servers.elixirls
             vim.lsp.config.emmet_language_server = lsp.servers.emmet_language_server
             vim.lsp.config.gopls = lsp.servers.gopls
@@ -230,7 +230,7 @@ require("lazy").setup({
             vim.lsp.config.pyright = lsp.servers.pyright
             vim.lsp.config.sourcekit = lsp.servers.sourcekit
             vim.lsp.config.tailwindcss = lsp.servers.tailwindcss
-            vim.lsp.config.vtsls = lsp.servers.vtsls
+            vim.lsp.config.ts_ls = lsp.servers.ts_ls
             vim.lsp.config.yamlls = lsp.servers.yamlls
 
             vim.diagnostic.config {

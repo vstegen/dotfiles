@@ -34,6 +34,37 @@ function M.default_capabilities()
 end
 
 M.servers = {
+    ts_ls = {
+        settings = {
+            javascript = {
+                inlayHints = {
+                    includeInlayEnumMemberValueHints = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayFunctionParameterTypeHints = true,
+                    includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all';
+                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                    includeInlayPropertyDeclarationTypeHints = true,
+                    includeInlayVariableTypeHints = true,
+                },
+            },
+            typescript = {
+                inlayHints = {
+                    includeInlayEnumMemberValueHints = true,
+                    includeInlayFunctionLikeReturnTypeHints = true,
+                    includeInlayFunctionParameterTypeHints = true,
+                    includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all';
+                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                    includeInlayPropertyDeclarationTypeHints = true,
+                    includeInlayVariableTypeHints = true,
+                },
+            },
+        },
+    },
+    cssls = {
+        init_options = {
+            provideFormatter = true,
+        },
+    },
     elixirls = {
         cmd = {
             "/Users/marvin/.local/share/nvim/mason/packages/elixir-ls/language_server.sh",
@@ -222,34 +253,6 @@ M.servers = {
                         { 'class[:]\\s*"([^"]*)"' },
                         { '~H"([^"]*)"' },
                     },
-                },
-            },
-        },
-    },
-    vtsls = {
-        settings = {
-            complete_function_calls = true,
-            vtsls = {
-                enableMoveToFileCodeAction = true,
-                autoUseWorkspaceTsdk = true,
-                experimental = {
-                    completion = {
-                        enableServerSideFuzzyMatch = true,
-                    },
-                },
-            },
-            typescript = {
-                updateImportsOnFileMove = { enabled = "always" },
-                suggest = {
-                    completeFunctionCalls = true,
-                },
-                inlayHints = {
-                    enumMemberValues = { enabled = true },
-                    functionLikeReturnTypes = { enabled = true },
-                    parameterNames = { enabled = "literals" },
-                    parameterTypes = { enabled = true },
-                    propertyDeclarationTypes = { enabled = true },
-                    variableTypes = { enabled = false },
                 },
             },
         },
