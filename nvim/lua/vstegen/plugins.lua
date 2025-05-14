@@ -1559,68 +1559,6 @@ require("lazy").setup({
         config = true,
     },
     {
-        "kevinhwang91/nvim-ufo",
-        event = { "BufReadPost", "BufNewFile" },
-        dependencies = { "kevinhwang91/promise-async" },
-        keys = {
-            {
-                "zR",
-                function()
-                    require("ufo").openAllFolds()
-                end,
-                desc = "Open all folds",
-            },
-            {
-                "zM",
-                function()
-                    require("ufo").closeAllFolds()
-                end,
-                desc = "Close all folds",
-            },
-            {
-                "zr",
-                function()
-                    require("ufo").openAllFolds()
-                end,
-                desc = "Open all folds",
-            },
-            {
-                "zm",
-                function()
-                    require("ufo").closeFoldsWith()
-                end,
-                desc = "Close folds with",
-            },
-            {
-                "K",
-                function()
-                    local winid = require("ufo").peekFoldedLinesUnderCursor()
-                    if not winid then
-                        vim.lsp.buf.hover()
-                    end
-                end,
-                desc = "Peak fold",
-            },
-            {
-                "<leader>ck",
-                function()
-                    local winid = require("ufo").peekFoldedLinesUnderCursor()
-                    if not winid then
-                        vim.lsp.buf.hover()
-                    end
-                end,
-                desc = "Peak fold",
-            },
-        },
-        init = function()
-            vim.o.foldcolumn = "0"
-            vim.o.foldlevel = 99
-            vim.o.foldlevelstart = 99
-            vim.o.foldenable = true
-        end,
-        config = true,
-    },
-    {
         "NeogitOrg/neogit",
         dependencies = {
             "nvim-lua/plenary.nvim", -- required

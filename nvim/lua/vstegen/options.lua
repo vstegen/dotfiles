@@ -21,9 +21,15 @@ vim.opt.diffopt:append "algorithm:histogram"
 vim.opt.diffopt:append "indent-heuristic"
 vim.opt.errorbells = false
 vim.opt.expandtab = true
-vim.opt.foldenable = false
-vim.opt.foldexpr = ""
-vim.opt.foldmethod = "manual"
+
+vim.o.foldenable = false
+vim.o.foldlevel = 99
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldtext = ""
+vim.opt.foldcolumn = "0"
+vim.opt.fillchars:append { fold = " " }
+
 vim.opt.formatoptions = "jtcroqlnb"
 vim.opt.grepformat = "%f:%l:%c:%m"
 vim.opt.grepprg = "rg --vimgrep"

@@ -30,12 +30,6 @@ function M.default_capabilities()
 
     capabilities.textDocument.semanticHighlighting = true
 
-    -- those are required for ufo
-    capabilities.textDocument.foldingRange = {
-        dynamicRegistration = false,
-        lineFoldingOnly = true,
-    }
-
     return capabilities
 end
 
