@@ -103,7 +103,6 @@ require("lazy").setup({
         },
     },
     {
-        "JoosepAlviste/nvim-ts-context-commentstring",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         event = { "VeryLazy" },
         config = function()
@@ -340,22 +339,6 @@ require("lazy").setup({
         end,
         ft = { "rust", "toml" },
         dependencies = { "nvim-lua/plenary.nvim" },
-    },
-    {
-        "ray-x/lsp_signature.nvim",
-        event = { "BufReadPre", "BufNewFile" },
-        opts = {
-            noice = false, -- true if using noice to render markdown
-            floating_window = false,
-            hint_enable = false, -- disable virtual text
-            doc_lines = 0, -- do not show docs
-            handler_opts = {
-                border = "single",
-            },
-            toggle_key = "<M-x>",
-            select_signature_key = "<M-n>",
-        },
-        enabled = true,
     },
     -- auto completion
     {
