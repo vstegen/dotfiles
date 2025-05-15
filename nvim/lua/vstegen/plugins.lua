@@ -453,23 +453,6 @@ require("lazy").setup({
         },
     },
     {
-        "L3MON4D3/LuaSnip",
-        event = { "VeryLazy" },
-        dependencies = { "rafamadriz/friendly-snippets" },
-        enabled = false,
-        init = function() end,
-        config = function()
-            require("luasnip").setup {
-                history = true,
-                update_events = "TextChanged,TextChangedI",
-                region_check_events = "CursorMoved",
-                delete_check_events = "TextChanged",
-            }
-            require("luasnip.loaders.from_lua").load { paths = vim.fn.expand "~/.config/nvim/snippets/" }
-            require("luasnip.loaders.from_snipmate").load { paths = "~/.config/nvim/snippets/" }
-        end,
-    },
-    {
         "github/copilot.vim",
         event = { "InsertEnter" },
         enabled = false,
