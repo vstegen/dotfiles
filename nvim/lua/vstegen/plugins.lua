@@ -1621,18 +1621,6 @@ require("lazy").setup({
         },
     },
     {
-        "mistweaverco/kulala.nvim",
-        ft = "http",
-        config = function()
-            local wk = require "which-key"
-            wk.add {
-                { "<leader>h", group = "+requests" },
-            }
-
-            require("kulala").setup()
-        end,
-    },
-    {
         "epwalsh/obsidian.nvim",
         version = "*", -- recommended, use latest release instead of latest commit
         lazy = true,
