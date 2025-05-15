@@ -762,161 +762,6 @@ require("lazy").setup({
             }
         end,
     },
-    {
-        "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
-        event = "VeryLazy",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = "make",
-                cond = function()
-                    return vim.fn.executable "make" == 1
-                end,
-            },
-            "nvim-telescope/telescope-ui-select.nvim",
-            "nvim-telescope/telescope-live-grep-args.nvim",
-        },
-        keys = function()
-            return {
-                {
-                    "<leader>st?",
-                    function()
-                        require("telescope.builtin").builtin()
-                    end,
-                    desc = "Telescope Builtins",
-                },
-                -- file operations
-                {
-                    "<leader>ftf",
-                    function()
-                        require("telescope.builtin").find_files()
-                    end,
-                    desc = "Find file",
-                },
-                {
-                    "<leader>fth",
-                    function()
-                        require("telescope.builtin").find_files {
-                            hidden = true,
-                            prompt_title = "Find Hidden Files",
-                        }
-                    end,
-                    desc = "Find hidden file",
-                },
-                { "<leader>fts", utils.project_files, desc = "Find project files" },
-
-                -- help
-                {
-                    "<leader>sv",
-                    function()
-                        require("telescope.builtin").vim_options()
-                    end,
-                    desc = "Vim options",
-                },
-
-                -- lsp
-                {
-                    "<leader>ltd",
-                    function()
-                        require("telescope.builtin").lsp_definitions { layout_strategy = "flex" }
-                    end,
-                    desc = "Lsp definitions",
-                },
-                {
-                    "<leader>lti",
-                    function()
-                        require("telescope.builtin").lsp_implementations { layout_strategy = "flex" }
-                    end,
-                    desc = "Lsp implementations",
-                },
-                {
-                    "<leader>ltr",
-                    function()
-                        require("telescope.builtin").lsp_references { layout_strategy = "flex" }
-                    end,
-                    desc = "Lsp references",
-                },
-                {
-                    "<leader>ltt",
-                    function()
-                        require("telescope.builtin").lsp_type_definitions { layout_strategy = "flex" }
-                    end,
-                    desc = "Lsp type definitions",
-                },
-            }
-        end,
-        config = function()
-            local telescope = require "telescope"
-            local actions = require "telescope.actions"
-            local action_layout = require "telescope.actions.layout"
-
-            local _, trouble = pcall(require, "trouble.sources.telescope")
-
-            telescope.setup {
-                defaults = {
-                    prompt_prefix = " ",
-                    selection_caret = " ",
-                    path_display = { "truncate" },
-                    file_ignore_patterns = { ".git/", "node_modules", "**/target/debug/*" },
-                    initial_mode = "insert",
-                    vimgrep_arguments = {
-                        "rg",
-                        "--color=never",
-                        "--no-heading",
-                        "--with-filename",
-                        "--line-number",
-                        "--column",
-                        "--smart-case",
-                        "--hidden",
-                        "--glob",
-                        "!**/.git/*",
-                    },
-                    set_env = { COLORTERM = "truecolor" },
-                    mappings = {
-                        i = {
-                            ["<C-j>"] = actions.move_selection_next,
-                            ["<C-k>"] = actions.move_selection_previous,
-                            ["<C-n>"] = actions.cycle_history_next,
-                            ["<C-p>"] = actions.cycle_history_prev,
-                            ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-                            ["<C-t>"] = trouble.open,
-                            ["<M-t>"] = trouble.open_selected_with_trouble,
-                            ["<M-p>"] = action_layout.toggle_preview,
-                            ["<M-m>"] = action_layout.toggle_mirror,
-                        },
-                        n = {
-                            ["q"] = actions.close,
-                            ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-                            ["<C-t>"] = trouble.open,
-                            ["<M-p>"] = action_layout.toggle_preview,
-                            ["<M-m>"] = action_layout.toggle_mirror,
-                        },
-                    },
-                },
-                extensions = {
-                    fzf = {
-                        fuzzy = true,
-                        override_generic_sorter = true,
-                        override_file_sorter = true,
-                        case_mode = "smart_case",
-                    },
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown(),
-                    },
-                },
-            }
-
-            pcall(telescope.load_extension, "fzf")
-            pcall(telescope.load_extension, "live_grep_args")
-
-            local dap_ok, _ = pcall(require, "dap")
-            if dap_ok then
-                telescope.load_extension "dap"
-            end
-        end,
-    },
     -- linting & formating
     {
         "mfussenegger/nvim-lint",
@@ -1089,15 +934,6 @@ require("lazy").setup({
                     LazyNormal = { bg = c.ui.bg_m3, fg = c.ui.fg_dim },
                     MasonNormal = { bg = c.ui.bg_m3, fg = c.ui.fg_dim },
 
-                    -- borderless telescope
-                    TelescopeTitle = { fg = c.ui.special, bold = true },
-                    TelescopePromptNormal = { bg = c.ui.bg_p1 },
-                    TelescopePromptBorder = { fg = c.ui.bg_p1, bg = c.ui.bg_p1 },
-                    TelescopeResultsNormal = { fg = c.ui.fg_dim, bg = c.ui.bg_m1 },
-                    TelescopeResultsBorder = { fg = c.ui.bg_m1, bg = c.ui.bg_m1 },
-                    TelescopePreviewNormal = { bg = c.ui.bg_dim },
-                    TelescopePreviewBorder = { bg = c.ui.bg_dim, fg = c.ui.bg_dim },
-
                     -- dark completion popup menu
                     Pmenu = { fg = c.ui.shade0, bg = c.ui.bg_p1 },
                     PmenuSel = { fg = "NONE", bg = c.ui.bg_p2 },
@@ -1154,18 +990,15 @@ require("lazy").setup({
                 { "<leader>cc", group = "+copilot" },
                 { "<leader>d", group = "+debug" },
                 { "<leader>f", group = "+file" },
-                { "<leader>ft", group = "+telescope" },
                 { "<leader>g", group = "+git" },
                 { "<leader>gh", group = "+hunks" },
                 { "<leader>j", group = "+jump" },
                 { "<leader>l", group = "+lsp" },
-                { "<leader>lt", group = "+telescope" },
                 { "<leader>lf", group = "+fzf" },
                 { "<leader>lw", group = "+workspace" },
                 { "<leader>p", group = "+plugins" },
                 { "<leader>q", group = "+quit/session" },
                 { "<leader>s", group = "+search" },
-                { "<leader>st", group = "+telescope" },
                 { "<leader>t", group = "+testing" },
                 { "<leader>u", group = "+utils" },
                 { "<leader>u/", group = "+terminal" },
@@ -1335,7 +1168,7 @@ require("lazy").setup({
             "nvim-lua/plenary.nvim",
             "catppuccin/nvim",
         },
-        cmd = { "TodoTrouble", "TodoTelescope" },
+        cmd = { "TodoTrouble" },
         event = { "BufReadPost", "BufNewFile" },
         keys = {
             {
