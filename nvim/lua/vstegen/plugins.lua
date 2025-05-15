@@ -489,8 +489,14 @@ require("lazy").setup({
             require("render-markdown").setup {}
         end,
     },
-    { "icholy/lsplinks.nvim", config = true },
-    -- navigation
+    {
+        "icholy/lsplinks.nvim",
+        config = function()
+            local lsplinks = require "lsplinks"
+            lsplinks.setup()
+            vim.keymap.set("n", "gx", lsplinks.gx)
+        end,
+    },
     {
         "ibhagwan/fzf-lua",
         dependencies = { "nvim-tree/nvim-web-devicons" },
