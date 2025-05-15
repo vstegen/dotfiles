@@ -1218,7 +1218,6 @@ require("lazy").setup({
     },
     {
         "abecodes/tabout.nvim",
-        dependencies = { "nvim-cmp", "nvim-treesitter" },
         event = { "InsertEnter" },
         config = true,
     },
