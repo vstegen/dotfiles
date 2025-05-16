@@ -117,7 +117,7 @@ require("lazy").setup({
     },
     -- LSP
     {
-        "williamboman/mason.nvim",
+        "mason-org/mason.nvim",
         build = ":MasonUpdate",
         event = { "BufReadPre", "BufNewFile" },
         cmd = { "Mason", "MasonUpdate" },
@@ -167,7 +167,7 @@ require("lazy").setup({
         end,
     },
     {
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason.nvim",
