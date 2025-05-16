@@ -103,6 +103,7 @@ require("lazy").setup({
         },
     },
     {
+        "JoosepAlviste/nvim-ts-context-commentstring",
         dependencies = { "nvim-treesitter/nvim-treesitter" },
         event = { "VeryLazy" },
         config = function()
