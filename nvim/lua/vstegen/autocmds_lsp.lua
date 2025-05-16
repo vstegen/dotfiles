@@ -62,41 +62,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
             client.server_capabilities.hoverProvider = false
         end
 
-        -- TODO: use own autocommand for custom keymaps?
-        -- Custom keymaps
-        if client_name == "rust_analyzer" then
-            set_keymaps({
-                {
-                    "<leader>cR",
-                    function()
-                        vim.cmd.RustLsp "codeAction"
-                    end,
-                    { desc = "Code Action (Rust)" },
-                },
-                {
-                    "<leader>dr",
-                    function()
-                        vim.cmd.RustLsp "debuggables"
-                    end,
-                    { desc = "Rust debuggables" },
-                },
-            }, args.buf)
-        elseif client_name == "taplo" then
-            set_keymaps({
-                {
-                    "K",
-                    function()
-                        if vim.fn.expand "%:t" == "Cargo.toml" and require("crates").popup_available() then
-                            require("crates").show_popup()
-                        else
-                            vim.lsp.buf.hover()
-                        end
-                    end,
-                    desc = "Show Crate Documentation",
-                },
-            }, args.buf)
-        end
-
         set_keymaps({
             { "gd", vim.lsp.buf.definition, { desc = "Goto definition" } },
             { "gD", vim.lsp.buf.declaration, { desc = "Goto declaration" } },

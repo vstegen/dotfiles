@@ -308,26 +308,27 @@ require("lazy").setup({
         },
         config = function(_, opts)
             vim.g.rustaceanvim = function()
-                local ok, mason_registry = pcall(require, "mason-registry")
-                local adapter_config ---@type any
-                if ok then
-                    -- rust tools configuration for debugging support
-                    local codelldb = mason_registry.get_package "codelldb"
-                    local extension_path = codelldb:get_install_path() .. "/extension/"
-                    local codelldb_path = extension_path .. "adapter/codelldb"
-                    local liblldb_path = extension_path .. "lldb/lib/liblldb"
-                    local this_os = vim.uv.os_uname().sysname
+                -- Update this path
+                local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/"
+                local codelldb_path = extension_path .. "adapter/codelldb"
+                local liblldb_path = extension_path .. "lldb/lib/liblldb"
+                local this_os = vim.uv.os_uname().sysname
 
+                -- The path is different on Windows
+                if this_os:find "Windows" then
+                    codelldb_path = extension_path .. "adapter\\codelldb.exe"
+                    liblldb_path = extension_path .. "lldb\\bin\\liblldb.dll"
+                else
+                    -- The liblldb extension is .so for Linux and .dylib for MacOS
                     liblldb_path = liblldb_path .. (this_os == "Linux" and ".so" or ".dylib")
-                    local cfg = require "rustaceanvim.config"
-                    adapter_config = cfg.get_codelldb_adapter(codelldb_path, liblldb_path)
                 end
 
-                return vim.tbl_deep_extend("force", ok and {
+                local cfg = require "rustaceanvim.config"
+                return {
                     dap = {
-                        adapter = adapter_config,
+                        adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
                     },
-                } or {}, opts or {})
+                }
             end
         end,
     },
