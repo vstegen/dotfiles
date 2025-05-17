@@ -199,23 +199,23 @@ M.servers = {
         }),
     },
     tailwindcss = {
-        root_dir = function(fname)
-            local util = require "lspconfig.util"
-            local root_file = {
-                "tailwind.config.js",
-                "tailwind.config.cjs",
-                "tailwind.config.mjs",
-                "tailwind.config.ts",
-                "postcss.config.js",
-                "postcss.config.cjs",
-                "postcss.config.mjs",
-                "postcss.config.ts",
-                "config/tailwind.config.js",
-                "assets/tailwind.config.js",
-            }
-            root_file = util.insert_package_json(root_file, "tailwindcss", fname)
-            return util.root_pattern(unpack(root_file))(fname)
-        end,
+        -- root_dir = function(fname)
+        --     local util = require "lspconfig.util"
+        --     local root_file = {
+        --         "tailwind.config.js",
+        --         "tailwind.config.cjs",
+        --         "tailwind.config.mjs",
+        --         "tailwind.config.ts",
+        --         "postcss.config.js",
+        --         "postcss.config.cjs",
+        --         "postcss.config.mjs",
+        --         "postcss.config.ts",
+        --         "config/tailwind.config.js",
+        --         "assets/tailwind.config.js",
+        --     }
+        --     root_file = util.insert_package_json(root_file, "tailwindcss", fname)
+        --     return util.root_pattern(unpack(root_file))(fname)
+        -- end,
         init_options = {
             userLanguages = {
                 elixir = "html-eex",
