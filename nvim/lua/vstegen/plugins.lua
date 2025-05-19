@@ -1720,6 +1720,16 @@ require("lazy").setup({
             },
         },
     },
+    {
+        "m4xshen/hardtime.nvim",
+        lazy = false,
+        dependencies = { "MunifTanjim/nui.nvim" },
+        opts = {},
+        keys = {
+            { "<leader>uHt", "<cmd>Hardtime toggle<cr>", desc = "Toggle hardtime" },
+            { "<leader>uHr", "<cmd>Hardtime report<cr>", desc = "Report hardtime" },
+        },
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
