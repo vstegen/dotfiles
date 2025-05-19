@@ -6,7 +6,7 @@ SETUVAR --export FIREFOX_PROFILE:/Users/marvin/Library/Application\x20Support/Fi
 SETUVAR --export HOMEBREW_NO_AUTO_UPDATE:3
 SETUVAR --export MANPAGER:nvim\x20\x2bMan\x21
 SETUVAR --export PNPM_HOME:/Users/marvin/Library/pnpm
-SETUVAR __fish_initialized:3400
+SETUVAR __fish_initialized:3800
 SETUVAR fish_color_autosuggestion:6c7086
 SETUVAR fish_color_cancel:f38ba8
 SETUVAR fish_color_command:89b4fa
