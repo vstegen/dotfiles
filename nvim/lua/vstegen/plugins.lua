@@ -488,7 +488,7 @@ require("lazy").setup({
     },
     {
         "ibhagwan/fzf-lua",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = { "echasnovski/mini.icons" },
         keys = function()
             return {
                 {
@@ -936,7 +936,7 @@ require("lazy").setup({
     { "tpope/vim-sleuth" },
     {
         "stevearc/oil.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = { "echasnovski/mini.icons" },
         keys = {
             {
                 "<leader>-",
@@ -1078,7 +1078,7 @@ require("lazy").setup({
     },
     {
         "folke/trouble.nvim",
-        dependencies = "nvim-tree/nvim-web-devicons",
+        dependencies = "echasnovski/mini.icons",
         cmd = "Trouble",
         keys = {
             { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Document diagnostics (Trouble)" },
@@ -1211,7 +1211,7 @@ require("lazy").setup({
     },
     {
         "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+        dependencies = { "echasnovski/mini.icons" },
         opts = function()
             local colors = utils.colors()
             local icons = utils.icons
