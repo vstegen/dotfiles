@@ -1172,10 +1172,6 @@ require("lazy").setup({
         },
     },
     {
-        "stevearc/dressing.nvim",
-        config = true,
-    },
-    {
         "abecodes/tabout.nvim",
         event = { "InsertEnter" },
         config = true,
