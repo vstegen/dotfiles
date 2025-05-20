@@ -1723,6 +1723,7 @@ require("lazy").setup({
     {
         "m4xshen/hardtime.nvim",
         lazy = false,
+        enabled = false,
         dependencies = { "MunifTanjim/nui.nvim" },
         opts = {},
         keys = {
