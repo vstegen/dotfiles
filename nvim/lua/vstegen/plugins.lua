@@ -1569,6 +1569,7 @@ require("lazy").setup({
             return {
                 bigfile = { enabled = true },
                 dim = { enabled = true },
+                git = { enabled = true },
                 input = { enabled = true },
                 indent = { enabled = true },
                 lazygit = { enabled = true },
@@ -1577,6 +1578,13 @@ require("lazy").setup({
             }
         end,
         keys = {
+            {
+                "<leader>gB",
+                function()
+                    Snacks.git.blame_line()
+                end,
+                desc = "Blame",
+            },
             {
                 "<leader>uz",
                 function()
