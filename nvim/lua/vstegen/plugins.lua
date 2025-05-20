@@ -102,19 +102,6 @@ require("lazy").setup({
             },
         },
     },
-    {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        event = { "VeryLazy" },
-        config = function()
-            require("ts_context_commentstring").setup {
-                enable_autocmd = true,
-            }
-        end,
-        init = function()
-            vim.g.skip_ts_context_commentstring_module = true
-        end,
-    },
     -- LSP
     {
         "mason-org/mason.nvim",
@@ -1015,36 +1002,6 @@ require("lazy").setup({
         "echasnovski/mini.pairs",
         event = { "BufReadPost", "BufNewFile" },
         config = true,
-    },
-    {
-        "numToStr/Comment.nvim",
-        event = { "BufReadPost", "BufNewFile" },
-        dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
-        keys = {
-            {
-                "<leader>/",
-                function()
-                    require("Comment.api").toggle.linewise.current()
-                end,
-                desc = "Comment line",
-            },
-            {
-                "<leader>/",
-                function()
-                    local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
-                    vim.api.nvim_feedkeys(esc, "nx", false)
-                    require("Comment.api").toggle.blockwise(vim.fn.visualmode())
-                end,
-                mode = "v",
-                desc = "Comment line",
-            },
-        },
-        config = function()
-            require("Comment").setup {
-                ignore = "^$",
-                pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-            }
-        end,
     },
     {
         "echasnovski/mini.ai",
