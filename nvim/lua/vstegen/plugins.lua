@@ -681,7 +681,6 @@ require("lazy").setup({
         end,
         opts = function(_, opts)
             local config = require "fzf-lua.config"
-            local actions = require "fzf-lua.actions"
 
             config.defaults.keymap.fzf["ctrl-q"] = "select-all+accept"
             config.defaults.keymap.fzf["ctrl-u"] = "half-page-up"
