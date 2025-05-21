@@ -925,30 +925,43 @@ require("lazy").setup({
             })
         end,
     },
+
     {
-        "echasnovski/mini.pairs",
-        event = { "BufReadPost", "BufNewFile" },
-        config = true,
-    },
-    {
-        "echasnovski/mini.ai",
-        opts = { n_lines = 500 },
-    },
-    {
-        "echasnovski/mini.operators",
-    },
-    {
-        "echasnovski/mini.surround",
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            mappings = {
-                add = "gza",
-                delete = "gzd",
-                find = "gzf",
-                find_left = "gzF",
-                highlight = "gzh",
-                replace = "gzr",
-                update_n_lines = "gzn",
+
+        "echasnovski/mini.nvim",
+        config = function(_, _)
+            require("mini.pairs").setup()
+            require("mini.ai").setup {
+                n_lines = 500,
+            }
+            require("mini.operators").setup()
+            require("mini.surround").setup {
+                mappings = {
+                    add = "gza",
+                    delete = "gzd",
+                    find = "gzf",
+                    find_left = "gzF",
+                    highlight = "gzh",
+                    replace = "gzr",
+                    update_n_lines = "gzn",
+                },
+            }
+            require("mini.bufremove").setup()
+        end,
+        keys = {
+            {
+                "<leader>bd",
+                function()
+                    require("mini.bufremove").delete(0, false)
+                end,
+                desc = "Delete buffer",
+            },
+            {
+                "<leader>bD",
+                function()
+                    require("mini.bufremove").delete(0, true)
+                end,
+                desc = "Delete buffer (force)",
             },
         },
     },
@@ -1250,26 +1263,6 @@ require("lazy").setup({
                 tailwind = true,
             },
         },
-    },
-    {
-        "echasnovski/mini.bufremove",
-        keys = {
-            {
-                "<leader>bd",
-                function()
-                    require("mini.bufremove").delete(0, false)
-                end,
-                desc = "Delete buffer",
-            },
-            {
-                "<leader>bD",
-                function()
-                    require("mini.bufremove").delete(0, true)
-                end,
-                desc = "Delete buffer (force)",
-            },
-        },
-        config = true,
     },
     {
         "nvim-neotest/neotest",
