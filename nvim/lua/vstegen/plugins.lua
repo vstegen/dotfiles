@@ -862,7 +862,6 @@ require("lazy").setup({
         end,
     },
     -- misc
-    { "tpope/vim-sleuth" },
     {
         "stevearc/oil.nvim",
         dependencies = { "echasnovski/mini.icons" },
