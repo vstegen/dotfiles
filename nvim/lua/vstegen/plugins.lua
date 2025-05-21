@@ -949,6 +949,7 @@ require("lazy").setup({
                 },
             }
             require("mini.bufremove").setup()
+            require("mini.bracketed").setup()
         end,
         keys = {
             {
