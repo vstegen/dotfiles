@@ -951,22 +951,6 @@ require("lazy").setup({
             require("mini.bufremove").setup()
             require("mini.bracketed").setup()
         end,
-        keys = {
-            {
-                "<leader>bd",
-                function()
-                    require("mini.bufremove").delete(0, false)
-                end,
-                desc = "Delete buffer",
-            },
-            {
-                "<leader>bD",
-                function()
-                    require("mini.bufremove").delete(0, true)
-                end,
-                desc = "Delete buffer (force)",
-            },
-        },
     },
     {
         "folke/flash.nvim",
@@ -1444,6 +1428,7 @@ require("lazy").setup({
 
             return {
                 bigfile = { enabled = true },
+                bufdelete = { enabled = true },
                 dim = { enabled = true },
                 git = { enabled = true },
                 input = { enabled = true },
@@ -1454,6 +1439,20 @@ require("lazy").setup({
             }
         end,
         keys = {
+            {
+                "<leader>bd",
+                function()
+                    Snacks.bufdelete.delete()
+                end,
+                desc = "Delete Buffer",
+            },
+            {
+                "<leader>bD",
+                function()
+                    Snacks.bufdelete.other()
+                end,
+                desc = "Delete Other Buffers",
+            },
             {
                 "<leader>gB",
                 function()
