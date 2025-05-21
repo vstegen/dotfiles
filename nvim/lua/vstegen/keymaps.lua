@@ -206,26 +206,3 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 ---- diagnostics
 map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
-
--- PLUGINS
-
----- ufo
-if not utils.has "nvim-ufo" then
-    map("n", "K", function()
-        vim.lsp.buf.hover()
-    end, { desc = "Hover" })
-end
-
----- bufferline
-if not utils.has "bufferline.nvim" then
-    map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-    map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
-    map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-    map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
-end
-
----- trouble
-if not utils.has "trouble.nvim" then
-    map("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
-    map("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
-end
