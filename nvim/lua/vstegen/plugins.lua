@@ -329,12 +329,14 @@ require("lazy").setup({
                 lazy = true,
                 version = false,
             },
+            "echasnovski/mini.snippets",
         },
         event = { "InsertEnter", "CmdlineEnter" },
         version = "*",
         build = "cargo build --release",
         enabled = true,
         opts = {
+            snippets = { preset = "mini_snippets" },
             appearance = {
                 use_nvim_cmp_as_default = false,
                 nerd_font_variant = "mono",
@@ -385,7 +387,7 @@ require("lazy").setup({
                     auto_show = true,
                     auto_show_delay_ms = 200,
                     treesitter_highlighting = true,
-                    window = { border = "rounded" },
+                    window = { border = "single" },
                 },
                 list = {
                     selection = {
