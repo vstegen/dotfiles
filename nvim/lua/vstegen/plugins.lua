@@ -432,11 +432,6 @@ require("lazy").setup({
         },
     },
     {
-        "roobert/tailwindcss-colorizer-cmp.nvim",
-        event = { "BufReadPost", "BufNewFile" },
-        config = true,
-    },
-    {
         "MaximilianLloyd/tw-values.nvim",
         event = { "BufReadPost", "BufNewFile" },
         keys = {
