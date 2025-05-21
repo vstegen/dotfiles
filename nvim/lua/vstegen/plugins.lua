@@ -263,15 +263,6 @@ require("lazy").setup({
                 vim.diagnostic.config(inactive_diagnostics_config)
                 inactive_diagnostics_config = new_inactive_diagnostic_config
             end, { desc = "Toggle diagnostic virtual_lines" })
-            vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-                border = "single",
-            })
-
-            vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-                border = "single",
-                focusable = true,
-                relative = "cursor",
-            })
         end,
     },
     {
@@ -1684,6 +1675,7 @@ require("lazy").setup({
     {
         "m4xshen/hardtime.nvim",
         lazy = false,
+        enabled = false,
         dependencies = { "MunifTanjim/nui.nvim" },
         opts = {},
         keys = {
