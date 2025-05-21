@@ -904,7 +904,6 @@ require("lazy").setup({
                 { "<leader><tab>", group = "+tabs" },
                 { "<leader>b", group = "+buffer" },
                 { "<leader>c", group = "+code" },
-                { "<leader>cc", group = "+copilot" },
                 { "<leader>d", group = "+debug" },
                 { "<leader>f", group = "+file" },
                 { "<leader>g", group = "+git" },
