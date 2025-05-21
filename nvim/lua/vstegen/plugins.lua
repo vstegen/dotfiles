@@ -1431,11 +1431,16 @@ require("lazy").setup({
                 bufdelete = { enabled = true },
                 dim = { enabled = true },
                 git = { enabled = true },
+                gitbrowse = { enabled = false },
+                rename = { enabled = true },
                 input = { enabled = true },
                 indent = { enabled = true },
                 lazygit = { enabled = true },
+                scope = { enabled = true },
+                profiler = { enabled = false },
                 terminal = { enabled = true },
                 zen = { enabled = true },
+                toggle = { enabled = false },
             }
         end,
         keys = {
