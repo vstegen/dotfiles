@@ -440,10 +440,9 @@ require("lazy").setup({
         opts = {},
     },
     {
-        "MeanderingProgrammer/markdown.nvim",
-        name = "render-markdown",
+        "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "md" },
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
+        dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
         config = function()
             require("render-markdown").setup {}
         end,
