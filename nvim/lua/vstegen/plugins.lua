@@ -432,21 +432,6 @@ require("lazy").setup({
         },
     },
     {
-        "github/copilot.vim",
-        event = { "InsertEnter" },
-        enabled = false,
-        init = function()
-            vim.g.copilot_no_tab_map = true
-            vim.cmd [[ imap <silent><script><expr> <C-y> copilot#Accept("\<CR>") ]]
-        end,
-        keys = {
-            { "<leader>ccd", "<cmd>Copilot disable<cr>", desc = "Disable" },
-            { "<leader>cce", "<cmd>Copilot enable<cr>", desc = "Enable" },
-            { "<leader>ccr", "<cmd>Copilot restart<cr>", desc = "Restart" },
-            { "<leader>ccs", "<cmd>Copilot status<cr>", desc = "Status" },
-        },
-    },
-    {
         "roobert/tailwindcss-colorizer-cmp.nvim",
         event = { "BufReadPost", "BufNewFile" },
         config = true,
