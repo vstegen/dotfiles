@@ -276,7 +276,6 @@ require("lazy").setup({
             },
         },
     },
-    { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
     {
         "mrcjkb/rustaceanvim",
         version = "^6", -- Recommended
