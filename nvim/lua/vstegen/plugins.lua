@@ -182,7 +182,7 @@ require("lazy").setup({
                 "emmet_language_server",
                 "dockerls",
                 "pyright",
-                "volar",
+                "vue_ls",
                 "ts_ls",
                 "elixirls",
             },
