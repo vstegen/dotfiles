@@ -1476,6 +1476,14 @@ require("lazy").setup({
             { "<leader>uHr", "<cmd>Hardtime report<cr>", desc = "Report hardtime" },
         },
     },
+    {
+        "zeioth/garbage-day.nvim",
+        dependencies = "neovim/nvim-lspconfig",
+        event = "VeryLazy",
+        opts = {
+            -- your options here
+        },
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
