@@ -1476,6 +1476,14 @@ require("lazy").setup({
     },
     { "kbwo/vim-shareedit" },
     { "vim-denops/denops.vim" },
+    {
+        "zeioth/garbage-day.nvim",
+        dependencies = "neovim/nvim-lspconfig",
+        event = "VeryLazy",
+        opts = {
+            -- your options here
+        },
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
