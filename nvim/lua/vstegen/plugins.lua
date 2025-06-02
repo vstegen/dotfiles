@@ -1390,6 +1390,10 @@ require("lazy").setup({
                     name = "personal",
                     path = "~/vaults/personal",
                 },
+                {
+                    name = "work",
+                    path = "~/vaults/work",
+                },
             },
             notes_subdir = "notes",
             new_notes_location = "notes_subdir",
@@ -1480,6 +1484,7 @@ require("lazy").setup({
         "zeioth/garbage-day.nvim",
         dependencies = "neovim/nvim-lspconfig",
         event = "VeryLazy",
+        enabled = false,
         opts = {
             -- your options here
         },
