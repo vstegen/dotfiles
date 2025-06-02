@@ -90,5 +90,5 @@ abbr -ag grb 'git rebase'
 abbr -ag gs 'git status'
 abbr -ag gst 'git stash'
 
-abbr -ag docker podman
-abbr -ag docker-compose podman-compose
+# abbr -ag docker podman
+# abbr -ag docker-compose podman-compose

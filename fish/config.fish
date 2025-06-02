@@ -18,3 +18,7 @@ zoxide init fish | source
 mise activate fish | source
 
 fish_add_path $HOME/.emacs.d/bin /opt/homebrew/opt/openssl@1.1/bin /opt/homebrew/opt/bison/bin $HOME/.bun/bin $HOME/.local/bin $HOME/bin /opt/homebrew/opt/postgresql@15/bin $HOME/scripts
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
