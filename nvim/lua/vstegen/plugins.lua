@@ -1474,6 +1474,8 @@ require("lazy").setup({
             { "<leader>uHr", "<cmd>Hardtime report<cr>", desc = "Report hardtime" },
         },
     },
+    { "kbwo/vim-shareedit" },
+    { "vim-denops/denops.vim" },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
