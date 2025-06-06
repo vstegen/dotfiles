@@ -1541,6 +1541,30 @@ require("lazy").setup({
             -- your options here
         },
     },
+    {
+        "shortcuts/no-neck-pain.nvim",
+        version = "*",
+        keys = { { "<leader>un", "<cmd>NoNeckPain<cr>", desc = "Toggle No Neck Pain" } },
+    },
+    {
+        "mbbill/undotree",
+        keys = { { "<leader>uu", vim.cmd.UndotreeToggle, desc = "Toggle UndoTree" } },
+        config = function()
+            -- TODO: convert to lua
+            -- if has("persistent_undo")
+            --    let target_path = expand('~/.undodir')
+            --
+            --     " create the directory and any parent directories
+            --     " if the location does not exist.
+            --     if !isdirectory(target_path)
+            --         call mkdir(target_path, "p", 0700)
+            --     endif
+            --
+            --     let &undodir=target_path
+            --     set undofile
+            -- endif
+        end,
+    },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
