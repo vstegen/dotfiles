@@ -133,6 +133,7 @@ require("lazy").setup({
                 "vue-language-server",
                 "vale",
                 "biome",
+                "ltex-ls-plus",
             },
         },
         config = function(_, opts)
@@ -217,6 +218,8 @@ require("lazy").setup({
             vim.lsp.config.tailwindcss = lsp.servers.tailwindcss
             vim.lsp.config.ts_ls = lsp.servers.ts_ls
             vim.lsp.config.yamlls = lsp.servers.yamlls
+
+            vim.lsp.enable "ltex_plus"
 
             vim.diagnostic.config {
                 virtual_text = {
