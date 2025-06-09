@@ -743,6 +743,9 @@ require("lazy").setup({
                 "--out-format=json",
             }
 
+            local biome = require("lint").linters.biomejs
+            biome.cmd = "biome"
+
             lint.linters_by_ft = {
                 sh = { "shellcheck" },
                 go = { "golangcilint" },
@@ -792,13 +795,12 @@ require("lazy").setup({
                     fish = { "fish_indent" },
                     lua = { "stylua" },
                     go = { "goimports", "gofumpt", "goimports-reviser" },
-                    javascript = { "biomejs", stop_after_first = true },
-                    typescript = { "biomejs", stop_after_first = true },
+                    javascript = { "biome", stop_after_first = true },
+                    typescript = { "biome", stop_after_first = true },
                     svelte = { "prettierd", "prettier", stop_after_first = true },
-                    vue = { "prettierd", "prettier", stop_after_first = true },
-                    ["typescript.tsx"] = { "biomejs", stop_after_first = true },
-                    javascriptreact = { "biomejs", stop_after_first = true },
-                    typescriptreact = { "biomejs", stop_after_first = true },
+                    ["typescript.tsx"] = { "biomes", stop_after_first = true },
+                    javascriptreact = { "biome", stop_after_first = true },
+                    typescriptreact = { "biome", stop_after_first = true },
                     vue = { "prettierd", "prettier", stop_after_first = true },
                     css = { "prettierd", "prettier", stop_after_first = true },
                     scss = { "prettierd", "prettier", stop_after_first = true },
@@ -1420,6 +1422,7 @@ require("lazy").setup({
     {
         "epwalsh/obsidian.nvim",
         version = "*", -- recommended, use latest release instead of latest commit
+        enabled = false,
         lazy = true,
         ft = "markdown",
         -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
