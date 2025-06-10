@@ -120,6 +120,7 @@ require("lazy").setup({
                 "delve",
                 "gofumpt",
                 "impl",
+                "ruff",
                 "gomodifytags",
                 "goimports",
                 "goimports-reviser",
