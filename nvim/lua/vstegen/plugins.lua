@@ -747,6 +747,9 @@ require("lazy").setup({
                 "--out-format=json",
             }
 
+            local biome = lint.linters.biomejs
+            biome.cmd = "biome"
+
             lint.linters_by_ft = {
                 sh = { "shellcheck" },
                 go = { "golangcilint" },
