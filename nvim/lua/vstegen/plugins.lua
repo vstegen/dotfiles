@@ -135,6 +135,7 @@ require("lazy").setup({
                 "vale",
                 "biome",
                 "ltex-ls-plus",
+                "astro-language-server",
             },
         },
         config = function(_, opts)
