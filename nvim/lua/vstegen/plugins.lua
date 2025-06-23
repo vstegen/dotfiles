@@ -823,7 +823,7 @@ require("lazy").setup({
         "catppuccin/nvim",
         priority = 1000,
         lazy = false,
-        enabled = false,
+        enabled = true,
         name = "catppuccin",
         opts = {
             styles = {
@@ -867,6 +867,7 @@ require("lazy").setup({
     {
         "rebelot/kanagawa.nvim",
         priority = 1000,
+        enabled = false,
         lazy = false,
         opts = {
             compile = false,
