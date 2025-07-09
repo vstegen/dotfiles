@@ -14,8 +14,8 @@ set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@1.1/lib"
 set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@1.1/include"
 
 # Find llvm
-# set -gx LDFLAGS "-L/opt/homebrew/opt/llvm/lib"
-# set -gx CPPFLAGS "-I/opt/homebrew/opt/llvm/include"
+set -gx LDFLAGS -L/opt/homebrew/opt/llvm/lib
+set -gx CPPFLAGS -I/opt/homebrew/opt/llvm/include
 
 set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl@1.1/lib/pkgconfig"
 
