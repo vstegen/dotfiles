@@ -46,4 +46,4 @@ SETUVAR fish_pager_color_selected_background:\x1d
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/Users/vanstegen\x2emarvin/scripts\x1e/opt/homebrew/opt/bison/bin\x1e/Users/marvin/\x2ebun/bin\x1e/opt/homebrew/opt/postgresql\x4015/bin\x1e/Users/marvin/\x2eemacs\x2ed/bin\x1e/opt/homebrew/opt/openssl\x401\x2e1/bin\x1e/Users/marvin/Library/pnpm\x1e/Users/marvin/bin\x1e/Users/marvin/\x2elocal/bin\x1e/Users/marvin/\x2ecargo/bin\x1e/Users/marvin/go/bin\x1e/opt/homebrew/opt/fzf/bin
+SETUVAR fish_user_paths:/Users/vanstegen\x2emarvin/bin\x1e/Users/vanstegen\x2emarvin/\x2ebun/bin\x1e/Users/vanstegen\x2emarvin/scripts\x1e/opt/homebrew/opt/bison/bin\x1e/Users/marvin/\x2ebun/bin\x1e/opt/homebrew/opt/postgresql\x4015/bin\x1e/Users/marvin/\x2eemacs\x2ed/bin\x1e/opt/homebrew/opt/openssl\x401\x2e1/bin\x1e/Users/marvin/Library/pnpm\x1e/Users/marvin/bin\x1e/Users/marvin/\x2elocal/bin\x1e/Users/marvin/\x2ecargo/bin\x1e/Users/marvin/go/bin\x1e/opt/homebrew/opt/fzf/bin
