@@ -69,7 +69,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
             { "gr", vim.lsp.buf.references, { desc = "Goto references" } },
             { "gi", vim.lsp.buf.implementation, { desc = "Goto implementation" } },
             { "<leader>lr", vim.lsp.buf.rename, { desc = "Rename" } },
-            { "<C-k>", vim.lsp.buf.signature_help, { desc = "Show signature help", mode = { "i", "n" } } },
             { "gl", vim.diagnostic.open_float, { desc = "Show line diagnostics" } },
             {
                 "<leader>ld",
