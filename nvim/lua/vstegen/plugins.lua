@@ -1488,8 +1488,8 @@ require("lazy").setup({
             { "<leader>uHr", "<cmd>Hardtime report<cr>", desc = "Report hardtime" },
         },
     },
-    { "kbwo/vim-shareedit" },
-    { "vim-denops/denops.vim" },
+    { "kbwo/vim-shareedit", enabled = false },
+    { "vim-denops/denops.vim", enabled = false },
     {
         "zeioth/garbage-day.nvim",
         dependencies = "neovim/nvim-lspconfig",
