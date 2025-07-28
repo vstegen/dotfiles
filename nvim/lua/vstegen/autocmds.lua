@@ -110,7 +110,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "json", "jsonc", "markdown" },
     callback = function()
-        if utils.is_inside_directoy "~/vaults/personal/" then
+        if utils.is_inside_directoy "~/vaults/" then
             vim.opt_local.conceallevel = 1
         else
             vim.wo.conceallevel = 0
