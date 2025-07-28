@@ -452,7 +452,9 @@ require("lazy").setup({
         ft = { "markdown", "md" },
         dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
         config = function()
-            require("render-markdown").setup {}
+            require("render-markdown").setup {
+                completions = { blink = { enabled = true } },
+            }
         end,
     },
     {
@@ -1427,6 +1429,8 @@ require("lazy").setup({
                     insert_tag = "<C-l>",
                 },
             },
+            -- this is required to make render-markdown work nicely
+            ui = { enable = false },
         },
         config = function(_, opts)
             local wk = require "which-key"
