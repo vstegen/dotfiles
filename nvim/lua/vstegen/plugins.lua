@@ -419,8 +419,6 @@ require("lazy").setup({
                 ["<Down>"] = { "select_next", "fallback" },
                 ["<C-p>"] = { "select_prev", "fallback" },
                 ["<C-n>"] = { "select_next", "fallback" },
-                ["<C-k>"] = { "snippet_backward", "fallback" },
-                ["<C-j>"] = { "snippet_forward", "fallback" },
                 ["<C-h>"] = { "snippet_backward", "fallback" },
                 ["<C-l>"] = { "snippet_forward", "fallback" },
                 ["<C-e>"] = { "hide", "fallback" },
