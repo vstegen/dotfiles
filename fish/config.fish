@@ -1,5 +1,6 @@
 if status is-interactive
     # Commands to run in interactive sessions can go here
+    atuin init fish | source
 end
 
 if status is-login
@@ -18,6 +19,5 @@ zoxide init fish | source
 mise activate fish | source
 
 jj util completion fish | source
-
 
 fish_add_path $HOME/.emacs.d/bin /opt/homebrew/opt/openssl@1.1/bin /opt/homebrew/opt/bison/bin $HOME/.bun/bin $HOME/.local/bin $HOME/bin /opt/homebrew/opt/postgresql@15/bin /opt/homebrew/opt/llvm/bin
