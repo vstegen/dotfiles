@@ -479,7 +479,7 @@ require("lazy").setup({
     },
     {
         "ibhagwan/fzf-lua",
-        dependencies = { "echasnovski/mini.icons" },
+        dependencies = { "echasnovski/mini.icons", "elanmed/fzf-lua-frecency.nvim" },
         keys = function()
             return {
                 {
@@ -490,7 +490,10 @@ require("lazy").setup({
                 {
                     "<leader>ff",
                     function()
-                        require("fzf-lua").files()
+                        -- require("fzf-lua").files()
+                        require("fzf-lua-frecency").frecency {
+                            cwd_only = true,
+                        }
                     end,
                     desc = "FZF Files",
                 },
@@ -513,14 +516,16 @@ require("lazy").setup({
                 {
                     "<leader>?",
                     function()
-                        require("fzf-lua").oldfiles()
+                        -- require("fzf-lua").oldfiles()
+                        require("fzf-lua-frecency").frecency()
                     end,
                     desc = "FZF Recent Files",
                 },
                 {
                     "<leader>fr",
                     function()
-                        require("fzf-lua").oldfiles()
+                        -- require("fzf-lua").oldfiles()
+                        require("fzf-lua-frecency").frecency()
                     end,
                     desc = "FZF Recent Files",
                 },
@@ -534,9 +539,9 @@ require("lazy").setup({
                 {
                     "<leader>sg",
                     function()
-                        require("fzf-lua").live_grep()
+                        require("fzf-lua").global()
                     end,
-                    desc = "Live grep",
+                    desc = "Global search",
                 },
                 {
                     "<leader>r",
