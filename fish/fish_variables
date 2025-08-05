@@ -6,6 +6,8 @@ SETUVAR --export FIREFOX_PROFILE:/Users/marvin/Library/Application\x20Support/Fi
 SETUVAR --export HOMEBREW_NO_AUTO_UPDATE:3
 SETUVAR --export MANPAGER:nvim\x20\x2bMan\x21
 SETUVAR --export PNPM_HOME:/Users/marvin/Library/pnpm
+SETUVAR --export SSH_AGENT_PID:26217
+SETUVAR --export SSH_AUTH_SOCK:/var/folders/kb/d87mk46d13s07fbkz7v852gr0000gp/T//ssh\x2d6h427XFeAsIj/agent\x2e26216
 SETUVAR __fish_initialized:3800
 SETUVAR fish_color_autosuggestion:6c7086
 SETUVAR fish_color_cancel:f38ba8
