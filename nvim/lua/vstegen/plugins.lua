@@ -480,7 +480,10 @@ require("lazy").setup({
     },
     {
         "ibhagwan/fzf-lua",
-        dependencies = { "echasnovski/mini.icons", "elanmed/fzf-lua-frecency.nvim" },
+        dependencies = {
+            "echasnovski/mini.icons",
+            -- "elanmed/fzf-lua-frecency.nvim"
+        },
         keys = function()
             return {
                 {
@@ -491,10 +494,11 @@ require("lazy").setup({
                 {
                     "<leader>ff",
                     function()
-                        -- require("fzf-lua").files()
-                        require("fzf-lua-frecency").frecency {
-                            cwd_only = true,
-                        }
+                        require("fzf-lua").files()
+                        -- require("fzf-lua-frecency").frecency {
+                        --     cwd_only = true,
+                        --     line_query = true,
+                        -- }
                     end,
                     desc = "FZF Files",
                 },
@@ -517,16 +521,16 @@ require("lazy").setup({
                 {
                     "<leader>?",
                     function()
-                        -- require("fzf-lua").oldfiles()
-                        require("fzf-lua-frecency").frecency()
+                        require("fzf-lua").oldfiles()
+                        -- require("fzf-lua-frecency").frecency()
                     end,
                     desc = "FZF Recent Files",
                 },
                 {
                     "<leader>fr",
                     function()
-                        -- require("fzf-lua").oldfiles()
-                        require("fzf-lua-frecency").frecency()
+                        require("fzf-lua").oldfiles()
+                        -- require("fzf-lua-frecency").frecency()
                     end,
                     desc = "FZF Recent Files",
                 },
@@ -1544,6 +1548,7 @@ require("lazy").setup({
             -- endif
         end,
     },
+    { "lewis6991/gitsigns.nvim", opts = {} },
 }, {
     install = {
         colorscheme = { "kanagawa", "catppuccin" },
