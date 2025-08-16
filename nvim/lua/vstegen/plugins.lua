@@ -165,7 +165,6 @@ require("lazy").setup({
         opts = {
             -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
             ensure_installed = {
-                "rust_analyzer",
                 "gopls",
                 "lua_ls",
                 "bashls",
@@ -190,7 +189,7 @@ require("lazy").setup({
             },
             automatic_enable = {
                 exclude = {
-                    "rust_analyzer",
+                    -- "rust_analyzer",
                 },
             },
         },
