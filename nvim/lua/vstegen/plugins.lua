@@ -108,9 +108,6 @@ require("lazy").setup({
         build = ":MasonUpdate",
         event = { "BufReadPre", "BufNewFile" },
         cmd = { "Mason", "MasonUpdate" },
-        keys = {
-            { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason installer" },
-        },
         opts = {
             ensure_installed = {
                 "codelldb", -- rust debugging
@@ -208,7 +205,7 @@ require("lazy").setup({
             })
 
             vim.lsp.config.cssls = lsp.servers.cssls
-            vim.lsp.config.elixirls = lsp.servers.elixirls
+            -- vim.lsp.config.elixirls = lsp.servers.elixirls
             vim.lsp.config.emmet_language_server = lsp.servers.emmet_language_server
             vim.lsp.config.gopls = lsp.servers.gopls
             vim.lsp.config.html = lsp.servers.html
@@ -269,6 +266,44 @@ require("lazy").setup({
                 inactive_diagnostics_config = new_inactive_diagnostic_config
             end, { desc = "Toggle diagnostic virtual_lines" })
         end,
+    },
+    {
+        "elixir-tools/elixir-tools.nvim",
+        version = "*",
+        event = { "BufReadPre", "BufNewFile" },
+        config = function()
+            local elixir = require "elixir"
+            local elixirls = require "elixir.elixirls"
+
+            elixir.setup {
+                nextls = {
+                    enable = false,
+                    on_attach = function(_, _)
+                        vim.keymap.set("n", "<space>cP", ":nextls from-pipe<cr>", { buffer = true, noremap = true })
+                        vim.keymap.set("n", "<space>cp", ":nextls to-pipe<cr>", { buffer = true, noremap = true })
+                    end,
+                },
+                elixirls = {
+                    enable = true,
+                    cmd = "/Users/marvin/.local/share/nvim/mason/packages/elixir-ls/language_server.sh",
+                    settings = elixirls.settings {
+                        dialyzerEnabled = false,
+                        enableTestLenses = false,
+                    },
+                    on_attach = function(_, _)
+                        vim.keymap.set("n", "<space>cP", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+                        vim.keymap.set("n", "<space>cp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+                        vim.keymap.set("v", "<space>cm", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+                    end,
+                },
+                projectionist = {
+                    enable = true,
+                },
+            }
+        end,
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
     },
     {
         "folke/lazydev.nvim",

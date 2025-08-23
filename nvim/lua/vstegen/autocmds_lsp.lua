@@ -77,7 +77,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 end,
                 { desc = "Show line diagnostics" },
             },
-            { "<leader>cl", "<cmd>LspInfo<cr>", { desc = "Lsp Info" } },
             { "<leader>cr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" } },
             {
                 "[e",
