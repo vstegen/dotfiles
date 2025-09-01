@@ -218,6 +218,7 @@ require("lazy").setup({
             vim.lsp.config.tsgo = lsp.servers.tsgo
 
             vim.lsp.enable "ltex_plus"
+            vim.lsp.enable "expert"
 
             vim.diagnostic.config {
                 virtual_text = {
@@ -948,7 +949,7 @@ require("lazy").setup({
 
     {
 
-        "echasnovski/mini.nvim",
+        "nvim-mini/mini.nvim",
         config = function(_, _)
             require("mini.pairs").setup()
             require("mini.ai").setup {
