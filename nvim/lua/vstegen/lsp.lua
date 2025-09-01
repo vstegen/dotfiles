@@ -34,6 +34,11 @@ function M.default_capabilities()
 end
 
 M.servers = {
+    expert = {
+        cmd = { "expert" },
+        root_markers = { "mix.exs", ".git" },
+        filetypes = { "elixir", "eelixir", "heex" },
+    },
     ts_ls = {
         settings = {
             javascript = {
