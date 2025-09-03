@@ -133,6 +133,7 @@ require("lazy").setup({
                 "biome",
                 "ltex-ls-plus",
                 "astro-language-server",
+                "expert",
             },
         },
         config = function(_, opts)
@@ -204,7 +205,6 @@ require("lazy").setup({
             })
 
             vim.lsp.config.cssls = lsp.servers.cssls
-            vim.lsp.config.expert = lsp.servers.expert
             vim.lsp.config.emmet_language_server = lsp.servers.emmet_language_server
             vim.lsp.config.gopls = lsp.servers.gopls
             vim.lsp.config.html = lsp.servers.html
@@ -218,7 +218,6 @@ require("lazy").setup({
             vim.lsp.config.tsgo = lsp.servers.tsgo
 
             vim.lsp.enable "ltex_plus"
-            vim.lsp.enable "expert"
 
             vim.diagnostic.config {
                 virtual_text = {
