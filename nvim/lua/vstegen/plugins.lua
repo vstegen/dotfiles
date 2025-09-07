@@ -133,6 +133,7 @@ require("lazy").setup({
                 "biome",
                 "ltex-ls-plus",
                 "astro-language-server",
+                "lexical",
                 -- "expert",
             },
         },
@@ -188,6 +189,7 @@ require("lazy").setup({
             automatic_enable = {
                 exclude = {
                     -- "rust_analyzer",
+                    "elixirls",
                 },
             },
         },
