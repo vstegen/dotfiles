@@ -133,7 +133,7 @@ require("lazy").setup({
                 "biome",
                 "ltex-ls-plus",
                 "astro-language-server",
-                "expert",
+                -- "expert",
             },
         },
         config = function(_, opts)
@@ -183,6 +183,7 @@ require("lazy").setup({
                 "pyright",
                 "vue_ls",
                 "ts_ls",
+                "elixirls",
             },
             automatic_enable = {
                 exclude = {
@@ -205,6 +206,7 @@ require("lazy").setup({
             })
 
             vim.lsp.config.cssls = lsp.servers.cssls
+            -- vim.lsp.config.elixirls = lsp.servers.elixirls
             vim.lsp.config.emmet_language_server = lsp.servers.emmet_language_server
             vim.lsp.config.gopls = lsp.servers.gopls
             vim.lsp.config.html = lsp.servers.html
