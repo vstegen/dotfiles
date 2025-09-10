@@ -1277,6 +1277,7 @@ require("lazy").setup({
     {
         "RRethy/vim-illuminate",
         event = { "BufReadPost", "BufNewFile" },
+        enabled = false,
         opts = {
             delay = 200,
             large_file_cutoff = 2000,
