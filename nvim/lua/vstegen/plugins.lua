@@ -1299,7 +1299,6 @@ require("lazy").setup({
         init = function()
             -- vim.g.vimtex_view_method = "mupdf"
             vim.g.vimtex_view_general_viewer = "preview"
-            vim.g.vimtex_mappings_prefix = "v"
         end,
     },
     {
