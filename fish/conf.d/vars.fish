@@ -23,6 +23,9 @@ set -gx FZF_DEFAULT_COMMAND "fd --type file --color=always"
 set -gx FZF_DEFAULT_OPTS --ansi
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
 
+# enables parallel dep compilation for elixir
+set -gx MIX_OS_DEPS_COMPILE_PARTITION_COUNT 4
+
 # postgresql
 # set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
 # set -gx LDFLAGS "-L/opt/homebrew/opt/postgresql@15/lib"
