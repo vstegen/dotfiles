@@ -34,11 +34,6 @@ function M.default_capabilities()
 end
 
 M.servers = {
-    expert = {
-        cmd = { vim.fn.expand "$HOME" .. "/.local/bin/expert" },
-        root_markers = { "mix.exs", ".git" },
-        filetypes = { "elixir", "eelixir", "heex", "eex" },
-    },
     ts_ls = {
         settings = {
             javascript = {
