@@ -216,6 +216,7 @@ require("lazy").setup({
             vim.lsp.config.ts_ls = lsp.servers.ts_ls
             vim.lsp.config.yamlls = lsp.servers.yamlls
             vim.lsp.config.tsgo = lsp.servers.tsgo
+            vim.lsp.config.rust_analyzer = lsp.servers.rust_analyzer
 
             vim.lsp.enable "ltex_plus"
 
