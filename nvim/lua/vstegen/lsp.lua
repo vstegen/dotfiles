@@ -204,13 +204,14 @@ M.servers = {
     rust_analyzer = {
         settings = {
             ["rust-analyzer"] = {
-                checkOnSave = {
-                    allFeatures = true,
+                checkOnSave = true,
+                check = {
+                    features = "all",
                     command = "clippy",
                     extraArgs = { "--no-deps" },
                 },
                 cargo = {
-                    allFeatures = true,
+                    features = "all",
                     loadOutDirsFromCheck = true,
                     runBuildScripts = true,
                 },
