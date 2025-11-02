@@ -184,14 +184,10 @@ require("lazy").setup({
                 "pyright",
                 "vue_ls",
                 "ts_ls",
-                "elixirls",
-                "lexical",
             },
             automatic_enable = {
                 exclude = {
                     -- "rust_analyzer",
-                    "elixirls",
-                    "lexical,",
                 },
             },
         },
