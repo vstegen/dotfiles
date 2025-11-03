@@ -1312,6 +1312,7 @@ require("lazy").setup({
                 bigfile = { enabled = true },
                 bufdelete = { enabled = true },
                 dim = { enabled = true },
+                gh = { enabled = true },
                 git = { enabled = true },
                 gitbrowse = { enabled = false },
                 rename = { enabled = true },
@@ -1389,6 +1390,34 @@ require("lazy").setup({
                     Snacks.profiler.scratch()
                 end,
                 desc = "Profiler Scratch Buffer",
+            },
+            {
+                "<leader>gi",
+                function()
+                    Snacks.picker.gh_issue()
+                end,
+                desc = "GitHub Issues (open)",
+            },
+            {
+                "<leader>gI",
+                function()
+                    Snacks.picker.gh_issue { state = "all" }
+                end,
+                desc = "GitHub Issues (all)",
+            },
+            {
+                "<leader>gp",
+                function()
+                    Snacks.picker.gh_pr()
+                end,
+                desc = "GitHub Pull Requests (open)",
+            },
+            {
+                "<leader>gP",
+                function()
+                    Snacks.picker.gh_pr { state = "all" }
+                end,
+                desc = "GitHub Pull Requests (all)",
             },
         },
     },
