@@ -35,7 +35,11 @@ end
 
 M.servers = {
     expert = {
-        cmd = { vim.fn.expand "$HOME" .. "/.local/bin/expert" },
+        -- cmd = { vim.fn.expand "$HOME" .. "/.local/bin/expert" },
+        cmd = {
+            vim.fn.expand "/Users/marvin/projects/repos/expert/apps/expert/burrito_out/expert_darwin_arm64",
+            "--stdio",
+        },
         root_markers = { "mix.exs", ".git" },
         filetypes = { "elixir", "eelixir", "heex", "eex" },
     },
