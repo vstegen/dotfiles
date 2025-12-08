@@ -184,10 +184,12 @@ require("lazy").setup({
                 "pyright",
                 "vue_ls",
                 "ts_ls",
+                "tsgo",
             },
             automatic_enable = {
                 exclude = {
                     -- "rust_analyzer",
+                    "tsgo",
                 },
             },
         },
