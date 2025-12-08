@@ -185,6 +185,7 @@ require("lazy").setup({
                 "vue_ls",
                 "ts_ls",
                 "tsgo",
+                "elixirls",
             },
             automatic_enable = {
                 exclude = {
@@ -223,7 +224,7 @@ require("lazy").setup({
             vim.lsp.config.expert = lsp.servers.expert
 
             vim.lsp.enable "ltex_plus"
-            vim.lsp.enable "expert"
+            -- vim.lsp.enable "expert"
 
             vim.diagnostic.config {
                 virtual_text = {
