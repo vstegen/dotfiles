@@ -191,6 +191,7 @@ require("lazy").setup({
                 exclude = {
                     -- "rust_analyzer",
                     "tsgo",
+                    "expert",
                 },
             },
         },
@@ -221,7 +222,7 @@ require("lazy").setup({
             vim.lsp.config.yamlls = lsp.servers.yamlls
             vim.lsp.config.tsgo = lsp.servers.tsgo
             vim.lsp.config.rust_analyzer = lsp.servers.rust_analyzer
-            vim.lsp.config.expert = lsp.servers.expert
+            -- vim.lsp.config.expert = lsp.servers.expert
 
             vim.lsp.enable "ltex_plus"
             -- vim.lsp.enable "expert"
