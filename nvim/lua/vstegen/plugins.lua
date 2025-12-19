@@ -1563,7 +1563,7 @@ require("lazy").setup({
             cli = {
                 mux = {
                     enabled = true,
-                    backend = "zellij",
+                    backend = "tmux", -- zellij
                 },
                 win = {
                     layout = "left",
