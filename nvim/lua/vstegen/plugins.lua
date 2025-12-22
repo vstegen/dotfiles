@@ -21,6 +21,7 @@ require("lazy").setup({
         build = ":TSUpdate",
         cmd = { "TSUpdateSync" },
         event = { "BufReadPost", "BufNewFile" },
+        branch = "master",
         dependencies = {
             "windwp/nvim-ts-autotag",
         },
