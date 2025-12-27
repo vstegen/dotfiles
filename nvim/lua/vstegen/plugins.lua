@@ -225,7 +225,7 @@ require("lazy").setup({
             vim.lsp.config.rust_analyzer = lsp.servers.rust_analyzer
             -- vim.lsp.config.expert = lsp.servers.expert
 
-            vim.lsp.enable "ltex_plus"
+            -- vim.lsp.enable "ltex_plus"
             -- vim.lsp.enable "expert"
 
             vim.diagnostic.config {
