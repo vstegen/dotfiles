@@ -132,7 +132,6 @@ require("lazy").setup({
                 "vue-language-server",
                 "vale",
                 "biome",
-                "ltex-ls-plus",
                 "astro-language-server",
                 -- "lexical",
                 -- "expert",
@@ -225,7 +224,6 @@ require("lazy").setup({
             vim.lsp.config.rust_analyzer = lsp.servers.rust_analyzer
             -- vim.lsp.config.expert = lsp.servers.expert
 
-            -- vim.lsp.enable "ltex_plus"
             -- vim.lsp.enable "expert"
 
             vim.diagnostic.config {
