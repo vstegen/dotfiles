@@ -1134,21 +1134,32 @@ require("lazy").setup({
         },
     },
     {
-        "sindrets/diffview.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
+        "esmuellert/codediff.nvim",
+        dependencies = { "MunifTanjim/nui.nvim" },
+        cmd = "CodeDiff",
+    },
+    {
+        "kokusenz/deltaview.nvim",
         keys = {
-            { "<leader>gf", "<cmd>DiffviewToggleFiles<cr>", desc = "Toggle files" },
-            { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Open diff view" },
-            { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "Close diff view" },
-            { "<leader>gr", "<cmd>DiffviewRefresh<cr>", desc = "Refresh diff view" },
-        },
-        opts = {
-            view = {
-                merge_tool = {
-                    layout = "diff3_mixed",
-                },
+            {
+                "<leader>gdd",
+                "<cmd>DeltaView<cr>",
+                desc = "Toggle DeltaView",
+            },
+            {
+                "<leader>gdm",
+                "<cmd>DeltaMenu<cr>",
+                desc = "Toggle DeltaMenu",
             },
         },
+        config = function()
+            require("deltaview").setup {
+                keyconfig = {
+                    dv_toggle_keybind = "<leader>gdd",
+                    dm_toggle_keybind = "<leader>gdm",
+                },
+            }
+        end,
     },
     {
         "nvim-lualine/lualine.nvim",
