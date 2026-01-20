@@ -21,7 +21,7 @@ require("lazy").setup({
         build = ":TSUpdate",
         cmd = { "TSUpdateSync" },
         event = { "BufReadPost", "BufNewFile" },
-        branch = "main",
+        branch = "master",
         dependencies = {
             "windwp/nvim-ts-autotag",
         },
@@ -33,140 +33,66 @@ require("lazy").setup({
             },
         },
         config = function()
-            local ts = require "nvim-treesitter"
-
-            local ns = vim.api.nvim_create_namespace "treesitter.async"
-
-            local function start(buf, lang)
-                if not vim.tbl_contains({ "latex", "vim", "org" }, lang) then
-                    local ok = pcall(vim.treesitter.start, buf, lang)
-                    if ok and not vim.tbl_contains({ "go", "python" }, lang) then
-                        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                    end
-                    return ok
-                end
-            end
-
-            vim.api.nvim_create_autocmd("User", {
-                pattern = "LazyDone",
-                once = true,
-                callback = function()
-                    ts.install({
-                        "bash",
-                        "c",
-                        "comment",
-                        "css",
-                        "diff",
-                        "dockerfile",
-                        "elixir",
-                        "eex",
-                        "heex",
-                        "fish",
-                        "gitcommit",
-                        "git_config",
-                        "gitignore",
-                        "git_rebase",
-                        "gitattributes",
-                        "gomod",
-                        "gowork",
-                        "gosum",
-                        "go",
-                        "html",
-                        "javascript",
-                        "json",
-                        "jsonc",
-                        "json5",
-                        "jsdoc",
-                        "latex",
-                        "lua",
-                        "luadoc",
-                        "luap",
-                        "make",
-                        "markdown",
-                        "markdown_inline",
-                        "query",
-                        "python",
-                        "regex",
-                        "rust",
-                        "scss",
-                        "svelte",
-                        "toml",
-                        "typescript",
-                        "tsx",
-                        "vim",
-                        "vimdoc",
-                        "yaml",
-                        "vue",
-                        "xml",
-                    }, {
-                        max_jobs = 8,
-                    })
-                end,
-            })
-
-            -- State tracking for async parser loading
-            local parsers_loaded = {}
-            local parsers_pending = {}
-            local parsers_failed = {}
-
-            -- Decoration provider for async parser loading
-            vim.api.nvim_set_decoration_provider(ns, {
-                on_start = vim.schedule_wrap(function()
-                    if #parsers_pending == 0 then
-                        return false
-                    end
-                    for _, data in ipairs(parsers_pending) do
-                        if vim.api.nvim_buf_is_valid(data.buf) then
-                            if start(data.buf, data.lang) then
-                                parsers_loaded[data.lang] = true
-                            else
-                                parsers_failed[data.lang] = true
-                            end
-                        end
-                    end
-                    parsers_pending = {}
-                end),
-            })
-
-            local group = vim.api.nvim_create_augroup("TreesitterSetup", { clear = true })
-
-            local ignore_filetypes = {
-                "checkhealth",
-                "lazy",
-                "mason",
-                "snacks_dashboard",
-                "snacks_notif",
-                "snacks_win",
+            require("nvim-treesitter.configs").setup {
+                ensure_installed = {
+                    "bash",
+                    "c",
+                    "diff",
+                    "dockerfile",
+                    "elixir",
+                    "eex",
+                    "heex",
+                    "fish",
+                    "gitcommit",
+                    "gitignore",
+                    "git_rebase",
+                    "gitattributes",
+                    "gomod",
+                    "gowork",
+                    "gosum",
+                    "go",
+                    "json",
+                    "jsonc",
+                    "json5",
+                    "jsdoc",
+                    "lua",
+                    "luadoc",
+                    "luap",
+                    "make",
+                    "markdown",
+                    "markdown_inline",
+                    "query",
+                    "python",
+                    "regex",
+                    "rust",
+                    "toml",
+                    "typescript",
+                    "tsx",
+                    "vim",
+                    "vimdoc",
+                    "yaml",
+                    "xml",
+                },
+                auto_install = true,
+                ignore_install = { "phpdoc" },
+                highlight = {
+                    enable = true,
+                    disable = { "latex", "org", "vim" },
+                },
+                indent = {
+                    enable = true,
+                    disable = { "python", "go" },
+                },
+                incremental_selection = {
+                    enable = true,
+                    keymaps = {
+                        init_selection = "<cr>",
+                        node_incremental = "<cr>",
+                        scope_incremental = "<S-cr>",
+                        node_decremental = "<bs>",
+                    },
+                },
             }
-
-            -- Auto-install parsers and enable highlighting on FileType
-            vim.api.nvim_create_autocmd("FileType", {
-                group = group,
-                desc = "Enable treesitter highlighting and indentation (non-blocking)",
-                callback = function(event)
-                    if vim.tbl_contains(ignore_filetypes, event.match) then
-                        return
-                    end
-
-                    local lang = vim.treesitter.language.get_lang(event.match) or event.match
-                    local buf = event.buf
-
-                    if parsers_failed[lang] then
-                        return
-                    end
-
-                    if parsers_loaded[lang] then
-                        -- Parser already loaded, start immediately (fast path)
-                        start(buf, lang)
-                    else
-                        -- Queue for async loading
-                        table.insert(parsers_pending, { buf = buf, lang = lang })
-                    end
-
-                    -- Auto-install missing parsers (async, no-op if already installed)
-                    ts.install { lang }
-                end,
-            })
         end,
     },
     {
