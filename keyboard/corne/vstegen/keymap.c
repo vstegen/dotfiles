@@ -72,8 +72,8 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // BASE
     [0] = LAYOUT_split_3x6_3_ex2(
-      HYPR_T(KC_GRAVE),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_UNDS,        KC_BSPC,      KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  MEH_T(KC_UNDS),
-      LT(4, KC_ESCAPE),    LT(9, KC_A),    KC_S,    KC_D,    KC_F,    KC_G, KC_LPRN,        KC_RPRN,      KC_H,    KC_J,    KC_K,    KC_L, LT(7, KC_SCLN), LT(8, KC_QUOT),
+      HYPR_T(KC_GRAVE),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_LPRN,        KC_BSPC,      KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  MEH_T(KC_UNDS),
+      LT(4, KC_ESCAPE),    KC_A,    KC_S,    KC_D,    LT(9, KC_F),    KC_G, KC_RPRN,        KC_UNDS,      KC_H,    KC_J,    KC_K,    KC_L, LT(7, KC_SCLN), LT(8, KC_QUOT),
       KC_LEFT_SHIFT,    LGUI_T(KC_Z),    LALT_T(KC_X),    LCTL_T(KC_C),    KC_V,    LT(5, KC_B),                         KC_N,    KC_M, RCTL_T(KC_COMMA),  RALT_T(KC_DOT), RGUI_T(KC_SLSH),  KC_LEFT_SHIFT,
                                           XXXXXXX,   LT(3, KC_BSPC),  LT(1, KC_TAB),    LT(6, KC_ENT), KC_SPC, XXXXXXX
   ),
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     // PKR
     [4] = LAYOUT_split_3x6_3_ex2(
-    XXXXXXX,  _STAGE_MNG,    _SPACE_LEFT,    _MISSION_CONTROL,    _SPACE_RIGHT,    _APP_WINDOW,  XXXXXXX,                     XXXXXXX,        MAC_UNDO, MAC_PASTE, MAC_COPY, MAC_CUT, _MAC_REDO, KC_INSERT,
+    XXXXXXX,  _STAGE_MNG,   _APP_WINDOW,  _SPACE_LEFT,  _SPACE_RIGHT,   _MISSION_CONTROL,  XXXXXXX,                     XXXXXXX,        MAC_UNDO, MAC_PASTE, MAC_COPY, MAC_CUT, _MAC_REDO, KC_INSERT,
     XXXXXXX, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_LEFT_SHIFT,  KC_LEFT_CTRL,   MAC_SIRI, XXXXXXX,       XXXXXXX,     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, _TAB_PREV, _TAB_NEXT, _LANG,                                KC_HOME,        KC_PGDN,        KC_PAGE_UP,     KC_END,         OSM(MOD_RALT),  KC_CAPS,
                                            _______,  KC_DELETE, LALT(KC_BSPC),                                    KC_ENT,   KC_SPC,  _______
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // NUM + FN
     [9] = LAYOUT_split_3x6_3_ex2(
       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                                 KC_BSPC,      KC_SLASH,    KC_7,    KC_8,    KC_9,   KC_MINUS,  KC_PERC,
-      XXXXXXX,    XXXXXXX,    KC_LEFT_CTRL,    LALT_T(KC_COLN),    LGUI_T(KC_UNDS),    XXXXXXX, XXXXXXX,       XXXXXXX,      KC_ASTR,    KC_4,    KC_5,    KC_6, KC_PLUS, KC_COLN,
+      XXXXXXX,    LGUI_T(KC_UNDS),    KC_COLN,    LGUI_T(KC_UNDS), XXXXXXX,   XXXXXXX, XXXXXXX,       XXXXXXX,      KC_ASTR,    KC_4,    KC_5,    KC_6, KC_PLUS, KC_COLN,
       XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                                       KC_0,    KC_1, KC_2,  KC_3, KC_EQUAL,  XXXXXXX,
                                      XXXXXXX,  KC_DOT,   KC_COMMA,                                               KC_ENT,   KC_SPC, XXXXXXX
   ),
@@ -311,7 +311,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM + 50; // 170
         case LT(8, KC_QUOT):
             return TAPPING_TERM + 80; // 200
-        case LT(9, KC_A):
+        case LT(9, KC_F):
             return TAPPING_TERM + 80; // 200
         default:
             return TAPPING_TERM;
