@@ -79,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     // SYMBOLS
     [1] = LAYOUT_split_3x6_3_ex2(
-      MAC_UNDO,    XXXXXXX,    KC_AT,    KC_LPRN,        KC_RPRN,        KC_PERC, KC_2,        KC_0,      KC_PIPE,        KC_DLR,         KC_RABK,        KC_ASTR,        KC_SCLN,  XXXXXXX,
-      KC_GRAVE,       KC_LCBR,        KC_RCBR,        KC_LBRC,        KC_RBRC,        KC_AMPR,  XXXXXXX,                           KC_1,           KC_MINUS,       KC_EQUAL,       KC_PLUS,        KC_COLN,        KC_EXLM,        KC_DQUO,
-    XXXXXXX, KC_TILD,        XXXXXXX, XXXXXXX, KC_UNDS,        KC_HASH,                                        KC_QUES,        KC_CIRC,        KC_LABK,        KC_SLASH,       KC_BSLS,        XXXXXXX,
+      MAC_UNDO,    XXXXXXX,    KC_AT,    KC_LPRN,        KC_RPRN,        KC_PERC, KC_2,                        KC_0,      KC_PIPE,        KC_DLR,         KC_RABK,        KC_ASTR,        KC_SCLN,  XXXXXXX,
+      KC_GRAVE,    KC_LCBR,    KC_RCBR,  KC_LBRC,        KC_RBRC,        KC_AMPR,  XXXXXXX,                    KC_1,           KC_MINUS,       KC_EQUAL,       KC_PLUS,        KC_COLN,        KC_EXLM,        KC_DQUO,
+    XXXXXXX, KC_TILD,        XXXXXXX, XXXXXXX, KC_UNDS,        KC_HASH,                                        KC_QUES,        KC_CIRC,        LCTL_T(KC_LABK),        LALT_T(KC_SLASH),       LGUI_T(KC_BSLS),        KC_GRAVE,
                                           _______,   _______,  _______,     MO(2),   _______, _______
   ),
     // MACROS
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     // NUM + FN
     [3] = LAYOUT_split_3x6_3_ex2(
-       XXXXXXX,  _SCR_FILE, _SCR_CLIP, _AREA_FILE, _AREA_CLIP, _SCR_OPT,  KC_BSPC,        KC_LBRC,      KC_SLASH,    KC_7,    KC_8,    KC_9,   KC_MINUS,  KC_PERC,
+       XXXXXXX,  _SCR_PREV_AREA, _SCR_FULL, _SCR_WIN, _SCR_AREA, _SCR_OPT,  KC_BSPC,        KC_LBRC,      KC_SLASH,    KC_7,    KC_8,    KC_9,   KC_MINUS,  KC_PERC,
       KC_F11,    LGUI_T(KC_F1),    LALT_T(KC_F2),    LSFT_T(KC_F3),    LCTL_T(KC_F4),    KC_F5, XXXXXXX,       KC_RBRC,      KC_UNDS,    KC_4,    KC_5,    KC_6, KC_PLUS, KC_ASTR,
       KC_F12,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,       KC_0,    KC_1, KC_2,  KC_3, KC_EQUAL,  XXXXXXX,
                                           KC_DOT,   KC_COMMA,  KC_BSPC,     KC_BSPC,   KC_COMMA, KC_DOT
@@ -126,21 +126,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_BSPC,         XXXXXXX,      XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,   XXXXXXX,  XXXXXXX,
       XXXXXXX,    KC_0,    KC_9,    KC_8,    KC_7,    KC_6,   XXXXXXX,         XXXXXXX,      LGUI_T(KC_UNDS),    LALT_T(KC_COLN),    LSFT_T(KC_PERC),    KC_LEFT_CTRL,   XXXXXXX,  XXXXXXX,
       XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX,    XXXXXXX,    XXXXXXX,                                XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,   XXXXXXX,  XXXXXXX,
-                                          XXXXXXX,   KC_DOT,  KC_COMMA,                     KC_ENT,   KC_SPC, XXXXXXX
+                                          XXXXXXX,   KC_COMMA,  KC_DOT,                     KC_ENT,   KC_SPC, XXXXXXX
     ),
     // NUM
     [8] = LAYOUT_split_3x6_3_ex2(
       XXXXXXX,    XXXXXXX,    KC_9,    KC_8,    KC_7,    XXXXXXX,   XXXXXXX,         XXXXXXX,      XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,   XXXXXXX,  XXXXXXX,
       XXXXXXX,    KC_PERC,    KC_6,    KC_5,    KC_4,    KC_COLN,   XXXXXXX,         XXXXXXX,      XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,   XXXXXXX,  XXXXXXX,
       XXXXXXX,    XXXXXXX,    KC_3,    KC_2,    KC_1,    KC_0,                                XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,   XXXXXXX,  XXXXXXX,
-                                          XXXXXXX,   KC_DOT,  KC_COMMA,                     KC_ENT,   KC_SPC, XXXXXXX
+                                          XXXXXXX,   KC_COMMA,  KC_DOT,                     KC_ENT,   KC_SPC, XXXXXXX
     ),
     // NUM + FN
     [9] = LAYOUT_split_3x6_3_ex2(
       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                                 KC_BSPC,      KC_SLASH,    KC_7,    KC_8,    KC_9,   KC_MINUS,  KC_PERC,
       XXXXXXX,    LGUI_T(KC_UNDS),    KC_COLN,    LGUI_T(KC_UNDS), XXXXXXX,   XXXXXXX, XXXXXXX,       XXXXXXX,      KC_ASTR,    KC_4,    KC_5,    KC_6, KC_PLUS, KC_COLN,
       XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                                       KC_0,    KC_1, KC_2,  KC_3, KC_EQUAL,  XXXXXXX,
-                                     XXXXXXX,  KC_DOT,   KC_COMMA,                                               KC_ENT,   KC_SPC, XXXXXXX
+                                     XXXXXXX,   KC_COMMA, KC_DOT,                                              KC_ENT,   KC_SPC, XXXXXXX
   ),
 };
 
