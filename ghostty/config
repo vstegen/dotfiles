@@ -11,3 +11,5 @@ window-new-tab-position = end
 keybind = shift+enter=text:\n
 auto-update-channel = "tip"
 auto-update = check
+background-blur = true
+background-opacity = 0.9
