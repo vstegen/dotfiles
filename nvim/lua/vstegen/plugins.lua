@@ -837,6 +837,11 @@ require("lazy").setup({
         lazy = false,
         name = "catppuccin",
         opts = {
+            transparent_background = true,
+            float = {
+                transparent = false,
+                solid = false,
+            },
             styles = {
                 comments = {},
                 conditionals = {},
