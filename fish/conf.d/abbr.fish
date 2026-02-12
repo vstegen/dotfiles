@@ -89,3 +89,7 @@ abbr -ag gr 'git remote'
 abbr -ag grb 'git rebase'
 abbr -ag gs 'git status'
 abbr -ag gst 'git stash'
+
+abbr -ag opus 'claude --model claude-opus-4-5'
+
+abbr -ag c 'sudo -u llm codex'
