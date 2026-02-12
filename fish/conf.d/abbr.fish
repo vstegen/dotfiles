@@ -22,9 +22,6 @@ abbr -ag tw "ttv-cli w"
 abbr -ag tl "ttv-cli l"
 abbr -ag tv "ttv-cli v"
 
-# cargo
-abbr -ag c cargo
-
 # zellij
 abbr -ag zj zellij
 
