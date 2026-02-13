@@ -30,3 +30,6 @@ set -gx MIX_OS_DEPS_COMPILE_PARTITION_COUNT 4
 # set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
 # set -gx LDFLAGS "-L/opt/homebrew/opt/postgresql@15/lib"
 # set -gx CPPFLAGS "-I/opt/homebrew/opt/postgresql@15/include"  set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/postgresql@15/lib/pkgconfig"
+
+# elixir projects local
+set -gx SESSION_ENCRYPTION_SALT test_encryption_salt
