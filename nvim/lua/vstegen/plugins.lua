@@ -286,7 +286,7 @@ require("lazy").setup({
     },
     {
         "mrcjkb/rustaceanvim",
-        version = "^6", -- Recommended
+        version = "^7",
         ft = { "rust" },
         lazy = false,
         opts = {
