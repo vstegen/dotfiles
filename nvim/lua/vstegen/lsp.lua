@@ -221,9 +221,8 @@ M.servers = {
                 },
                 cargo = {
                     features = "all",
-                    loadOutDirsFromCheck = true,
-                    runBuildScripts = true,
                 },
+                buildScripts = { enable = true },
                 procMacro = {
                     enable = true,
                     ignored = {
