@@ -1185,27 +1185,30 @@ require("lazy").setup({
         },
     },
     {
-        "kokusenz/deltaview.nvim",
+        "axkirillov/unified.nvim",
         keys = {
             {
-                "<leader>gdd",
-                "<cmd>DeltaView<cr>",
-                desc = "Toggle DeltaView",
+                "]h",
+                function()
+                    require("unified.navigation").next_hunk()
+                end,
+                desc = "Next hunk",
             },
             {
-                "<leader>gdm",
-                "<cmd>DeltaMenu<cr>",
-                desc = "Toggle DeltaMenu",
+                "[h",
+                function()
+                    require("unified.navigation").previous_hunk()
+                end,
+                desc = "Prev hunk",
+            },
+            {
+                "<leader>gdd",
+                function()
+                    require("unified").toggle()
+                end,
+                desc = "Toggle unified",
             },
         },
-        config = function()
-            require("deltaview").setup {
-                keyconfig = {
-                    dv_toggle_keybind = "<leader>gdd",
-                    dm_toggle_keybind = "<leader>gdm",
-                },
-            }
-        end,
     },
     {
         "nvim-lualine/lualine.nvim",
