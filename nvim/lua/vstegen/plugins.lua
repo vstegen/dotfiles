@@ -19,80 +19,134 @@ require("lazy").setup({
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        cmd = { "TSUpdateSync" },
-        event = { "BufReadPost", "BufNewFile" },
-        branch = "master",
+        lazy = false,
+        branch = "main",
         dependencies = {
             "windwp/nvim-ts-autotag",
         },
         keys = {
             {
                 "<leader>uT",
-                "<CMD>write <bar> edit <bar> TSBufEnable highlight<CR>",
+                function()
+                    vim.cmd.write()
+                    vim.cmd.edit()
+                    local bufnr = vim.api.nvim_get_current_buf()
+                    pcall(vim.treesitter.stop, bufnr)
+                    pcall(vim.treesitter.start, bufnr)
+                end,
                 desc = "Restart Treesitter highlight",
             },
         },
         config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = {
-                    "bash",
-                    "c",
-                    "diff",
-                    "dockerfile",
-                    "elixir",
-                    "eex",
-                    "heex",
-                    "fish",
-                    "gitcommit",
-                    "gitignore",
-                    "git_rebase",
-                    "gitattributes",
-                    "gomod",
-                    "gowork",
-                    "gosum",
-                    "go",
-                    "json",
-                    "jsonc",
-                    "json5",
-                    "jsdoc",
-                    "lua",
-                    "luadoc",
-                    "luap",
-                    "make",
-                    "markdown",
-                    "markdown_inline",
-                    "query",
-                    "python",
-                    "regex",
-                    "rust",
-                    "toml",
-                    "typescript",
-                    "tsx",
-                    "vim",
-                    "vimdoc",
-                    "yaml",
-                    "xml",
-                },
-                auto_install = true,
-                ignore_install = { "phpdoc" },
-                highlight = {
-                    enable = true,
-                    disable = { "latex", "org", "vim" },
-                },
-                indent = {
-                    enable = true,
-                    disable = { "python", "go" },
-                },
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "<cr>",
-                        node_incremental = "<cr>",
-                        scope_incremental = "<S-cr>",
-                        node_decremental = "<bs>",
-                    },
-                },
+            local treesitter = require "nvim-treesitter"
+
+            local ensure_installed = {
+                "bash",
+                "c",
+                "diff",
+                "dockerfile",
+                "elixir",
+                "eex",
+                "heex",
+                "fish",
+                "gitcommit",
+                "gitignore",
+                "git_rebase",
+                "gitattributes",
+                "gomod",
+                "gowork",
+                "gosum",
+                "go",
+                "json",
+                "jsonc",
+                "json5",
+                "jsdoc",
+                "lua",
+                "luadoc",
+                "luap",
+                "make",
+                "markdown",
+                "markdown_inline",
+                "query",
+                "python",
+                "regex",
+                "rust",
+                "toml",
+                "typescript",
+                "tsx",
+                "vim",
+                "vimdoc",
+                "yaml",
+                "xml",
             }
+            local ignore_install = { phpdoc = true }
+            local highlight_disable = { latex = true, org = true, vim = true }
+            local indent_disable = { python = true, go = true }
+
+            local has_main_api = type(treesitter.get_available) == "function"
+                and type(treesitter.install) == "function"
+                and type(treesitter.setup) == "function"
+            if not has_main_api then
+                require("nvim-treesitter.configs").setup {
+                    ensure_installed = ensure_installed,
+                    auto_install = true,
+                    ignore_install = { "phpdoc" },
+                    highlight = {
+                        enable = true,
+                        disable = { "latex", "org", "vim" },
+                    },
+                    indent = {
+                        enable = true,
+                        disable = { "python", "go" },
+                    },
+                }
+                return
+            end
+
+            treesitter.setup {}
+
+            local available = {}
+            for _, lang in ipairs(treesitter.get_available()) do
+                available[lang] = true
+            end
+
+            local initial_languages = {}
+            for _, lang in ipairs(ensure_installed) do
+                if available[lang] and not ignore_install[lang] then
+                    table.insert(initial_languages, lang)
+                end
+            end
+            if #initial_languages > 0 then
+                treesitter.install(initial_languages)
+            end
+
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("vstegen_treesitter", { clear = true }),
+                callback = function(args)
+                    local ft = vim.bo[args.buf].filetype
+                    if ft == "" then
+                        return
+                    end
+
+                    local lang = vim.treesitter.language.get_lang(ft) or ft
+                    if ignore_install[lang] then
+                        return
+                    end
+
+                    local has_parser = pcall(vim.treesitter.language.add, lang)
+                    if not has_parser and available[lang] then
+                        treesitter.install(lang)
+                    end
+
+                    if not highlight_disable[ft] and not highlight_disable[lang] then
+                        pcall(vim.treesitter.start, args.buf, lang)
+                    end
+
+                    if not indent_disable[ft] and not indent_disable[lang] then
+                        vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
+                end,
+            })
         end,
     },
     {
