@@ -13,3 +13,4 @@ auto-update-channel = "tip"
 auto-update = check
 background-blur = true
 background-opacity = 0.9
+unfocused-split-opacity = 0.85
