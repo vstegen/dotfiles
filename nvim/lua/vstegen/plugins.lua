@@ -1571,17 +1571,6 @@ require("lazy").setup({
         },
     },
     {
-        "m4xshen/hardtime.nvim",
-        lazy = false,
-        enabled = false,
-        dependencies = { "MunifTanjim/nui.nvim" },
-        opts = {},
-        keys = {
-            { "<leader>uHt", "<cmd>Hardtime toggle<cr>", desc = "Toggle hardtime" },
-            { "<leader>uHr", "<cmd>Hardtime report<cr>", desc = "Report hardtime" },
-        },
-    },
-    {
         "zeioth/garbage-day.nvim",
         dependencies = "neovim/nvim-lspconfig",
         event = "VeryLazy",
@@ -1612,74 +1601,6 @@ require("lazy").setup({
             --     set undofile
             -- endif
         end,
-    },
-    {
-        "folke/sidekick.nvim",
-        opts = {
-            cli = {
-                mux = {
-                    enabled = true,
-                    backend = "tmux", -- zellij
-                },
-                win = {
-                    layout = "left",
-                },
-            },
-        },
-        keys = {
-            {
-                "<leader>css",
-                function()
-                    require("sidekick.cli").toggle()
-                end,
-                desc = "Sidekick Toggle CLI",
-            },
-            {
-                "<leader>csS",
-                function()
-                    require("sidekick.cli").select()
-                end,
-                desc = "Select Sidekick CLI",
-            },
-            {
-                "<leader>cst",
-                function()
-                    require("sidekick.cli").send { msg = "{this}" }
-                end,
-                mode = { "x", "n" },
-                desc = "Send This",
-            },
-            {
-                "<leader>csf",
-                function()
-                    require("sidekick.cli").send { msg = "{file}" }
-                end,
-                desc = "Send File",
-            },
-            {
-                "<leader>csv",
-                function()
-                    require("sidekick.cli").send { msg = "{selection}" }
-                end,
-                mode = { "x" },
-                desc = "Send Visual Selection",
-            },
-            {
-                "<leader>csp",
-                function()
-                    require("sidekick.cli").prompt()
-                end,
-                mode = { "n", "x" },
-                desc = "Sidekick Select Prompt",
-            },
-            {
-                "<leader>csc",
-                function()
-                    require("sidekick.cli").toggle { name = "claude", focus = true }
-                end,
-                desc = "Sidekick Toggle Claude",
-            },
-        },
     },
 }, {
     install = {
