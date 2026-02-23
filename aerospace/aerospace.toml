@@ -24,42 +24,33 @@ outer.bottom = 0
 outer.top = 0
 outer.right = 0
 
-# Floating exceptions
+# Workspace model:
+# 1: terminal, 2: browser, 3: dev scratch, 4: chat, 5: media, 6: misc, 7: overflow
+#
+# App IDs can vary by install. Verify with:
+#   aerospace list-apps
+#   aerospace list-windows --all
+
+# FaceTime should never tile.
 [[on-window-detected]]
 if.app-id = 'com.apple.FaceTime'
 run = 'layout floating'
 
-# Minimal dev-centric workspace routing
+# Core app routing
 [[on-window-detected]]
 if.app-id = 'com.mitchellh.ghostty'
 run = 'move-node-to-workspace 1'
 
 [[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
+if.app-id = 'app.zen-browser.zen'
 run = 'move-node-to-workspace 2'
 
 [[on-window-detected]]
-if.app-id = 'com.google.Chrome'
-run = 'move-node-to-workspace 2'
+if.app-id = 'org.whispersystems.signal-desktop'
+run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
-if.app-id = 'com.apple.Safari'
-run = 'move-node-to-workspace 2'
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.VSCode'
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
-if.app-id = 'com.todesktop.230313mzl4w4u92'
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
-if.app-id = 'dev.zed.Zed'
-run = 'move-node-to-workspace 3'
-
-[[on-window-detected]]
-if.app-id = 'com.tinyspeck.slackmacgap'
+if.app-id = 'ru.keepcoder.Telegram'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
@@ -67,8 +58,24 @@ if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace 4'
 
 [[on-window-detected]]
+if.app-id = 'com.apple.FaceTime'
+run = 'move-node-to-workspace 4'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Safari'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
 if.app-id = 'com.spotify.client'
-run = 'move-node-to-workspace 9'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.Music'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.podcasts'
+run = 'move-node-to-workspace 5'
 
 [mode.main.binding]
 # Hyper (cmd+alt+ctrl+shift) primary navigation
@@ -78,15 +85,15 @@ cmd-alt-ctrl-shift-k = 'focus up'
 cmd-alt-ctrl-shift-l = 'focus right'
 
 # Hyper move cluster
-cmd-alt-ctrl-shift-u = 'move left'
-cmd-alt-ctrl-shift-i = 'move down'
-cmd-alt-ctrl-shift-o = 'move up'
-cmd-alt-ctrl-shift-p = 'move right'
+cmd-alt-ctrl-shift-y = 'move left'
+cmd-alt-ctrl-shift-u = 'move down'
+cmd-alt-ctrl-shift-i = 'move up'
+cmd-alt-ctrl-shift-o = 'move right'
 
 # Layout / state
 cmd-alt-ctrl-shift-slash = 'layout tiles horizontal vertical'
 cmd-alt-ctrl-shift-comma = 'layout accordion horizontal vertical'
-cmd-alt-ctrl-shift-f = 'fullscreen'
+cmd-alt-ctrl-shift-enter = 'fullscreen'
 cmd-alt-ctrl-shift-backspace = 'flatten-workspace-tree'
 
 # Resize
@@ -95,41 +102,39 @@ cmd-alt-ctrl-shift-m = 'resize height +50'
 cmd-alt-ctrl-shift-semicolon = 'resize width -50'
 cmd-alt-ctrl-shift-period = 'resize width +50'
 
-# Workspaces
-cmd-alt-ctrl-shift-1 = 'workspace 1'
-cmd-alt-ctrl-shift-2 = 'workspace 2'
-cmd-alt-ctrl-shift-3 = 'workspace 3'
-cmd-alt-ctrl-shift-4 = 'workspace 4'
-cmd-alt-ctrl-shift-5 = 'workspace 5'
-cmd-alt-ctrl-shift-6 = 'workspace 6'
-cmd-alt-ctrl-shift-7 = 'workspace 7'
-cmd-alt-ctrl-shift-8 = 'workspace 8'
-cmd-alt-ctrl-shift-9 = 'workspace 9'
+# Workspaces: switch with Hyper, move node with MEH fallback.
+cmd-alt-ctrl-shift-a = 'workspace 1'
+cmd-alt-ctrl-shift-s = 'workspace 2'
+cmd-alt-ctrl-shift-d = 'workspace 3'
+cmd-alt-ctrl-shift-f = 'workspace 4'
+cmd-alt-ctrl-shift-g = 'workspace 5'
+cmd-alt-ctrl-shift-e = 'workspace 6'
+cmd-alt-ctrl-shift-r = 'workspace 7'
 
-# Move focused window to workspace via F-layer
-cmd-alt-ctrl-shift-f1 = 'move-node-to-workspace 1'
-cmd-alt-ctrl-shift-f2 = 'move-node-to-workspace 2'
-cmd-alt-ctrl-shift-f3 = 'move-node-to-workspace 3'
-cmd-alt-ctrl-shift-f4 = 'move-node-to-workspace 4'
-cmd-alt-ctrl-shift-f5 = 'move-node-to-workspace 5'
-cmd-alt-ctrl-shift-f6 = 'move-node-to-workspace 6'
-cmd-alt-ctrl-shift-f7 = 'move-node-to-workspace 7'
-cmd-alt-ctrl-shift-f8 = 'move-node-to-workspace 8'
-cmd-alt-ctrl-shift-f9 = 'move-node-to-workspace 9'
+# Monitor navigation and moves (dual monitor + graceful laptop-only fallback).
+cmd-alt-ctrl-shift-left = 'focus-monitor --wrap-around left'
+cmd-alt-ctrl-shift-right = 'focus-monitor --wrap-around right'
+ctrl-alt-shift-left = 'move-node-to-monitor --wrap-around --focus-follows-window left'
+ctrl-alt-shift-right = 'move-node-to-monitor --wrap-around --focus-follows-window right'
+
+# MEH (ctrl+alt+shift) fallback focus
+ctrl-alt-shift-h = 'focus left'
+ctrl-alt-shift-j = 'focus down'
+ctrl-alt-shift-k = 'focus up'
+ctrl-alt-shift-l = 'focus right'
+
+# MEH workspace send
+ctrl-alt-shift-a = 'move-node-to-workspace 1'
+ctrl-alt-shift-s = 'move-node-to-workspace 2'
+ctrl-alt-shift-d = 'move-node-to-workspace 3'
+ctrl-alt-shift-f = 'move-node-to-workspace 4'
+ctrl-alt-shift-g = 'move-node-to-workspace 5'
+ctrl-alt-shift-e = 'move-node-to-workspace 6'
+ctrl-alt-shift-r = 'move-node-to-workspace 7'
 
 cmd-alt-ctrl-shift-tab = 'workspace-back-and-forth'
 cmd-alt-ctrl-shift-backtick = 'workspace-back-and-forth'
 cmd-alt-ctrl-shift-space = 'mode service'
-
-# Essential compatibility with Corne window layer (ctrl+alt)
-ctrl-alt-left = 'focus left'
-ctrl-alt-right = 'focus right'
-ctrl-alt-u = 'move left'
-ctrl-alt-i = 'move up'
-ctrl-alt-j = 'move down'
-ctrl-alt-k = 'move right'
-ctrl-alt-enter = 'fullscreen'
-ctrl-alt-backspace = 'layout floating tiling'
 
 [mode.service.binding]
 esc = 'mode main'
