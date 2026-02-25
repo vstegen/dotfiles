@@ -287,7 +287,7 @@ require("lazy").setup({
                     severity = { min = vim.diagnostic.severity.INFO, max = vim.diagnostic.severity.WARN },
                 },
                 virtual_lines = false,
-                update_in_insert = true,
+                update_in_insert = false,
                 underline = false,
                 severity_sort = true,
                 float = {
