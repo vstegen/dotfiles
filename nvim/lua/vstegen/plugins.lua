@@ -188,7 +188,7 @@ require("lazy").setup({
                 "biome",
                 "astro-language-server",
                 -- "lexical",
-                -- "expert",
+                "expert",
             },
         },
         config = function(_, opts)
@@ -245,7 +245,8 @@ require("lazy").setup({
                 exclude = {
                     -- "rust_analyzer",
                     "tsgo",
-                    "expert",
+                    -- "expert",
+                    "elixirls",
                 },
             },
         },
