@@ -257,6 +257,8 @@ M.servers = {
         --         "postcss.config.ts",
         --         "config/tailwind.config.js",
         --         "assets/tailwind.config.js",
+        --         "assets/css/app.css",
+        --         "mix.exs",
         --     }
         --     root_file = util.insert_package_json(root_file, "tailwindcss", fname)
         --     return util.root_pattern(unpack(root_file))(fname)
@@ -268,7 +270,6 @@ M.servers = {
                 heex = "html-eex",
             },
         },
-        -- filetypes_include = { "heex" },
         settings = {
             tailwindCSS = {
                 validate = true,
@@ -297,6 +298,8 @@ M.servers = {
                         { "tw\\(.*?\\)`([^`]*)" },
                         { 'class[:]\\s*"([^"]*)"' },
                         { '~H"([^"]*)"' },
+                        { 'class: "([^"]*)' },
+                        { "class: '([^']*)" },
                     },
                 },
             },
