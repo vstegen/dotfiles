@@ -1193,6 +1193,20 @@ require("lazy").setup({
         },
     },
     {
+        "NicholasZolton/neojj",
+        lazy = true,
+        dependencies = {
+            "nvim-lua/plenary.nvim", -- required
+            "esmuellert/codediff.nvim", -- optional
+            "ibhagwan/fzf-lua", -- optional
+        },
+        cmd = "Neojj",
+        keys = {
+            { "<leader>gj", "<cmd>Neojj<cr>", desc = "Neojj" },
+            { "<leader>gJ", "<cmd>Neojj bookmarks<cr>", desc = "Neojj bookmarks" },
+        },
+    },
+    {
         "esmuellert/codediff.nvim",
         dependencies = { "MunifTanjim/nui.nvim" },
         cmd = "CodeDiff",

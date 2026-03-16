@@ -21,6 +21,7 @@
   "mini.nvim": { "branch": "main", "commit": "0a6fe4ec57377526e9056fffb4204dbdfe860ebc" },
   "mini.snippets": { "branch": "main", "commit": "0d0b435e3f9563965f73703a6a6d17acb432a93c" },
   "neogit": { "branch": "master", "commit": "d5af26e085a21b468b98c0e1257ac52706c1066f" },
+  "neojj": { "branch": "main", "commit": "fdb6b50a4c5d52849c0b1eb0d493ea6feb634f48" },
   "no-neck-pain.nvim": { "branch": "main", "commit": "434fed70b1ee553f8f27e6da7b3899f71b3c6f99" },
   "nui.nvim": { "branch": "main", "commit": "de740991c12411b663994b2860f1a4fd0937c130" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "171ee669fbc5e547531e28a5bf0e76fce0799355" },
