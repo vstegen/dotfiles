@@ -100,10 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     // PKR
     [4] = LAYOUT_split_3x6_3_ex2(
-    XXXXXXX,  _STAGE_MNG,   _APP_WINDOW,  _SPACE_LEFT,  _SPACE_RIGHT,   _MISSION_CONTROL,  XXXXXXX,                     XXXXXXX,        MAC_UNDO, MAC_PASTE, MAC_COPY, MAC_CUT, _MAC_REDO, KC_INSERT,
+    XXXXXXX,  _STAGE_MNG,   _APP_WINDOW,  _SPACE_LEFT,  _SPACE_RIGHT,   _MISSION_CONTROL,  XXXXXXX,                     KC_RIGHT_ALT,        MAC_UNDO, MAC_PASTE, MAC_COPY, MAC_CUT, _MAC_REDO, KC_INSERT,
     XXXXXXX, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_LEFT_SHIFT,  KC_LEFT_CTRL,   MAC_SIRI, XXXXXXX,       XXXXXXX,     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, _TAB_PREV, _TAB_NEXT, _LANG,                                KC_HOME,        KC_PGDN,        KC_PAGE_UP,     KC_END,         OSM(MOD_RALT),  KC_CAPS,
-                                           _______,  KC_DELETE, LALT(KC_BSPC),                                    KC_ENT,   KC_SPC,  _______
+                                           KC_RIGHT_ALT,  KC_DELETE, LALT(KC_BSPC),                                    KC_ENT,   KC_SPC,  KC_RIGHT_ALT
   ),
     // WIN
     [5] = LAYOUT_split_3x6_3_ex2(
