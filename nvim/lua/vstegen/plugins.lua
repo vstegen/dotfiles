@@ -935,6 +935,14 @@ require("lazy").setup({
             vim.cmd.colorscheme "catppuccin"
         end,
     },
+    {
+        "zenbones-theme/zenbones.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            vim.g.zenbones_compat = 1
+        end,
+    },
     -- misc
     {
         "stevearc/oil.nvim",
