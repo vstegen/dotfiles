@@ -13,6 +13,13 @@ local function set_keymaps(keymaps, buf)
     end
 end
 
+vim.api.nvim_create_autocmd("LspProgress", {
+    group = vim.api.nvim_create_augroup("vstegen_lsp_progress", {}),
+    callback = function()
+        vim.cmd.redrawstatus()
+    end,
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("vstegen_lsp_attach", {}),
     callback = function(args)
@@ -77,7 +84,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 end,
                 { desc = "Show line diagnostics" },
             },
-            { "<leader>cr", "<cmd>LspRestart<cr>", { desc = "Restart LSP" } },
+            {
+                "<leader>cr",
+                function()
+                    local clients = vim.lsp.get_clients { bufnr = args.buf }
+                    for _, client in ipairs(clients) do
+                        vim.lsp.stop_client(client.id)
+                    end
+                    vim.defer_fn(function()
+                        vim.cmd.edit()
+                    end, 500)
+                end,
+                { desc = "Restart LSP" },
+            },
+            { "<leader>li", "<cmd>checkhealth vim.lsp<cr>", { desc = "LSP info" } },
+            { "<leader>ll", "<cmd>edit " .. vim.lsp.log.get_filename() .. "<cr>", { desc = "LSP log" } },
             {
                 "[e",
                 function()

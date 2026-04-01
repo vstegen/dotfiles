@@ -257,7 +257,6 @@ require("lazy").setup({
         dependencies = {
             "mason.nvim",
             "williamboman/mason-lspconfig.nvim",
-            { "j-hui/fidget.nvim", opts = {} },
         },
         config = function()
             vim.lsp.config("*", {
@@ -496,14 +495,6 @@ require("lazy").setup({
         },
     },
     {
-        "MaximilianLloyd/tw-values.nvim",
-        event = { "BufReadPost", "BufNewFile" },
-        keys = {
-            { "<leader>cv", "<cmd>TWValues<cr>", desc = "Show tailwind CSS values" },
-        },
-        opts = {},
-    },
-    {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "md" },
         dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
@@ -511,14 +502,6 @@ require("lazy").setup({
             require("render-markdown").setup {
                 completions = { blink = { enabled = true } },
             }
-        end,
-    },
-    {
-        "icholy/lsplinks.nvim",
-        config = function()
-            local lsplinks = require "lsplinks"
-            lsplinks.setup()
-            vim.keymap.set("n", "gx", lsplinks.gx)
         end,
     },
     {
@@ -893,26 +876,16 @@ require("lazy").setup({
         name = "catppuccin",
         opts = {
             transparent_background = true,
-            float = {
-                transparent = false,
-                solid = false,
-            },
             styles = {
-                comments = {},
+                comments = { "italic" },
                 conditionals = {},
+                keywords = {},
+                functions = {},
+                variables = {},
             },
             integrations = {
-                harpoon = true,
-                dap = {
-                    enabled = true,
-                    enable_ui = true,
-                },
-                treesitter_context = true,
                 blink_cmp = true,
-                cmp = true,
-                flash = true,
                 lsp_trouble = true,
-                mason = true,
                 mini = true,
                 native_lsp = {
                     enabled = true,
@@ -923,12 +896,39 @@ require("lazy").setup({
                         information = { "undercurl" },
                     },
                 },
-                neotest = true,
-                semantic_tokens = true,
-                telescope = true,
+                semantic_tokens = false,
                 treesitter = true,
                 which_key = true,
             },
+            custom_highlights = function(colors)
+                return {
+                    -- Merge similar syntax categories to reduce color variety
+                    ["@type"] = { fg = colors.yellow },
+                    ["@type.builtin"] = { fg = colors.yellow },
+                    ["@type.definition"] = { fg = colors.yellow },
+                    ["@constructor"] = { fg = colors.yellow },
+                    ["@property"] = { fg = colors.text },
+                    ["@field"] = { fg = colors.text },
+                    ["@variable"] = { fg = colors.text },
+                    ["@variable.builtin"] = { fg = colors.text, bold = true },
+                    ["@parameter"] = { fg = colors.text },
+                    ["@constant"] = { fg = colors.peach },
+                    ["@constant.builtin"] = { fg = colors.peach },
+                    ["@number"] = { fg = colors.peach },
+                    ["@boolean"] = { fg = colors.peach },
+                    ["@string"] = { fg = colors.green },
+                    ["@function"] = { fg = colors.blue },
+                    ["@function.builtin"] = { fg = colors.blue },
+                    ["@method"] = { fg = colors.blue },
+                    ["@keyword"] = { fg = colors.mauve, bold = true },
+                    ["@keyword.function"] = { fg = colors.mauve, bold = true },
+                    ["@keyword.return"] = { fg = colors.mauve, bold = true },
+                    ["@operator"] = { fg = colors.subtext0 },
+                    ["@punctuation"] = { fg = colors.subtext0 },
+                    ["@punctuation.bracket"] = { fg = colors.subtext0 },
+                    ["@punctuation.delimiter"] = { fg = colors.subtext0 },
+                }
+            end,
         },
         config = function(_, opts)
             require("catppuccin").setup(opts)
@@ -1181,26 +1181,6 @@ require("lazy").setup({
         },
     },
     {
-        "abecodes/tabout.nvim",
-        event = { "InsertEnter" },
-        config = true,
-    },
-    {
-        "NeogitOrg/neogit",
-        dependencies = {
-            "nvim-lua/plenary.nvim", -- required
-            "ibhagwan/fzf-lua",
-        },
-        keys = {
-            { "<leader>gn", "<cmd>Neogit<cr>", desc = "Neogit" },
-        },
-        config = {
-            integrations = {
-                diffview = true,
-            },
-        },
-    },
-    {
         "NicholasZolton/neojj",
         lazy = true,
         dependencies = {
@@ -1262,41 +1242,10 @@ require("lazy").setup({
         },
     },
     {
-        "axkirillov/unified.nvim",
-        keys = {
-            {
-                "]h",
-                function()
-                    require("unified.navigation").next_hunk()
-                end,
-                desc = "Next hunk",
-            },
-            {
-                "[h",
-                function()
-                    require("unified.navigation").previous_hunk()
-                end,
-                desc = "Prev hunk",
-            },
-            {
-                "<leader>gdd",
-                function()
-                    require("unified").toggle()
-                end,
-                desc = "Toggle unified",
-            },
-        },
-    },
-    {
         "nvim-lualine/lualine.nvim",
         dependencies = { "echasnovski/mini.icons" },
         opts = function()
-            local colors = utils.colors()
             local icons = utils.icons
-
-            local hide_in_width = function()
-                return vim.fn.winwidth(0) > 80
-            end
 
             return {
                 options = {
@@ -1304,84 +1253,40 @@ require("lazy").setup({
                     theme = "auto",
                     component_separators = { left = "", right = "" },
                     section_separators = { left = "", right = "" },
-                    disabled_filetypes = {
-                        statusline = {
-                            "alpha",
-                            "dashboard",
-                            "NvimTree",
-                            "Outline",
-                        },
-                        winbar = {},
-                    },
-                    ignore_focus = {},
-                    always_divide_middle = false,
                     globalstatus = true,
                 },
                 sections = {
-                    lualine_a = { "mode" },
-                    lualine_b = {
+                    lualine_a = {
                         {
-                            "branch",
-                            cond = hide_in_width,
+                            "mode",
+                            fmt = function(str)
+                                return str:sub(1, 1)
+                            end,
                         },
                     },
+                    lualine_b = {},
                     lualine_c = {
+                        {
+                            "filename",
+                            path = 1,
+                            symbols = { modified = "  ", readonly = "", unnamed = "" },
+                        },
                         {
                             "diagnostics",
                             sources = { "nvim_diagnostic" },
-                            symbols = {
-                                error = icons.diagnostics.Error,
-                                warn = icons.diagnostics.Warn,
-                                info = icons.diagnostics.Info,
-                                hint = icons.diagnostics.Hint,
-                            },
+                            symbols = { error = "", warn = "", info = "", hint = "" },
                             update_in_insert = false,
                             always_visible = true,
-                            cond = hide_in_width,
-                        },
-                        {
-                            "filename",
-                            path = 1, -- relative path (0 for file name only)
-                            symbols = { modified = "  ", readonly = "", unnamed = "" },
                         },
                     },
                     lualine_x = {
                         {
-                            -- word count
                             function()
-                                return tostring(vim.fn.wordcount().words) .. " words"
+                                return vim.lsp.status()
                             end,
-                            cond = function()
-                                local ft = vim.bo.filetype
-                                return ft == "markdown"
-                            end,
-                        },
-                        {
-                            -- debugging status
-                            function()
-                                return "  " .. require("dap").status()
-                            end,
-                            cond = function()
-                                return package.loaded["dap"] and require("dap").status() ~= ""
-                            end,
-                        },
-                        {
-
-                            "diff",
-                            symbols = {
-                                added = icons.git.added,
-                                modified = icons.git.modified,
-                                removed = icons.git.removed,
-                            },
-                            cond = hide_in_width,
                         },
                     },
-                    lualine_y = {
-                        {
-                            "filetype",
-                            cond = hide_in_width,
-                        },
-                    },
+                    lualine_y = {},
                     lualine_z = {
                         { "location", padding = { left = 0, right = 1 } },
                     },
@@ -1389,7 +1294,7 @@ require("lazy").setup({
                 tabline = {},
                 winbar = {},
                 inactive_winbar = {},
-                extensions = { "neo-tree", "lazy" },
+                extensions = { "lazy" },
             }
         end,
     },
@@ -1403,25 +1308,9 @@ require("lazy").setup({
         },
     },
     {
-        "RRethy/vim-illuminate",
-        event = { "BufReadPost", "BufNewFile" },
-        enabled = false,
-        opts = {
-            delay = 200,
-            large_file_cutoff = 2000,
-            large_file_overrides = {
-                providers = { "lsp" },
-            },
-        },
-        config = function(_, opts)
-            require("illuminate").configure(opts)
-        end,
-    },
-    {
         "lervag/vimtex",
-        lazy = false,
+        ft = "tex",
         init = function()
-            -- vim.g.vimtex_view_method = "mupdf"
             vim.g.vimtex_view_general_viewer = "preview"
         end,
     },
@@ -1442,12 +1331,17 @@ require("lazy").setup({
                 gitbrowse = { enabled = false },
                 rename = { enabled = true },
                 input = { enabled = true },
-                indent = { enabled = true },
+                indent = { enabled = false },
                 lazygit = { enabled = true },
-                scope = { enabled = true },
+                scope = { enabled = false },
                 profiler = { enabled = false },
                 terminal = { enabled = true },
-                zen = { enabled = true },
+                zen = {
+                    enabled = true,
+                    toggles = {
+                        dim = false,
+                    },
+                },
                 toggle = { enabled = false },
             }
         end,
@@ -1625,17 +1519,6 @@ require("lazy").setup({
         },
     },
     {
-        "oskarrrrrrr/symbols.nvim",
-        config = function()
-            local r = require "symbols.recipes"
-            require("symbols").setup(r.DefaultFilters, r.AsciiSymbols, {})
-        end,
-        keys = {
-            { "<leader>ls", "<cmd> Symbols<CR>", desc = "Open Symbols" },
-            { "<leader>lS", "<cmd> SymbolsClose<CR>", desc = "Close Symbols" },
-        },
-    },
-    {
         "MagicDuck/grug-far.nvim",
         config = function()
             require("grug-far").setup {}
@@ -1649,38 +1532,6 @@ require("lazy").setup({
                 desc = "GrugFar",
             },
         },
-    },
-    {
-        "zeioth/garbage-day.nvim",
-        dependencies = "neovim/nvim-lspconfig",
-        event = "VeryLazy",
-        opts = {
-            -- your options here
-        },
-    },
-    {
-        "shortcuts/no-neck-pain.nvim",
-        version = "*",
-        keys = { { "<leader>un", "<cmd>NoNeckPain<cr>", desc = "Toggle No Neck Pain" } },
-    },
-    {
-        "mbbill/undotree",
-        keys = { { "<leader>uu", vim.cmd.UndotreeToggle, desc = "Toggle UndoTree" } },
-        config = function()
-            -- TODO: convert to lua
-            -- if has("persistent_undo")
-            --    let target_path = expand('~/.undodir')
-            --
-            --     " create the directory and any parent directories
-            --     " if the location does not exist.
-            --     if !isdirectory(target_path)
-            --         call mkdir(target_path, "p", 0700)
-            --     endif
-            --
-            --     let &undodir=target_path
-            --     set undofile
-            -- endif
-        end,
     },
 }, {
     install = {

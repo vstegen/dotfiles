@@ -206,3 +206,13 @@ map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 ---- diagnostics
 map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
+
+---- built-in undotree
+vim.cmd "packadd nvim.undotree"
+map("n", "<leader>uu", function()
+    require("undotree").open()
+end, { desc = "Undotree" })
+
+---- built-in difftool
+vim.cmd "packadd nvim.difftool"
+map("n", "<leader>gD", "<cmd>DiffTool<cr>", { desc = "DiffTool" })
