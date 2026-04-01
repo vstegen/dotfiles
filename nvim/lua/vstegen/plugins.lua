@@ -1392,9 +1392,13 @@ require("lazy").setup({
             {
                 "<leader>ut",
                 function()
-                    Snacks.dim()
+                    if Snacks.dim.enabled then
+                        Snacks.dim.disable()
+                    else
+                        Snacks.dim.enable()
+                    end
                 end,
-                desc = "Toggle Twilight",
+                desc = "Toggle Dim",
             },
             {
                 "<c-/>",
