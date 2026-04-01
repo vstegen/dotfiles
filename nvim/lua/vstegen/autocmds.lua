@@ -3,18 +3,6 @@ local function augroup(name)
     return vim.api.nvim_create_augroup("vstegen_" .. name, { clear = true })
 end
 
--- WARN: This is a workaround for the conform.nvim setup not working correctly for auto formatting
--- vim.api.nvim_create_autocmd("BufWritePre", {
---     group = augroup "conform",
---     pattern = "*",
---     callback = function(args)
---         if vim.g.disable_autoformat or vim.b[args.buf].disable_autoformat then
---             return
---         end
---         require("conform").format { bufnr = args.buf, timeout_ms = 3000, lsp_fallback = true }
---     end,
--- })
-
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     group = augroup "nvim-lint",
     callback = function()
@@ -80,14 +68,6 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-    group = augroup "http",
-    pattern = { "*.http", "*.rest" },
-    callback = function()
-        vim.opt_local.filetype = "http"
-    end,
-})
-
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = augroup "wrap_spell",
     pattern = { "gitcommit", "markdown" },
@@ -110,7 +90,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = { "json", "jsonc", "markdown" },
     callback = function()
-        if utils.is_inside_directoy "~/vaults/" then
+        if utils.is_inside_directory "~/vaults/" then
             vim.opt_local.conceallevel = 1
         else
             vim.wo.conceallevel = 0

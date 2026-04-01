@@ -74,9 +74,7 @@ map("n", "J", "mzJ`z", { desc = "Append lower line" })
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
--- Keep cursor vertically centered when moving durign search or joining lines
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
+-- Keep cursor vertically centered during search
 map("n", "*", "*zz")
 map("n", "#", "#zz")
 map("n", "g*", "g*zz")
@@ -89,9 +87,6 @@ map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 
--- QuickFix
-map("n", "[q", ":cprev<CR>", { desc = "Previous quickfix item" })
-map("n", "]q", ":cnext<CR>", { desc = "Next quickfix item" })
 
 -- Better indenting
 map("v", "<", "<gv")
@@ -104,11 +99,11 @@ map({ "n", "v" }, "<leader>w", "<cmd>w!<cr><esc>", { desc = "Save file" })
 
 ---- improve n & N behavior
 ---- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
----- this results in 'n' always searching forward and 'N' always searching backwards
-map("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+---- 'n' always searches forward, 'N' always backwards, cursor stays centered
+map("n", "n", "'Nn'[v:searchforward].'zzzv'", { expr = true, desc = "Next search result" })
 map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-map("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("n", "N", "'nN'[v:searchforward].'zzzv'", { expr = true, desc = "Prev search result" })
 map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 

@@ -275,10 +275,6 @@ require("lazy").setup({
             vim.lsp.config.ts_ls = lsp.servers.ts_ls
             vim.lsp.config.yamlls = lsp.servers.yamlls
             vim.lsp.config.tsgo = lsp.servers.tsgo
-            -- vim.lsp.config.rust_analyzer = lsp.servers.rust_analyzer
-            -- vim.lsp.config.expert = lsp.servers.expert
-
-            -- vim.lsp.enable "expert"
 
             vim.diagnostic.config {
                 virtual_text = {
@@ -817,33 +813,40 @@ require("lazy").setup({
                     end
                     return { timeout_ms = 3000, lsp_fallback = true }
                 end,
-                formatters_by_ft = {
-                    bash = { "shfmt" },
-                    sh = { "shfmt" },
-                    fish = { "fish_indent" },
-                    lua = { "stylua" },
-                    go = { "goimports", "gofumpt", "goimports-reviser" },
-                    javascript = { "prettierd", "prettier", stop_after_first = true },
-                    typescript = { "prettierd", "prettier", stop_after_first = true },
-                    svelte = { "prettierd", "prettier", stop_after_first = true },
-                    vue = { "prettierd", "prettier", stop_after_first = true },
-                    ["typescript.tsx"] = { "prettierd", "prettier", stop_after_first = true },
-                    javascriptreact = { "prettierd", "prettier", stop_after_first = true },
-                    typescriptreact = { "prettierd", "prettier", stop_after_first = true },
-                    vue = { "prettierd", "prettier", stop_after_first = true },
-                    css = { "prettierd", "prettier", stop_after_first = true },
-                    scss = { "prettierd", "prettier", stop_after_first = true },
-                    less = { "prettierd", "prettier", stop_after_first = true },
-                    html = { "prettierd", "prettier", stop_after_first = true },
-                    json = { "prettierd", "prettier", stop_after_first = true },
-                    jsonc = { "prettierd", "prettier", stop_after_first = true },
-                    yaml = { "prettierd", "prettier", stop_after_first = true },
-                    markdown = { "prettierd", "prettier", stop_after_first = true },
-                    ["markdown.mdx"] = { "prettierd", "prettier", stop_after_first = true },
-                    graphql = { "prettierd", "prettier", stop_after_first = true },
-                    handlebars = { "prettierd", "prettier", stop_after_first = true },
-                    python = { "ruff_organize_imports", "ruff_format" },
-                },
+                formatters_by_ft = (function()
+                    local prettier = { "prettierd", "prettier", stop_after_first = true }
+                    local fts = {
+                        bash = { "shfmt" },
+                        sh = { "shfmt" },
+                        fish = { "fish_indent" },
+                        lua = { "stylua" },
+                        go = { "goimports", "gofumpt", "goimports-reviser" },
+                        python = { "ruff_organize_imports", "ruff_format" },
+                    }
+                    for _, ft in ipairs {
+                        "javascript",
+                        "typescript",
+                        "typescript.tsx",
+                        "javascriptreact",
+                        "typescriptreact",
+                        "svelte",
+                        "vue",
+                        "css",
+                        "scss",
+                        "less",
+                        "html",
+                        "json",
+                        "jsonc",
+                        "yaml",
+                        "markdown",
+                        "markdown.mdx",
+                        "graphql",
+                        "handlebars",
+                    } do
+                        fts[ft] = prettier
+                    end
+                    return fts
+                end)(),
             }
         end,
     },
@@ -965,21 +968,15 @@ require("lazy").setup({
                 { "<leader><tab>", group = "+tabs" },
                 { "<leader>b", group = "+buffer" },
                 { "<leader>c", group = "+code" },
-                { "<leader>cs", group = "+sidekick" },
                 { "<leader>d", group = "+debug" },
                 { "<leader>f", group = "+file" },
                 { "<leader>g", group = "+git" },
-                { "<leader>gh", group = "+hunks" },
-                { "<leader>j", group = "+jump" },
                 { "<leader>l", group = "+lsp" },
                 { "<leader>lf", group = "+fzf" },
-                { "<leader>lw", group = "+workspace" },
                 { "<leader>p", group = "+plugins" },
                 { "<leader>q", group = "+quit/session" },
                 { "<leader>s", group = "+search" },
-                { "<leader>t", group = "+testing" },
                 { "<leader>u", group = "+utils" },
-                { "<leader>u/", group = "+terminal" },
                 { "<leader>W", group = "+window" },
                 { "<leader>x", group = "+diagnostics" },
             }, {
@@ -1253,7 +1250,12 @@ require("lazy").setup({
                         {
                             "diagnostics",
                             sources = { "nvim_diagnostic" },
-                            symbols = { error = "", warn = "", info = "", hint = "" },
+                            symbols = {
+                                error = "",
+                                warn = "",
+                                info = "",
+                                hint = "",
+                            },
                             update_in_insert = false,
                             always_visible = true,
                         },
@@ -1440,7 +1442,7 @@ require("lazy").setup({
     },
 }, {
     install = {
-        colorscheme = { "kanagawa", "catppuccin" },
+        colorscheme = { "catppuccin", "zenbones" },
     },
     change_detection = {
         notify = false,

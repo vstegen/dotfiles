@@ -60,37 +60,6 @@ M.icons = {
     },
 }
 
-function M.colors()
-    local colors = {}
-
-    if vim.g.colors_name == "catppuccin-mocha" then
-        local c = require("catppuccin.palettes").get_palette "mocha"
-
-        return {
-            yellow = c.yellow,
-            green = c.green,
-            red = c.red,
-            blue = c.blue,
-            bg = c.base,
-            bg_alt = c.crust,
-            fg = c.subtext0,
-            fg_alt = c.text,
-            lsp = {
-                error = c.red,
-                warn = c.peach,
-                info = c.blue,
-                hint = c.green,
-            },
-            test = c.pink,
-            default = c.text,
-        }
-    elseif vim.g.colors_name == "kanagawa" then
-        require("kanagawa.colors").setup()
-    end
-
-    return colors
-end
-
 function M.has(plugin)
     return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
@@ -198,7 +167,9 @@ function M.project_files()
     end
 end
 
-function M.is_inside_directoy(target_dir)
+M.root_patterns = { ".git", "Makefile", "package.json", "go.mod", "Cargo.toml", "mix.exs" }
+
+function M.is_inside_directory(target_dir)
     local current_file = vim.fn.expand "%:p"
 
     target_dir = string.gsub(target_dir, "^~", vim.fn.expand "$HOME")

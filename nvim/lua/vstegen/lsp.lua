@@ -33,9 +33,18 @@ function M.default_capabilities()
     return capabilities
 end
 
+local ts_inlay_hints = {
+    includeInlayEnumMemberValueHints = true,
+    includeInlayFunctionLikeReturnTypeHints = true,
+    includeInlayFunctionParameterTypeHints = true,
+    includeInlayParameterNameHints = "literals",
+    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+    includeInlayPropertyDeclarationTypeHints = true,
+    includeInlayVariableTypeHints = true,
+}
+
 M.servers = {
     expert = {
-        -- cmd = { vim.fn.expand "$HOME" .. "/.local/bin/expert" },
         cmd = {
             vim.fn.expand "/Users/marvin/projects/repos/expert/apps/expert/burrito_out/expert_darwin_arm64",
             "--stdio",
@@ -45,54 +54,14 @@ M.servers = {
     },
     ts_ls = {
         settings = {
-            javascript = {
-                inlayHints = {
-                    includeInlayEnumMemberValueHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all';
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayVariableTypeHints = true,
-                },
-            },
-            typescript = {
-                inlayHints = {
-                    includeInlayEnumMemberValueHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all';
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayVariableTypeHints = true,
-                },
-            },
+            javascript = { inlayHints = ts_inlay_hints },
+            typescript = { inlayHints = ts_inlay_hints },
         },
     },
     tsgo = {
         settings = {
-            javascript = {
-                inlayHints = {
-                    includeInlayEnumMemberValueHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all';
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayVariableTypeHints = true,
-                },
-            },
-            typescript = {
-                inlayHints = {
-                    includeInlayEnumMemberValueHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayParameterNameHints = "literals", -- 'none' | 'literals' | 'all';
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayVariableTypeHints = true,
-                },
-            },
+            javascript = { inlayHints = ts_inlay_hints },
+            typescript = { inlayHints = ts_inlay_hints },
         },
         cmd = { "tsgo", "--lsp", "--stdio" },
         filetypes = {
@@ -244,25 +213,6 @@ M.servers = {
         }),
     },
     tailwindcss = {
-        -- root_dir = function(fname)
-        --     local util = require "lspconfig.util"
-        --     local root_file = {
-        --         "tailwind.config.js",
-        --         "tailwind.config.cjs",
-        --         "tailwind.config.mjs",
-        --         "tailwind.config.ts",
-        --         "postcss.config.js",
-        --         "postcss.config.cjs",
-        --         "postcss.config.mjs",
-        --         "postcss.config.ts",
-        --         "config/tailwind.config.js",
-        --         "assets/tailwind.config.js",
-        --         "assets/css/app.css",
-        --         "mix.exs",
-        --     }
-        --     root_file = util.insert_package_json(root_file, "tailwindcss", fname)
-        --     return util.root_pattern(unpack(root_file))(fname)
-        -- end,
         init_options = {
             userLanguages = {
                 elixir = "html-eex",
