@@ -14,3 +14,5 @@ end, {
 vim.api.nvim_create_user_command("LspRestart", "lsp restart", {
     desc = "Restart LSP",
 })
+
+vim.api.nvim_create_user_command("Term", "call nvim_open_term(0, #{})", { desc = "Terminal escape sequence" })
