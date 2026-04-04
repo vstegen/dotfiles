@@ -14,6 +14,7 @@ auto-update = check
 background-blur = true
 background-opacity = 0.9
 progress-style = true
+clipboard-paste-protection = false
 unfocused-split-opacity = 0.85
 keybind = alt+l=goto_split:next
 keybind = alt+h=goto_split:previous
