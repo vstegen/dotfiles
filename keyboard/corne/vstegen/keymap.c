@@ -72,7 +72,7 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // BASE
     [0] = LAYOUT_split_3x6_3_ex2(
-      HYPR_T(KC_GRAVE),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_LPRN,        KC_BSPC,      KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  MEH_T(KC_UNDS),
+      HYPR_T(KC_GRAVE),    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_UNDS,        KC_BSPC,      KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  MEH_T(KC_UNDS),
       LT(4, KC_ESCAPE),    KC_A,    KC_S,    KC_D,    LT(9, KC_F),    KC_G, KC_RPRN,        KC_UNDS,      KC_H,    KC_J,    KC_K,    KC_L, LT(7, KC_SCLN), LT(8, KC_QUOT),
       KC_LEFT_SHIFT,    LGUI_T(KC_Z),    LALT_T(KC_X),    LCTL_T(KC_C),    KC_V,    LT(5, KC_B),                         KC_N,    KC_M, RCTL_T(KC_COMMA),  RALT_T(KC_DOT), RGUI_T(KC_SLSH),  KC_LEFT_SHIFT,
                                           XXXXXXX,   LT(3, KC_BSPC),  LT(1, KC_TAB),    LT(6, KC_ENT), KC_SPC, XXXXXXX
