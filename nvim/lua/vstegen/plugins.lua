@@ -919,6 +919,7 @@ require("lazy").setup({
     },
     {
         "zenbones-theme/zenbones.nvim",
+        enabled = false,
         lazy = false,
         priority = 1000,
         config = function()
@@ -1063,6 +1064,7 @@ require("lazy").setup({
     },
     {
         "folke/trouble.nvim",
+        enabled = false,
         dependencies = "echasnovski/mini.icons",
         cmd = "Trouble",
         keys = {
