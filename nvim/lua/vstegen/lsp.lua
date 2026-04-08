@@ -235,7 +235,7 @@ M.servers = {
                 includeLanguages = { heex = "html-eex", elixir = "html-eex", eelixir = "html-eex" },
                 experimental = {
                     classRegex = {
-                        { "tailwind\\('([^)]*)\\')" },
+                        -- { "tailwind\\('([^)]*)\\')" },
                         { "'([^']*)'" },
                         { "classNames\\(([^)]*)\\)", "'([^']*)'", '"([^\']*)"' },
                         { ":(?:.|\n)*?[\"'`]([^\"'`]*).*?," },
