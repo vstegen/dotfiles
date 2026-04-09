@@ -1,6 +1,6 @@
 # Global Configuration
 
-- **Current date**: 2025-08-16
+Research the codebase before editing. Never change code you haven't read.
 
 ## Language Preferences
 
