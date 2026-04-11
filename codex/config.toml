@@ -1,0 +1,33 @@
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+tool_output_token_limit = 25000
+# Leave room for native compaction near the 272–273k context window.
+# Formula: 273000 - (tool_output_token_limit + 15000)
+# With tool_output_token_limit=25000 ⇒ 273000 - (25000 + 15000) = 233000
+model_auto_compact_token_limit = 233000
+personality = "pragmatic"
+web_search = "live"
+[features]
+ghost_commit = false
+unified_exec = true
+apply_patch_freeform = true
+skills = true
+shell_snapshot = true
+
+[projects."/Users/marvin/projects/projects/keepsakebox"]
+trust_level = "trusted"
+
+[projects."/Users/marvin/projects/projects/ttv-rs"]
+trust_level = "trusted"
+
+[projects."/Users/marvin/projects/projects/photo-cleanup"]
+trust_level = "trusted"
+
+[projects."/Users/marvin/.codex"]
+trust_level = "trusted"
+
+[projects."/Users/marvin/projects/projects/website"]
+trust_level = "trusted"
+
+[projects."/Users/marvin/projects/dotfiles"]
+trust_level = "trusted"
