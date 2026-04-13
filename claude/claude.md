@@ -1,5 +1,7 @@
 # Global Configuration
 
+Codex will review your output once you are done. Furthermore, you are pitted against competing AI.
+
 Research the codebase before editing. Never change code you haven't read.
 
 ## Language Preferences
