@@ -275,6 +275,8 @@ require("lazy").setup({
             vim.lsp.config.ts_ls = lsp.servers.ts_ls
             vim.lsp.config.yamlls = lsp.servers.yamlls
             vim.lsp.config.tsgo = lsp.servers.tsgo
+            vim.lsp.config.dexter = lsp.servers.dexter
+            vim.lsp.enable "dexter"
 
             vim.diagnostic.config {
                 virtual_text = {
