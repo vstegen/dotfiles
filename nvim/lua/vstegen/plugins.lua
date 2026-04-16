@@ -757,17 +757,6 @@ require("lazy").setup({
         config = function()
             local lint = require "lint"
 
-            local golangcilint = lint.linters.golangcilint
-            golangcilint.args = {
-                "run",
-                "-E",
-                "revive",
-                "-E",
-                "unparam",
-                "--fix=false",
-                "--out-format=json",
-            }
-
             local biome = lint.linters.biomejs
             biome.cmd = "biome"
 
