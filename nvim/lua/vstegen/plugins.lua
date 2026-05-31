@@ -194,19 +194,19 @@ require("lazy").setup({
         config = function(_, opts)
             require("mason").setup(opts)
             local mr = require "mason-registry"
-            local function ensure_installed()
+            -- Install any missing tools, but do NOT call mr.refresh(): that hits
+            -- the Mason registry over the network on every startup and is a major
+            -- source of slow/hung startups behind corporate proxies and VPNs.
+            -- is_installed() works off the local cache, so this is offline-fast.
+            -- Deferred so it never blocks opening the first buffer.
+            vim.schedule(function()
                 for _, tool in ipairs(opts.ensure_installed) do
-                    local p = mr.get_package(tool)
-                    if not p:is_installed() then
+                    local ok, p = pcall(mr.get_package, tool)
+                    if ok and not p:is_installed() then
                         p:install()
                     end
                 end
-            end
-            if mr.refresh then
-                mr.refresh(ensure_installed)
-            else
-                ensure_installed()
-            end
+            end)
         end,
     },
     {
@@ -657,9 +657,9 @@ require("lazy").setup({
                 {
                     "<leader>lfD",
                     function()
-                        require("fzf-lua").lsp_declerations()
+                        require("fzf-lua").lsp_declarations()
                     end,
-                    desc = "Lsp Declerations",
+                    desc = "Lsp Declarations",
                 },
                 {
                     "<leader>lft",
@@ -716,11 +716,6 @@ require("lazy").setup({
             config.defaults.keymap.fzf["ctrl-b"] = "preview-page-up"
             config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
             config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
-
-            local has_trouble, _ = pcall(require, "trouble.nvim")
-            if has_trouble then
-                config.defaults.actions.files["ctrl-t"] = require("trouble.sources.fzf").actions.open
-            end
 
             return {
                 "default-title",
@@ -908,15 +903,6 @@ require("lazy").setup({
             vim.cmd.colorscheme "catppuccin"
         end,
     },
-    {
-        "zenbones-theme/zenbones.nvim",
-        enabled = false,
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.g.zenbones_compat = 1
-        end,
-    },
     -- misc
     {
         "stevearc/oil.nvim",
@@ -980,6 +966,7 @@ require("lazy").setup({
     {
 
         "nvim-mini/mini.nvim",
+        event = "VeryLazy",
         config = function(_, _)
             require("mini.pairs").setup()
             require("mini.ai").setup {
@@ -1052,52 +1039,6 @@ require("lazy").setup({
             },
         },
         opts = {},
-    },
-    {
-        "folke/trouble.nvim",
-        enabled = false,
-        dependencies = "echasnovski/mini.icons",
-        cmd = "Trouble",
-        keys = {
-            { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Document diagnostics (Trouble)" },
-            {
-                "<leader>xX",
-                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-                desc = "Document diagnostics buffer (Trouble)",
-            },
-            { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Loclist diagnostics (Trouble)" },
-            { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix diagnostics (Trouble)" },
-            { "<leader>xS", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
-            {
-                "[q",
-                function()
-                    if require("trouble").is_open() then
-                        require("trouble").previous { skip_groups = true, jump = true }
-                    else
-                        local ok, err = pcall(vim.cmd.cprev)
-                        if not ok then
-                            vim.notify(err, vim.log.levels.ERROR)
-                        end
-                    end
-                end,
-                desc = "Previous trouble quickfix",
-            },
-            {
-                "]q",
-                function()
-                    if require("trouble").is_open() then
-                        require("trouble").next { skip_groups = true, jump = true }
-                    else
-                        local ok, err = pcall(vim.cmd.cnext)
-                        if not ok then
-                            vim.notify(err, vim.log.levels.ERROR)
-                        end
-                    end
-                end,
-                desc = "Next trouble quickfix",
-            },
-        },
-        opts = { use_diagnostic_signs = true },
     },
     {
         "folke/todo-comments.nvim",
@@ -1212,6 +1153,7 @@ require("lazy").setup({
     },
     {
         "nvim-lualine/lualine.nvim",
+        event = "VeryLazy",
         dependencies = { "echasnovski/mini.icons" },
         opts = function()
             local icons = utils.icons
@@ -1435,7 +1377,7 @@ require("lazy").setup({
     },
 }, {
     install = {
-        colorscheme = { "catppuccin", "zenbones" },
+        colorscheme = { "catppuccin" },
     },
     change_detection = {
         notify = false,

@@ -1,6 +1,14 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+-- Disable unused remote-plugin providers so Neovim doesn't probe/spawn host
+-- programs (python3/ruby/perl/node) at startup. This is a common cause of slow
+-- startup on locked-down machines where those hosts are missing or slow to find.
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_node_provider = 0
+
 vim.opt.background = "dark"
 vim.opt.backup = false
 vim.opt.breakindent = true
