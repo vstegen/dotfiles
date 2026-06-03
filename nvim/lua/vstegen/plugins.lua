@@ -713,11 +713,6 @@ require("lazy").setup({
             config.defaults.keymap.builtin["<c-f>"] = "preview-page-down"
             config.defaults.keymap.builtin["<c-b>"] = "preview-page-up"
 
-            local has_trouble, _ = pcall(require, "trouble.nvim")
-            if has_trouble then
-                config.defaults.actions.files["ctrl-t"] = require("trouble.sources.fzf").actions.open
-            end
-
             return {
                 "default-title",
                 defaults = { formatter = "path.filename_first" },
@@ -854,7 +849,6 @@ require("lazy").setup({
             },
             integrations = {
                 blink_cmp = true,
-                lsp_trouble = true,
                 mini = true,
                 native_lsp = {
                     enabled = true,
@@ -1050,58 +1044,11 @@ require("lazy").setup({
         opts = {},
     },
     {
-        "folke/trouble.nvim",
-        enabled = false,
-        dependencies = "echasnovski/mini.icons",
-        cmd = "Trouble",
-        keys = {
-            { "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "Document diagnostics (Trouble)" },
-            {
-                "<leader>xX",
-                "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-                desc = "Document diagnostics buffer (Trouble)",
-            },
-            { "<leader>xL", "<cmd>Trouble loclist toggle<cr>", desc = "Loclist diagnostics (Trouble)" },
-            { "<leader>xQ", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix diagnostics (Trouble)" },
-            { "<leader>xS", "<cmd>Trouble symbols toggle focus=false<cr>", desc = "Symbols (Trouble)" },
-            {
-                "[q",
-                function()
-                    if require("trouble").is_open() then
-                        require("trouble").previous { skip_groups = true, jump = true }
-                    else
-                        local ok, err = pcall(vim.cmd.cprev)
-                        if not ok then
-                            vim.notify(err, vim.log.levels.ERROR)
-                        end
-                    end
-                end,
-                desc = "Previous trouble quickfix",
-            },
-            {
-                "]q",
-                function()
-                    if require("trouble").is_open() then
-                        require("trouble").next { skip_groups = true, jump = true }
-                    else
-                        local ok, err = pcall(vim.cmd.cnext)
-                        if not ok then
-                            vim.notify(err, vim.log.levels.ERROR)
-                        end
-                    end
-                end,
-                desc = "Next trouble quickfix",
-            },
-        },
-        opts = { use_diagnostic_signs = true },
-    },
-    {
         "folke/todo-comments.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "catppuccin/nvim",
         },
-        cmd = { "TodoTrouble" },
         event = { "BufReadPost", "BufNewFile" },
         keys = {
             {
@@ -1117,20 +1064,6 @@ require("lazy").setup({
                     require("todo-comments").jump_prev()
                 end,
                 desc = "Previous todo comment",
-            },
-            {
-                "<leader>xt",
-                function()
-                    require("todo-comments.fzf").todo()
-                end,
-                desc = "Todo (Trouble)",
-            },
-            {
-                "<leader>xT",
-                function()
-                    require("todo-comments.fzf").todo { keywords = { "TODO", "FIX", "FIXME", "BUG" } }
-                end,
-                desc = "Todo/Fix/Bug (Trouble)",
             },
             { "<leader>stt", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
             { "<leader>stT", "<cmd>TodoFzfLua keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug" },
