@@ -46,7 +46,7 @@ local ts_inlay_hints = {
 M.servers = {
     expert = {
         cmd = {
-            vim.fn.expand "/Users/marvin/projects/repos/expert/apps/expert/burrito_out/expert_darwin_arm64",
+            vim.fn.expand "/Users/marvin/.local/share/mise/shims/expert",
             "--stdio",
         },
         root_markers = { "mix.exs", ".git" },
