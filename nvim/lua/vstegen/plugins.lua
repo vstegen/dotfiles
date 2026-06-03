@@ -653,9 +653,9 @@ require("lazy").setup({
                 {
                     "<leader>lfD",
                     function()
-                        require("fzf-lua").lsp_declerations()
+                        require("fzf-lua").lsp_declarations()
                     end,
-                    desc = "Lsp Declerations",
+                    desc = "Lsp Declarations",
                 },
                 {
                     "<leader>lft",
