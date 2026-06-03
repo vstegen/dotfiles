@@ -91,7 +91,7 @@ M.servers = {
     },
     elixirls = {
         cmd = {
-            "/Users/marvin/.local/share/nvim/mason/packages/elixir-ls/language_server.sh",
+            vim.fn.stdpath "data" .. "mason/packages/elixir-ls/language_server.sh",
         },
     },
     gopls = {
