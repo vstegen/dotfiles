@@ -898,15 +898,6 @@ require("lazy").setup({
             vim.cmd.colorscheme "catppuccin"
         end,
     },
-    {
-        "zenbones-theme/zenbones.nvim",
-        enabled = false,
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.g.zenbones_compat = 1
-        end,
-    },
     -- misc
     {
         "stevearc/oil.nvim",
@@ -1364,7 +1355,7 @@ require("lazy").setup({
     },
 }, {
     install = {
-        colorscheme = { "catppuccin", "zenbones" },
+        colorscheme = { "catppuccin" },
     },
     change_detection = {
         notify = false,
