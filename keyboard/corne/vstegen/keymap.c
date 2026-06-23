@@ -79,8 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     // SYMBOLS
     [1] = LAYOUT_split_3x6_3_ex2(
-      MAC_UNDO,    XXXXXXX,    KC_AT,    KC_LPRN,        KC_RPRN,        KC_PERC, KC_COMMA,                        KC_0,      KC_PIPE,        KC_DLR,         KC_RABK,        KC_ASTR,        KC_SCLN,  KC_UNDS,
-      KC_GRAVE,    KC_LCBR,    KC_RCBR,  KC_LBRC,        KC_RBRC,        KC_AMPR,  KC_2,                    KC_1,           KC_MINUS,       KC_EQUAL,       KC_PLUS,        KC_COLN,        KC_EXLM,        KC_DQUO,
+      MAC_UNDO,    KC_COMMA,    KC_AT,    KC_LPRN,        KC_RPRN,        KC_PERC, KC_COMMA,                        KC_1,      KC_PIPE,        KC_DLR,         KC_RABK,        KC_ASTR,        KC_SCLN,  KC_COMMA,
+      KC_GRAVE,    KC_LCBR,    KC_RCBR,  KC_LBRC,        KC_RBRC,        KC_AMPR,  KC_2,                    KC_0,           KC_MINUS,       KC_EQUAL,       KC_PLUS,        KC_COLN,        KC_EXLM,        KC_DQUO,
     XXXXXXX, KC_TILD,        XXXXXXX, XXXXXXX, KC_UNDS,        KC_HASH,                                        KC_QUES,        KC_CIRC,        KC_LABK,        KC_SLASH,       LGUI_T(KC_BSLS),        KC_GRAVE,
                                           _______,   _______,  _______,     MO(2),   KC_SPC, _______
   ),
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  int mod_state = get_mods();
+  // int mod_state = get_mods();
 
   switch (keycode) {
     case MAC_SIRI:
@@ -173,47 +173,47 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
 
-    case RG_SZ:
-      if (record->event.pressed) {
-          SEND_STRING(SS_RALT("s"));
-      }
-      return true;
-
-    case FB_UE:
-      if (record->event.pressed) {
-        if (mod_state & MOD_MASK_SHIFT) {
-          del_mods(MOD_MASK_SHIFT);
-          SEND_STRING(SS_RALT("u") SS_LSFT("u"));
-          set_mods(mod_state);
-        } else {
-          SEND_STRING(SS_RALT("u") "u");
-        }
-      }
-      return true;
-
-    case HU_AE:
-      if (record->event.pressed) {
-        if (mod_state & MOD_MASK_SHIFT) {
-          del_mods(MOD_MASK_SHIFT);
-          SEND_STRING(SS_RALT("u") SS_LSFT("a"));
-          set_mods(mod_state);
-        } else {
-          SEND_STRING(SS_RALT("u") "a");
-        }
-      }
-      return true;
-
-    case JN_OE:
-      if (record->event.pressed) {
-        if (mod_state & MOD_MASK_SHIFT) {
-          del_mods(MOD_MASK_SHIFT);
-          SEND_STRING(SS_RALT("u") SS_LSFT("o"));
-          set_mods(mod_state);
-        } else {
-          SEND_STRING(SS_RALT("u") "o");
-        }
-      }
-      return true;
+    // case RG_SZ:
+    //   if (record->event.pressed) {
+    //       SEND_STRING(SS_RALT("s"));
+    //   }
+    //   return true;
+    //
+    // case FB_UE:
+    //   if (record->event.pressed) {
+    //     if (mod_state & MOD_MASK_SHIFT) {
+    //       del_mods(MOD_MASK_SHIFT);
+    //       SEND_STRING(SS_RALT("u") SS_LSFT("u"));
+    //       set_mods(mod_state);
+    //     } else {
+    //       SEND_STRING(SS_RALT("u") "u");
+    //     }
+    //   }
+    //   return true;
+    //
+    // case HU_AE:
+    //   if (record->event.pressed) {
+    //     if (mod_state & MOD_MASK_SHIFT) {
+    //       del_mods(MOD_MASK_SHIFT);
+    //       SEND_STRING(SS_RALT("u") SS_LSFT("a"));
+    //       set_mods(mod_state);
+    //     } else {
+    //       SEND_STRING(SS_RALT("u") "a");
+    //     }
+    //   }
+    //   return true;
+    //
+    // case JN_OE:
+    //   if (record->event.pressed) {
+    //     if (mod_state & MOD_MASK_SHIFT) {
+    //       del_mods(MOD_MASK_SHIFT);
+    //       SEND_STRING(SS_RALT("u") SS_LSFT("o"));
+    //       set_mods(mod_state);
+    //     } else {
+    //       SEND_STRING(SS_RALT("u") "o");
+    //     }
+    //   }
+    //   return true;
 
     case ARROW_RIGHT:
       if (record->event.pressed) {
