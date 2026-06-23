@@ -41,6 +41,7 @@
       "Read(*.env*)"
     ]
   },
+  "model": "opus",
   "hooks": {
     "SessionStart": [
       {
@@ -53,6 +54,7 @@
       }
     ]
   },
+  "enableWorkflows": false,
   "statusLine": {
     "type": "command",
     "command": "input=$(cat); model=$(echo \"$input\" | jq -r '.model.display_name'); dir=$(echo \"$input\" | jq -r '.workspace.current_dir'); style=$(echo \"$input\" | jq -r '.output_style.name'); usage=$(echo \"$input\" | jq '.context_window.current_usage'); ctx=''; if [ \"$usage\" != \"null\" ]; then current=$(echo \"$usage\" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens'); size=$(echo \"$input\" | jq '.context_window.context_window_size'); pct=$((current * 100 / size)); ctx=$(printf ' | %d%% ctx' \"$pct\"); fi; lines_added=$(echo \"$input\" | jq -r '.total_lines_added // 0'); lines_removed=$(echo \"$input\" | jq -r '.total_lines_removed // 0'); lines_changed=$(printf ' | +%d/-%d' \"$lines_added\" \"$lines_removed\"); duration_ms=$(echo \"$input\" | jq -r '.total_duration_ms // 0'); duration=''; if [ \"$duration_ms\" -gt 0 ]; then duration_s=$((duration_ms / 1000)); minutes=$((duration_s / 60)); seconds=$((duration_s % 60)); duration=$(printf ' | %dm %ds' \"$minutes\" \"$seconds\"); fi; git_branch=''; if [ -d \"$dir/.git\" ]; then branch=$(git -C \"$dir\" -c advice.detachedHead=false -c core.useBuiltinFSMonitor=false branch --show-current 2>/dev/null); if [ -n \"$branch\" ]; then git_branch=$(printf ' | git:%s' \"$branch\"); fi; fi; vim_mode=$(echo \"$input\" | jq -r '.vim.mode // empty'); vim_indicator=''; if [ -n \"$vim_mode\" ]; then vim_indicator=$(printf ' | vim:%s' \"$vim_mode\"); fi; printf '%s | %s | %s%s%s%s%s%s' \"$model\" \"$(basename \"$dir\")\" \"$style\" \"$ctx\" \"$lines_changed\" \"$duration\" \"$git_branch\" \"$vim_indicator\""
@@ -65,5 +67,5 @@
   "effortLevel": "high",
   "tui": "fullscreen",
   "showThinkingSummaries": true,
-  "model": "sonnet"
+  "skipWorkflowUsageWarning": true
 }
