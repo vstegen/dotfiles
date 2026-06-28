@@ -1035,41 +1035,6 @@ require("lazy").setup({
         opts = {},
     },
     {
-        "folke/todo-comments.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "catppuccin/nvim",
-        },
-        event = { "BufReadPost", "BufNewFile" },
-        keys = {
-            {
-                "]t",
-                function()
-                    require("todo-comments").jump_next()
-                end,
-                desc = "Next todo comment",
-            },
-            {
-                "[t",
-                function()
-                    require("todo-comments").jump_prev()
-                end,
-                desc = "Previous todo comment",
-            },
-            { "<leader>stt", "<cmd>TodoFzfLua<cr>", desc = "Todo" },
-            { "<leader>stT", "<cmd>TodoFzfLua keywords=TODO,FIX,FIXME,BUG<cr>", desc = "Todo/Fix/Bug" },
-        },
-        opts = {
-            highlight = {
-                keyword = "bg",
-                pattern = [[.*<(KEYWORDS)(\(.*\))?\s*:]],
-            },
-            search = {
-                pattern = [[\b(KEYWORDS)(\(.*\))?:]],
-            },
-        },
-    },
-    {
         "NicholasZolton/neojj",
         lazy = true,
         dependencies = {
