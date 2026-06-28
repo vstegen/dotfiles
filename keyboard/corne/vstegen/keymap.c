@@ -53,19 +53,21 @@ const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM hu_combo[] = {KC_H, KC_U, COMBO_END};
 const uint16_t PROGMEM hj_combo[] = {KC_H, KC_J, COMBO_END};
 const uint16_t PROGMEM yu_combo[] = {KC_Y, KC_U, COMBO_END};
+const uint16_t PROGMEM yt_combo[] = {KC_Y, KC_T, COMBO_END};
 const uint16_t PROGMEM jn_combo[] = {KC_J, KC_N, COMBO_END};
 const uint16_t PROGMEM dbl_shift_combo[] = {KC_LEFT_SHIFT, KC_RIGHT_SHIFT, COMBO_END};
 
 combo_t key_combos[] = {
   COMBO(rt_combo, KC_AT),
   COMBO(fg_combo, KC_AMPR),
-  COMBO(sd_combo, KC_BSPC),
+  // COMBO(sd_combo, KC_BSPC),
   COMBO(hj_combo, KC_UNDS),
   COMBO(yu_combo, KC_EXLM),
-  COMBO(rg_combo, RG_SZ),
-  COMBO(fb_combo, FB_UE),
-  COMBO(hu_combo, HU_AE),
-  COMBO(jn_combo, JN_OE),
+  COMBO(yt_combo, KC_UNDS),
+  // COMBO(rg_combo, RG_SZ),
+  // COMBO(fb_combo, FB_UE),
+  // COMBO(hu_combo, HU_AE),
+  // COMBO(jn_combo, JN_OE),
   COMBO(dbl_shift_combo, KC_CAPS),
 };
 
