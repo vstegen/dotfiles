@@ -82,26 +82,6 @@ require("lazy").setup({
             local highlight_disable = { latex = true, org = true, vim = true }
             local indent_disable = { python = true, go = true }
 
-            local has_main_api = type(treesitter.get_available) == "function"
-                and type(treesitter.install) == "function"
-                and type(treesitter.setup) == "function"
-            if not has_main_api then
-                require("nvim-treesitter.configs").setup {
-                    ensure_installed = ensure_installed,
-                    auto_install = true,
-                    ignore_install = { "phpdoc" },
-                    highlight = {
-                        enable = true,
-                        disable = { "latex", "org", "vim" },
-                    },
-                    indent = {
-                        enable = true,
-                        disable = { "python", "go" },
-                    },
-                }
-                return
-            end
-
             treesitter.setup {}
 
             local available = {}
