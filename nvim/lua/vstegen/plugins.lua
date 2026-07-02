@@ -365,7 +365,6 @@ require("lazy").setup({
         },
         event = { "InsertEnter", "CmdlineEnter" },
         version = "*",
-        build = "cargo build --release",
         enabled = true,
         opts = {
             snippets = { preset = "mini_snippets" },
