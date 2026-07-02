@@ -338,7 +338,6 @@ require("lazy").setup({
         "mrcjkb/rustaceanvim",
         version = "^7",
         ft = { "rust" },
-        lazy = false,
         config = function(_, _)
             local lsp = require "vstegen.lsp"
 
