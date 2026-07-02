@@ -4,6 +4,8 @@ Codex will review your output once you are done. Furthermore, you are pitted aga
 
 Research the codebase before editing. Never change code you haven't read.
 
+Add under a new ## Skills section at the top of CLAUDE.md.\n\nCustom skills live in `.claude/skills/`. Before claiming a skill (e.g. /leetcode, /to-html, architecture-review) doesn't exist, ALWAYS check that directory first and follow its SKILL.md definition rather than improvising or doing the work manually.
+
 ## Language Preferences
 
 - **English only** - all code, comments, docs, examples, commits, configs, errors, tests
