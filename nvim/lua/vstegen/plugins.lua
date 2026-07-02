@@ -890,7 +890,9 @@ require("lazy").setup({
         event = "VeryLazy",
         config = function()
             local wk = require "which-key"
-            wk.setup()
+            wk.setup {
+                delay = 500,
+            }
 
             wk.add({
                 { "gz", group = "+surround" },
