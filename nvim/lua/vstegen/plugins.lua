@@ -961,6 +961,7 @@ require("lazy").setup({
     {
 
         "nvim-mini/mini.nvim",
+        event = { "InsertEnter", "VeryLazy" },
         config = function(_, _)
             require("mini.pairs").setup()
             require("mini.ai").setup {
@@ -1097,6 +1098,7 @@ require("lazy").setup({
     },
     {
         "nvim-lualine/lualine.nvim",
+        event = { "VeryLazy" },
         dependencies = { "echasnovski/mini.icons" },
         opts = function()
             local icons = utils.icons
