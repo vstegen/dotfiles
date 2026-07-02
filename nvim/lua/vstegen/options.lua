@@ -4,7 +4,9 @@ vim.g.maplocalleader = ","
 vim.opt.background = "dark"
 vim.opt.backup = false
 vim.opt.breakindent = true
-vim.opt.clipboard = "unnamedplus"
+vim.schedule(function()
+    vim.opt.clipboard = "unnamedplus"
+end)
 vim.opt.cmdheight = 1
 vim.opt.colorcolumn = ""
 vim.opt.completeopt = { "menu", "menuone", "noselect", "noinsert" }
