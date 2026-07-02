@@ -87,7 +87,6 @@ map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 
-
 -- Better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
@@ -203,8 +202,8 @@ map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 ---- built-in undotree
-vim.cmd "packadd nvim.undotree"
 map("n", "<leader>uu", function()
+    vim.cmd "packadd nvim.undotree"
     require("undotree").open()
 end, { desc = "Undotree" })
 
