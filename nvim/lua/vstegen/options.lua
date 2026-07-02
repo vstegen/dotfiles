@@ -78,7 +78,7 @@ vim.opt.winborder = "single"
 vim.opt.winminwidth = 5
 vim.opt.wrap = true
 
-vim.g.markdown_recommendation_style = 0
+vim.g.markdown_recommended_style = 0
 
 vim.g.loaded_python3_provider = 0
 vim.g.loaded_ruby_provider = 0
