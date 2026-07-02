@@ -961,6 +961,7 @@ require("lazy").setup({
             require("mini.bufremove").setup()
             require("mini.bracketed").setup()
             require("mini.snippets").setup()
+            require("mini.statusline").setup()
         end,
     },
     {
@@ -1077,6 +1078,7 @@ require("lazy").setup({
     },
     {
         "nvim-lualine/lualine.nvim",
+        enabled = false,
         event = { "VeryLazy" },
         dependencies = { "nvim-mini/mini.nvim" },
         opts = function()
