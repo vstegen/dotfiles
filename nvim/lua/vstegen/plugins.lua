@@ -334,7 +334,6 @@ require("lazy").setup({
             crates.show()
         end,
         ft = { "rust", "toml" },
-        dependencies = { "nvim-lua/plenary.nvim" },
     },
     -- auto completion
     {
