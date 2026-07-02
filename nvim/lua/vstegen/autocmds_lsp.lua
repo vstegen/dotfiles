@@ -77,7 +77,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
                     range = true,
                 }
             end
-        elseif client_name == "ruff_lsp" then
+        elseif client_name == "ruff" then
             -- use pyright's hover
             client.server_capabilities.hoverProvider = false
         end

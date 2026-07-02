@@ -163,7 +163,7 @@ function M.project_files()
         show_untracked = true,
     })
     if not ok then
-        require("fzf-lua").files() {}
+        require("fzf-lua").files {}
     end
 end
 
