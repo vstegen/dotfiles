@@ -151,6 +151,7 @@ require("lazy").setup({
     },
     {
         "windwp/nvim-ts-autotag",
+        ft = { "html", "javascriptreact", "typescriptreact", "svelte", "vue", "astro", "xml", "heex" },
         opts = {
             aliases = {
                 ["heex"] = "html",
