@@ -962,6 +962,7 @@ require("lazy").setup({
             require("mini.bracketed").setup()
             require("mini.snippets").setup()
             require("mini.statusline").setup()
+            require("mini.hipatterns").setup()
         end,
     },
     {
@@ -1139,15 +1140,6 @@ require("lazy").setup({
                 extensions = { "lazy" },
             }
         end,
-    },
-    {
-        "NvChad/nvim-colorizer.lua",
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            user_default_options = {
-                tailwind = true,
-            },
-        },
     },
     {
         "lervag/vimtex",
