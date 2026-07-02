@@ -449,7 +449,7 @@ require("lazy").setup({
     {
         "MeanderingProgrammer/render-markdown.nvim",
         ft = { "markdown", "md" },
-        dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" },
+        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" },
         config = function()
             require("render-markdown").setup {
                 completions = { blink = { enabled = true } },
@@ -458,7 +458,7 @@ require("lazy").setup({
     },
     {
         "ibhagwan/fzf-lua",
-        dependencies = { "echasnovski/mini.icons" },
+        dependencies = { "nvim-mini/mini.nvim" },
         keys = function()
             return {
                 {
@@ -880,7 +880,7 @@ require("lazy").setup({
     -- misc
     {
         "stevearc/oil.nvim",
-        dependencies = { "echasnovski/mini.icons" },
+        dependencies = { "nvim-mini/mini.nvim" },
         keys = {
             {
                 "<leader>-",
@@ -1078,7 +1078,7 @@ require("lazy").setup({
     {
         "nvim-lualine/lualine.nvim",
         event = { "VeryLazy" },
-        dependencies = { "echasnovski/mini.icons" },
+        dependencies = { "nvim-mini/mini.nvim" },
         opts = function()
             local icons = utils.icons
 
