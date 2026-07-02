@@ -12,7 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local utils = require "vstegen.utils"
-local lsp = require "vstegen.lsp"
 
 require("lazy").setup({
     -- treesitter
@@ -256,6 +255,8 @@ require("lazy").setup({
             "williamboman/mason-lspconfig.nvim",
         },
         config = function()
+            local lsp = require "vstegen.lsp"
+
             vim.lsp.config("*", {
                 capabilities = lsp.default_capabilities(),
             })
@@ -338,10 +339,9 @@ require("lazy").setup({
         version = "^7",
         ft = { "rust" },
         lazy = false,
-        opts = {
-            server = lsp.servers.rust_analyzer,
-        },
-        config = function(_, opts)
+        config = function(_, _)
+            local lsp = require "vstegen.lsp"
+
             local extension_path = vim.env.HOME .. "/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/"
             local codelldb_path = extension_path .. "adapter/codelldb"
             local liblldb_path = extension_path .. "lldb/lib/liblldb"
@@ -361,7 +361,7 @@ require("lazy").setup({
                 },
                 server = {
                     default_settings = {
-                        ["rust-analyzer"] = opts.server.settings["rust-analyzer"],
+                        ["rust-analyzer"] = lsp.servers.rust_analyzer.server.settings["rust-analyzer"],
                     },
                 },
             }
