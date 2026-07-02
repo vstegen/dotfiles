@@ -361,7 +361,7 @@ require("lazy").setup({
         "saghen/blink.cmp",
         dependencies = {
             "rafamadriz/friendly-snippets",
-            "echasnovski/mini.snippets",
+            "nvim-mini/mini.nvim",
         },
         event = { "InsertEnter", "CmdlineEnter" },
         version = "*",
