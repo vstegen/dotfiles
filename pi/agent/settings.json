@@ -1,0 +1,17 @@
+{
+  "lastChangelogVersion": "0.80.3",
+  "theme": "catppuccin-mocha",
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.5",
+  "defaultThinkingLevel": "low",
+  "npmCommand": "pnpm",
+  "compaction": {
+    "enabled": false
+  },
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "transport": "auto",
+  "editorPaddingX": 1,
+  "outputPad": 1
+}

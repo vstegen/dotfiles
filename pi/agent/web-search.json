@@ -1,0 +1,5 @@
+{
+  "openaiModel": "gpt-4.1-mini",
+  "kagiKeychainService": "pi-web-search-kagi",
+  "keychainAccount": "marvin"
+}
