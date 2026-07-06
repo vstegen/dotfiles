@@ -21,6 +21,10 @@
 
 # Coding style preferences
 
+- Prefer strong invariants over defensive complexity. Make invalid states unrepresentable where practical, validate at boundaries, and avoid scattering fallback logic through the core implementation.
+- Do not paper over unclear design with machinery. If the model, ownership, or state transitions are unclear, stop and clarify or simplify them before adding code.
+- Fail loudly for programmer errors and impossible states instead of silently recovering. Add fallbacks only for real, expected runtime conditions, not to hide bugs or corrupt data.
+- Avoid duplicating rules across call sites. Put each invariant or policy in one coherent place, with clear ownership and data flow.
 - Do not default to "Clean Code" style patterns. Prefer locality and straightforward control flow over splitting code into many tiny functions.
 - Keep implementations minimal, local, and direct. Avoid premature abstraction, indirection, layering, or generalized frameworks unless there is a clear, immediate benefit.
 - Introduce abstractions only when they reduce real duplication/complexity, clarify ownership or boundaries, or enable a concrete requirement.
