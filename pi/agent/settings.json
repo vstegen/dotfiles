@@ -3,10 +3,10 @@
   "theme": "catppuccin-mocha",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.5",
-  "defaultThinkingLevel": "low",
+  "defaultThinkingLevel": "medium",
   "npmCommand": "pnpm",
   "compaction": {
-    "enabled": false
+    "enabled": true
   },
   "terminal": {
     "showTerminalProgress": true
@@ -15,3 +15,4 @@
   "editorPaddingX": 1,
   "outputPad": 1
 }
+
