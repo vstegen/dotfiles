@@ -1,36 +1,14 @@
 local M = {}
 
 function M.default_capabilities()
-    local has_blink, blink_nvim_lsp = pcall(require, "blink.cmp")
-    local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-
-    local capabilities = vim.tbl_deep_extend(
-        "force",
-        {},
-        vim.lsp.protocol.make_client_capabilities(),
-        (has_blink and blink_nvim_lsp.get_lsp_capabilities()) or (has_cmp and cmp_nvim_lsp.default_capabilities()) or {}
-    )
-
-    capabilities.textDocument.completion.completionItem.snippetSupport = true
-    capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
-    capabilities.textDocument.completion.completionItem.preselectSupport = true
-    capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-    capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-    capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-    capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-    capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-
-    capabilities.textDocument.completion.completionItem.resolveSupport = {
-        properties = {
-            "documentation",
-            "detail",
-            "additionalTextEdits",
-        },
-    }
-
-    capabilities.textDocument.semanticHighlighting = true
-
-    return capabilities
+    -- Neovim's built-in client capabilities already advertise the completion
+    -- features blink.cmp relies on (snippetSupport, resolveSupport, labelDetails,
+    -- insertReplace, tagSupport, completionList itemDefaults, ...). Fetching blink's
+    -- own table instead would force the whole completion engine to load at LSP attach
+    -- (BufReadPre), because lazy.nvim loads a plugin as soon as any of its modules is
+    -- required -- defeating blink's intended InsertEnter lazy-load. The handful of
+    -- extra fields blink adds are negligible, so use the native table for free.
+    return vim.lsp.protocol.make_client_capabilities()
 end
 
 local ts_inlay_hints = {
@@ -44,14 +22,6 @@ local ts_inlay_hints = {
 }
 
 M.servers = {
-    expert = {
-        cmd = {
-            vim.fn.expand "~/.local/share/mise/shims/expert",
-            "--stdio",
-        },
-        root_markers = { "mix.exs", ".git" },
-        filetypes = { "elixir", "eelixir", "heex", "eex" },
-    },
     dexter = {
         cmd = { "dexter", "lsp" },
         root_markers = { ".dexter.db", ".git", "mix.exs" },
@@ -87,11 +57,6 @@ M.servers = {
     cssls = {
         init_options = {
             provideFormatter = true,
-        },
-    },
-    elixirls = {
-        cmd = {
-            vim.fn.stdpath "data" .. "/mason/packages/elixir-ls/language_server.sh",
         },
     },
     gopls = {
@@ -141,27 +106,15 @@ M.servers = {
                 schemas = nil,
             },
         },
-        commands = {
-            Format = {
-                function()
-                    vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
-                end,
-            },
-        },
     },
     lua_ls = {
         settings = {
             Lua = {
                 runtime = { version = "LuaJIT" },
+                -- Libraries are loaded on demand by lazydev.nvim; indexing the whole
+                -- runtime here is slow and memory-heavy, so leave it out.
                 workspace = {
                     checkThirdParty = false,
-                    library = {
-                        "${3rd}/luv/library",
-                        unpack(vim.api.nvim_get_runtime_file("", true)),
-                    },
-                    telemetry = {
-                        enable = false,
-                    },
                 },
                 completion = {
                     callSnippet = "Replace",
@@ -171,6 +124,9 @@ M.servers = {
                 },
                 hint = {
                     enable = true,
+                },
+                telemetry = {
+                    enable = false,
                 },
             },
         },

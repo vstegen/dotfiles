@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
 vim.api.nvim_create_autocmd("TextYankPost", {
     group = augroup "highlight_on_yank",
     callback = function()
-        vim.highlight.on_yank()
+        vim.hl.on_yank()
     end,
 })
 
@@ -48,19 +48,12 @@ vim.api.nvim_create_autocmd({ "BufReadPost" }, {
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = augroup "close_with_q",
     pattern = {
-        "PlenaryTestPopup",
         "help",
         "lspinfo",
         "man",
-        "notify",
         "qf",
-        "spectre_panel",
         "startuptime",
-        "tsplayground",
-        "neotest-output",
         "checkhealth",
-        "neotest-summary",
-        "neotest-output-panel",
     },
     callback = function(event)
         vim.bo[event.buf].buflisted = false
@@ -70,7 +63,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 vim.api.nvim_create_autocmd({ "FileType" }, {
     group = augroup "wrap_spell",
-    pattern = { "gitcommit", "markdown" },
+    pattern = { "gitcommit" },
     callback = function()
         vim.opt_local.wrap = true
         vim.opt_local.spell = true
@@ -105,7 +98,7 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
         if event.match:match "^%w%w+://" then
             return
         end
-        local file = vim.loop.fs_realpath(event.match) or event.match
+        local file = vim.uv.fs_realpath(event.match) or event.match
         vim.fn.mkdir(vim.fn.fnamemodify(file, ":p:h"), "p")
     end,
 })

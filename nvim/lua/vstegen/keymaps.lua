@@ -38,13 +38,7 @@ map("i", "?", "?<C-G>u")
 -- Paste literally, not as if you typed it. This fixes indentation issues when pasting.
 map("i", '<C-r>"', '<C-r><C-o>"')
 
--- Copy til end of line
-map("n", "Y", "y$")
-
 -- Window management
-map("n", "<C-w>s", ":split<cr>", { desc = "Create horizontal window" })
-map("n", "<C-w>v", ":vsplit<cr>", { desc = "Create vertical window" })
-
 map("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
 map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
 map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
@@ -82,10 +76,6 @@ map("n", "g*", "g*zz")
 -- Move cursor normally on wrapped lines
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
--- Diagnostics
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to prev diagnostic" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic" })
 
 -- Better indenting
 map("v", "<", "<gv")
@@ -174,25 +164,10 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 ---- extend * usage
 map({ "n", "x" }, "gW", "*N", { desc = "Search word under cursor" })
-map(
-    "n",
-    "c*",
-    "/<<C-R>=expand('<cword>')<CR>>C<CR>``cgn",
-    { expr = true, desc = "Replace word under cursor (forward)" }
-)
-map(
-    "n",
-    "c#",
-    "/<<C-R>=expand('<cword>')<CR>>C<CR>``cgN",
-    { expr = true, desc = "Replace word under cursor (backword}" }
-)
-map("n", "d*", "/<<C-R>=expand('<cword>')<CR>>C<CR>``dgn", { expr = true, desc = "Delete word under cursor (forward)" })
-map(
-    "n",
-    "d#",
-    "/<<C-R>=expand('<cword>')<CR>>C<CR>``dgN",
-    { expr = true, desc = "Delete word under cursor (backword)" }
-)
+map("n", "c*", "*``cgn", { desc = "Replace word under cursor (forward)" })
+map("n", "c#", "#``cgN", { desc = "Replace word under cursor (backward)" })
+map("n", "d*", "*``dgn", { desc = "Delete word under cursor (forward)" })
+map("n", "d#", "#``dgN", { desc = "Delete word under cursor (backward)" })
 
 ---- files
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
@@ -208,5 +183,7 @@ map("n", "<leader>uu", function()
 end, { desc = "Undotree" })
 
 ---- built-in difftool
-vim.cmd "packadd nvim.difftool"
-map("n", "<leader>gD", "<cmd>DiffTool<cr>", { desc = "DiffTool" })
+map("n", "<leader>gD", function()
+    vim.cmd "packadd nvim.difftool"
+    vim.cmd "DiffTool"
+end, { desc = "DiffTool" })

@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
     vim.fn.system {
         "git",
         "clone",
@@ -20,9 +20,6 @@ require("lazy").setup({
         build = ":TSUpdate",
         lazy = false,
         branch = "main",
-        dependencies = {
-            "windwp/nvim-ts-autotag",
-        },
         keys = {
             {
                 "<leader>uT",
@@ -142,43 +139,39 @@ require("lazy").setup({
         "mason-org/mason.nvim",
         build = ":MasonUpdate",
         event = { "BufReadPre", "BufNewFile" },
-        cmd = { "Mason", "MasonUpdate" },
+        cmd = { "Mason", "MasonUpdate", "MasonEnsure" },
         opts = {
             ensure_installed = {
                 "hadolint",
                 "prettierd",
                 "gofumpt",
-                "impl",
                 "ruff",
-                "gomodifytags",
                 "goimports",
                 "goimports-reviser",
                 "stylua",
-                "staticcheck",
                 "golangci-lint",
-                "eslint_d",
                 "luacheck",
-                "markdownlint",
                 "shellcheck",
-                "vue-language-server",
                 "biome",
-                "astro-language-server",
-                -- "lexical",
-                "expert",
             },
         },
         config = function(_, opts)
             require("mason").setup(opts)
-            local mr = require "mason-registry"
 
-            vim.schedule(function()
-                for _, tool in ipairs(opts.ensure_installed) do
-                    local ok, p = pcall(mr.get_package, tool)
-                    if ok and not p:is_installed() then
-                        p:install()
+            -- Installing tools parses the (large) Mason registry, so run it on demand
+            -- via :MasonEnsure instead of on every startup.
+            vim.api.nvim_create_user_command("MasonEnsure", function()
+                local mr = require "mason-registry"
+                mr.refresh(function()
+                    for _, tool in ipairs(opts.ensure_installed) do
+                        local ok, p = pcall(mr.get_package, tool)
+                        if ok and not p:is_installed() then
+                            p:install()
+                        end
                     end
-                end
-            end)
+                    vim.notify("MasonEnsure: checked " .. #opts.ensure_installed .. " tools", vim.log.levels.INFO)
+                end)
+            end, { desc = "Install any missing ensured Mason tools" })
         end,
     },
     {
@@ -195,28 +188,24 @@ require("lazy").setup({
                 "bashls",
                 "jsonls",
                 "yamlls",
-                "sqlls",
-                "marksman",
                 "html",
                 "cssls",
                 "svelte",
                 "taplo",
                 "tailwindcss",
-                "graphql",
-                "cssmodules_ls",
                 "emmet_language_server",
                 "dockerls",
                 "pyright",
                 "vue_ls",
                 "ts_ls",
                 "tsgo",
-                "elixirls",
             },
             automatic_enable = {
                 exclude = {
                     -- "rust_analyzer",
                     "tsgo",
-                    -- "expert",
+                    -- Dexter is the active Elixir LSP; keep legacy servers disabled if installed.
+                    "expert",
                     "elixirls",
                 },
             },
@@ -337,15 +326,10 @@ require("lazy").setup({
     -- auto completion
     {
         "saghen/blink.cmp",
-        dependencies = {
-            "rafamadriz/friendly-snippets",
-            "nvim-mini/mini.nvim",
-        },
         event = { "InsertEnter", "CmdlineEnter" },
         version = "*",
         enabled = true,
         opts = {
-            snippets = { preset = "mini_snippets" },
             appearance = {
                 use_nvim_cmp_as_default = false,
                 nerd_font_variant = "mono",
@@ -355,7 +339,6 @@ require("lazy").setup({
                     "lazydev",
                     "lsp",
                     "path",
-                    "snippets",
                     "buffer",
                 },
                 providers = {
@@ -363,12 +346,6 @@ require("lazy").setup({
                         name = "LazyDev",
                         module = "lazydev.integrations.blink",
                         score_offset = 100,
-                    },
-                    snippets = {
-                        should_show_items = function(ctx)
-                            return ctx.trigger.initial_kind ~= "trigger_character"
-                                and not require("blink.cmp").snippet_active()
-                        end,
                     },
                 },
             },
@@ -423,16 +400,6 @@ require("lazy").setup({
             "sources.completion.enabled_providers",
             "sources.default",
         },
-    },
-    {
-        "MeanderingProgrammer/render-markdown.nvim",
-        ft = { "markdown", "md" },
-        dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" },
-        config = function()
-            require("render-markdown").setup {
-                completions = { blink = { enabled = true } },
-            }
-        end,
     },
     {
         "ibhagwan/fzf-lua",
@@ -937,11 +904,8 @@ require("lazy").setup({
                     update_n_lines = "gzn",
                 },
             }
-            require("mini.bufremove").setup()
             require("mini.bracketed").setup()
-            require("mini.snippets").setup()
             require("mini.statusline").setup()
-            require("mini.hipatterns").setup()
         end,
     },
     {
@@ -1055,70 +1019,6 @@ require("lazy").setup({
                 },
             },
         },
-    },
-    {
-        "nvim-lualine/lualine.nvim",
-        enabled = false,
-        event = { "VeryLazy" },
-        dependencies = { "nvim-mini/mini.nvim" },
-        opts = function()
-            local icons = utils.icons
-
-            return {
-                options = {
-                    icons_enabled = true,
-                    theme = "auto",
-                    component_separators = { left = "", right = "" },
-                    section_separators = { left = "", right = "" },
-                    globalstatus = true,
-                },
-                sections = {
-                    lualine_a = {
-                        {
-                            "mode",
-                            fmt = function(str)
-                                return str:sub(1, 1)
-                            end,
-                        },
-                    },
-                    lualine_b = {},
-                    lualine_c = {
-                        {
-                            "filename",
-                            path = 1,
-                            symbols = { modified = "  ", readonly = "", unnamed = "" },
-                        },
-                        {
-                            "diagnostics",
-                            sources = { "nvim_diagnostic" },
-                            symbols = {
-                                error = "",
-                                warn = "",
-                                info = "",
-                                hint = "",
-                            },
-                            update_in_insert = false,
-                            always_visible = true,
-                        },
-                    },
-                    lualine_x = {
-                        {
-                            function()
-                                return vim.lsp.status()
-                            end,
-                        },
-                    },
-                    lualine_y = {},
-                    lualine_z = {
-                        { "location", padding = { left = 0, right = 1 } },
-                    },
-                },
-                tabline = {},
-                winbar = {},
-                inactive_winbar = {},
-                extensions = { "lazy" },
-            }
-        end,
     },
     {
         "lervag/vimtex",
@@ -1254,21 +1154,6 @@ require("lazy").setup({
                     Snacks.picker.gh_pr { state = "all" }
                 end,
                 desc = "GitHub Pull Requests (all)",
-            },
-        },
-    },
-    {
-        "MagicDuck/grug-far.nvim",
-        config = function()
-            require("grug-far").setup {}
-        end,
-        keys = {
-            {
-                "<leader>lg",
-                function()
-                    require("grug-far").open()
-                end,
-                desc = "GrugFar",
             },
         },
     },

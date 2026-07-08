@@ -49,23 +49,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.wo[win][0].foldexpr = "v:lua.vim.lsp.foldexpr()"
         end
 
-        if client.server_capabilities.documentHighlightProvider then
-            -- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            --     buffer = args.buf,
-            --     callback = vim.lsp.buf.document_highlight,
-            -- })
-
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-                buffer = args.buf,
-                callback = vim.lsp.buf.clear_references,
-            })
-        end
-
         -- Custom client capabilities
         local client_name = client.name
-        if client_name == "cssmodules_ls" then
-            client.server_capabilities.definitionProvider = false
-        elseif client_name == "gopls" then
+        if client_name == "gopls" then
             if not client.server_capabilities.semanticTokensProvider then
                 local semantic = client.config.capabilities.textDocument.semanticTokens
                 client.server_capabilities.semanticTokensProvider = {
@@ -93,7 +79,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             {
                 "<leader>ld",
                 function()
-                    vim.diagnostic.open_float { border = "single", style = "minimal", focussable = true }
+                    vim.diagnostic.open_float { border = "single", style = "minimal", focusable = true }
                 end,
                 { desc = "Show line diagnostics" },
             },
@@ -101,8 +87,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
                 "<leader>cr",
                 function()
                     local clients = vim.lsp.get_clients { bufnr = args.buf }
-                    for _, client in ipairs(clients) do
-                        vim.lsp.stop_client(client.id)
+                    for _, lsp_client in ipairs(clients) do
+                        lsp_client:stop()
                     end
                     vim.defer_fn(function()
                         vim.cmd.edit()
@@ -115,28 +101,28 @@ vim.api.nvim_create_autocmd("LspAttach", {
             {
                 "[e",
                 function()
-                    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+                    vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.ERROR }
                 end,
                 { desc = "Prev error" },
             },
             {
                 "]e",
                 function()
-                    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+                    vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.ERROR }
                 end,
                 { desc = "Next error" },
             },
             {
                 "[w",
                 function()
-                    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.WARN }
+                    vim.diagnostic.jump { count = -1, severity = vim.diagnostic.severity.WARN }
                 end,
                 { desc = "Prev warning" },
             },
             {
                 "]w",
                 function()
-                    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.WARN }
+                    vim.diagnostic.jump { count = 1, severity = vim.diagnostic.severity.WARN }
                 end,
                 { desc = "Next warning" },
             },

@@ -8,29 +8,31 @@ if vim.env.PROF then
     }
 end
 
-require("vim._core.ui2").enable {
-    enable = true,
-    msg = {
-        ---@type 'cmd'|'msg' Default message target, either in the
-        ---cmdline or in a separate ephemeral message window.
-        ---@type string|table<string, 'cmd'|'msg'|'pager'> Default message target
-        ---or table mapping |ui-messages| kinds and triggers to a target.
-        targets = "cmd",
-        cmd = {
-            height = 0.5,
-        },
-        dialog = {
-            height = 0.5,
-        },
+pcall(function()
+    require("vim._core.ui2").enable {
+        enable = true,
         msg = {
-            height = 0.5,
-            timeout = 4000,
+            ---@type 'cmd'|'msg' Default message target, either in the
+            ---cmdline or in a separate ephemeral message window.
+            ---@type string|table<string, 'cmd'|'msg'|'pager'> Default message target
+            ---or table mapping |ui-messages| kinds and triggers to a target.
+            targets = "cmd",
+            cmd = {
+                height = 0.5,
+            },
+            dialog = {
+                height = 0.5,
+            },
+            msg = {
+                height = 0.5,
+                timeout = 4000,
+            },
+            pager = {
+                height = 0.5,
+            },
         },
-        pager = {
-            height = 0.5,
-        },
-    },
-}
+    }
+end)
 
 require "vstegen.options"
 require "vstegen.plugins"

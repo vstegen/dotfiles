@@ -70,7 +70,7 @@ vim.opt.timeoutlen = 150
 vim.opt.undodir = vim.fn.stdpath "cache" .. "/undo"
 vim.opt.undofile = true
 vim.opt.undolevels = 10000
-vim.opt.updatetime = 50
+vim.opt.updatetime = 250
 vim.opt.vb = false
 vim.opt.whichwrap:append "<,>,[,],h,l"
 vim.opt.wildmode = "longest:full,full"
