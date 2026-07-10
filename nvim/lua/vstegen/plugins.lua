@@ -376,7 +376,7 @@ require("lazy").setup({
             signature = {
                 enabled = true,
                 window = {
-                    show_documentation = true,
+                    show_documentation = false,
                 },
             },
             keymap = {
@@ -393,6 +393,12 @@ require("lazy").setup({
                 ["<Tab>"] = { "select_next", "fallback" },
                 ["<C-b>"] = { "scroll_documentation_up", "fallback" },
                 ["<C-f>"] = { "scroll_documentation_down", "fallback" },
+                ["<C-k>"] = {
+                    function()
+                        vim.lsp.buf.signature_help()
+                    end,
+                    "fallback",
+                },
             },
         },
         opts_extend = {
