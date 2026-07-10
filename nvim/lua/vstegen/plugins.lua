@@ -304,11 +304,10 @@ require("lazy").setup({
         ft = { "rust" },
         config = function(_, _)
             local lsp = require "vstegen.lsp"
-            local cfg = require "rustaceanvim.config"
             vim.g.rustaceanvim = {
                 server = {
                     default_settings = {
-                        ["rust-analyzer"] = lsp.servers.rust_analyzer.server.settings["rust-analyzer"],
+                        ["rust-analyzer"] = lsp.servers.rust_analyzer.settings["rust-analyzer"],
                     },
                 },
             }
