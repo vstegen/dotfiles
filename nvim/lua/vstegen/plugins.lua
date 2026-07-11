@@ -338,7 +338,11 @@ require("lazy").setup({
                     "lazydev",
                     "lsp",
                     "path",
-                    "buffer",
+                    -- "buffer",
+                },
+                per_filetype = {
+                    markdown = { inherit_defaults = true, "buffer" },
+                    text = { inherit_defaults = true, "buffer" },
                 },
                 providers = {
                     lazydev = {
