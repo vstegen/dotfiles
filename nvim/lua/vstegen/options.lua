@@ -5,7 +5,7 @@ vim.opt.background = "dark"
 vim.opt.backup = false
 vim.opt.breakindent = true
 vim.schedule(function()
-    vim.opt.clipboard = "unnamedplus"
+    vim.opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus"
 end)
 vim.opt.cmdheight = 1
 vim.opt.colorcolumn = ""
