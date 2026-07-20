@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -lt 2 ]]; then
+  echo "usage: run-agent <pi|codex|claude> <normal|yolo> [arguments...]" >&2
+  exit 2
+fi
+
+AGENT=$1
+MODE=$2
+shift 2
+
+case "${AGENT}:${MODE}" in
+  pi:normal) AGENT_FLAG= ;;
+  pi:yolo) AGENT_FLAG=--approve ;;
+  codex:normal) AGENT_FLAG= ;;
+  codex:yolo) AGENT_FLAG=--dangerously-bypass-approvals-and-sandbox ;;
+  claude:normal) AGENT_FLAG= ;;
+  claude:yolo) AGENT_FLAG=--dangerously-skip-permissions ;;
+  *)
+    echo "error: unsupported agent or mode: ${AGENT}:${MODE}" >&2
+    exit 2
+    ;;
+esac
+
+RUNTIME=${AGENT_CONTAINER_RUNTIME:-docker}
+IMAGE=${AGENT_SANDBOX_IMAGE:-coding-agents:latest}
+LIB_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+LAUNCH_DIR=$(pwd -P)
+
+if ! command -v "${RUNTIME}" >/dev/null 2>&1; then
+  echo "error: container runtime '${RUNTIME}' was not found" >&2
+  exit 1
+fi
+
+if ! "${RUNTIME}" info >/dev/null 2>&1; then
+  echo "error: '${RUNTIME}' is installed, but its daemon is unavailable" >&2
+  exit 1
+fi
+
+if ! "${RUNTIME}" image inspect "${IMAGE}" >/dev/null 2>&1; then
+  echo "Container image '${IMAGE}' is missing; building it now..." >&2
+  "${LIB_DIR}/build-image"
+fi
+
+# These are the only persistent host directories exposed to every agent.
+# Resolve sources so symlinked directories (notably ~/.pi) bind correctly,
+# while retaining their expected paths below $HOME inside the container.
+HOST_PATHS=(
+  "${HOME}/Code"
+  "${HOME}/dev"
+  "${HOME}/.claude"
+  "${HOME}/.codex"
+  "${HOME}/.pi"
+  "${HOME}/bin"
+  "${HOME}/scripts"
+  "${HOME}/shared"
+)
+
+MOUNT_SOURCES=()
+MOUNT_TARGETS=()
+for target in "${HOST_PATHS[@]}"; do
+  mkdir -p "${target}"
+  source_path=$(cd -- "${target}" && pwd -P)
+  MOUNT_SOURCES+=("${source_path}")
+  MOUNT_TARGETS+=("${target}")
+done
+
+# Mount the whole repository when launched in Git, or just the launch directory
+# otherwise. This matters when the location is outside the shared paths above.
+if project_root=$(git -C "${LAUNCH_DIR}" rev-parse --show-toplevel 2>/dev/null); then
+  project_root=$(cd -- "${project_root}" && pwd -P)
+else
+  project_root=${LAUNCH_DIR}
+fi
+
+path_is_exposed() {
+  local candidate=$1
+  local target
+  for target in "${MOUNT_TARGETS[@]}"; do
+    case "${candidate}" in
+      "${target}"|"${target}"/*) return 0 ;;
+    esac
+  done
+  return 1
+}
+
+if ! path_is_exposed "${project_root}"; then
+  MOUNT_SOURCES+=("${project_root}")
+  MOUNT_TARGETS+=("${project_root}")
+fi
+
+# A linked Git worktree may keep its common .git directory outside the worktree.
+# Mount that metadata too so Git remains functional in the container.
+if git_common_dir=$(git -C "${LAUNCH_DIR}" rev-parse --path-format=absolute --git-common-dir 2>/dev/null); then
+  git_common_dir=$(cd -- "${git_common_dir}" && pwd -P)
+  if ! path_is_exposed "${git_common_dir}"; then
+    MOUNT_SOURCES+=("${git_common_dir}")
+    MOUNT_TARGETS+=("${git_common_dir}")
+  fi
+fi
+
+DOCKER_ARGS=(
+  run
+  --rm
+  --interactive
+  --user "$(id -u):$(id -g)"
+  --cap-drop ALL
+  --security-opt no-new-privileges:true
+  --ipc none
+  --memory "${AGENT_SANDBOX_MEMORY:-8g}"
+  --cpus "${AGENT_SANDBOX_CPUS:-4}"
+  --pids-limit "${AGENT_SANDBOX_PIDS_LIMIT:-1024}"
+  --hostname agent-sandbox
+  --workdir "${LAUNCH_DIR}"
+  --env "HOME=${HOME}"
+  --env "TERM=${TERM:-xterm-256color}"
+  --env "COLORTERM=${COLORTERM:-truecolor}"
+)
+
+if [[ -t 0 && -t 1 ]]; then
+  DOCKER_ARGS+=(--tty)
+fi
+
+# Keep caches and other unlisted home files writable but ephemeral. Do not add
+# this mount if the selected project itself already exposes $HOME.
+if ! path_is_exposed "${HOME}"; then
+  DOCKER_ARGS+=(--tmpfs "${HOME}:rw,nosuid,nodev,exec,mode=1777")
+fi
+
+for index in "${!MOUNT_SOURCES[@]}"; do
+  DOCKER_ARGS+=(
+    --mount "type=bind,source=${MOUNT_SOURCES[$index]},target=${MOUNT_TARGETS[$index]}"
+  )
+done
+
+CONTAINER_COMMAND=("${IMAGE}" "${AGENT}")
+if [[ -n "${AGENT_FLAG}" ]]; then
+  CONTAINER_COMMAND+=("${AGENT_FLAG}")
+fi
+
+exec "${RUNTIME}" "${DOCKER_ARGS[@]}" "${CONTAINER_COMMAND[@]}" "$@"

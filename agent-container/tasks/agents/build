@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#MISE description="Build or rebuild the coding-agent container image"
+set -euo pipefail
+exec "${MISE_TASK_DIR}/../../lib/build-image"

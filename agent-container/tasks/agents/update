@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#MISE description="Update pinned coding-agent versions and rebuild the image"
+#MISE raw=true
+set -euo pipefail
+exec "${MISE_TASK_DIR}/../../lib/update-agents" "$@"

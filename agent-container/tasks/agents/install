@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#MISE description="Install the coding-agent mise tasks globally"
+set -euo pipefail
+exec "${MISE_TASK_DIR}/../../lib/install-tasks"

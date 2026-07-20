@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LIB_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+DOCKERFILE=${AGENT_SANDBOX_DOCKERFILE:-${LIB_DIR}/../Dockerfile}
+
+if [[ "${1:-}" == -h || "${1:-}" == --help ]]; then
+  cat <<'EOF'
+Usage: mise run agents:update [-- claude|codex|pi ...]
+
+With no names, update all three pinned agent versions. Selected names update
+only those agents. Successful updates rebuild the container image.
+
+Examples:
+  mise run agents:update
+  mise run agents:update -- pi
+  mise run agents:update -- claude codex
+EOF
+  exit 0
+fi
+
+if ! command -v npm >/dev/null 2>&1; then
+  echo "error: npm is required to resolve agent versions" >&2
+  exit 1
+fi
+
+if [[ $# -eq 0 ]]; then
+  set -- claude codex pi
+fi
+
+AGENTS=()
+ARG_NAMES=()
+PACKAGES=()
+VERSIONS=()
+CURRENT_VERSIONS=()
+for agent in "$@"; do
+  AGENTS+=("${agent}")
+  case "${agent}" in
+    claude)
+      ARG_NAMES+=(CLAUDE_CODE_VERSION)
+      PACKAGES+=(@anthropic-ai/claude-code)
+      ;;
+    codex)
+      ARG_NAMES+=(CODEX_VERSION)
+      PACKAGES+=(@openai/codex)
+      ;;
+    pi)
+      ARG_NAMES+=(PI_VERSION)
+      PACKAGES+=(@earendil-works/pi-coding-agent)
+      ;;
+    *)
+      echo "error: unknown agent '${agent}'; expected claude, codex, or pi" >&2
+      exit 2
+      ;;
+  esac
+
+done
+
+for package in "${PACKAGES[@]}"; do
+  version=$(npm view "${package}" version)
+  if [[ ! "${version}" =~ ^[0-9A-Za-z][0-9A-Za-z.+-]*$ ]]; then
+    echo "error: npm returned an invalid version for ${package}: ${version}" >&2
+    exit 1
+  fi
+  VERSIONS+=("${version}")
+done
+
+# Validate every requested declaration before changing the file, preventing a
+# malformed Dockerfile from being only partially updated.
+for arg_name in "${ARG_NAMES[@]}"; do
+  declarations=$(awk -F= -v key="ARG ${arg_name}" '$1 == key { count++; value=$2 } END { print count + 0, value }' "${DOCKERFILE}")
+  count=${declarations%% *}
+  current=${declarations#* }
+  if [[ "${count}" != 1 || -z "${current}" ]]; then
+    echo "error: expected exactly one ${arg_name} declaration in ${DOCKERFILE}" >&2
+    exit 1
+  fi
+  CURRENT_VERSIONS+=("${current}")
+done
+
+for index in "${!ARG_NAMES[@]}"; do
+  arg_name=${ARG_NAMES[$index]}
+  package=${PACKAGES[$index]}
+  version=${VERSIONS[$index]}
+  current=${CURRENT_VERSIONS[$index]}
+  temporary=$(mktemp "${DOCKERFILE}.XXXXXX")
+  if ! awk -v key="ARG ${arg_name}=" -v replacement="ARG ${arg_name}=${version}" '
+    index($0, key) == 1 { count++; $0 = replacement }
+    { print }
+    END { if (count != 1) exit 1 }
+  ' "${DOCKERFILE}" >"${temporary}"; then
+    rm -f "${temporary}"
+    echo "error: expected exactly one ${arg_name} declaration in ${DOCKERFILE}" >&2
+    exit 1
+  fi
+  mv "${temporary}" "${DOCKERFILE}"
+  printf '%-6s %s -> %s (%s)\n' "${AGENTS[$index]}" "${current}" "${version}" "${package}"
+done
+
+if [[ -z "${AGENT_SANDBOX_SKIP_BUILD:-}" ]]; then
+  "${LIB_DIR}/build-image"
+else
+  echo "Skipped image build because AGENT_SANDBOX_SKIP_BUILD is set."
+fi

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#MISE description="Show coding-agent sandbox commands and options"
+set -euo pipefail
+exec "${MISE_TASK_DIR}/../../lib/help"

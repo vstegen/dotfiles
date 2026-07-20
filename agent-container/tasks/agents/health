@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#MISE description="Check the coding-agent container setup"
+set -euo pipefail
+exec "${MISE_TASK_DIR}/../../lib/health"

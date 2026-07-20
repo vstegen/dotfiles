@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+#MISE description="Run Codex without its internal approvals or sandbox"
+#MISE raw=true
+#MISE dir="{{cwd}}"
+set -euo pipefail
+exec "${MISE_TASK_DIR}/../../lib/run-agent" codex yolo "$@"

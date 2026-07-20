@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LIB_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+CONTAINER_DIR=$(cd -- "${LIB_DIR}/.." && pwd -P)
+RUNTIME=${AGENT_CONTAINER_RUNTIME:-docker}
+IMAGE=${AGENT_SANDBOX_IMAGE:-coding-agents:latest}
+
+if ! command -v "${RUNTIME}" >/dev/null 2>&1; then
+  echo "error: container runtime '${RUNTIME}' was not found" >&2
+  exit 1
+fi
+
+exec "${RUNTIME}" build --tag "${IMAGE}" --file "${CONTAINER_DIR}/Dockerfile" "${CONTAINER_DIR}"

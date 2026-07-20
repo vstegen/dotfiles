@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cat <<'EOF'
+Containerized coding agents
+
+Agent tasks:
+  mise run pi [-- ARGS...]             Run Pi
+  mise run codex [-- ARGS...]          Run Codex with its normal approvals
+  mise run claude [-- ARGS...]         Run Claude with its normal permissions
+  mise run pi:yolo [-- ARGS...]        Trust project-local Pi resources
+  mise run codex:yolo [-- ARGS...]     Bypass Codex approvals and sandboxing
+  mise run claude:yolo [-- ARGS...]    Bypass Claude permission checks
+
+Management tasks:
+  mise run agents:build                Build or rebuild the image
+  mise run agents:update               Update all agent versions and rebuild
+  mise run agents:update -- NAMES...   Update selected agents and rebuild
+  mise run agents:health               Check Docker, mise, and the image
+  mise run agents:test                 Test launcher and update logic
+  mise run agents:install              Install these tasks globally
+  mise run agents:help                 Show this help
+
+Examples:
+  mise run pi -- -p "Summarize this repository"
+  mise run codex:yolo -- "Implement the requested change"
+  mise run agents:update -- pi claude
+  mise run claude -- --help
+
+Host-side controls:
+  AGENT_CONTAINER_RUNTIME              Container command (default: docker)
+  AGENT_SANDBOX_IMAGE                  Image name (default: coding-agents:latest)
+  AGENT_SANDBOX_MEMORY                 Memory limit (default: 8g)
+  AGENT_SANDBOX_CPUS                   CPU limit (default: 4)
+  AGENT_SANDBOX_PIDS_LIMIT             Process limit (default: 1024)
+
+More documentation:
+  ~/.pi/container/README.md
+EOF

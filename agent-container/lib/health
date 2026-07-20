@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RUNTIME=${AGENT_CONTAINER_RUNTIME:-docker}
+IMAGE=${AGENT_SANDBOX_IMAGE:-coding-agents:latest}
+failed=0
+
+check() {
+  local label=$1
+  shift
+  if "$@" >/dev/null 2>&1; then
+    printf 'ok    %s\n' "${label}"
+  else
+    printf 'error %s\n' "${label}"
+    failed=1
+  fi
+}
+
+check "mise is installed" command -v mise
+check "${RUNTIME} is installed" command -v "${RUNTIME}"
+if command -v "${RUNTIME}" >/dev/null 2>&1; then
+  check "${RUNTIME} daemon is available" "${RUNTIME}" info
+  check "image ${IMAGE} exists" "${RUNTIME}" image inspect "${IMAGE}"
+fi
+
+exit "${failed}"

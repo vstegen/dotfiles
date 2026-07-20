@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LIB_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+TASKS_DIR=$(cd -- "${LIB_DIR}/../tasks" && pwd -P)
+CONF_DIR=${XDG_CONFIG_HOME:-${HOME}/.config}/mise/conf.d
+CONF_FILE=${CONF_DIR}/coding-agents.toml
+
+case "${TASKS_DIR}" in
+  *"'"*|*$'\n'*)
+    echo "error: the task path cannot contain an apostrophe or newline: ${TASKS_DIR}" >&2
+    exit 1
+    ;;
+esac
+
+mkdir -p "${CONF_DIR}"
+cat >"${CONF_FILE}" <<EOF
+# Managed by the coding-agent sandbox in ${LIB_DIR%/lib}.
+[task_config]
+includes = ['${TASKS_DIR}']
+EOF
+
+printf 'Installed global coding-agent tasks in %s\n' "${CONF_FILE}"
+printf 'Build the image with: mise run agents:build\n'

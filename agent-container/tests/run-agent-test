@@ -1,0 +1,96 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CONTAINER_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd -P)
+TMP_DIR=$(mktemp -d)
+trap 'rm -rf "${TMP_DIR}"' EXIT
+
+mkdir -p "${TMP_DIR}/bin" "${TMP_DIR}/project/subdir"
+git -C "${TMP_DIR}/project" init --quiet
+
+cat >"${TMP_DIR}/bin/fake-docker" <<'EOF'
+#!/usr/bin/env bash
+case "${1:-}" in
+  info) exit 0 ;;
+  image) [[ "${2:-}" == inspect ]] && exit 0 ;;
+  run) printf '%s\n' "$@" ;;
+  *) exit 97 ;;
+esac
+EOF
+chmod +x "${TMP_DIR}/bin/fake-docker"
+
+run_agent() {
+  local agent=$1
+  local mode=$2
+  shift 2
+  (
+    cd "${TMP_DIR}/project/subdir"
+    HOME="${TMP_DIR}/home" \
+      ANTHROPIC_API_KEY=must-not-be-forwarded \
+      AGENT_CONTAINER_RUNTIME="${TMP_DIR}/bin/fake-docker" \
+      TERM=xterm \
+      "${CONTAINER_DIR}/lib/run-agent" "${agent}" "${mode}" "$@"
+  )
+}
+
+assert_line() {
+  local output=$1
+  local expected=$2
+  if ! printf '%s\n' "${output}" | rg --fixed-strings --line-regexp -- "${expected}" >/dev/null; then
+    echo "missing launcher argument: ${expected}" >&2
+    exit 1
+  fi
+}
+
+assert_no_line() {
+  local output=$1
+  local unexpected=$2
+  if printf '%s\n' "${output}" | rg --fixed-strings --line-regexp -- "${unexpected}" >/dev/null; then
+    echo "unexpected launcher argument: ${unexpected}" >&2
+    exit 1
+  fi
+}
+
+output=$(run_agent codex yolo --model test)
+for expected in \
+  --user \
+  "$(id -u):$(id -g)" \
+  --cap-drop \
+  ALL \
+  --security-opt \
+  no-new-privileges:true \
+  --ipc \
+  none \
+  --memory \
+  8g \
+  --cpus \
+  4 \
+  --pids-limit \
+  1024 \
+  codex \
+  --dangerously-bypass-approvals-and-sandbox \
+  --model \
+  test; do
+  assert_line "${output}" "${expected}"
+done
+
+project_root=$(cd -- "${TMP_DIR}/project" && pwd -P)
+assert_line "${output}" "type=bind,source=${project_root},target=${project_root}"
+assert_line "${output}" "${TMP_DIR}/home:rw,nosuid,nodev,exec,mode=1777"
+
+for path in Code dev .claude .codex .pi bin scripts shared; do
+  assert_line "${output}" "type=bind,source=$(cd -- "${TMP_DIR}/home/${path}" && pwd -P),target=${TMP_DIR}/home/${path}"
+done
+
+if printf '%s\n' "${output}" | rg 'ANTHROPIC_API_KEY|must-not-be-forwarded' >/dev/null; then
+  echo "host API key was forwarded" >&2
+  exit 1
+fi
+
+assert_line "$(run_agent claude yolo)" --dangerously-skip-permissions
+assert_line "$(run_agent pi yolo)" --approve
+assert_no_line "$(run_agent claude normal)" --dangerously-skip-permissions
+assert_no_line "$(run_agent codex normal)" --dangerously-bypass-approvals-and-sandbox
+assert_no_line "$(run_agent pi normal)" --approve
+
+printf 'run-agent tests passed\n'
