@@ -1,8 +1,5 @@
 # Personal tool preferences
 
-- Prefer `rg` over `grep` for searching text
-- Prefer `fd` over `find` for locating files or directories
-- Prefer `tree` for visualizing directory structure when available
 - Use `jq` for JSON parsing
 - Use `yq` for YAML parsing
 - I use fish shell interactively, so be aware that shell syntax in my dotfiles may be fish syntax
@@ -28,7 +25,7 @@
 - Do not default to "Clean Code" style patterns. Prefer locality and straightforward control flow over splitting code into many tiny functions.
 - Keep implementations minimal, local, and direct. Avoid premature abstraction, indirection, layering, or generalized frameworks unless there is a clear, immediate benefit.
 - Introduce abstractions only when they reduce real duplication/complexity, clarify ownership or boundaries, or enable a concrete requirement.
-- Favor readable code that keeps related logic and data close together, in the spirit of Casey Muratori's critiques and *A Philosophy of Software Design*.
+- Favor readable code that keeps related logic and data close together, in the spirit of Casey Muratori's critiques and _A Philosophy of Software Design_.
 - Prioritize performance, security, and stability. Consider allocation behavior, error handling, input validation, failure modes, and edge cases.
 - When modifying existing code, prefer the smallest coherent change that fits the surrounding style and avoids unnecessary churn.
 - Avoid adding a dependency just to use one small feature or helper. If the needed functionality is small, isolated, and reasonable to maintain, strongly prefer copying or implementing that focused functionality locally instead of pulling in the dependency and its transitive dependencies. Preserve licenses/attribution when copying code.
