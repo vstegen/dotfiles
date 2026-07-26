@@ -1,8 +1,8 @@
 FROM node:24-bookworm-slim
 
-ARG CLAUDE_CODE_VERSION=2.1.212
-ARG CODEX_VERSION=0.144.5
-ARG PI_VERSION=0.80.10
+ARG CLAUDE_CODE_VERSION=2.1.220
+ARG CODEX_VERSION=0.145.0
+ARG PI_VERSION=0.82.0
 
 # Debian security updates should be picked up whenever the image is rebuilt.
 # hadolint ignore=DL3008
