@@ -15,7 +15,16 @@
   "outputPad": 1,
   "showCacheMissNotices": true,
   "enableInstallTelemetry": false,
-  "packages": [
-    "npm:@plannotator/pi-extension"
+  "packages": ["npm:@plannotator/pi-extension"],
+  "skills": [
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/productivity/wait-what",
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/productivity/grilling",
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/productivity/grill-me",
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/productivity/handoff",
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/grill-with-docs",
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/improve-codebase-architecture",
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/resolving-merge-conflicts",
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/wayfinder"
   ]
 }
+
