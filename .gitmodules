@@ -10,3 +10,6 @@
 [submodule "agents/skill-repos/Swift-Testing-Agent-Skill"]
 	path = agents/skill-repos/Swift-Testing-Agent-Skill
 	url = git@github.com:twostraws/Swift-Testing-Agent-Skill.git
+[submodule "agents/skill-repos/mattpocock-skills"]
+	path = agents/skill-repos/mattpocock-skills
+	url = https://github.com/mattpocock/skills.git
