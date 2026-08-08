@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "0.84.0",
   "theme": "catppuccin-mocha",
   "defaultProvider": "openai-codex",
   "defaultModel": "gpt-5.6-terra",
@@ -15,7 +15,9 @@
   "outputPad": 1,
   "showCacheMissNotices": true,
   "enableInstallTelemetry": false,
-  "packages": ["npm:@plannotator/pi-extension"],
+  "packages": [
+    "npm:@plannotator/pi-extension"
+  ],
   "skills": [
     "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/productivity/wait-what",
     "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/productivity/grilling",
@@ -24,7 +26,12 @@
     "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/grill-with-docs",
     "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/improve-codebase-architecture",
     "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/resolving-merge-conflicts",
-    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/wayfinder"
-  ]
+    "~/dev/dotfiles/agents/skill-repos/mattpocock-skills/skills/engineering/wayfinder",
+    "~/dev/dotfiles/agents/skills/zoom-out",
+    "~/dev/dotfiles/agents/skills/to-html-dev",
+    "~/dev/dotfiles/agents/skills/marko",
+    "~/dev/dotfiles/agents/skills/make-interfaces-feel-better",
+    "~/dev/dotfiles/agents/skills/frontend-design"
+  ],
+  "tuiMode": "fullscreen"
 }
-
