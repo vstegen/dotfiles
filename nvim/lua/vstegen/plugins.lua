@@ -372,6 +372,7 @@ require("lazy").setup({
                     },
                 },
                 menu = {
+                    auto_show = false,
                     draw = {
                         treesitter = { "lsp" },
                     },
@@ -391,6 +392,26 @@ require("lazy").setup({
                 ["<C-h>"] = { "snippet_backward", "fallback" },
                 ["<C-l>"] = { "snippet_forward", "fallback" },
                 ["<C-e>"] = { "hide", "fallback" },
+                ["<C-space>"] = {
+                    function(cmp)
+                        if cmp.is_visible() then
+                            cmp.hide()
+                        else
+                            cmp.show()
+                        end
+                    end,
+                    "fallback",
+                },
+                ["<C-@>"] = {
+                    function(cmp)
+                        if cmp.is_visible() then
+                            cmp.hide()
+                        else
+                            cmp.show()
+                        end
+                    end,
+                    "fallback",
+                },
                 ["<C-y>"] = { "select_and_accept", "fallback" },
                 ["<CR>"] = { "accept", "fallback" },
                 ["<S-Tab>"] = { "select_prev", "fallback" },
