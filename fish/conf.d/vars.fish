@@ -20,8 +20,20 @@ set -gx CPPFLAGS -I/opt/homebrew/opt/llvm/include
 set -gx PKG_CONFIG_PATH "/opt/homebrew/opt/openssl@1.1/lib/pkgconfig"
 
 set -gx FZF_DEFAULT_COMMAND "fd --type file --color=always"
-set -gx FZF_DEFAULT_OPTS --ansi
 set -gx FZF_CTRL_T_COMMAND "$FZF_DEFAULT_COMMAND"
+# quiet palette, kept in sync with zsh/zshrc/colors.zsh
+set -gx FZF_DEFAULT_OPTS "--ansi --layout=reverse --info=inline --no-scrollbar \
+--prompt='> ' --pointer='>' --marker='+' \
+--color=fg:#c5c9c5,bg:-1,hl:#c2ad72 \
+--color=fg+:#e1e3df,bg+:#1c211e,hl+:#c2ad72 \
+--color=info:#707a73,prompt:#69a6a0,pointer:#c47b5a \
+--color=marker:#69a6a0,spinner:#707a73,header:#707a73 \
+--color=border:#2a302c,separator:#2a302c,gutter:-1 \
+--color=query:#e1e3df,disabled:#424944"
+
+set -gx BAT_THEME ansi
+set -gx BAT_STYLE numbers,changes
+set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/ripgreprc"
 
 # enables parallel dep compilation for elixir
 set -gx MIX_OS_DEPS_COMPILE_PARTITION_COUNT 4

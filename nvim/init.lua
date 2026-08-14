@@ -35,6 +35,9 @@ pcall(function()
 end)
 
 require "vstegen.options"
+-- load before plugins so that plugin defaults (which are registered as
+-- `default = true` links) never win over the theme's explicit groups
+vim.cmd.colorscheme "quiet"
 require "vstegen.plugins"
 require "vstegen.globals"
 require "vstegen.autocmds"

@@ -1,0 +1,9 @@
+# quiet — ripgrep output in the same muted palette as everything else.
+# Only the match itself gets a colour; paths and line numbers stay behind it.
+
+--colors=path:fg:154,163,156
+--colors=path:style:nobold
+--colors=line:fg:112,122,115
+--colors=column:fg:112,122,115
+--colors=match:fg:194,173,114
+--colors=match:style:nobold

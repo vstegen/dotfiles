@@ -1,0 +1,63 @@
+# quiet — muted colours for git's own output (diff, status, log, grep).
+#
+# Included from ~/.gitconfig by install.sh, so it layers on top of whatever
+# else lives there without owning the file.
+
+[color]
+	ui = auto
+
+[color "diff"]
+	meta = "#9aa39c"
+	frag = "#707a73"
+	func = "#707a73"
+	old = "#b76d68"
+	new = "#718b78"
+	commit = "#c2ad72"
+	whitespace = "reverse #b76d68"
+	oldMoved = "#9a7f96"
+	newMoved = "#7b8c95"
+
+[color "decorate"]
+	HEAD = "#69a6a0"
+	branch = "#c2ad72"
+	remoteBranch = "#7b8c95"
+	tag = "#c47b5a"
+	stash = "#707a73"
+	grafted = "#707a73"
+
+[color "branch"]
+	current = "#c2ad72"
+	local = "#c5c9c5"
+	remote = "#7b8c95"
+	upstream = "#69a6a0"
+	plain = "#c5c9c5"
+
+[color "status"]
+	header = "#707a73"
+	added = "#718b78"
+	updated = "#718b78"
+	changed = "#b09a63"
+	untracked = "#707a73"
+	branch = "#c2ad72"
+	nobranch = "#b76d68"
+	localBranch = "#c5c9c5"
+	remoteBranch = "#7b8c95"
+	unmerged = "#b76d68"
+
+[color "grep"]
+	filename = "#9aa39c"
+	linenumber = "#707a73"
+	match = "#c2ad72"
+	separator = "#424944"
+
+[color "interactive"]
+	prompt = "#69a6a0"
+	header = "#707a73"
+	help = "#707a73"
+	error = "#b76d68"
+
+[color "remote"]
+	hint = "#707a73"
+	success = "#718b78"
+	warning = "#b09a63"
+	error = "#b76d68"

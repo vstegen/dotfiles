@@ -1,0 +1,39 @@
+# quiet — muted, low-saturation terminal palette.
+#
+# The background is byte-identical to Neovim's `Normal` background
+# (nvim/lua/vstegen/theme/palette.lua) so that the editor and the terminal
+# read as one surface.
+#
+# ANSI colours are deliberately flatter than Neovim's syntax accents:
+# terminal programs pick colours by convention rather than by importance,
+# so they get less room to shout. Bright variants are only moderately
+# brighter, never neon.
+
+background = #101311
+foreground = #c5c9c5
+
+cursor-color = #d7dad4
+cursor-text = #101311
+
+selection-background = #2f3a35
+selection-foreground = #e1e3df
+
+# normal
+palette = 0=#262b27
+palette = 1=#b76d68
+palette = 2=#718b78
+palette = 3=#b79f6b
+palette = 4=#6f8aa0
+palette = 5=#9a7f96
+palette = 6=#69a6a0
+palette = 7=#c5c9c5
+
+# bright
+palette = 8=#424944
+palette = 9=#c98079
+palette = 10=#859e88
+palette = 11=#c9b57e
+palette = 12=#839db2
+palette = 13=#ab90a6
+palette = 14=#7cb8b1
+palette = 15=#e1e3df

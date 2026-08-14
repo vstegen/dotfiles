@@ -15,7 +15,7 @@ font-size = 14
 # font-feature = +ss08
 # font-feature = +liga
 
-theme = Catppuccin Mocha
+theme = quiet
 macos-option-as-alt = left
 clipboard-read = ask
 clipboard-write = allow
@@ -25,11 +25,14 @@ window-new-tab-position = end
 keybind = shift+enter=text:\n
 auto-update-channel = "tip"
 auto-update = check
-background-blur = true
-background-opacity = 0.9
+# opaque on purpose: translucency composites whatever is behind the window
+# into the background, so Ghostty and Neovim would no longer share the exact
+# same #101311. Re-enable the two lines below if you miss the blur.
+# background-blur = true
+# background-opacity = 0.9
 progress-style = true
 clipboard-paste-protection = false
-unfocused-split-opacity = 0.85
+unfocused-split-opacity = 0.92
 # keybind = alt+l=goto_split:next
 # keybind = alt+h=goto_split:previous
 keybind = alt+l=goto_split:right

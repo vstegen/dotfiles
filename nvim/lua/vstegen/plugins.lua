@@ -241,13 +241,17 @@ require("lazy").setup({
             vim.lsp.enable "dexter"
 
             vim.diagnostic.config {
+                -- diagnostics stay out of the text: virtual text only ever
+                -- appears on the line the cursor is already on
                 virtual_text = {
                     current_line = true,
-                    severity = { min = vim.diagnostic.severity.INFO, max = vim.diagnostic.severity.WARN },
+                    prefix = "",
+                    spacing = 4,
                 },
                 virtual_lines = false,
                 update_in_insert = false,
-                underline = false,
+                -- only real errors are allowed to draw on top of the code
+                underline = { severity = { min = vim.diagnostic.severity.ERROR } },
                 severity_sort = true,
                 float = {
                     focusable = true,
@@ -764,72 +768,7 @@ require("lazy").setup({
             }
         end,
     },
-    -- color themes
-    {
-        "catppuccin/nvim",
-        priority = 1000,
-        lazy = false,
-        name = "catppuccin",
-        opts = {
-            transparent_background = true,
-            styles = {
-                comments = { "italic" },
-                conditionals = {},
-                keywords = {},
-                functions = {},
-                variables = {},
-            },
-            integrations = {
-                blink_cmp = true,
-                mini = true,
-                native_lsp = {
-                    enabled = true,
-                    underlines = {
-                        errors = { "undercurl" },
-                        hints = { "undercurl" },
-                        warnings = { "undercurl" },
-                        information = { "undercurl" },
-                    },
-                },
-                semantic_tokens = false,
-                treesitter = true,
-                which_key = true,
-            },
-            custom_highlights = function(colors)
-                return {
-                    -- Merge similar syntax categories to reduce color variety
-                    ["@type"] = { fg = colors.yellow },
-                    ["@type.builtin"] = { fg = colors.yellow },
-                    ["@type.definition"] = { fg = colors.yellow },
-                    ["@constructor"] = { fg = colors.yellow },
-                    ["@property"] = { fg = colors.text },
-                    ["@field"] = { fg = colors.text },
-                    ["@variable"] = { fg = colors.text },
-                    ["@variable.builtin"] = { fg = colors.text, bold = true },
-                    ["@parameter"] = { fg = colors.text },
-                    ["@constant"] = { fg = colors.peach },
-                    ["@constant.builtin"] = { fg = colors.peach },
-                    ["@number"] = { fg = colors.peach },
-                    ["@boolean"] = { fg = colors.peach },
-                    ["@string"] = { fg = colors.green },
-                    ["@function"] = { fg = colors.blue },
-                    ["@function.builtin"] = { fg = colors.blue },
-                    ["@method"] = { fg = colors.blue },
-                    ["@keyword"] = { fg = colors.mauve, bold = true },
-                    ["@keyword.function"] = { fg = colors.mauve, bold = true },
-                    ["@keyword.return"] = { fg = colors.mauve, bold = true },
-                    ["@operator"] = { fg = colors.subtext0 },
-                    ["@punctuation"] = { fg = colors.subtext0 },
-                    ["@punctuation.bracket"] = { fg = colors.subtext0 },
-                    ["@punctuation.delimiter"] = { fg = colors.subtext0 },
-                }
-            end,
-        },
-        config = function(_, opts)
-            require("catppuccin").setup(opts)
-            vim.cmd.colorscheme "catppuccin"
-        end,
-    },
+    -- color themes: "quiet" lives in this config, see lua/vstegen/theme/
     -- misc
     {
         "stevearc/oil.nvim",
@@ -1168,7 +1107,7 @@ require("lazy").setup({
     },
 }, {
     install = {
-        colorscheme = { "catppuccin" },
+        colorscheme = { "quiet" },
     },
     change_detection = {
         notify = false,
