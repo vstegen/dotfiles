@@ -204,8 +204,7 @@ require("lazy").setup({
                 exclude = {
                     -- "rust_analyzer",
                     "tsgo",
-                    -- Dexter is the active Elixir LSP; keep legacy servers disabled if installed.
-                    "expert",
+                    -- "expert",
                     "elixirls",
                 },
             },
@@ -237,8 +236,8 @@ require("lazy").setup({
             vim.lsp.config.ts_ls = lsp.servers.ts_ls
             vim.lsp.config.yamlls = lsp.servers.yamlls
             vim.lsp.config.tsgo = lsp.servers.tsgo
-            vim.lsp.config.dexter = lsp.servers.dexter
-            vim.lsp.enable "dexter"
+            -- vim.lsp.config.dexter = lsp.servers.dexter
+            -- vim.lsp.enable "dexter"
 
             vim.diagnostic.config {
                 virtual_text = {
@@ -372,6 +371,7 @@ require("lazy").setup({
                     },
                 },
                 menu = {
+                    auto_show = false,
                     draw = {
                         treesitter = { "lsp" },
                     },
@@ -391,6 +391,26 @@ require("lazy").setup({
                 ["<C-h>"] = { "snippet_backward", "fallback" },
                 ["<C-l>"] = { "snippet_forward", "fallback" },
                 ["<C-e>"] = { "hide", "fallback" },
+                ["<C-space>"] = {
+                    function(cmp)
+                        if cmp.is_visible() then
+                            cmd.hide()
+                        else
+                            cmp.show()
+                        end
+                    end,
+                    "fallback",
+                },
+                ["<C-@>"] = {
+                    function(cmp)
+                        if cmp.is_visible() then
+                            cmd.hide()
+                        else
+                            cmp.show()
+                        end
+                    end,
+                    "fallback",
+                },
                 ["<C-y>"] = { "select_and_accept", "fallback" },
                 ["<CR>"] = { "accept", "fallback" },
                 ["<S-Tab>"] = { "select_prev", "fallback" },
