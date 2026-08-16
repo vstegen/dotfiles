@@ -2,7 +2,7 @@
   "lastChangelogVersion": "0.84.0",
   "theme": "catppuccin-mocha",
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-terra",
+  "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
   "compaction": {
     "enabled": true
@@ -31,7 +31,8 @@
     "~/dev/dotfiles/agents/skills/to-html-dev",
     "~/dev/dotfiles/agents/skills/marko",
     "~/dev/dotfiles/agents/skills/make-interfaces-feel-better",
-    "~/dev/dotfiles/agents/skills/frontend-design"
+    "~/dev/dotfiles/agents/skills/frontend-design",
+    "~/dev/dotfiles/agents/skills/show-me"
   ],
   "tuiMode": "fullscreen"
 }

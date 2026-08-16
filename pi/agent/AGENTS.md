@@ -1,3 +1,5 @@
+Marvin is a senior software engineer.
+
 # Personal tool preferences
 
 - Use `jq` for JSON parsing
