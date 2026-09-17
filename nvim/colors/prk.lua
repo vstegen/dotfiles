@@ -1,36 +1,400 @@
-vim.cmd.highlight "clear"
-
-if vim.fn.exists "syntax_on" == 1 then
-    vim.cmd.syntax "reset"
+-- Remove every existing highlight defnition and link.
+for name in pairs(vim.api.nvim_get_hl(0, {})) do
+    vim.api.nvim_set_hl(0, name, {})
 end
 
 vim.g.colors_name = "prk"
 
 local oklch = require("vstegen.color").oklch_to_hex
 
-local palette = {
-    background = oklch(0.18, 0.02, 250),
-    foreground = oklch(0.85, 0.03, 90),
-    comment = oklch(0.55, 0.04, 250),
-    keyword = oklch(0.72, 0.12, 290),
+local tailwind_colors = {
+    black = oklch(0, 0, 0),
+    white = oklch(1, 0, 0),
+    red_50 = oklch(0.971, 0.013, 17.38),
+    red_100 = oklch(0.936, 0.032, 17.717),
+    red_200 = oklch(0.885, 0.062, 18.334),
+    red_300 = oklch(0.808, 0.114, 19.571),
+    red_400 = oklch(0.704, 0.191, 22.216),
+    red_500 = oklch(0.637, 0.237, 25.331),
+    red_600 = oklch(0.577, 0.245, 27.325),
+    red_700 = oklch(0.505, 0.213, 27.518),
+    red_800 = oklch(0.444, 0.177, 26.899),
+    red_900 = oklch(0.396, 0.141, 25.723),
+    red_950 = oklch(0.258, 0.092, 26.042),
+
+    orange_50 = oklch(0.98, 0.016, 73.684),
+    orange_100 = oklch(0.954, 0.038, 75.164),
+    orange_200 = oklch(0.901, 0.076, 70.697),
+    orange_300 = oklch(0.837, 0.128, 66.29),
+    orange_400 = oklch(0.75, 0.183, 55.934),
+    orange_500 = oklch(0.705, 0.213, 47.604),
+    orange_600 = oklch(0.646, 0.222, 41.116),
+    orange_700 = oklch(0.553, 0.195, 38.402),
+    orange_800 = oklch(0.47, 0.157, 37.304),
+    orange_900 = oklch(0.408, 0.123, 38.172),
+    orange_950 = oklch(0.266, 0.079, 36.259),
+
+    amber_50 = oklch(0.987, 0.022, 95.277),
+    amber_100 = oklch(0.962, 0.059, 95.617),
+    amber_200 = oklch(0.924, 0.12, 95.746),
+    amber_300 = oklch(0.879, 0.169, 91.605),
+    amber_400 = oklch(0.828, 0.189, 84.429),
+    amber_500 = oklch(0.769, 0.188, 70.08),
+    amber_600 = oklch(0.666, 0.179, 58.318),
+    amber_700 = oklch(0.555, 0.163, 48.998),
+    amber_800 = oklch(0.473, 0.137, 46.201),
+    amber_900 = oklch(0.414, 0.112, 45.904),
+    amber_950 = oklch(0.279, 0.077, 45.635),
+
+    yellow_50 = oklch(0.987, 0.026, 102.212),
+    yellow_100 = oklch(0.973, 0.071, 103.193),
+    yellow_200 = oklch(0.945, 0.129, 101.54),
+    yellow_300 = oklch(0.905, 0.182, 98.111),
+    yellow_400 = oklch(0.852, 0.199, 91.936),
+    yellow_500 = oklch(0.795, 0.184, 86.047),
+    yellow_600 = oklch(0.681, 0.162, 75.834),
+    yellow_700 = oklch(0.554, 0.135, 66.442),
+    yellow_800 = oklch(0.476, 0.114, 61.907),
+    yellow_900 = oklch(0.421, 0.095, 57.708),
+    yellow_950 = oklch(0.286, 0.066, 53.813),
+
+    lime_50 = oklch(0.986, 0.031, 120.757),
+    lime_100 = oklch(0.967, 0.067, 122.328),
+    lime_200 = oklch(0.938, 0.127, 124.321),
+    lime_300 = oklch(0.897, 0.196, 126.665),
+    lime_400 = oklch(0.841, 0.238, 128.85),
+    lime_500 = oklch(0.768, 0.233, 130.85),
+    lime_600 = oklch(0.648, 0.2, 131.684),
+    lime_700 = oklch(0.532, 0.157, 131.589),
+    lime_800 = oklch(0.453, 0.124, 130.933),
+    lime_900 = oklch(0.405, 0.101, 131.063),
+    lime_950 = oklch(0.274, 0.072, 132.109),
+
+    green_50 = oklch(0.982, 0.018, 155.826),
+    green_100 = oklch(0.962, 0.044, 156.743),
+    green_200 = oklch(0.925, 0.084, 155.995),
+    green_300 = oklch(0.871, 0.15, 154.449),
+    green_400 = oklch(0.792, 0.209, 151.711),
+    green_500 = oklch(0.723, 0.219, 149.579),
+    green_600 = oklch(0.627, 0.194, 149.214),
+    green_700 = oklch(0.527, 0.154, 150.069),
+    green_800 = oklch(0.448, 0.119, 151.328),
+    green_900 = oklch(0.393, 0.095, 152.535),
+    green_950 = oklch(0.266, 0.065, 152.934),
+
+    emerald_50 = oklch(0.979, 0.021, 166.113),
+    emerald_100 = oklch(0.95, 0.052, 163.051),
+    emerald_200 = oklch(0.905, 0.093, 164.15),
+    emerald_300 = oklch(0.845, 0.143, 164.978),
+    emerald_400 = oklch(0.765, 0.177, 163.223),
+    emerald_500 = oklch(0.696, 0.17, 162.48),
+    emerald_600 = oklch(0.596, 0.145, 163.225),
+    emerald_700 = oklch(0.508, 0.118, 165.612),
+    emerald_800 = oklch(0.432, 0.095, 166.913),
+    emerald_900 = oklch(0.378, 0.077, 168.94),
+    emerald_950 = oklch(0.262, 0.051, 172.552),
+
+    teal_50 = oklch(0.984, 0.014, 180.72),
+    teal_100 = oklch(0.953, 0.051, 180.801),
+    teal_200 = oklch(0.91, 0.096, 180.426),
+    teal_300 = oklch(0.855, 0.138, 181.071),
+    teal_400 = oklch(0.777, 0.152, 181.912),
+    teal_500 = oklch(0.704, 0.14, 182.503),
+    teal_600 = oklch(0.6, 0.118, 184.704),
+    teal_700 = oklch(0.511, 0.096, 186.391),
+    teal_800 = oklch(0.437, 0.078, 188.216),
+    teal_900 = oklch(0.386, 0.063, 188.416),
+    teal_950 = oklch(0.277, 0.046, 192.524),
+
+    cyan_50 = oklch(0.984, 0.019, 200.873),
+    cyan_100 = oklch(0.956, 0.045, 203.388),
+    cyan_200 = oklch(0.917, 0.08, 205.041),
+    cyan_300 = oklch(0.865, 0.127, 207.078),
+    cyan_400 = oklch(0.789, 0.154, 211.53),
+    cyan_500 = oklch(0.715, 0.143, 215.221),
+    cyan_600 = oklch(0.609, 0.126, 221.723),
+    cyan_700 = oklch(0.52, 0.105, 223.128),
+    cyan_800 = oklch(0.45, 0.085, 224.283),
+    cyan_900 = oklch(0.398, 0.07, 227.392),
+    cyan_950 = oklch(0.302, 0.056, 229.695),
+
+    sky_50 = oklch(0.977, 0.013, 236.62),
+    sky_100 = oklch(0.951, 0.026, 236.824),
+    sky_200 = oklch(0.901, 0.058, 230.902),
+    sky_300 = oklch(0.828, 0.111, 230.318),
+    sky_400 = oklch(0.746, 0.16, 232.661),
+    sky_500 = oklch(0.685, 0.169, 237.323),
+    sky_600 = oklch(0.588, 0.158, 241.966),
+    sky_700 = oklch(0.5, 0.134, 242.749),
+    sky_800 = oklch(0.443, 0.11, 240.79),
+    sky_900 = oklch(0.391, 0.09, 240.876),
+    sky_950 = oklch(0.293, 0.066, 243.157),
+
+    blue_50 = oklch(0.97, 0.014, 254.604),
+    blue_100 = oklch(0.932, 0.032, 255.585),
+    blue_200 = oklch(0.882, 0.059, 254.128),
+    blue_300 = oklch(0.809, 0.105, 251.813),
+    blue_400 = oklch(0.707, 0.165, 254.624),
+    blue_500 = oklch(0.623, 0.214, 259.815),
+    blue_600 = oklch(0.546, 0.245, 262.881),
+    blue_700 = oklch(0.488, 0.243, 264.376),
+    blue_800 = oklch(0.424, 0.199, 265.638),
+    blue_900 = oklch(0.379, 0.146, 265.522),
+    blue_950 = oklch(0.282, 0.091, 267.935),
+
+    indigo_50 = oklch(0.962, 0.018, 272.314),
+    indigo_100 = oklch(0.93, 0.034, 272.788),
+    indigo_200 = oklch(0.87, 0.065, 274.039),
+    indigo_300 = oklch(0.785, 0.115, 274.713),
+    indigo_400 = oklch(0.673, 0.182, 276.935),
+    indigo_500 = oklch(0.585, 0.233, 277.117),
+    indigo_600 = oklch(0.511, 0.262, 276.966),
+    indigo_700 = oklch(0.457, 0.24, 277.023),
+    indigo_800 = oklch(0.398, 0.195, 277.366),
+    indigo_900 = oklch(0.359, 0.144, 278.697),
+    indigo_950 = oklch(0.257, 0.09, 281.288),
+
+    violet_50 = oklch(0.969, 0.016, 293.756),
+    violet_100 = oklch(0.943, 0.029, 294.588),
+    violet_200 = oklch(0.894, 0.057, 293.283),
+    violet_300 = oklch(0.811, 0.111, 293.571),
+    violet_400 = oklch(0.702, 0.183, 293.541),
+    violet_500 = oklch(0.606, 0.25, 292.717),
+    violet_600 = oklch(0.541, 0.281, 293.009),
+    violet_700 = oklch(0.491, 0.27, 292.581),
+    violet_800 = oklch(0.432, 0.232, 292.759),
+    violet_900 = oklch(0.38, 0.189, 293.745),
+    violet_950 = oklch(0.283, 0.141, 291.089),
+
+    purple_50 = oklch(0.977, 0.014, 308.299),
+    purple_100 = oklch(0.946, 0.033, 307.174),
+    purple_200 = oklch(0.902, 0.063, 306.703),
+    purple_300 = oklch(0.827, 0.119, 306.383),
+    purple_400 = oklch(0.714, 0.203, 305.504),
+    purple_500 = oklch(0.627, 0.265, 303.9),
+    purple_600 = oklch(0.558, 0.288, 302.321),
+    purple_700 = oklch(0.496, 0.265, 301.924),
+    purple_800 = oklch(0.438, 0.218, 303.724),
+    purple_900 = oklch(0.381, 0.176, 304.987),
+    purple_950 = oklch(0.291, 0.149, 302.717),
+
+    fuchsia_50 = oklch(0.977, 0.017, 320.058),
+    fuchsia_100 = oklch(0.952, 0.037, 318.852),
+    fuchsia_200 = oklch(0.903, 0.076, 319.62),
+    fuchsia_300 = oklch(0.833, 0.145, 321.434),
+    fuchsia_400 = oklch(0.74, 0.238, 322.16),
+    fuchsia_500 = oklch(0.667, 0.295, 322.15),
+    fuchsia_600 = oklch(0.591, 0.293, 322.896),
+    fuchsia_700 = oklch(0.518, 0.253, 323.949),
+    fuchsia_800 = oklch(0.452, 0.211, 324.591),
+    fuchsia_900 = oklch(0.401, 0.17, 325.612),
+    fuchsia_950 = oklch(0.293, 0.136, 325.661),
+
+    pink_50 = oklch(0.971, 0.014, 343.198),
+    pink_100 = oklch(0.948, 0.028, 342.258),
+    pink_200 = oklch(0.899, 0.061, 343.231),
+    pink_300 = oklch(0.823, 0.12, 346.018),
+    pink_400 = oklch(0.718, 0.202, 349.761),
+    pink_500 = oklch(0.656, 0.241, 354.308),
+    pink_600 = oklch(0.592, 0.249, 0.584),
+    pink_700 = oklch(0.525, 0.223, 3.958),
+    pink_800 = oklch(0.459, 0.187, 3.815),
+    pink_900 = oklch(0.408, 0.153, 2.432),
+    pink_950 = oklch(0.284, 0.109, 3.907),
+
+    rose_50 = oklch(0.969, 0.015, 12.422),
+    rose_100 = oklch(0.941, 0.03, 12.58),
+    rose_200 = oklch(0.892, 0.058, 10.001),
+    rose_300 = oklch(0.81, 0.117, 11.638),
+    rose_400 = oklch(0.712, 0.194, 13.428),
+    rose_500 = oklch(0.645, 0.246, 16.439),
+    rose_600 = oklch(0.586, 0.253, 17.585),
+    rose_700 = oklch(0.514, 0.222, 16.935),
+    rose_800 = oklch(0.455, 0.188, 13.697),
+    rose_900 = oklch(0.41, 0.159, 10.272),
+    rose_950 = oklch(0.271, 0.105, 12.094),
+
+    slate_50 = oklch(0.984, 0.003, 247.858),
+    slate_100 = oklch(0.968, 0.007, 247.896),
+    slate_200 = oklch(0.929, 0.013, 255.508),
+    slate_300 = oklch(0.869, 0.022, 252.894),
+    slate_400 = oklch(0.704, 0.04, 256.788),
+    slate_500 = oklch(0.554, 0.046, 257.417),
+    slate_600 = oklch(0.446, 0.043, 257.281),
+    slate_700 = oklch(0.372, 0.044, 257.287),
+    slate_800 = oklch(0.279, 0.041, 260.031),
+    slate_900 = oklch(0.208, 0.042, 265.755),
+    slate_950 = oklch(0.129, 0.042, 264.695),
+
+    gray_50 = oklch(0.985, 0.002, 247.839),
+    gray_100 = oklch(0.967, 0.003, 264.542),
+    gray_200 = oklch(0.928, 0.006, 264.531),
+    gray_300 = oklch(0.872, 0.01, 258.338),
+    gray_400 = oklch(0.707, 0.022, 261.325),
+    gray_500 = oklch(0.551, 0.027, 264.364),
+    gray_600 = oklch(0.446, 0.03, 256.802),
+    gray_700 = oklch(0.373, 0.034, 259.733),
+    gray_800 = oklch(0.278, 0.033, 256.848),
+    gray_900 = oklch(0.21, 0.034, 264.665),
+    gray_950 = oklch(0.13, 0.028, 261.692),
+
+    zinc_50 = oklch(0.985, 0, 0),
+    zinc_100 = oklch(0.967, 0.001, 286.375),
+    zinc_200 = oklch(0.92, 0.004, 286.32),
+    zinc_300 = oklch(0.871, 0.006, 286.286),
+    zinc_400 = oklch(0.705, 0.015, 286.067),
+    zinc_500 = oklch(0.552, 0.016, 285.938),
+    zinc_600 = oklch(0.442, 0.017, 285.786),
+    zinc_700 = oklch(0.37, 0.013, 285.805),
+    zinc_800 = oklch(0.274, 0.006, 286.033),
+    zinc_900 = oklch(0.21, 0.006, 285.885),
+    zinc_950 = oklch(0.141, 0.005, 285.823),
+
+    neutral_50 = oklch(0.985, 0, 0),
+    neutral_100 = oklch(0.97, 0, 0),
+    neutral_200 = oklch(0.922, 0, 0),
+    neutral_300 = oklch(0.87, 0, 0),
+    neutral_400 = oklch(0.708, 0, 0),
+    neutral_500 = oklch(0.556, 0, 0),
+    neutral_600 = oklch(0.439, 0, 0),
+    neutral_700 = oklch(0.371, 0, 0),
+    neutral_800 = oklch(0.269, 0, 0),
+    neutral_900 = oklch(0.205, 0, 0),
+    neutral_950 = oklch(0.145, 0, 0),
+
+    stone_50 = oklch(0.985, 0.001, 106.423),
+    stone_100 = oklch(0.97, 0.001, 106.424),
+    stone_200 = oklch(0.923, 0.003, 48.717),
+    stone_300 = oklch(0.869, 0.005, 56.366),
+    stone_400 = oklch(0.709, 0.01, 56.259),
+    stone_500 = oklch(0.553, 0.013, 58.071),
+    stone_600 = oklch(0.444, 0.011, 73.639),
+    stone_700 = oklch(0.374, 0.01, 67.558),
+    stone_800 = oklch(0.268, 0.007, 34.298),
+    stone_900 = oklch(0.216, 0.006, 56.043),
+    stone_950 = oklch(0.147, 0.004, 49.25),
+
+    taupe_50 = oklch(0.986, 0.002, 67.8),
+    taupe_100 = oklch(0.96, 0.002, 17.2),
+    taupe_200 = oklch(0.922, 0.005, 34.3),
+    taupe_300 = oklch(0.868, 0.007, 39.5),
+    taupe_400 = oklch(0.714, 0.014, 41.2),
+    taupe_500 = oklch(0.547, 0.021, 43.1),
+    taupe_600 = oklch(0.438, 0.017, 39.3),
+    taupe_700 = oklch(0.367, 0.016, 35.7),
+    taupe_800 = oklch(0.268, 0.011, 36.5),
+    taupe_900 = oklch(0.214, 0.009, 43.1),
+    taupe_950 = oklch(0.147, 0.004, 49.3),
+
+    mauve_50 = oklch(0.985, 0, 0),
+    mauve_100 = oklch(0.96, 0.003, 325.6),
+    mauve_200 = oklch(0.922, 0.005, 325.62),
+    mauve_300 = oklch(0.865, 0.012, 325.68),
+    mauve_400 = oklch(0.711, 0.019, 323.02),
+    mauve_500 = oklch(0.542, 0.034, 322.5),
+    mauve_600 = oklch(0.435, 0.029, 321.78),
+    mauve_700 = oklch(0.364, 0.029, 323.89),
+    mauve_800 = oklch(0.263, 0.024, 320.12),
+    mauve_900 = oklch(0.212, 0.019, 322.12),
+    mauve_950 = oklch(0.145, 0.008, 326),
+
+    mist_50 = oklch(0.987, 0.002, 197.1),
+    mist_100 = oklch(0.963, 0.002, 197.1),
+    mist_200 = oklch(0.925, 0.005, 214.3),
+    mist_300 = oklch(0.872, 0.007, 219.6),
+    mist_400 = oklch(0.723, 0.014, 214.4),
+    mist_500 = oklch(0.56, 0.021, 213.5),
+    mist_600 = oklch(0.45, 0.017, 213.2),
+    mist_700 = oklch(0.378, 0.015, 216),
+    mist_800 = oklch(0.275, 0.011, 216.9),
+    mist_900 = oklch(0.218, 0.008, 223.9),
+    mist_950 = oklch(0.148, 0.004, 228.8),
+
+    olive_50 = oklch(0.988, 0.003, 106.5),
+    olive_100 = oklch(0.966, 0.005, 106.5),
+    olive_200 = oklch(0.93, 0.007, 106.5),
+    olive_300 = oklch(0.88, 0.011, 106.6),
+    olive_400 = oklch(0.737, 0.021, 106.9),
+    olive_500 = oklch(0.58, 0.031, 107.3),
+    olive_600 = oklch(0.466, 0.025, 107.3),
+    olive_700 = oklch(0.394, 0.023, 107.4),
+    olive_800 = oklch(0.286, 0.016, 107.4),
+    olive_900 = oklch(0.228, 0.013, 107.4),
+    olive_950 = oklch(0.153, 0.006, 107.1),
 }
 
-vim.api.nvim_set_hl(0, "Normal", {
-    fg = palette.foreground,
-    bg = palette.background,
-})
+local palette = {
+    tailwind_slate_950 = oklch(0.129, 0.042, 264.695),
+}
 
-vim.api.nvim_set_hl(0, "Comment", {
-    fg = palette.comment,
-    italic = true,
-})
+local palette_day = {
+    background = tailwind_colors.slate_900,
+    -- foreground = oklch(0.75, 0.0374, 274.73),
+    foreground = tailwind_colors.slate_300,
+    -- foreground = oklch(0.77, 0.022, 252.894),
+    -- foreground = oklch(0.79, 0.022, 252.894),
+    -- foreground = oklch(0.81, 0.022, 252.894),
+    -- foreground = oklch(0.83, 0.022, 252.894),
+    -- foreground = oklch(0.85, 0.022, 252.894),
+    -- foreground = tailwind_colors.teal_300,
+    comment = tailwind_colors.slate_500,
+    -- keyword = tailwind_colors.rose_400,
+    keyword = tailwind_colors.slate_400,
+    -- type = tailwind_colors.rose_400,
+    type = oklch(0.70, 0.17, 13.428), -- rose 400 alternative
+    -- functions = tailwind_colors.amber_300, -- something between 300 and 400?
+    functions = oklch(0.85, 0.179, 93), -- amber 300 alternative
+    -- literal = tailwind_colors.emerald_400,
+    -- literal = tailwind_colors.cyan_400,
+    literal = tailwind_colors.orange_200,
+    constant = tailwind_colors.cyan_400,
+}
 
-vim.api.nvim_set_hl(0, "Keyword", {
-    fg = palette.keyword,
-})
+local palette_night = {}
+
+local highlight_groups = {
+    ["Normal"] = { fg = palette_day.foreground, bg = palette_day.background },
+    ["Comment"] = { fg = palette_day.comment, italic = true },
+    ["Keyword"] = { fg = palette_day.keyword, bold = true },
+    ["Visual"] = { bg = tailwind_colors.red_300 },
+    ["Type"] = { fg = palette_day.type },
+    ["Function"] = { fg = palette_day.functions },
+    ["Boolean"] = { fg = palette_day.literal },
+    ["Character"] = { fg = palette_day.literal },
+    ["String"] = { fg = palette_day.literal },
+    ["Number"] = { fg = palette_day.literal },
+    ["Float"] = { fg = palette_day.literal },
+    ["Constant"] = { fg = palette_day.constant },
+    ["@string"] = { link = "String" },
+    ["@number"] = { link = "Number" },
+    ["@boolean"] = { link = "Boolean" },
+    ["@comment"] = { link = "Comment" },
+    ["@keyword"] = { link = "Keyword" },
+    ["@type"] = { link = "Type" },
+    ["@type.builtin"] = { link = "Type" },
+    ["@lsp.type.class"] = { link = "Type" },
+    ["@lsp.type.enum"] = { link = "Type" },
+    ["@lsp.type.interface"] = { link = "Type" },
+    ["@function"] = { link = "Function" },
+    ["@function.builtin"] = { link = "Function" },
+    ["@function.call"] = { link = "Function" },
+    ["@function.method"] = { link = "Function" },
+    ["@function.method.call"] = { link = "Function" },
+    ["@lsp.type.function"] = { link = "Function" },
+    ["@lsp.type.method"] = { link = "Function" },
+}
+
+for group, settings in pairs(highlight_groups) do
+    vim.api.nvim_set_hl(0, group, settings)
+end
+
+-- tailwind_colors.purple_400, -- maybe a bit lighter
+-- tailwind_colors.fuchsia_300,
+-- tailwind_colors.rose_400, -- a bit lighter
 
 local reload_group = vim.api.nvim_create_augroup("prk_colorscheme_reload", { clear = true })
 
+-- auto reload the theme on changes
 vim.api.nvim_create_autocmd("BufWritePost", {
     group = reload_group,
     pattern = {
@@ -46,3 +410,60 @@ vim.api.nvim_create_autocmd("BufWritePost", {
         end)
     end,
 })
+
+-- return {
+--   -- Editor
+--   NormalFloat  = { fg = p.fg, bg = p.bg },
+--   Comment      = { fg = p.comment },
+--   LineNr       = { fg = p.subtle },
+--   CursorLineNr = { fg = p.fg },
+--
+--   -- Traditional Vim syntax
+--   Constant   = { fg = p.orange },
+--
+--   Identifier = { fg = p.fg },
+--
+--   Statement   = { fg = p.purple },
+--   Conditional = { fg = p.purple },
+--   Repeat      = { fg = p.purple },
+--   Label       = { fg = p.purple },
+--   Operator    = { fg = p.fg },
+--   Exception   = { fg = p.purple },
+--
+--   PreProc   = { fg = p.cyan },
+--   Include   = { fg = p.purple },
+--   Define    = { fg = p.purple },
+--   Macro     = { fg = p.cyan },
+--
+--   StorageClass = { fg = p.purple },
+--   Structure    = { fg = p.yellow },
+--   Typedef      = { fg = p.yellow },
+--
+--   Special = { fg = p.cyan },
+--
+--   -- Tree-sitter
+--   ["@string.escape"] = { fg = p.cyan },
+--
+--   ["@constant"]         = { link = "Constant" },
+--   ["@constant.builtin"] = { fg = p.orange },
+--
+--   ["@variable"]         = { fg = p.fg },
+--   ["@variable.builtin"] = { fg = p.red },
+--   ["@variable.parameter"] = { fg = p.fg },
+--   ["@property"]           = { fg = p.fg },
+--
+--   ["@keyword.function"]    = { link = "Keyword" },
+--   ["@keyword.return"]      = { link = "Keyword" },
+--   ["@keyword.conditional"] = { link = "Conditional" },
+--   ["@keyword.repeat"]      = { link = "Repeat" },
+--
+--   ["@operator"] = { link = "Operator" },
+--
+--   ["@punctuation.delimiter"] = { fg = p.fg },
+--   ["@punctuation.bracket"]   = { fg = p.fg },
+--
+--   -- LSP semantic tokens
+--   ["@lsp.type.variable"]  = { link = "@variable" },
+--   ["@lsp.type.parameter"] = { link = "@variable.parameter" },
+--   ["@lsp.type.property"]  = { link = "@property" },
+-- }
