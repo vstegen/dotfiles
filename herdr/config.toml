@@ -1,0 +1,80 @@
+# herdr config (draft)
+# Link to ~/.config/herdr/config.toml
+# Written against herdr 0.6.x docs. Diff it against `herdr --default-config`
+# before using it, and run `herdr server reload-config` after edits.
+
+onboarding = false
+
+[terminal]
+default_shell = "fish"      # executable name, not a command line
+shell_mode = "auto"         # login shell on macOS, so brew shellenv / path_helper run
+new_cwd = "follow"
+
+[worktrees]
+# `prefix+shift+g` creates <directory>/<repo>/<branch-slug>, one workspace per agent task
+directory = "~/dev/worktrees"
+
+[theme]
+name = "catppuccin"         # mocha, same as ghostty / nvim / pi / starship
+
+[theme.custom]
+panel_bg = "reset"          # let ghostty's background-opacity + blur show through
+
+[ui]
+sidebar_width = 28
+agent_panel_scope = "all"
+prompt_new_tab_name = false
+show_agent_labels_on_pane_borders = true
+confirm_close = true
+mouse_capture = true        # Shift+Cmd+click still gives ghostty-native link handling
+
+[ui.toast]
+delivery = "system"         # macOS: `brew install terminal-notifier` for click-to-focus
+
+[ui.sound]
+enabled = true
+
+[session]
+# Needs `herdr integration install pi` (and claude / codex if you use them)
+resume_agents_on_restore = true
+
+[experimental]
+pane_history = false        # pane output can contain secrets; keep it off
+
+[advanced]
+scrollback_limit_bytes = 20000000
+
+[keys]
+# ctrl+a like your old tmux config. Press it twice to send a literal ctrl+a
+# (line start in fish/pi, increment in nvim).
+prefix = "ctrl+a"
+
+# Same muscle memory as the ghostty split bindings. Remove the alt+h/l/n/p
+# keybinds from ghostty/config, otherwise ghostty eats them before herdr sees them.
+# alt+j/k stay free because nvim uses them for moving lines.
+focus_pane_left = ["prefix+h", "alt+h"]
+focus_pane_right = ["prefix+l", "alt+l"]
+focus_pane_down = "prefix+j"
+focus_pane_up = "prefix+k"
+next_agent = "alt+n"
+previous_agent = "alt+p"
+last_pane = "prefix+backtick"
+
+split_vertical = "prefix+v"
+split_horizontal = "prefix+minus"
+zoom = "prefix+z"
+edit_scrollback = "prefix+e"        # agent scrollback in $EDITOR (nvim)
+open_notification_target = "prefix+o"
+reload_config = "prefix+shift+r"
+
+[[keys.command]]
+key = "prefix+alt+g"
+type = "pane"
+command = "lazygit"
+description = "lazygit"
+
+[[keys.command]]
+key = "prefix+alt+d"
+type = "pane"
+command = "nvim -c CodeDiff"
+description = "review working-tree changes"
