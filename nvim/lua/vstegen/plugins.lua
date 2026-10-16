@@ -178,7 +178,7 @@ require("lazy").setup({
         "mason-org/mason-lspconfig.nvim",
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
-            "williamboman/mason.nvim",
+            "mason-org/mason.nvim",
         },
         opts = {
             -- https://github.com/williamboman/mason-lspconfig.nvim/blob/main/doc/server-mapping.md
@@ -238,6 +238,7 @@ require("lazy").setup({
             vim.lsp.config.tsgo = lsp.servers.tsgo
             -- vim.lsp.config.dexter = lsp.servers.dexter
             -- vim.lsp.enable "dexter"
+            vim.lsp.enable "sourcekit"
 
             vim.diagnostic.config {
                 virtual_text = {
@@ -301,7 +302,7 @@ require("lazy").setup({
         "mrcjkb/rustaceanvim",
         version = "^7",
         ft = { "rust" },
-        config = function(_, _)
+        init = function()
             local lsp = require "vstegen.lsp"
             vim.g.rustaceanvim = {
                 server = {
@@ -317,9 +318,8 @@ require("lazy").setup({
         config = function()
             local crates = require "crates"
             crates.setup()
-            crates.show()
         end,
-        ft = { "rust", "toml" },
+        event = { "BufRead Cargo.toml" },
     },
     -- auto completion
     {
@@ -394,7 +394,7 @@ require("lazy").setup({
                 ["<C-space>"] = {
                     function(cmp)
                         if cmp.is_visible() then
-                            cmd.hide()
+                            cmp.hide()
                         else
                             cmp.show()
                         end
@@ -404,7 +404,7 @@ require("lazy").setup({
                 ["<C-@>"] = {
                     function(cmp)
                         if cmp.is_visible() then
-                            cmd.hide()
+                            cmp.hide()
                         else
                             cmp.show()
                         end
@@ -695,7 +695,7 @@ require("lazy").setup({
         dependencies = {
             { "neovim/nvim-lspconfig" },
             { "nvim-lua/plenary.nvim" },
-            { "williamboman/mason.nvim" },
+            { "mason-org/mason.nvim" },
         },
         event = { "BufWritePre" },
         config = function()
@@ -724,7 +724,7 @@ require("lazy").setup({
         dependencies = {
             { "neovim/nvim-lspconfig" },
             { "nvim-lua/plenary.nvim" },
-            { "williamboman/mason.nvim" },
+            { "mason-org/mason.nvim" },
         },
         event = { "BufWritePre" },
         cmd = { "ConformInfo" },
@@ -745,7 +745,7 @@ require("lazy").setup({
                     if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                         return
                     end
-                    return { timeout_ms = 3000, lsp_fallback = true }
+                    return { timeout_ms = 3000, lsp_format = "fallback" }
                 end,
                 formatters_by_ft = (function()
                     local prettier = { "prettierd", "prettier", stop_after_first = true }
@@ -754,7 +754,7 @@ require("lazy").setup({
                         sh = { "shfmt" },
                         fish = { "fish_indent" },
                         lua = { "stylua" },
-                        go = { "goimports", "gofumpt", "goimports-reviser" },
+                        go = { "goimports", "gofumpt" },
                         python = { "ruff_organize_imports", "ruff_format" },
                     }
                     for _, ft in ipairs {
@@ -921,7 +921,7 @@ require("lazy").setup({
             require("mini.ai").setup {
                 n_lines = 500,
             }
-            require("mini.operators").setup()
+            require("mini.operators").setup { replace = { prefix = "cr" } }
             require("mini.surround").setup {
                 mappings = {
                     add = "gza",
@@ -935,6 +935,21 @@ require("lazy").setup({
             }
             require("mini.bracketed").setup()
             require("mini.statusline").setup()
+            require("mini.icons").setup()
+
+            local hipatterns = require "mini.hipatterns"
+            hipatterns.setup {
+                highlighters = {
+                    hex_color = hipatterns.gen_highlighter.hex_color(),
+                    short_hex_color = {
+                        pattern = "#%x%x%x%f[%X]",
+                        group = function(_, match)
+                            local expanded = "#" .. match:sub(2):gsub(".", "%0%0")
+                            return hipatterns.compute_hex_color_group(expanded, "bg")
+                        end,
+                    },
+                },
+            }
         end,
     },
     {

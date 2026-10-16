@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     end,
 })
 
-vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
+vim.api.nvim_create_autocmd({ "FocusGained", "TermClose", "TermLeave", "BufEnter", "CursorHold" }, {
     group = augroup "reload_file",
     command = "checktime",
 })
@@ -81,6 +81,7 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 
 -- Fix conceallevel for json & help files
 vim.api.nvim_create_autocmd({ "FileType" }, {
+    group = augroup "fix_conceallevel",
     pattern = { "json", "jsonc", "markdown" },
     callback = function()
         if utils.is_inside_directory "~/vaults/" then

@@ -96,7 +96,6 @@ M.servers = {
                 completeUnimported = true,
                 staticcheck = true,
                 directoryFilters = { "-.git", "-.vscode", "-.idea", "-.vscode-test", "-node_modules" },
-                semanticTokens = false,
             },
         },
     },
