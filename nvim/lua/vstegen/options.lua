@@ -41,7 +41,7 @@ vim.opt.inccommand = "split"
 vim.opt.ignorecase = true
 vim.opt.laststatus = 3
 vim.opt.list = true -- show invisible characters
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 vim.opt.mouse = "a"
 vim.opt.number = true
 vim.opt.numberwidth = 2
