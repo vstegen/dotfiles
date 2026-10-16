@@ -1,20 +1,11 @@
-# can use Liga as well
 # font-family = "PragmataPro Mono"
 # font-size = 16
 # font-family = "MonoLisa Custom"
 # font-size = 14
 font-family = "Berkeley Mono"
 font-style = "Medium"
-font-size = 14
+font-size = 18
 # adjust-cell-height = 5%
-# font-family = "JetBrains Mono"
-# font-size = 14
-# font-family = "Monaspace Neon NF"
-# font-size = 14
-# font-feature = +calt
-# font-feature = +ss07
-# font-feature = +ss08
-# font-feature = +liga
 
 theme = Catppuccin Mocha
 macos-option-as-alt = left
@@ -23,7 +14,9 @@ clipboard-write = allow
 cursor-style = block
 fullscreen = false
 window-new-tab-position = end
-keybind = shift+enter=text:\n
+window-save-state = always
+mouse-hide-while-typing = true
+macos-titlebar-style = tabs
 auto-update-channel = "tip"
 auto-update = check
 background-blur = true
@@ -33,6 +26,7 @@ clipboard-paste-protection = false
 unfocused-split-opacity = 0.85
 # keybind = alt+l=goto_split:next
 # keybind = alt+h=goto_split:previous
+keybind = global:cmd+grave_accent=toggle_quick_terminal
 keybind = alt+l=goto_split:right
 keybind = alt+h=goto_split:left
 keybind = alt+p=goto_split:previous
