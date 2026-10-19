@@ -33,6 +33,10 @@ M.servers = {
         },
     },
     ts_ls = {
+        init_options = {
+            -- don't fetch @types packages from the npm registry in the background
+            disableAutomaticTypingAcquisition = true,
+        },
         settings = {
             javascript = { inlayHints = ts_inlay_hints },
             typescript = { inlayHints = ts_inlay_hints },
@@ -223,6 +227,8 @@ M.servers = {
     yamlls = {
         settings = {
             ["yaml"] = {
+                -- don't download the schemastore.org catalog and schemas
+                schemaStore = { enable = false, url = "" },
                 customTags = {
                     "!Base64",
                     "!Cidr",

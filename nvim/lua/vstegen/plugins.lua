@@ -109,11 +109,6 @@ require("lazy").setup({
                         return
                     end
 
-                    local has_parser = pcall(vim.treesitter.language.add, lang)
-                    if not has_parser and available[lang] then
-                        treesitter.install(lang)
-                    end
-
                     if not highlight_disable[ft] and not highlight_disable[lang] then
                         pcall(vim.treesitter.start, args.buf, lang)
                     end
@@ -1202,6 +1197,8 @@ require("lazy").setup({
         },
     },
 }, {
+    -- don't pull plugin dependencies from luarocks.org
+    rocks = { enabled = false },
     install = {
         colorscheme = { "catppuccin" },
     },
