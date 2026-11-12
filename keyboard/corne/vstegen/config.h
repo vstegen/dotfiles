@@ -20,10 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_MATRIX_I2C
+// #define USE_MATRIX_I2C
 
-//#define QUICK_TAP_TERM 0
-//#define TAPPING_TERM 100
+// #define QUICK_TAP_TERM 0
+// #define TAPPING_TERM 100
+
+#define SPLIT_WATCHDOG_ENABLE
+#define USB_SUSPEND_WAKEUP_DELAY 200
 
 #define TAPPING_TERM_PER_KEY
 
@@ -86,8 +89,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _WIN_LL LCA(KC_J)
 #define _WIN_LR LCA(KC_K)
 
-#define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
-
+#define HCS(report)                                                            \
+  host_consumer_send(record->event.pressed ? report : 0);                      \
+  return false
 
 // #ifdef RGBLIGHT_ENABLE
 //     #define RGBLIGHT_EFFECT_BREATHING
