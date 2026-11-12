@@ -35,59 +35,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PERMISSIVE_HOLD
 
-// accelerated mouse mode
-#undef MOUSEKEY_INTERVAL
-#define MOUSEKEY_INTERVAL 16
+#define MK_3_SPEED
+#define MK_MOMENTARY_ACCEL
 
-#undef MOUSEKEY_DELAY
-#define MOUSEKEY_DELAY 0
-
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY 0
-
-#undef MOUSEKEY_MAX_SPEED
-#define MOUSEKEY_MAX_SPEED 6
-
-#undef MOUSEKEY_TIME_TO_MAX
-#define MOUSEKEY_TIME_TO_MAX 64
-
-#undef MOUSEKEY_WHEEL_DELAY
-#define MOUSEKEY_WHEEL_DELAY 10
-
-#undef MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 80
-
-#undef MOUSEKEY_WHEEL_MAX_SPEED
-#define MOUSEKEY_WHEEL_MAX_SPEED 8
-
-#undef MOUSEKEY_WHEEL_TIME_TO_MAX
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
-
-// without holding keys, it has mouse acceleration
-#define MK_COMBINED
-// constant mouse speed mode
-// #define MK_3_SPEED
-// #define MK_MOMENTARY_ACCEL
-
-#define MK_C_OFFSET_0 1
-#define MK_C_INTERVAL_0 32
-#define MK_W_OFFSET_0 1
-#define MK_W_INTERVAL_0 180
-
-#define MK_C_OFFSET_1 4
-#define MK_C_INTERVAL_1 16
-#define MK_W_OFFSET_1 1
-#define MK_W_INTERVAL_1 120
-
-#define MK_C_OFFSET_UNMOD 16
+#define MK_C_OFFSET_UNMOD 6
 #define MK_C_INTERVAL_UNMOD 16
 #define MK_W_OFFSET_UNMOD 1
-#define MK_W_INTERVAL_UNMOD 40
+#define MK_W_INTERVAL_UNMOD 60
+
+#define MK_C_OFFSET_0 1
+#define MK_C_INTERVAL_0 16
+#define MK_W_OFFSET_0 1
+#define MK_W_INTERVAL_0 160
+
+#define MK_C_OFFSET_1 3
+#define MK_C_INTERVAL_1 16
+#define MK_W_OFFSET_1 1
+#define MK_W_INTERVAL_1 100
 
 #define MK_C_OFFSET_2 32
 #define MK_C_INTERVAL_2 16
 #define MK_W_OFFSET_2 1
-#define MK_W_INTERVAL_2 60
+#define MK_W_INTERVAL_2 40
 
 #define _STAGE_MNG HYPR(KC_T)
 #define _SPACE_LEFT LCTL(KC_LEFT)
@@ -99,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _SCR_PREV_AREA LSG(KC_4)
 #define _SCR_AREA LCSG(KC_4)
 #define _SCR_OPT LSG(KC_5)
-#define _MAC_REDO LSFT(MAC_UNDO)
+#define _MAC_REDO S(G(KC_Z))
 #define _TAB_PREV LCS(KC_TAB)
 #define _TAB_NEXT LCTL(KC_TAB)
 #define _LANG LCA(KC_SPACE)
@@ -120,19 +89,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
 
 
-#ifdef RGBLIGHT_ENABLE
-    #define RGBLIGHT_EFFECT_BREATHING
-    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    #define RGBLIGHT_EFFECT_SNAKE
-    #define RGBLIGHT_EFFECT_KNIGHT
-    #define RGBLIGHT_EFFECT_CHRISTMAS
-    #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-    #define RGBLIGHT_EFFECT_RGB_TEST
-    #define RGBLIGHT_EFFECT_ALTERNATING
-    #define RGBLIGHT_EFFECT_TWINKLE
-    #define RGBLIGHT_LIMIT_VAL 120
-    #define RGBLIGHT_HUE_STEP 10
-    #define RGBLIGHT_SAT_STEP 17
-    #define RGBLIGHT_VAL_STEP 17
-#endif
+// #ifdef RGBLIGHT_ENABLE
+//     #define RGBLIGHT_EFFECT_BREATHING
+//     #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//     #define RGBLIGHT_EFFECT_SNAKE
+//     #define RGBLIGHT_EFFECT_KNIGHT
+//     #define RGBLIGHT_EFFECT_CHRISTMAS
+//     #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//     #define RGBLIGHT_EFFECT_RGB_TEST
+//     #define RGBLIGHT_EFFECT_ALTERNATING
+//     #define RGBLIGHT_EFFECT_TWINKLE
+//     #define RGBLIGHT_LIMIT_VAL 120
+//     #define RGBLIGHT_HUE_STEP 10
+//     #define RGBLIGHT_SAT_STEP 17
+//     #define RGBLIGHT_VAL_STEP 17
+// #endif
