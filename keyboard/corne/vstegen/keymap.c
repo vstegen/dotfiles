@@ -152,15 +152,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_LGUI(SS_LSFT("z")));
       }
       break;
-
-    case MEH_T(KC_UNDS):
-    case LGUI_T(KC_UNDS):
-      if (record->tap.count) {
-        if (record->event.pressed) {
-          tap_code16(KC_UNDS);
-        }
-        return true;
-      }
   }
 
   return true;
