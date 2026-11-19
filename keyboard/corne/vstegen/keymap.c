@@ -20,41 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "action_tapping.h"
 
-enum custom_keycodes {
-  MAC_SIRI = SAFE_RANGE,
-  MAC_COPY,
-  MAC_PASTE,
-  MAC_CUT,
-  MAC_UNDO,
-  MAC_REDO,
-};
-
-// const uint16_t PROGMEM rt_combo[] = {KC_R, KC_T, COMBO_END};
-// const uint16_t PROGMEM rg_combo[] = {KC_R, KC_G, COMBO_END};
-// const uint16_t PROGMEM fg_combo[] = {KC_F, KC_G, COMBO_END};
-// const uint16_t PROGMEM fb_combo[] = {KC_F, KC_B, COMBO_END};
-// const uint16_t PROGMEM sd_combo[] = {KC_S, KC_D, COMBO_END};
-// const uint16_t PROGMEM hu_combo[] = {KC_H, KC_U, COMBO_END};
-// const uint16_t PROGMEM hj_combo[] = {KC_H, KC_J, COMBO_END};
-// const uint16_t PROGMEM yu_combo[] = {KC_Y, KC_U, COMBO_END};
-// const uint16_t PROGMEM yt_combo[] = {KC_Y, KC_T, COMBO_END};
-// const uint16_t PROGMEM jn_combo[] = {KC_J, KC_N, COMBO_END};
-const uint16_t PROGMEM dbl_shift_combo[] = {KC_LEFT_SHIFT, KC_RIGHT_SHIFT, COMBO_END};
-
-combo_t key_combos[] = {
-  // COMBO(rt_combo, KC_AT),
-  // COMBO(fg_combo, KC_AMPR),
-  // COMBO(sd_combo, KC_BSPC),
-  // COMBO(hj_combo, KC_UNDS),
-  // COMBO(yu_combo, KC_EXLM),
-  // COMBO(yt_combo, KC_UNDS),
-  // COMBO(rg_combo, RG_SZ),
-  // COMBO(fb_combo, FB_UE),
-  // COMBO(hu_combo, HU_AE),
-  // COMBO(jn_combo, JN_OE),
-  COMBO(dbl_shift_combo, CW_TOGG),
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // BASE
     [0] = LAYOUT_split_3x6_3_ex2(
@@ -65,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     // SYMBOLS
     [1] = LAYOUT_split_3x6_3_ex2(
-      MAC_UNDO,    KC_COMMA,    KC_AT,    KC_LPRN,        KC_RPRN,        KC_PERC, KC_COMMA,                        KC_1,      KC_PIPE,        KC_DLR,         KC_RABK,        KC_ASTR,        KC_SCLN,  KC_COMMA,
+      _MAC_UNDO,    KC_COMMA,    KC_AT,    KC_LPRN,        KC_RPRN,        KC_PERC, KC_COMMA,                        KC_1,      KC_PIPE,        KC_DLR,         KC_RABK,        KC_ASTR,        KC_SCLN,  KC_COMMA,
       KC_GRAVE,    KC_LCBR,    KC_RCBR,  KC_LBRC,        KC_RBRC,        KC_AMPR,  KC_2,                    KC_0,           KC_MINUS,       KC_EQUAL,       KC_PLUS,        KC_COLN,        KC_EXLM,        KC_DQUO,
     XXXXXXX, KC_TILD,        XXXXXXX, XXXXXXX, KC_UNDS,        KC_HASH,                                        KC_QUES,        KC_CIRC,        KC_LABK,        KC_SLASH,       LGUI_T(KC_BSLS),        KC_GRAVE,
                                           _______,   _______,  _______,     MO(2),   KC_SPC, _______
@@ -86,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
     // PKR
     [4] = LAYOUT_split_3x6_3_ex2(
-    XXXXXXX,  _STAGE_MNG,   _APP_WINDOW,  _SPACE_LEFT,  _SPACE_RIGHT,   _MISSION_CONTROL,  XXXXXXX,                     KC_RIGHT_ALT,        MAC_UNDO, MAC_PASTE, MAC_COPY, MAC_CUT, _MAC_REDO, KC_INSERT,
-    XXXXXXX, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_LEFT_SHIFT,  KC_LEFT_CTRL,   MAC_SIRI, XXXXXXX,       XXXXXXX,     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       XXXXXXX, XXXXXXX,
+    XXXXXXX,  _STAGE_MNG,   _APP_WINDOW,  _SPACE_LEFT,  _SPACE_RIGHT,   _MISSION_CONTROL,  XXXXXXX,                     KC_RIGHT_ALT,        _MAC_UNDO, _MAC_PASTE, _MAC_COPY, _MAC_CUT, _MAC_REDO, KC_INSERT,
+    XXXXXXX, KC_LEFT_GUI,    KC_LEFT_ALT,    KC_LEFT_SHIFT,  KC_LEFT_CTRL,   XXXXXXX, XXXXXXX,       XXXXXXX,     KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, _TAB_PREV, _TAB_NEXT, _LANG,                                KC_HOME,        KC_PGDN,        KC_PAGE_UP,     KC_END,         OSM(MOD_RALT),  KC_CAPS,
                                            KC_RIGHT_ALT,  KC_DELETE, LALT(KC_BSPC),                                    KC_ENT,   KC_SPC,  KC_RIGHT_ALT
   ),
@@ -110,52 +75,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // NUM + FN
     [7] = LAYOUT_split_3x6_3_ex2(
       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                                 KC_BSPC,      KC_SLASH,    KC_7,    KC_8,    KC_9,   KC_MINUS,  KC_PERC,
-      XXXXXXX,    LGUI_T(KC_UNDS),    KC_COLN,    LGUI_T(KC_UNDS), XXXXXXX,   XXXXXXX, XXXXXXX,       XXXXXXX,      KC_ASTR,    KC_4,    KC_5,    KC_6, KC_PLUS, KC_COLN,
+      XXXXXXX,    XXXXXXX,    XXXXXXX,    LGUI_T(KC_UNDS), XXXXXXX,   XXXXXXX, XXXXXXX,       KC_UNDS,      KC_ASTR,    KC_4,    KC_5,    KC_6, KC_PLUS, KC_COLN,
       XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,                                       KC_0,    KC_1, KC_2,  KC_3, KC_EQUAL,  XXXXXXX,
                                      XXXXXXX,   KC_COMMA, KC_DOT,                                              KC_ENT,   KC_SPC, XXXXXXX
   ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // int mod_state = get_mods();
-
-  switch (keycode) {
-    case MAC_SIRI:
-      HCS(0xCF);
-
-    case MAC_COPY:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI("c"));
-      }
-      break;
-
-    case MAC_PASTE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI("v"));
-      }
-      break;
-
-    case MAC_CUT:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI("x"));
-      }
-      break;
-
-    case MAC_UNDO:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI("z"));
-      }
-      break;
-
-    case MAC_REDO:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LGUI(SS_LSFT("z")));
-      }
-      break;
-  }
-
-  return true;
-}
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {

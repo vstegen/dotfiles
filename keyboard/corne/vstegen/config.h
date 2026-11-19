@@ -25,18 +25,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define QUICK_TAP_TERM 0
 // #define TAPPING_TERM 100
 
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
 #define SPLIT_WATCHDOG_ENABLE
 #define USB_SUSPEND_WAKEUP_DELAY 200
 
 #define TAPPING_TERM_PER_KEY
 
-#undef COMBO_TERM
-#define COMBO_TERM 40
-
 #undef TAPPING_TERM
 #define TAPPING_TERM 120
+#define FLOW_TAP_TERM 150
 
 #define PERMISSIVE_HOLD
+#define CHORDAL_HOLD
 
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
@@ -72,6 +73,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _SCR_AREA LCSG(KC_4)
 #define _SCR_OPT LSG(KC_5)
 #define _MAC_REDO S(G(KC_Z))
+#define _MAC_UNDO G(KC_Z)
+#define _MAC_CUT G(KC_X)
+#define _MAC_PASTE G(KC_V)
+#define _MAC_COPY G(KC_C)
 #define _TAB_PREV LCS(KC_TAB)
 #define _TAB_NEXT LCTL(KC_TAB)
 #define _LANG LCA(KC_SPACE)
